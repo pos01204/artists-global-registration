@@ -113,7 +113,7 @@ export default function ContentDetailPage() {
               {content.type === 'video' && '🎬'}
               {content.type === 'infographic' && '📊'}
               {content.type === 'guide' && '📖'}
-              {content.type === 'checklist' && '✅'}
+              {content.type === 'checklist' && <IconCheck className="w-6 h-6 text-green-600" />}
             </span>
             <span className="text-sm px-2 py-1 bg-idus-orange-light/30 text-idus-orange rounded-full">
               STEP {content.stepId}
@@ -182,7 +182,7 @@ export default function ContentDetailPage() {
               {content.content.items && (
                 <div className="bg-idus-orange-light/20 rounded-xl p-5">
                   <h4 className="font-bold text-idus-black mb-4 flex items-center gap-2">
-                    <span>✅</span>
+                    <IconCheck className="w-5 h-5 text-green-600" />
                     체크리스트
                   </h4>
                   <div className="space-y-3">

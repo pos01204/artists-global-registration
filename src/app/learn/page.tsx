@@ -10,6 +10,7 @@ import ProgressBar from '@/components/ui/ProgressBar';
 import { LEARNING_STEPS } from '@/types/onboarding';
 import { getOnboardingData, calculateProgress, isLearningCompleted } from '@/lib/storage';
 import { IconChevronRight, IconLock, IconArrowRight } from '@/components/ui/icons';
+import BrandIcon, { BrandIconName } from '@/components/ui/BrandIcon';
 
 export default function LearnPage() {
   const router = useRouter();
@@ -45,6 +46,12 @@ export default function LearnPage() {
     if (index === 0 || completedSteps[index - 1]) return 'active';
     
     return 'locked';
+  };
+
+  const getStepBrandIconName = (stepId: number): BrandIconName => {
+    if (stepId === 1) return 'best';
+    if (stepId === 2) return 'stationery';
+    return 'shipping';
   };
 
   return (
@@ -120,7 +127,15 @@ export default function LearnPage() {
                       ${status === 'active' ? 'bg-idus-orange text-white' : ''}
                       ${status === 'locked' ? 'bg-idus-black-10 text-idus-black-50' : ''}
                     `}>
-                      {status === 'completed' ? '완료' : step.icon}
+                      {status === 'completed' ? (
+                        '완료'
+                      ) : (
+                        <BrandIcon
+                          name={getStepBrandIconName(step.id)}
+                          size={status === 'locked' ? 26 : 30}
+                          alt=""
+                        />
+                      )}
                     </div>
 
                     {/* Step Info */}
@@ -172,7 +187,7 @@ export default function LearnPage() {
         <Card variant="outlined" className="mb-8 animate-slide-up animation-delay-400">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-idus-orange-light flex items-center justify-center text-2xl sm:text-3xl">
-              🎯
+              <BrandIcon name="camera" size={28} alt="" />
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
@@ -219,7 +234,7 @@ export default function LearnPage() {
             />
           </div>
           <div className="flex items-center gap-4">
-            <div className="text-4xl">🎁</div>
+            <BrandIcon name="gift" size={36} alt="" />
             <div className="flex-1">
               <h3 className="font-bold mb-1">학습 완료 보상</h3>
               <p className="text-white/80 text-sm">

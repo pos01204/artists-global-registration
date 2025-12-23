@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import { IconArrowRight } from '@/components/ui/icons';
+import BrandIcon from '@/components/ui/BrandIcon';
 
 export default function NoBusinessPage() {
   return (
@@ -27,7 +28,11 @@ export default function NoBusinessPage() {
 
       <div className="max-w-2xl mx-auto px-4 py-12 md:py-20">
         <div className="text-center mb-8 animate-fade-in">
-          <div className="text-6xl mb-6">📋</div>
+          <div className="flex justify-center mb-6">
+            <div className="w-20 h-20 rounded-full bg-idus-orange-light/30 flex items-center justify-center">
+              <BrandIcon name="stationery" size={44} alt="" />
+            </div>
+          </div>
           <h1 className="text-2xl md:text-3xl font-bold text-idus-black mb-4">
             사업자등록이 필요해요
           </h1>
@@ -41,7 +46,7 @@ export default function NoBusinessPage() {
           <div className="space-y-6">
             <div className="flex items-start gap-4">
               <div className="w-10 h-10 bg-idus-orange-light rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-xl">💡</span>
+                <BrandIcon name="cheer" size={24} alt="" />
               </div>
               <div>
                 <h3 className="font-semibold text-idus-black mb-2">왜 사업자등록이 필요한가요?</h3>
@@ -78,7 +83,9 @@ export default function NoBusinessPage() {
 
         <Card variant="outlined" className="mb-8 bg-idus-orange-light/20 border-idus-orange animate-slide-up animation-delay-200">
           <div className="flex items-center gap-4">
-            <div className="text-4xl">🔔</div>
+            <div className="w-12 h-12 rounded-2xl bg-white border border-idus-black-10 flex items-center justify-center shadow-sm">
+              <BrandIcon name="like" size={28} alt="" />
+            </div>
             <div>
               <h3 className="font-semibold text-idus-black mb-1">
                 사업자등록 완료 후 다시 방문해주세요!

@@ -13,6 +13,7 @@ import { getOnboardingData, markStepCompleted, calculateProgress } from '@/lib/s
 import { submitOnboardingData } from '@/lib/api';
 import ResponsiveTable from '@/components/learning/ResponsiveTable';
 import { IconArrowLeft, IconArrowRight, IconChevronRight } from '@/components/ui/icons';
+import BrandIcon, { BrandIconName } from '@/components/ui/BrandIcon';
 
 export default function StepPage() {
   const router = useRouter();
@@ -81,6 +82,12 @@ export default function StepPage() {
 
   const stepProgress = Math.round(((currentContentIndex + 1) / contents.length) * 100);
 
+  const getStepBrandIconName = (id: number): BrandIconName => {
+    if (id === 1) return 'best';
+    if (id === 2) return 'stationery';
+    return 'shipping';
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-idus-gray">
       {/* Header */}
@@ -103,7 +110,9 @@ export default function StepPage() {
         {/* Step Title */}
         <div className="mb-8 animate-fade-in">
           <div className="flex items-center gap-3 mb-2">
-            <span className="text-3xl">{step.icon}</span>
+            <div className="w-10 h-10 rounded-2xl bg-idus-orange-light/30 flex items-center justify-center">
+              <BrandIcon name={getStepBrandIconName(step.id)} size={26} alt="" />
+            </div>
             <span className="text-sm font-medium text-idus-orange">STEP {step.id}</span>
           </div>
           <h1 className="text-2xl font-bold text-idus-black">{step.title}</h1>

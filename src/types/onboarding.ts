@@ -35,22 +35,22 @@ export interface OnboardingData extends ArtistInfo {
 
 // 카테고리 정의
 export const AVAILABLE_CATEGORIES = [
-  { id: 'accessory', name: '악세서리/주얼리', icon: '💍', available: true },
-  { id: 'bag', name: '가방/지갑/파우치', icon: '👜', available: true },
-  { id: 'fashion', name: '패션소품', icon: '🧣', available: true },
-  { id: 'interior', name: '인테리어/소품', icon: '🏠', available: true },
-  { id: 'stationery', name: '문구/팬시', icon: '✏️', available: true },
-  { id: 'candle', name: '캔들/디퓨저', icon: '🕯️', available: true },
-  { id: 'ceramic', name: '도자기/그릇', icon: '🍵', available: true },
-  { id: 'clothing', name: '의류/패브릭', icon: '👕', available: true },
-  { id: 'plant', name: '플랜트', icon: '🌿', available: true },
-  { id: 'art', name: '미술/공예', icon: '🎨', available: true },
+  { id: 'accessory', name: '악세서리/주얼리', icon: 'jewelry', available: true },
+  { id: 'bag', name: '가방/지갑/파우치', icon: 'bag', available: true },
+  { id: 'fashion', name: '패션소품', icon: 'like', available: true },
+  { id: 'interior', name: '인테리어/소품', icon: 'best', available: true },
+  { id: 'stationery', name: '문구/팬시', icon: 'stationery', available: true },
+  { id: 'candle', name: '캔들/디퓨저', icon: 'cheer', available: true },
+  { id: 'ceramic', name: '도자기/그릇', icon: 'best', available: true },
+  { id: 'clothing', name: '의류/패브릭', icon: 'like', available: true },
+  { id: 'plant', name: '플랜트', icon: 'plant', available: true },
+  { id: 'art', name: '미술/공예', icon: 'best', available: true },
 ] as const;
 
 export const RESTRICTED_CATEGORIES = [
-  { id: 'food', name: '식품', icon: '🍽️', available: false, note: '2026년 확장 예정' },
-  { id: 'digital', name: '디지털 작품 (캐리커쳐 등)', icon: '🎨', available: false, note: '2026년 확장 예정' },
-  { id: 'cosmetics', name: '화장품', icon: '💄', available: false, note: '판매 불가' },
+  { id: 'food', name: '식품', icon: 'food', available: false, note: '2026년 확장 예정' },
+  { id: 'digital', name: '디지털 작품 (캐리커쳐 등)', icon: 'digital', available: false, note: '2026년 확장 예정' },
+  { id: 'cosmetics', name: '화장품', icon: 'cheer', available: false, note: '판매 불가' },
 ] as const;
 
 // 학습 콘텐츠 타입

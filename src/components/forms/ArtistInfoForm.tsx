@@ -8,6 +8,8 @@ import Card from '@/components/ui/Card';
 import { AVAILABLE_CATEGORIES, RESTRICTED_CATEGORIES, ArtistInfo } from '@/types/onboarding';
 import { initOnboardingData } from '@/lib/storage';
 import Image from 'next/image';
+import BrandIcon, { BrandIconName } from '@/components/ui/BrandIcon';
+import { IconArrowRight } from '@/components/ui/icons';
 
 export default function ArtistInfoForm() {
   const router = useRouter();
@@ -204,7 +206,8 @@ export default function ArtistInfoForm() {
       <Card variant="outlined" className="space-y-6">
         <div>
           <h2 className="text-xl font-bold text-idus-black flex items-center gap-2">
-            🏷️ 주로 판매하시는 카테고리를 선택해주세요
+            <BrandIcon name="jewelry" size={24} alt="" />
+            주로 판매하시는 카테고리를 선택해주세요
             <span className="text-idus-orange text-sm">*</span>
           </h2>
           <p className="text-sm text-idus-black-50 mt-1">
@@ -227,7 +230,9 @@ export default function ArtistInfoForm() {
                     : 'border-idus-black-10 hover:border-idus-orange'
                 }`}
               >
-                <span className="text-2xl block mb-1">{category.icon}</span>
+                <span className="block mb-1">
+                  <BrandIcon name={category.icon as BrandIconName} size={28} alt="" className="mx-auto" />
+                </span>
                 <span className="text-xs font-medium">{category.name}</span>
               </button>
             ))}
@@ -237,7 +242,8 @@ export default function ArtistInfoForm() {
         {/* 2026 확장 예정 카테고리 */}
         <div>
           <h3 className="text-sm font-semibold text-idus-black-70 mb-3 flex items-center gap-2">
-            📅 2026년 확장 예정 카테고리
+            <BrandIcon name="best" size={20} alt="" />
+            2026년 확장 예정 카테고리
             <span className="text-xs text-idus-black-50 font-normal">(관심 있으시면 선택해주세요)</span>
           </h3>
           <div className="grid grid-cols-2 gap-3">
@@ -253,7 +259,7 @@ export default function ArtistInfoForm() {
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl">{category.icon}</span>
+                  <BrandIcon name={category.icon as BrandIconName} size={28} alt="" />
                   <div>
                     <span className="font-medium block">{category.name}</span>
                     <span className="text-xs text-idus-orange">{category.note}</span>
@@ -276,7 +282,8 @@ export default function ArtistInfoForm() {
         className="w-full"
         isLoading={isLoading}
       >
-        시작하기 →
+        시작하기
+        <IconArrowRight className="w-4 h-4" />
       </Button>
     </form>
   );

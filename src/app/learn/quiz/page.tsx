@@ -10,6 +10,7 @@ import { QUIZ_QUESTIONS, QuizQuestion } from '@/types/onboarding';
 import { getOnboardingData, markQuizCompleted, markLearningCompleted } from '@/lib/storage';
 import { submitOnboardingData } from '@/lib/api';
 import { IconArrowLeft, IconArrowRight, IconCheck, IconX } from '@/components/ui/icons';
+import BrandIcon from '@/components/ui/BrandIcon';
 
 export default function QuizPage() {
   const router = useRouter();
@@ -180,7 +181,7 @@ export default function QuizPage() {
         {/* Question */}
         <Card variant="elevated" className="mb-8 animate-fade-in">
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-2xl">🎯</span>
+            <BrandIcon name="camera" size={26} alt="" />
             <span className="text-sm font-medium text-idus-orange">
               Q{currentQuestionIndex + 1}
             </span>

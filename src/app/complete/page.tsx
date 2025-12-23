@@ -9,6 +9,7 @@ import Card from '@/components/ui/Card';
 import { getOnboardingData, markRegistrationClicked, isLearningCompleted } from '@/lib/storage';
 import { submitOnboardingData } from '@/lib/api';
 import { IconArrowRight, IconCheck } from '@/components/ui/icons';
+import BrandIcon from '@/components/ui/BrandIcon';
 
 export default function CompletePage() {
   const router = useRouter();
@@ -130,7 +131,9 @@ export default function CompletePage() {
           />
         </div>
           <div className="text-center">
-            <div className="text-5xl mb-4">🎁</div>
+            <div className="flex justify-center mb-4">
+              <BrandIcon name="gift" size={44} alt="" />
+            </div>
             <h3 className="text-xl font-bold mb-2">보상 안내</h3>
             <p className="text-white/80 mb-4">
               글로벌 작가 등록을 완료하시면<br />

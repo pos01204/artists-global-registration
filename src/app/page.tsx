@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import ArtistInfoForm from '@/components/forms/ArtistInfoForm';
+import BrandIcon from '@/components/ui/BrandIcon';
 
 export default function Home() {
   return (
@@ -47,7 +48,8 @@ export default function Home() {
           {/* Hero Content */}
           <div className="text-center mb-12 animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-idus-orange-light/50 text-idus-orange-dark px-4 py-2 rounded-full text-sm font-medium mb-6">
-              🌏 전 세계 45개국 판매
+              <BrandIcon name="best" size={18} alt="" />
+              전 세계 45개국 판매
             </div>
             
             <h1 className="text-3xl md:text-5xl font-bold text-idus-black mb-6 leading-tight">
@@ -88,7 +90,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-4">
-                <div className="text-4xl">🎁</div>
+                <BrandIcon name="gift" size={36} alt="" />
                 <div>
                   <div className="font-bold text-lg">온보딩 완료 보상!</div>
                   <div className="text-white/80">학습 완료 후 글로벌 등록 시</div>

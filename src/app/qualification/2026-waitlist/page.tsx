@@ -6,6 +6,8 @@ import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import { getOnboardingData } from '@/lib/storage';
+import BrandIcon, { BrandIconName } from '@/components/ui/BrandIcon';
+import { IconCheck } from '@/components/ui/icons';
 
 export default function WaitlistPage() {
   const [artistData, setArtistData] = useState<{ food: boolean; digital: boolean } | null>(null);
@@ -17,9 +19,9 @@ export default function WaitlistPage() {
     }
   }, []);
 
-  const selectedCategories = [];
-  if (artistData?.food) selectedCategories.push('🍽️ 식품');
-  if (artistData?.digital) selectedCategories.push('🎨 디지털 작품');
+  const selectedCategories: Array<{ name: BrandIconName; label: string }> = [];
+  if (artistData?.food) selectedCategories.push({ name: 'food', label: '식품' });
+  if (artistData?.digital) selectedCategories.push({ name: 'digital', label: '디지털 작품' });
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-idus-gray">
@@ -41,7 +43,11 @@ export default function WaitlistPage() {
 
       <div className="max-w-2xl mx-auto px-4 py-12 md:py-20">
         <div className="text-center mb-8 animate-fade-in">
-          <div className="text-6xl mb-6">📅</div>
+          <div className="flex justify-center mb-6">
+            <div className="w-20 h-20 rounded-full bg-idus-orange-light/30 flex items-center justify-center">
+              <BrandIcon name="best" size={44} alt="" />
+            </div>
+          </div>
           <h1 className="text-2xl md:text-3xl font-bold text-idus-black mb-4">
             2026년 확장 예정 카테고리입니다
           </h1>
@@ -54,14 +60,18 @@ export default function WaitlistPage() {
         <Card variant="elevated" className="mb-8 animate-slide-up">
           <div className="space-y-6">
             <div>
-              <h3 className="font-semibold text-idus-black mb-4">📋 선택하신 카테고리</h3>
+              <h3 className="font-semibold text-idus-black mb-4 flex items-center gap-2">
+                <BrandIcon name="like" size={20} alt="" />
+                선택하신 카테고리
+              </h3>
               <div className="flex flex-wrap gap-3">
-                {selectedCategories.map((category, index) => (
+                {selectedCategories.map((category) => (
                   <span
-                    key={index}
-                    className="bg-idus-orange-light text-idus-orange-dark px-4 py-2 rounded-full text-sm font-medium"
+                    key={category.name}
+                    className="bg-idus-orange-light text-idus-orange-dark px-4 py-2 rounded-full text-sm font-medium inline-flex items-center gap-2"
                   >
-                    {category}
+                    <BrandIcon name={category.name} size={18} alt="" />
+                    {category.label}
                   </span>
                 ))}
               </div>
@@ -80,7 +90,10 @@ export default function WaitlistPage() {
             </div>
 
             <div className="border-t border-idus-black-10 pt-6">
-              <h3 className="font-semibold text-idus-black mb-3">✅ 등록 완료!</h3>
+              <h3 className="font-semibold text-idus-black mb-3 flex items-center gap-2">
+                <IconCheck className="w-5 h-5 text-green-600" />
+                등록 완료
+              </h3>
               <p className="text-sm text-idus-black-70">
                 작가님의 정보가 대기 리스트에 등록되었습니다.<br />
                 해당 카테고리가 오픈되면 입력하신 연락처로 안내드릴게요!
@@ -91,7 +104,9 @@ export default function WaitlistPage() {
 
         <Card variant="outlined" className="mb-8 bg-idus-orange-light/20 border-idus-orange animate-slide-up animation-delay-200">
           <div className="flex items-start gap-4">
-            <div className="text-3xl">💡</div>
+            <div className="w-12 h-12 rounded-2xl bg-white border border-idus-black-10 flex items-center justify-center shadow-sm">
+              <BrandIcon name="cheer" size={28} alt="" />
+            </div>
             <div>
               <h3 className="font-semibold text-idus-black mb-2">
                 다른 카테고리 작품도 판매하고 계신가요?

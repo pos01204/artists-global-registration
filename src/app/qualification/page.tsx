@@ -11,6 +11,7 @@ import { OnboardingData } from '@/types/onboarding';
 import { submitOnboardingData } from '@/lib/api';
 import { AVAILABLE_CATEGORIES, RESTRICTED_CATEGORIES } from '@/types/onboarding';
 import { IconArrowRight, IconCheck } from '@/components/ui/icons';
+import BrandIcon from '@/components/ui/BrandIcon';
 
 // 카테고리 ID → 이름 매핑 (string 키 타입으로 명시)
 const categoryNameById: Map<string, string> = new Map(
@@ -124,7 +125,7 @@ export default function QualificationPage() {
         {/* 선택한 카테고리 */}
         <Card variant="outlined" className="mb-6">
           <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <span className="text-lg">🏷️</span>
+            <BrandIcon name="jewelry" size={20} alt="" />
             선택하신 카테고리
           </h3>
           <div className="flex flex-wrap gap-2">
@@ -169,7 +170,7 @@ export default function QualificationPage() {
             {/* 메인 아이콘 */}
             <div className="flex justify-center mb-4">
               <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center">
-                <span className="text-3xl">📚</span>
+                <BrandIcon name="stationery" size={32} alt="" />
               </div>
             </div>
             
@@ -199,7 +200,7 @@ export default function QualificationPage() {
             
             {/* 보상 안내 */}
             <p className="text-sm opacity-90 mb-5">
-              🎁 학습 완료 후 글로벌 등록 시 <span className="font-bold">광고포인트 10,000P</span> 지급
+              학습 완료 후 글로벌 등록 시 <span className="font-bold">광고포인트 10,000P</span> 지급
             </p>
             
             {/* CTA 버튼 */}
@@ -223,14 +224,15 @@ export default function QualificationPage() {
         {/* 학습 과정 미리보기 */}
         <Card variant="outlined">
           <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <span className="text-lg">📖</span>
             학습 과정 미리보기
           </h3>
           
           <div className="space-y-2">
             {/* STEP 1 */}
             <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <span className="w-8 h-8 bg-idus-orange-light/40 rounded-lg flex items-center justify-center text-sm">🌏</span>
+              <span className="w-8 h-8 bg-idus-orange-light/40 rounded-lg flex items-center justify-center">
+                <BrandIcon name="best" size={18} alt="" />
+              </span>
               <div className="flex-1">
                 <h4 className="font-medium text-gray-900 text-sm">STEP 1. 글로벌 서비스 이해하기</h4>
               </div>
@@ -239,7 +241,9 @@ export default function QualificationPage() {
             
             {/* STEP 2 */}
             <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <span className="w-8 h-8 bg-idus-orange-light/40 rounded-lg flex items-center justify-center text-sm">📝</span>
+              <span className="w-8 h-8 bg-idus-orange-light/40 rounded-lg flex items-center justify-center">
+                <BrandIcon name="stationery" size={18} alt="" />
+              </span>
               <div className="flex-1">
                 <h4 className="font-medium text-gray-900 text-sm">STEP 2. 작품 등록 마스터하기</h4>
               </div>
@@ -248,7 +252,9 @@ export default function QualificationPage() {
             
             {/* STEP 3 */}
             <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <span className="w-8 h-8 bg-idus-orange-light/40 rounded-lg flex items-center justify-center text-sm">📦</span>
+              <span className="w-8 h-8 bg-idus-orange-light/40 rounded-lg flex items-center justify-center">
+                <BrandIcon name="shipping" size={18} alt="" />
+              </span>
               <div className="flex-1">
                 <h4 className="font-medium text-gray-900 text-sm">STEP 3. 주문 처리 & 운영하기</h4>
               </div>
@@ -257,7 +263,9 @@ export default function QualificationPage() {
             
             {/* 퀴즈 */}
             <div className="flex items-center gap-3 p-3 bg-idus-orange-light/20 rounded-lg border border-idus-black-10">
-              <span className="w-8 h-8 bg-idus-orange-light/40 rounded-lg flex items-center justify-center text-sm">🎯</span>
+              <span className="w-8 h-8 bg-idus-orange-light/40 rounded-lg flex items-center justify-center">
+                <BrandIcon name="camera" size={18} alt="" />
+              </span>
               <div className="flex-1">
                 <h4 className="font-medium text-gray-900 text-sm">FINAL. 간단 퀴즈</h4>
               </div>
