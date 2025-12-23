@@ -9,43 +9,55 @@ type SectionIconProps = {
   size?: 'sm' | 'md' | 'lg';
 };
 
-function sizePx(size: SectionIconProps['size']) {
-  if (size === 'sm') return 18;
-  if (size === 'lg') return 28;
-  return 22;
+function dims(size: SectionIconProps['size']) {
+  if (size === 'sm') return { box: 28, icon: 18, emoji: 18 };
+  if (size === 'lg') return { box: 36, icon: 22, emoji: 22 };
+  return { box: 32, icon: 20, emoji: 20 };
 }
 
 export default function SectionIcon({ icon, size = 'md' }: SectionIconProps) {
   if (!icon) return null;
 
-  const px = sizePx(size);
+  const { box, icon: iconPx, emoji } = dims(size);
 
   // Semantic tokens (권장)
   if (icon === 'ok') {
     return (
-      <span className="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-green-50 border border-green-200">
-        <CheckCircle2 className="w-5 h-5 text-green-600" />
+      <span
+        className="inline-flex items-center justify-center rounded-xl bg-green-50 border border-green-200"
+        style={{ width: box, height: box }}
+      >
+        <CheckCircle2 className="text-green-600" style={{ width: iconPx, height: iconPx }} />
       </span>
     );
   }
   if (icon === 'no') {
     return (
-      <span className="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-red-50 border border-red-200">
-        <XCircle className="w-5 h-5 text-red-600" />
+      <span
+        className="inline-flex items-center justify-center rounded-xl bg-red-50 border border-red-200"
+        style={{ width: box, height: box }}
+      >
+        <XCircle className="text-red-600" style={{ width: iconPx, height: iconPx }} />
       </span>
     );
   }
   if (icon === 'warn') {
     return (
-      <span className="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-amber-50 border border-amber-200">
-        <AlertTriangle className="w-5 h-5 text-amber-600" />
+      <span
+        className="inline-flex items-center justify-center rounded-xl bg-amber-50 border border-amber-200"
+        style={{ width: box, height: box }}
+      >
+        <AlertTriangle className="text-amber-600" style={{ width: iconPx, height: iconPx }} />
       </span>
     );
   }
   if (icon === 'info') {
     return (
-      <span className="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-idus-orange-light/30 border border-idus-black-10">
-        <Info className="w-5 h-5 text-idus-orange" />
+      <span
+        className="inline-flex items-center justify-center rounded-xl bg-idus-orange-light/30 border border-idus-black-10"
+        style={{ width: box, height: box }}
+      >
+        <Info className="text-idus-orange" style={{ width: iconPx, height: iconPx }} />
       </span>
     );
   }
@@ -54,14 +66,21 @@ export default function SectionIcon({ icon, size = 'md' }: SectionIconProps) {
   if (icon.startsWith('brand:')) {
     const name = icon.replace('brand:', '') as any;
     return (
-      <span className="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-idus-orange-light/20 border border-idus-black-10">
-        <BrandIcon name={name} size={px} alt="" />
+      <span
+        className="inline-flex items-center justify-center rounded-xl bg-idus-orange-light/20 border border-idus-black-10"
+        style={{ width: box, height: box }}
+      >
+        <BrandIcon name={name} size={iconPx} alt="" />
       </span>
     );
   }
 
   // Fallback: emoji/text
-  return <span className="text-2xl leading-none">{icon}</span>;
+  return (
+    <span className="leading-none" style={{ fontSize: emoji }}>
+      {icon}
+    </span>
+  );
 }
 
 

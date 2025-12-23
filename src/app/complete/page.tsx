@@ -90,13 +90,15 @@ export default function CompletePage() {
 
       <div className="max-w-2xl mx-auto px-4 py-12">
         {/* Celebration */}
-        <div className="text-center mb-10 animate-fade-in">
-          <div className="text-7xl mb-6 animate-bounce-soft">🎉</div>
-          <h1 className="text-3xl md:text-4xl font-bold text-idus-black mb-4">
-            축하드려요, {artistName} 작가님!
+        <div className="text-center mb-8 animate-fade-in">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-idus-orange-light/40 border border-idus-black-10 mb-5">
+            <BrandIcon name="cheer" size={32} alt="" />
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-idus-black mb-3 text-balance">
+            {artistName} 작가님, 여기까지 잘 왔어요
           </h1>
-          <p className="text-lg text-idus-black-70">
-            글로벌 작가 온보딩을 완료하셨습니다!
+          <p className="text-idus-black-70 text-balance">
+            이제 글로벌 작가 등록만 하면 준비가 끝나요.
           </p>
         </div>
 
@@ -124,9 +126,9 @@ export default function CompletePage() {
         </Card>
 
         {/* Reward */}
-        <Card 
-          variant="elevated" 
-        className="relative mb-8 bg-idus-orange text-white animate-slide-up animation-delay-200 overflow-hidden"
+        <Card
+          variant="elevated"
+          className="relative mb-8 bg-idus-orange text-white animate-slide-up animation-delay-200 overflow-hidden"
         >
         <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none" aria-hidden="true">
           <Image
@@ -141,9 +143,8 @@ export default function CompletePage() {
               <BrandIcon name="gift" size={44} alt="" />
             </div>
             <h3 className="text-xl font-bold mb-2">보상 안내</h3>
-            <p className="text-white/80 mb-4">
-              글로벌 작가 등록을 완료하시면<br />
-              7일 이내 아래 포인트가 지급됩니다!
+            <p className="text-white/80 mb-4 text-balance">
+              글로벌 작가 등록을 완료하면 7일 이내 포인트가 지급돼요
             </p>
             <div className="bg-white/20 rounded-xl p-4 inline-block">
               <span className="text-3xl font-bold">KR 광고포인트 10,000P</span>
@@ -157,8 +158,8 @@ export default function CompletePage() {
             <h3 className="text-xl font-bold text-idus-black mb-2">
               이제 진짜 글로벌 작가가 될 차례예요!
             </h3>
-            <p className="text-idus-black-70 mb-6">
-              아래 버튼을 눌러 1분 만에 등록을 완료해보세요.
+            <p className="text-idus-black-70 mb-6 text-balance">
+              아래 버튼을 눌러 1분 만에 등록을 완료해요
             </p>
             <Button
               variant="primary"
@@ -277,7 +278,7 @@ export default function CompletePage() {
           <div className="bg-idus-gray rounded-xl p-4 border border-idus-black-10 text-sm text-idus-black">
             작가웹 로그인 → 전체메뉴 → 내 정보 → 글로벌 작가 관리
           </div>
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col-reverse sm:flex-row gap-3">
             <Button variant="secondary" className="w-full" onClick={() => setOpenConfirm(false)}>
               취소
             </Button>

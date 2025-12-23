@@ -50,29 +50,55 @@ export async function POST(request: NextRequest) {
     const RAILWAY_BACKEND_URL = process.env.RAILWAY_BACKEND_URL;
     const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL;
 
-    if (RAILWAY_BACKEND_URL) {
-      const response = await fetch(`${RAILWAY_BACKEND_URL.replace(/\/$/, '')}/v1/events`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          eventType: 'onboarding_snapshot',
-          payload: {
-            ...data,
-            timestamp: new Date().toISOString(),
-          },
-        }),
-      });
+    const normalizeBaseUrl = (raw?: string) => {
+      if (!raw) return null;
+      const trimmed = raw.trim().replace(/\/$/, '');
+      if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) return trimmed;
+      // Vercel env에 도메인만 넣는 실수를 방지
+      return `https://${trimmed}`;
+    };
 
-      if (!response.ok) {
-        console.error('Railway backend error:', await response.text());
+    const nowIso = new Date().toISOString();
+    const railwayBase = normalizeBaseUrl(RAILWAY_BACKEND_URL);
+    let railwayError: string | null = null;
+    let googleError: string | null = null;
+
+    // 1) Railway 우선 시도 (실패 시 폴백)
+    if (railwayBase) {
+      try {
+        const response = await fetch(`${railwayBase}/v1/events`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            eventType: 'onboarding_snapshot',
+            payload: { ...data, timestamp: nowIso },
+          }),
+        });
+
+        if (response.ok) {
+          return NextResponse.json({
+            success: true,
+            message: '데이터가 성공적으로 저장되었습니다.',
+            target: 'railway',
+          });
+        }
+
+        const text = await response.text();
+        railwayError = text?.slice(0, 500) ?? 'unknown error';
+        console.error('Railway backend error:', text);
+      } catch (err) {
+        railwayError = err instanceof Error ? err.message : String(err);
+        console.error('Railway backend network error:', err);
       }
-    } else if (GOOGLE_SCRIPT_URL) {
-      // 레거시: Google Apps Script 웹훅으로 데이터 전송
+    }
+
+    // 2) 폴백: Google Apps Script
+    if (GOOGLE_SCRIPT_URL) {
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          timestamp: new Date().toISOString(),
+          timestamp: nowIso,
           ...data,
           categories: data.categories.join(', '),
           interested2026Food: data.interestedIn2026.food,
@@ -80,13 +106,33 @@ export async function POST(request: NextRequest) {
         }),
       });
 
-      if (!response.ok) {
-        console.error('Google Script error:', await response.text());
+      if (response.ok) {
+        return NextResponse.json({
+          success: true,
+          message: '데이터가 성공적으로 저장되었습니다.',
+          target: 'google_script',
+        });
       }
-    } else {
+
+      const text = await response.text();
+      googleError = text?.slice(0, 500) ?? 'unknown error';
+      console.error('Google Script error:', text);
+      return NextResponse.json(
+        {
+          success: false,
+          error: '데이터 저장에 실패했습니다. (Railway/Google Script 모두 실패)',
+          railwayError,
+          googleError,
+        },
+        { status: 502 }
+      );
+    }
+
+    // 3) 개발 환경에서는 콘솔에 로깅
+    if (!railwayBase) {
       // 개발 환경에서는 콘솔에 로깅
       console.log('📊 Onboarding Data Submitted:', {
-        timestamp: new Date().toISOString(),
+        timestamp: nowIso,
         artistName: data.artistName,
         phoneNumber: data.phoneNumber,
         hasBusinessNumber: data.hasBusinessNumber,
@@ -96,11 +142,10 @@ export async function POST(request: NextRequest) {
         registrationClicked: data.registrationClicked,
       });
     }
-
-    return NextResponse.json({ 
-      success: true,
-      message: '데이터가 성공적으로 저장되었습니다.'
-    });
+    return NextResponse.json(
+      { success: false, error: '저장 대상이 설정되지 않았습니다. (RAILWAY_BACKEND_URL/GOOGLE_SCRIPT_URL 없음)' },
+      { status: 500 }
+    );
     
   } catch (error) {
     console.error('Submit API error:', error);

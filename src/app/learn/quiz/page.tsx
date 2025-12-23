@@ -273,13 +273,14 @@ export default function QuizPage() {
         </Card>
 
         {/* Navigation */}
-        <div className="flex justify-end">
+        <div className="flex justify-center">
           {!showResult ? (
             <Button
               variant="primary"
               size="lg"
               onClick={handleSubmit}
               disabled={selectedAnswer === null}
+              className="w-full sm:max-w-sm"
             >
               정답 확인
             </Button>
@@ -288,6 +289,7 @@ export default function QuizPage() {
               variant="primary"
               size="lg"
               onClick={handleNext}
+              className="w-full sm:max-w-sm"
             >
               {currentQuestionIndex < totalQuestions - 1 ? (
                 <>
