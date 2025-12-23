@@ -65,9 +65,10 @@ async function findRowIndexByPhone(sheetName, phoneNumber, columnLetter) {
   });
 
   const values = col.data.values ?? [];
+  const target = normalizePhone(phoneNumber);
   for (let i = 1; i < values.length; i++) {
     const v = values[i]?.[0];
-    if (v && String(v).trim() === String(phoneNumber).trim()) {
+    if (v && normalizePhone(v) === target) {
       return i + 1; // 1-based row index
     }
   }
@@ -85,6 +86,26 @@ async function getCell(sheetName, a1) {
 
 function boolToYN(v) {
   return v ? 'Y' : 'N';
+}
+
+function normalizePhone(raw) {
+  if (!raw) return '';
+  let digits = String(raw).replace(/[^\d]/g, '');
+  // 구글시트가 숫자 형식으로 저장하면 선행 0이 사라지는 케이스 보정
+  // 예: 01012345678 -> 1012345678
+  if (digits.length === 10 && digits.startsWith('10')) {
+    digits = `0${digits}`;
+  }
+  return digits;
+}
+
+function formatPhoneForSheet(raw) {
+  const digits = normalizePhone(raw);
+  if (!digits) return '';
+  const pretty =
+    digits.length === 11 ? `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}` : digits;
+  // 텍스트로 강제 저장(숫자 변환/선행0 제거 방지)
+  return `'${pretty}`;
 }
 
 function normalizeSnapshot(snapshot) {
@@ -127,7 +148,7 @@ async function upsertRow(sheetName, headers, phoneNumber, phoneColumnLetter, row
     await sheets.spreadsheets.values.update({
       spreadsheetId,
       range: `${sheetName}!A${rowIndex}`,
-      valueInputOption: 'USER_ENTERED',
+      valueInputOption: 'RAW',
       requestBody: { values: [finalRow] },
     });
     return { mode: 'updated', rowIndex };
@@ -136,7 +157,7 @@ async function upsertRow(sheetName, headers, phoneNumber, phoneColumnLetter, row
   await sheets.spreadsheets.values.append({
     spreadsheetId,
     range: `${sheetName}!A1`,
-    valueInputOption: 'USER_ENTERED',
+    valueInputOption: 'RAW',
     insertDataOption: 'INSERT_ROWS',
     requestBody: { values: [finalRow] },
   });
@@ -155,7 +176,7 @@ export async function upsertOnboardingSnapshot(snapshot, nowIso) {
     'C',
     [
       snapshot.artistName || '',
-      snapshot.phoneNumber || '',
+      formatPhoneForSheet(snapshot.phoneNumber),
       boolToYN(snapshot.hasBusinessNumber),
       (snapshot.categories ?? []).join(', '),
       snapshot.qualificationStatus || '',
@@ -183,7 +204,7 @@ export async function upsertOnboardingSnapshot(snapshot, nowIso) {
       'C',
       [
         snapshot.artistName || '',
-        snapshot.phoneNumber || '',
+        formatPhoneForSheet(snapshot.phoneNumber),
         (snapshot.categories ?? []).join(', '),
       ],
       nowIso
@@ -203,7 +224,7 @@ export async function upsertOnboardingSnapshot(snapshot, nowIso) {
       'C',
       [
         snapshot.artistName || '',
-        snapshot.phoneNumber || '',
+        formatPhoneForSheet(snapshot.phoneNumber),
         interests.join(', '),
         '2026년 확장 시 연락 예정',
       ],
@@ -214,12 +235,12 @@ export async function upsertOnboardingSnapshot(snapshot, nowIso) {
 
 export async function appendEventRow(row) {
   const { sheets, spreadsheetId } = await getSheets();
-  const sheetName = getSheetName();
+  const sheetName = process.env.GOOGLE_SHEETS_EVENTS_SHEET || 'events';
 
   await sheets.spreadsheets.values.append({
     spreadsheetId,
     range: `${sheetName}!A1`,
-    valueInputOption: 'USER_ENTERED',
+    valueInputOption: 'RAW',
     insertDataOption: 'INSERT_ROWS',
     requestBody: {
       values: [row],

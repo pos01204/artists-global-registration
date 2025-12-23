@@ -83,21 +83,13 @@ export default function StepPage() {
     }
   };
 
-  if (!step || contents.length === 0) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-idus-orange border-t-transparent rounded-full" />
-      </div>
-    );
-  }
-
-  const stepProgress = Math.round(((currentContentIndex + 1) / contents.length) * 100);
-
   const getStepBrandIconName = (id: number): BrandIconName => {
     if (id === 1) return 'best';
     if (id === 2) return 'stationery';
     return 'shipping';
   };
+
+  const stepProgress = Math.round(((currentContentIndex + 1) / Math.max(contents.length, 1)) * 100);
 
   const { primarySections, extraSections } = useMemo(() => {
     const sections = currentContent?.content.sections ?? [];
@@ -120,6 +112,15 @@ export default function StepPage() {
       return true;
     });
   }, [currentContent]);
+
+  const isLoading = !step || contents.length === 0 || !currentContent;
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin w-8 h-8 border-4 border-idus-orange border-t-transparent rounded-full" />
+      </div>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-idus-gray">
