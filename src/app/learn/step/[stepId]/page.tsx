@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
@@ -18,6 +18,7 @@ import SectionIcon from '@/components/learning/SectionIcon';
 import { Lightbulb, Link as LinkIcon } from 'lucide-react';
 import ExternalLinkItem from '@/components/learning/ExternalLinkItem';
 import SectionMeta from '@/components/learning/SectionMeta';
+import Accordion from '@/components/ui/Accordion';
 
 export default function StepPage() {
   const router = useRouter();
@@ -28,6 +29,7 @@ export default function StepPage() {
   const [currentContentIndex, setCurrentContentIndex] = useState(0);
   const [viewedContents, setViewedContents] = useState<Set<string>>(new Set());
   const [progress, setProgress] = useState(0);
+  const [openExtra, setOpenExtra] = useState<string[]>([]);
   
   const step = LEARNING_STEPS.find(s => s.id === stepId);
   const currentContent = contents[currentContentIndex];
@@ -42,6 +44,11 @@ export default function StepPage() {
     setContents(getContentsByStep(stepId));
     setProgress(calculateProgress());
   }, [stepId, router]);
+
+  useEffect(() => {
+    // 콘텐츠가 바뀔 때 접힌 영역 상태를 초기화해서 “내용이 많아 보이는” 피로감을 줄임
+    setOpenExtra([]);
+  }, [stepId, currentContentIndex]);
 
   const handleContentView = (contentId: string) => {
     setViewedContents(prev => {
@@ -91,6 +98,28 @@ export default function StepPage() {
     if (id === 2) return 'stationery';
     return 'shipping';
   };
+
+  const { primarySections, extraSections } = useMemo(() => {
+    const sections = currentContent?.content.sections ?? [];
+    const primary = sections.filter(s => s.highlight);
+    const extra = sections.filter(s => !s.highlight);
+    // highlight가 없으면 1개는 primary로 올려서 정보가 과도하게 "접히는" 느낌을 방지
+    if (primary.length === 0 && extra.length > 0) {
+      return { primarySections: [extra[0]], extraSections: extra.slice(1) };
+    }
+    return { primarySections: primary, extraSections: extra };
+  }, [currentContent]);
+
+  const externalLinks = useMemo(() => {
+    const links = currentContent?.content.externalLinks ?? [];
+    const seen = new Set<string>();
+    return links.filter(link => {
+      const key = `${link.url}|${link.title ?? ''}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }, [currentContent]);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-idus-gray">
@@ -149,10 +178,10 @@ export default function StepPage() {
               </div>
             )}
 
-            {/* Sections Content */}
-            {currentContent.content.sections?.map((section, index) => (
+            {/* Sections Content (핵심 먼저, 나머지 접기) */}
+            {primarySections.map((section, index) => (
               <div
-                key={index}
+                key={`primary-${index}`}
                 className={`p-4 rounded-xl ${
                   section.highlight 
                     ? 'bg-idus-orange-light/20 border-l-4 border-idus-orange' 
@@ -183,6 +212,59 @@ export default function StepPage() {
                 </div>
               </div>
             ))}
+
+            {extraSections.length > 0 ? (
+              <div className="bg-idus-gray rounded-xl p-2 border border-idus-black-10">
+                <Accordion
+                  items={[
+                    {
+                      id: 'extra',
+                      header: (
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-xl bg-white border border-idus-black-10 flex items-center justify-center">
+                            <BrandIcon name="like" size={18} alt="" />
+                          </div>
+                          <div className="font-semibold text-idus-black">추가 정보</div>
+                          <div className="text-xs text-idus-black-50">({extraSections.length}개)</div>
+                        </div>
+                      ),
+                      content: (
+                        <div className="space-y-3">
+                          {extraSections.map((section, idx) => (
+                            <div key={idx} className="p-4 rounded-xl bg-white border border-idus-black-10">
+                              <div className="flex items-start gap-3">
+                                {section.icon ? (
+                                  <div className="flex-shrink-0">
+                                    <SectionIcon icon={section.icon} size="md" />
+                                  </div>
+                                ) : null}
+                                <div className="flex-1">
+                                  <div className="font-semibold text-idus-black mb-2">{section.title}</div>
+                                  {section.table ? (
+                                    <ResponsiveTable columns={section.table.columns} rows={section.table.rows} className="mt-2" />
+                                  ) : (
+                                    <div className="text-sm text-idus-black-70 whitespace-pre-line leading-relaxed">
+                                      {section.content}
+                                    </div>
+                                  )}
+                                  {section.meta && section.meta.length > 0 ? (
+                                    <SectionMeta items={section.meta} />
+                                  ) : null}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ),
+                    },
+                  ]}
+                  openIds={openExtra}
+                  onToggle={(id) =>
+                    setOpenExtra(prev => (prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]))
+                  }
+                />
+              </div>
+            ) : null}
 
             {/* Checklist Content */}
             {currentContent.content.items && (
@@ -221,14 +303,14 @@ export default function StepPage() {
             )}
 
             {/* External Links */}
-            {currentContent.content.externalLinks && currentContent.content.externalLinks.length > 0 && (
+            {externalLinks.length > 0 && (
               <div className="bg-idus-gray rounded-xl p-4">
                 <h4 className="font-semibold text-idus-black mb-3 flex items-center gap-2">
                   <LinkIcon className="w-5 h-5 text-idus-orange" />
                   관련 링크
                 </h4>
                 <div className="space-y-2">
-                  {currentContent.content.externalLinks.map((link, index) => (
+                  {externalLinks.map((link, index) => (
                     <ExternalLinkItem key={index} link={link} variant="row" />
                   ))}
                 </div>

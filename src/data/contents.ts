@@ -239,12 +239,6 @@ export const STEP1_CONTENTS: ContentItem[] = [
           icon: '📲',
           description: '해외 고객 화면 확인하기',
         },
-        {
-          title: '구매자 앱 다운로드 / 언어 설정 가이드',
-          url: 'https://artist-mate.idus.com/12a788bc-bb8d-420b-8ef7-4d6d049313c0',
-          icon: 'info',
-          description: '해외 고객 화면 확인하기',
-        },
       ],
     },
   },
