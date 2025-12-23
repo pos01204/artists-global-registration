@@ -10,6 +10,7 @@ import ProgressBar from '@/components/ui/ProgressBar';
 import { LEARNING_STEPS } from '@/types/onboarding';
 import { getContentsByStep, ContentItem } from '@/data/contents';
 import { getOnboardingData, markStepCompleted, calculateProgress } from '@/lib/storage';
+import { submitOnboardingData } from '@/lib/api';
 
 export default function StepPage() {
   const router = useRouter();
@@ -43,7 +44,7 @@ export default function StepPage() {
     });
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     handleContentView(currentContent.id);
     
     if (currentContentIndex < contents.length - 1) {
@@ -51,6 +52,13 @@ export default function StepPage() {
     } else {
       // 모든 콘텐츠 완료
       markStepCompleted(stepId);
+      
+      // 구글 시트에 진행 상황 전송
+      const data = getOnboardingData();
+      if (data) {
+        await submitOnboardingData(data);
+      }
+      
       router.push('/learn');
     }
   };

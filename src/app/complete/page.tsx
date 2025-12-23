@@ -40,8 +40,8 @@ export default function CompletePage() {
 
   const handleRegistrationClick = () => {
     markRegistrationClicked();
-    // 실제 글로벌 작가 등록 페이지로 이동
-    window.open('https://backoffice.idus.com/global/register', '_blank');
+    // 글로벌 작가 등록 페이지로 이동 (작가웹 > 내 정보 > 글로벌 작가 관리)
+    window.open('https://artist.idus.com/setting/global-artist/manage', '_blank');
   };
 
   return (
@@ -103,7 +103,7 @@ export default function CompletePage() {
               <div className="text-xs text-idus-black-50">학습 완료</div>
             </div>
             <div className="text-center p-4 bg-idus-gray rounded-xl">
-              <div className="text-2xl font-bold text-idus-orange mb-1">{quizScore}/3</div>
+              <div className="text-2xl font-bold text-idus-orange mb-1">{quizScore}/5</div>
               <div className="text-xs text-idus-black-50">퀴즈 정답</div>
             </div>
             <div className="text-center p-4 bg-idus-gray rounded-xl">

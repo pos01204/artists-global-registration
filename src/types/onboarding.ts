@@ -99,14 +99,14 @@ export interface QuizQuestion {
   explanation: string;
 }
 
-// 퀴즈 문제
+// 퀴즈 문제 (5문제)
 export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: 'q1',
     question: '글로벌 판매 시 해외 배송비는 어떻게 되나요?',
     options: [
       '작가님이 부담합니다',
-      '0원! idus가 처리합니다',
+      '0원! idus가 부담합니다',
       '고객이 부담합니다',
       '국가별로 다릅니다',
     ],
@@ -131,6 +131,30 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     ],
     correctAnswer: 2,
     explanation: '글로벌 정산은 월 2회, 매월 1일과 16일에 원화로 정산됩니다.',
+  },
+  {
+    id: 'q4',
+    question: '글로벌 판매 시 작가님이 직접 하셔야 하는 것은?',
+    options: [
+      '해외 배송 및 통관',
+      '외국어 고객 응대',
+      '국내 물류센터로 발송',
+      '환율 계산 및 정산',
+    ],
+    correctAnswer: 2,
+    explanation: '작가님은 국내 물류센터로 발송만 해주시면 됩니다. 해외 배송, 통관, 고객 응대(1차)는 idus가 진행해드려요!',
+  },
+  {
+    id: 'q5',
+    question: '다음 중 글로벌 판매가 불가능한 품목은?',
+    options: [
+      '악세서리/주얼리',
+      '캔들 (MSDS 제출 시)',
+      '향수/디퓨저',
+      '의류/패브릭',
+    ],
+    correctAnswer: 2,
+    explanation: '향수와 디퓨저는 항공 운송 규정상 글로벌 판매가 불가능합니다. 캔들은 MSDS 사전 제출 후 판매 가능해요!',
   },
 ];
 
