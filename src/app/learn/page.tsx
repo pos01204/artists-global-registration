@@ -9,6 +9,7 @@ import Card from '@/components/ui/Card';
 import ProgressBar from '@/components/ui/ProgressBar';
 import { LEARNING_STEPS } from '@/types/onboarding';
 import { getOnboardingData, calculateProgress, isLearningCompleted } from '@/lib/storage';
+import { IconChevronRight, IconLock, IconArrowRight } from '@/components/ui/icons';
 
 export default function LearnPage() {
   const router = useRouter();
@@ -80,7 +81,7 @@ export default function LearnPage() {
         {/* Welcome & Progress */}
         <div className="mb-8 animate-fade-in">
           <h1 className="text-2xl md:text-3xl font-bold text-idus-black mb-2">
-            📚 글로벌 작가 학습
+            글로벌 작가 학습
           </h1>
           <p className="text-idus-black-70 mb-6">
             3단계 학습을 완료하고 글로벌 작가가 되어보세요!
@@ -111,19 +112,19 @@ export default function LearnPage() {
                   className={status === 'locked' ? 'cursor-not-allowed' : ''}
                   onClick={(e) => status === 'locked' && e.preventDefault()}
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                     {/* Step Icon */}
                     <div className={`
-                      w-16 h-16 rounded-2xl flex items-center justify-center text-3xl
+                      w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-2xl sm:text-3xl
                       ${status === 'completed' ? 'bg-green-500 text-white' : ''}
                       ${status === 'active' ? 'bg-idus-orange text-white' : ''}
                       ${status === 'locked' ? 'bg-idus-black-10 text-idus-black-50' : ''}
                     `}>
-                      {status === 'completed' ? '✓' : step.icon}
+                      {status === 'completed' ? '완료' : step.icon}
                     </div>
 
                     {/* Step Info */}
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-xs font-medium text-idus-black-50">
                           STEP {step.id}
@@ -140,21 +141,24 @@ export default function LearnPage() {
                         )}
                         {status === 'locked' && (
                           <span className="text-xs bg-idus-black-20 text-idus-black-50 px-2 py-0.5 rounded-full">
-                            🔒 잠김
+                            <span className="inline-flex items-center gap-1">
+                              <IconLock className="w-3.5 h-3.5" />
+                              잠김
+                            </span>
                           </span>
                         )}
                       </div>
                       <h3 className="font-bold text-idus-black mb-1">{step.title}</h3>
-                      <p className="text-sm text-idus-black-50">{step.description}</p>
+                      <p className="text-sm text-idus-black-50 line-clamp-2">{step.description}</p>
                     </div>
 
                     {/* Duration & Arrow */}
-                    <div className="text-right">
-                      <div className="text-sm text-idus-black-50 mb-1">
+                    <div className="flex items-center justify-between sm:justify-end sm:text-right gap-3">
+                      <div className="text-sm text-idus-black-50">
                         약 {step.duration}분
                       </div>
                       {status !== 'locked' && (
-                        <span className="text-idus-orange text-xl">→</span>
+                        <IconChevronRight className="w-5 h-5 text-idus-orange" />
                       )}
                     </div>
                   </div>
@@ -167,7 +171,7 @@ export default function LearnPage() {
         {/* Quiz Section */}
         <Card variant="outlined" className="mb-8 animate-slide-up animation-delay-400">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-idus-orange-light flex items-center justify-center text-3xl">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-idus-orange-light flex items-center justify-center text-2xl sm:text-3xl">
               🎯
             </div>
             <div className="flex-1">
@@ -179,7 +183,10 @@ export default function LearnPage() {
                   </span>
                 ) : (
                   <span className="text-xs bg-idus-black-20 text-idus-black-50 px-2 py-0.5 rounded-full">
-                    🔒 잠김
+                    <span className="inline-flex items-center gap-1">
+                      <IconLock className="w-3.5 h-3.5" />
+                      잠김
+                    </span>
                   </span>
                 )}
               </div>
@@ -190,7 +197,7 @@ export default function LearnPage() {
               <div className="text-sm text-idus-black-50 mb-1">약 2분</div>
               {completedSteps.every(Boolean) && (
                 <Link href="/learn/quiz">
-                  <span className="text-idus-orange text-xl">→</span>
+                  <IconChevronRight className="w-5 h-5 text-idus-orange inline-block" />
                 </Link>
               )}
             </div>
@@ -235,7 +242,7 @@ export default function LearnPage() {
                   배송/정산/문의 대응 등 궁금한 점을 바로 확인해보세요
                 </div>
               </div>
-              <div className="text-idus-orange text-xl">→</div>
+              <IconChevronRight className="w-5 h-5 text-idus-orange" />
             </div>
           </Link>
         </Card>

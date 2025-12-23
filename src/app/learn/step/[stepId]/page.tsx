@@ -11,6 +11,8 @@ import { LEARNING_STEPS } from '@/types/onboarding';
 import { getContentsByStep, ContentItem } from '@/data/contents';
 import { getOnboardingData, markStepCompleted, calculateProgress } from '@/lib/storage';
 import { submitOnboardingData } from '@/lib/api';
+import ResponsiveTable from '@/components/learning/ResponsiveTable';
+import { IconArrowLeft, IconArrowRight, IconChevronRight } from '@/components/ui/icons';
 
 export default function StepPage() {
   const router = useRouter();
@@ -86,7 +88,7 @@ export default function StepPage() {
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-3">
             <Link href="/learn" className="flex items-center gap-2 text-idus-black-70 hover:text-idus-orange transition-colors">
-              <span>←</span>
+              <IconArrowLeft className="w-4 h-4" />
               <span className="text-sm">학습 목록</span>
             </Link>
             <span className="text-sm text-idus-black-50">
@@ -97,7 +99,7 @@ export default function StepPage() {
         </div>
       </header>
 
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8 pb-28 sm:pb-8">
         {/* Step Title */}
         <div className="mb-8 animate-fade-in">
           <div className="flex items-center gap-3 mb-2">
@@ -146,7 +148,7 @@ export default function StepPage() {
               >
                 <div className="flex items-start gap-3">
                   {section.icon && (
-                    <span className="text-2xl flex-shrink-0">
+                    <span className="text-2xl flex-shrink-0 leading-none">
                       {section.icon}
                     </span>
                   )}
@@ -155,39 +157,7 @@ export default function StepPage() {
                       {section.title}
                     </h3>
                     {section.table ? (
-                      <div className="overflow-x-auto">
-                        <table className="w-full text-sm border-collapse">
-                          <thead>
-                            <tr className="bg-idus-orange text-white">
-                              {section.table.columns.map((col, idx) => (
-                                <th
-                                  key={idx}
-                                  className="px-3 py-2 text-left font-semibold whitespace-nowrap"
-                                >
-                                  {col}
-                                </th>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {section.table.rows.map((row, rIdx) => (
-                              <tr
-                                key={rIdx}
-                                className={rIdx % 2 === 0 ? 'bg-white' : 'bg-idus-gray'}
-                              >
-                                {row.map((cell, cIdx) => (
-                                  <td
-                                    key={cIdx}
-                                    className="px-3 py-2 border-t border-idus-black-10 whitespace-nowrap"
-                                  >
-                                    {cell}
-                                  </td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
+                      <ResponsiveTable columns={section.table.columns} rows={section.table.rows} className="mt-2" />
                     ) : (
                       <p className="text-idus-black-70 text-sm whitespace-pre-line leading-relaxed">
                         {section.content}
@@ -257,7 +227,7 @@ export default function StepPage() {
                           <div className="text-xs text-idus-black-50 truncate">{link.description}</div>
                         )}
                       </div>
-                      <span className="text-idus-black-20 group-hover:text-idus-orange transition-colors">→</span>
+                      <IconChevronRight className="w-5 h-5 text-idus-black-20 group-hover:text-idus-orange transition-colors flex-shrink-0" />
                     </a>
                   ))}
                 </div>
@@ -267,21 +237,50 @@ export default function StepPage() {
         </Card>
 
         {/* Navigation */}
-        <div className="flex items-center justify-between gap-4">
-          <Button
-            variant="secondary"
-            onClick={handlePrev}
-            disabled={currentContentIndex === 0}
-          >
-            ← 이전
+        <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur border-t border-idus-black-10">
+          <div className="max-w-4xl mx-auto px-4 py-3 pb-[calc(env(safe-area-inset-bottom)+12px)]">
+            <div className="flex items-center gap-3">
+              <Button
+                variant="secondary"
+                onClick={handlePrev}
+                disabled={currentContentIndex === 0}
+                className="w-[44%]"
+              >
+                <IconArrowLeft className="w-4 h-4" />
+                이전
+              </Button>
+              <Button
+                variant="primary"
+                onClick={handleNext}
+                className="flex-1"
+              >
+                {currentContentIndex < contents.length - 1 ? (
+                  <>
+                    다음
+                    <IconArrowRight className="w-4 h-4" />
+                  </>
+                ) : (
+                  '완료'
+                )}
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden sm:flex items-center justify-between gap-4">
+          <Button variant="secondary" onClick={handlePrev} disabled={currentContentIndex === 0}>
+            <IconArrowLeft className="w-4 h-4" />
+            이전
           </Button>
-          
-          <Button
-            variant="primary"
-            onClick={handleNext}
-            className="flex-1 max-w-xs"
-          >
-            {currentContentIndex < contents.length - 1 ? '다음 →' : '완료! 🎉'}
+          <Button variant="primary" onClick={handleNext} className="flex-1 max-w-xs">
+            {currentContentIndex < contents.length - 1 ? (
+              <>
+                다음
+                <IconArrowRight className="w-4 h-4" />
+              </>
+            ) : (
+              '완료'
+            )}
           </Button>
         </div>
       </div>

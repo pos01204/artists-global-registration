@@ -8,6 +8,7 @@ import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import { getOnboardingData, markRegistrationClicked, isLearningCompleted } from '@/lib/storage';
 import { submitOnboardingData } from '@/lib/api';
+import { IconArrowRight, IconCheck } from '@/components/ui/icons';
 
 export default function CompletePage() {
   const router = useRouter();
@@ -95,9 +96,9 @@ export default function CompletePage() {
         {/* Stats */}
         <Card variant="elevated" className="mb-8 animate-slide-up">
           <h3 className="font-semibold text-idus-black mb-4 flex items-center gap-2">
-            📊 학습 결과
+            학습 결과
           </h3>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             <div className="text-center p-4 bg-idus-gray rounded-xl">
               <div className="text-2xl font-bold text-idus-orange mb-1">3/3</div>
               <div className="text-xs text-idus-black-50">학습 완료</div>
@@ -107,7 +108,9 @@ export default function CompletePage() {
               <div className="text-xs text-idus-black-50">퀴즈 정답</div>
             </div>
             <div className="text-center p-4 bg-idus-gray rounded-xl">
-              <div className="text-2xl font-bold text-green-500 mb-1">✓</div>
+              <div className="flex items-center justify-center mb-1">
+                <IconCheck className="w-7 h-7 text-green-600" />
+              </div>
               <div className="text-xs text-idus-black-50">완료</div>
             </div>
           </div>
@@ -154,7 +157,8 @@ export default function CompletePage() {
               className="w-full max-w-sm mx-auto"
               onClick={handleRegistrationClick}
             >
-              ✈️ 글로벌 작가 등록하러 가기
+              글로벌 작가 등록하러 가기
+              <IconArrowRight className="w-4 h-4" />
             </Button>
             <p className="text-xs text-idus-black-50 mt-3">
               (1분이면 끝!)
@@ -207,7 +211,8 @@ export default function CompletePage() {
             rel="noopener noreferrer"
             className="text-idus-orange hover:underline"
           >
-            💬 채널톡 문의하기
+            채널톡 문의하기
+            <IconArrowRight className="w-4 h-4 inline-block ml-1" />
           </a>
           <span className="mx-2">|</span>
           <span>평일 오전 10시 ~ 오후 6시</span>

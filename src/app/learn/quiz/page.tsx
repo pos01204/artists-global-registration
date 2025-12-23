@@ -9,6 +9,7 @@ import Card from '@/components/ui/Card';
 import { QUIZ_QUESTIONS, QuizQuestion } from '@/types/onboarding';
 import { getOnboardingData, markQuizCompleted, markLearningCompleted } from '@/lib/storage';
 import { submitOnboardingData } from '@/lib/api';
+import { IconArrowLeft, IconArrowRight, IconCheck, IconX } from '@/components/ui/icons';
 
 export default function QuizPage() {
   const router = useRouter();
@@ -144,7 +145,8 @@ export default function QuizPage() {
             className="w-full"
             onClick={() => router.push('/complete')}
           >
-            완료 페이지로 이동 →
+            완료 페이지로 이동
+            <IconArrowRight className="w-4 h-4" />
           </Button>
         </Card>
       </main>
@@ -158,7 +160,7 @@ export default function QuizPage() {
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-3">
             <Link href="/learn" className="flex items-center gap-2 text-idus-black-70 hover:text-idus-orange transition-colors">
-              <span>←</span>
+              <IconArrowLeft className="w-4 h-4" />
               <span className="text-sm">학습 목록</span>
             </Link>
             <span className="text-sm text-idus-black-50">
@@ -228,9 +230,9 @@ export default function QuizPage() {
                       transition-all duration-200
                       ${checkStyle}
                     `}>
-                      {showResult && isCorrect && '✓'}
-                      {showResult && isWrong && '✗'}
-                      {!showResult && isSelected && '✓'}
+                      {showResult && isCorrect && <IconCheck className="w-4 h-4" />}
+                      {showResult && isWrong && <IconX className="w-4 h-4" />}
+                      {!showResult && isSelected && <IconCheck className="w-4 h-4" />}
                     </div>
                     <span className={`flex-1 ${showResult && isCorrect ? 'font-semibold text-green-700' : ''}`}>
                       {option}

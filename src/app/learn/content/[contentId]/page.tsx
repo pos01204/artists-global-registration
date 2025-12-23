@@ -8,6 +8,7 @@ import { getProgress, markContentComplete } from '@/lib/storage';
 import Button from '@/components/ui/Button';
 import InfoGraphic from '@/components/learning/InfoGraphic';
 import VideoEmbed from '@/components/learning/VideoEmbed';
+import { IconArrowLeft, IconArrowRight, IconCheck, IconChevronRight } from '@/components/ui/icons';
 
 export default function ContentDetailPage() {
   const params = useParams();
@@ -92,8 +93,9 @@ export default function ContentDetailPage() {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href={`/learn/step/${content.stepId}`} className="text-idus-black-70 hover:text-idus-orange">
-              ← STEP {content.stepId}로 돌아가기
+            <Link href={`/learn/step/${content.stepId}`} className="text-idus-black-70 hover:text-idus-orange inline-flex items-center gap-2">
+              <IconArrowLeft className="w-4 h-4" />
+              <span className="text-sm">STEP {content.stepId}로 돌아가기</span>
             </Link>
             <span className="text-sm text-gray-400">
               {content.duration}분 소요
@@ -103,7 +105,7 @@ export default function ContentDetailPage() {
       </header>
 
       {/* 메인 콘텐츠 */}
-      <main className="max-w-3xl mx-auto px-4 py-8">
+      <main className="max-w-3xl mx-auto px-4 py-6 sm:py-8">
         {/* 타이틀 */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-2">
@@ -118,7 +120,10 @@ export default function ContentDetailPage() {
             </span>
             {isCompleted && (
               <span className="text-sm px-2 py-1 bg-green-100 text-green-700 rounded-full">
-                완료 ✓
+                <span className="inline-flex items-center gap-1">
+                  <IconCheck className="w-4 h-4" />
+                  완료
+                </span>
               </span>
             )}
           </div>
@@ -127,7 +132,7 @@ export default function ContentDetailPage() {
         </div>
 
         {/* 콘텐츠 본문 */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-8">
+        <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100 mb-8">
           {/* 인포그래픽/가이드 타입 */}
           {(content.type === 'infographic' || content.type === 'guide') && content.content.sections && (
             <InfoGraphic 
@@ -228,17 +233,15 @@ export default function ContentDetailPage() {
                   className="flex items-center gap-3 p-4 bg-white rounded-xl hover:shadow-md transition-all border border-gray-100 group"
                 >
                   <span className="text-2xl">{link.icon || '🔗'}</span>
-                  <div className="flex-1">
-                    <div className="font-medium text-idus-black group-hover:text-idus-orange transition-colors">
+                    <div className="flex-1 min-w-0">
+                      <div className="font-medium text-idus-black group-hover:text-idus-orange transition-colors truncate">
                       {link.title}
                     </div>
                     {link.description && (
-                      <div className="text-sm text-gray-500">{link.description}</div>
+                      <div className="text-sm text-gray-500 truncate">{link.description}</div>
                     )}
                   </div>
-                  <span className="text-gray-400 group-hover:text-idus-orange transition-colors">
-                    →
-                  </span>
+                    <IconChevronRight className="w-5 h-5 text-gray-400 group-hover:text-idus-orange transition-colors flex-shrink-0" />
                 </a>
               ))}
             </div>
@@ -249,17 +252,19 @@ export default function ContentDetailPage() {
         {!isCompleted && (
           <div className="text-center mb-8">
             <Button variant="primary" size="lg" onClick={handleComplete}>
-              학습 완료! ✓
+              <IconCheck className="w-5 h-5" />
+              학습 완료
             </Button>
           </div>
         )}
 
         {/* 네비게이션 */}
-        <div className="flex items-center justify-between pt-6 border-t border-gray-200">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-6 border-t border-gray-200">
           {prevContent ? (
             <Link href={`/learn/content/${prevContent.id}`}>
-              <Button variant="outline" size="sm">
-                ← 이전: {prevContent.title}
+              <Button variant="outline" size="sm" className="w-full sm:w-auto justify-start">
+                <IconArrowLeft className="w-4 h-4" />
+                <span className="truncate">이전: {prevContent.title}</span>
               </Button>
             </Link>
           ) : (
@@ -268,14 +273,16 @@ export default function ContentDetailPage() {
           
           {nextContent ? (
             <Link href={`/learn/content/${nextContent.id}`}>
-              <Button variant="primary" size="sm">
-                다음: {nextContent.title} →
+              <Button variant="primary" size="sm" className="w-full sm:w-auto justify-between">
+                <span className="truncate">다음: {nextContent.title}</span>
+                <IconArrowRight className="w-4 h-4" />
               </Button>
             </Link>
           ) : (
             <Link href="/learn/quiz">
-              <Button variant="primary" size="sm">
-                퀴즈 풀기 →
+              <Button variant="primary" size="sm" className="w-full sm:w-auto justify-between">
+                퀴즈 풀기
+                <IconArrowRight className="w-4 h-4" />
               </Button>
             </Link>
           )}

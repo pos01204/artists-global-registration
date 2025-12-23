@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
+import { IconArrowLeft, IconArrowRight, IconPlus } from '@/components/ui/icons';
 
 interface FAQItem {
   id: string;
@@ -102,9 +103,12 @@ export default function FAQPage() {
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-3xl mx-auto px-4 py-6">
           <Link href="/learn" className="text-idus-black-70 hover:text-idus-orange mb-4 inline-block">
-            ← 학습으로 돌아가기
+            <span className="inline-flex items-center gap-2">
+              <IconArrowLeft className="w-4 h-4" />
+              학습으로 돌아가기
+            </span>
           </Link>
-          <h1 className="text-2xl font-bold text-idus-black">❓ 자주 묻는 질문</h1>
+          <h1 className="text-2xl font-bold text-idus-black">자주 묻는 질문</h1>
           <p className="text-gray-600 mt-2">글로벌 판매에 대해 궁금한 점을 확인해보세요</p>
         </div>
       </header>
@@ -146,8 +150,8 @@ export default function FAQPage() {
                   <span className="text-idus-orange font-bold">Q</span>
                   <span className="font-medium text-idus-black">{item.question}</span>
                 </div>
-                <span className={`text-2xl text-idus-black-50 transition-transform ${openItems.includes(item.id) ? 'rotate-45' : ''}`}>
-                  +
+                <span className={`text-idus-black-50 transition-transform ${openItems.includes(item.id) ? 'rotate-45' : ''}`}>
+                  <IconPlus className="w-6 h-6" />
                 </span>
               </button>
               
@@ -191,7 +195,8 @@ export default function FAQPage() {
                 className="w-full sm:w-auto"
               >
                 <Button variant="primary" className="w-full sm:w-auto">
-                  채널톡으로 문의하기 →
+                  채널톡으로 문의하기
+                  <IconArrowRight className="w-4 h-4" />
                 </Button>
               </a>
             </div>
