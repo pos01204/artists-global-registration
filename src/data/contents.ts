@@ -369,7 +369,7 @@ export const STEP2_CONTENTS: ContentItem[] = [
   },
 ];
 
-// STEP 3: 주문 관리 & 운영하기 (3개)
+// STEP 3: 주문 관리 & 운영하기 (4개)
 export const STEP3_CONTENTS: ContentItem[] = [
   {
     id: 'order-processing',
@@ -378,7 +378,7 @@ export const STEP3_CONTENTS: ContentItem[] = [
     title: '주문 확인 & 발송',
     description: '글로벌 주문이 들어오면 이렇게 진행돼요',
     type: 'guide',
-    duration: 4,
+    duration: 3,
     content: {
       sections: [
         {
@@ -415,7 +415,7 @@ export const STEP3_CONTENTS: ContentItem[] = [
     title: '고객 문의 대응',
     description: '해외 고객 문의, 한국어로 답변해도 괜찮아요',
     type: 'guide',
-    duration: 3,
+    duration: 2,
     content: {
       sections: [
         {
@@ -431,12 +431,6 @@ export const STEP3_CONTENTS: ContentItem[] = [
             '• 배송 기간: "약 7-14일 소요됩니다"\n• 교환/환불: "도착 후 7일 이내 가능해요"\n• 사이즈: 정확한 치수를 안내해주세요',
           icon: '💬',
         },
-        {
-          title: '응대 팁',
-          content:
-            '• 감사 인사로 시작하기\n• 명확하고 간결하게 답변\n• 이모지 적절히 활용 😊',
-          icon: '💡',
-        },
       ],
       summary: [
         '자동 번역으로 한국어 답변 OK',
@@ -445,40 +439,82 @@ export const STEP3_CONTENTS: ContentItem[] = [
     },
   },
   {
-    id: 'additional-info',
+    id: 'sales-tips',
     stepId: 3,
     order: 3,
-    title: '추가 안내사항',
-    description: '소포수령증 신청 및 기타 안내',
+    title: '글로벌 판매 TIP',
+    description: '해외 고객 특성과 판매 노하우를 알아봐요',
     type: 'guide',
     duration: 2,
     content: {
       sections: [
         {
-          title: '소포수령증 신청',
+          title: '🇯🇵 일본 고객 특성',
           content:
-            '해외 발송 증빙이 필요하실 때:\n채널톡 문의 → 주문번호/발송일/작가정보 전달',
+            '• 상세한 제품 설명을 선호해요\n• 포장 퀄리티에 관심이 높아요\n• 정중하고 친절한 커뮤니케이션을 중시해요',
+          highlight: true,
+          icon: '🇯🇵',
+        },
+        {
+          title: '🇺🇸 영어권 고객 특성',
+          content:
+            '• 간결하고 명확한 설명을 선호해요\n• 사이즈/치수 정보를 중요하게 여겨요\n• 리뷰와 실제 사용 사진에 관심이 높아요',
+          icon: '🇺🇸',
+        },
+        {
+          title: '💡 공통 판매 TIP',
+          content:
+            '• 고퀄리티 사진으로 작품의 매력을 전달하세요\n• 사이즈는 cm 단위로 정확하게 기재해주세요\n• 소재와 관리 방법을 상세히 안내해주세요\n• 감사 카드나 작은 선물로 감동을 더해보세요',
+          icon: '✨',
+        },
+      ],
+      summary: [
+        '일본: 상세 설명 + 포장 퀄리티',
+        '영어권: 간결한 설명 + 정확한 사이즈',
+      ],
+    },
+  },
+  {
+    id: 'document-guide',
+    stepId: 3,
+    order: 4,
+    title: '소포수령증 안내',
+    description: '해외 판매 증빙 서류 발급 방법',
+    type: 'guide',
+    duration: 2,
+    content: {
+      sections: [
+        {
+          title: '소포수령증이란?',
+          content:
+            '해외 판매/입출고 증빙 자료로,\n부가세 신고 및 매출 증빙에 활용할 수 있어요.',
           icon: '📄',
         },
         {
-          title: '일본 고객 특성 TIP',
+          title: '신청 방법',
           content:
-            '• 상세한 제품 설명을 선호해요\n• 포장에 관심이 높아요\n• 정중한 커뮤니케이션을 중시해요',
-          icon: '🇯🇵',
+            '매월 초 대상 작가님께 별도 안내 메일이 발송됩니다.\n메일에 포함된 링크를 통해 신청해주세요.\n\n• 신청 기간: 매월 1일~7일\n• 대상: 전월 말일까지 선적 완료된 주문건',
+          highlight: true,
+          icon: '📧',
         },
         {
           title: '도움이 필요하시면',
           content:
             '글로벌 판매 관련 문의는\n채널톡으로 편하게 연락주세요!',
-          highlight: true,
           icon: '💬',
         },
       ],
       summary: [
-        '소포수령증은 채널톡에서 신청',
-        '일본 고객은 상세 설명/포장 중시',
+        '매월 초 안내 메일로 신청 (1일~7일)',
+        '부가세 신고/매출 증빙용',
       ],
       externalLinks: [
+        {
+          title: '소포수령증 신청 가이드 (상세)',
+          url: 'https://artist-mate.idus.com/3f7bd50b-6cb7-423d-9058-ba8b4be46909',
+          icon: '📄',
+          description: '신청 절차 및 양식 확인',
+        },
         {
           title: '채널톡 문의하기',
           url: 'https://idus.channel.io',
