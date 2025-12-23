@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useId, useState } from 'react';
+import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Info } from 'lucide-react';
 
@@ -13,10 +14,39 @@ type TooltipProps = {
 export default function Tooltip({ content, label = '도움말', className = '' }: TooltipProps) {
   const [open, setOpen] = useState(false);
   const id = useId();
+  const btnRef = useRef<HTMLButtonElement | null>(null);
+  const [pos, setPos] = useState<{ left: number; top: number }>({ left: 0, top: 0 });
+
+  const hasWindow = typeof window !== 'undefined';
+  const portalEl = useMemo(() => (hasWindow ? document.body : null), [hasWindow]);
+
+  useEffect(() => {
+    if (!open) return;
+    const el = btnRef.current;
+    if (!el) return;
+
+    const update = () => {
+      const r = el.getBoundingClientRect();
+      const margin = 12;
+      const width = Math.min(320, Math.floor(window.innerWidth * 0.84));
+      const left = Math.min(Math.max(r.left, margin), window.innerWidth - width - margin);
+      const top = Math.min(r.bottom + 10, window.innerHeight - margin);
+      setPos({ left, top });
+    };
+
+    update();
+    window.addEventListener('resize', update);
+    window.addEventListener('scroll', update, true);
+    return () => {
+      window.removeEventListener('resize', update);
+      window.removeEventListener('scroll', update, true);
+    };
+  }, [open]);
 
   return (
     <span className={`relative inline-flex ${className}`}>
       <button
+        ref={btnRef}
         type="button"
         aria-label={label}
         aria-describedby={open ? id : undefined}
@@ -31,19 +61,23 @@ export default function Tooltip({ content, label = '도움말', className = '' }
       </button>
 
       <AnimatePresence>
-        {open ? (
-          <motion.div
-            id={id}
-            role="tooltip"
-            initial={{ opacity: 0, y: 6, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 6, scale: 0.98 }}
-            transition={{ duration: 0.14 }}
-            className="absolute z-[120] left-0 top-full mt-2 w-[min(320px,80vw)] rounded-xl border border-idus-black-10 bg-white shadow-lg p-3 text-sm text-idus-black-70"
-          >
-            {content}
-          </motion.div>
-        ) : null}
+        {open && portalEl
+          ? createPortal(
+              <motion.div
+                id={id}
+                role="tooltip"
+                initial={{ opacity: 0, y: 6, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                transition={{ duration: 0.14 }}
+                className="fixed z-[200] rounded-xl border border-idus-black-10 bg-white shadow-lg p-3 text-sm text-idus-black-70"
+                style={{ left: pos.left, top: pos.top, width: Math.min(320, Math.floor(window.innerWidth * 0.84)) }}
+              >
+                {content}
+              </motion.div>,
+              portalEl
+            )
+          : null}
       </AnimatePresence>
     </span>
   );

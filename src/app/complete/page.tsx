@@ -104,10 +104,10 @@ export default function CompletePage() {
             <BrandIcon name="cheer" size={32} alt="" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-idus-black mb-3 text-balance">
-            {artistName} 작가님, 여기까지 잘 왔어요
+            {artistName} 작가님, 여기까지 잘 오셨어요
           </h1>
           <p className="text-idus-black-70 text-balance">
-            이제 글로벌 작가 등록만 하면 준비가 끝나요.
+            이제 글로벌 작가 등록만 하시면 준비가 끝나요.
           </p>
         </div>
 
@@ -171,7 +171,7 @@ export default function CompletePage() {
         <Card variant="outlined" className="mb-8 border-idus-orange animate-slide-up animation-delay-300">
           <div className="text-center">
             <h3 className="text-xl font-bold text-idus-black mb-2 text-balance">
-              이제 진짜 글로벌 작가가 될 차례예요!
+              이제 진짜 글로벌 작가가 되실 차례예요!
             </h3>
             <p className="text-idus-black-70 mb-6 text-balance">
               아래 버튼을 눌러 1분 만에 등록을 완료해요

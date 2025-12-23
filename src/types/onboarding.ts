@@ -49,7 +49,7 @@ export const AVAILABLE_CATEGORIES = [
 
 export const RESTRICTED_CATEGORIES = [
   { id: 'food', name: '식품', icon: 'food', available: false, note: '2026년 확장 예정' },
-  { id: 'digital', name: '디지털 작품 (캐리커쳐 등)', icon: 'digital', available: false, note: '2026년 확장 예정' },
+  { id: 'digital', name: '디지털 작품(캐리커쳐 등)', icon: 'digital', available: false, note: '2026년 확장 예정' },
   { id: 'cosmetics', name: '화장품', icon: 'cheer', available: false, note: '판매 불가' },
 ] as const;
 

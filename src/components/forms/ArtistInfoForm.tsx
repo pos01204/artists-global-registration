@@ -139,7 +139,7 @@ export default function ArtistInfoForm() {
       <Card variant="outlined" className="space-y-4">
         <h2 className="text-xl font-bold text-idus-black flex items-center gap-2">
           <BrandIcon name="best" size={22} alt="" />
-          사업자등록번호를 보유하고 계신가요?
+          사업자등록번호 보유 여부
           <span className="text-idus-orange text-sm">*</span>
           <Tooltip
             content={
@@ -215,7 +215,7 @@ export default function ArtistInfoForm() {
         <div>
           <h2 className="text-xl font-bold text-idus-black flex items-center gap-2">
             <BrandIcon name="jewelry" size={24} alt="" />
-            주로 판매하시는 카테고리를 선택해주세요
+            주요 판매 카테고리
             <span className="text-idus-orange text-sm">*</span>
           </h2>
           <p className="text-sm text-idus-black-50 mt-1">
@@ -269,7 +269,7 @@ export default function ArtistInfoForm() {
                 <div className="flex items-center gap-3">
                   <BrandIcon name={category.icon as BrandIconName} size={28} alt="" />
                   <div>
-                    <span className="font-medium block">{category.name}</span>
+                    <span className="font-medium block whitespace-nowrap">{category.name}</span>
                     <span className="text-xs text-idus-orange">{category.note}</span>
                   </div>
                 </div>

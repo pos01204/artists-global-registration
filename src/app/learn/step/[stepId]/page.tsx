@@ -179,10 +179,7 @@ export default function StepPage() {
 
         {/* Content Card */}
         <Card variant="elevated" className="mb-8 animate-slide-up">
-          <div className="mb-5 sm:mb-6 text-center sm:text-left">
-            <div className="flex items-center justify-center sm:justify-start gap-2 mb-2">
-              <span className="text-xs text-idus-black-50">약 {currentContent.duration}분</span>
-            </div>
+          <div className="mb-5 sm:mb-6 text-left">
             <h2 className="text-xl sm:text-2xl font-bold text-idus-black mb-2 text-balance">{currentContent.title}</h2>
             <p className="text-idus-black-70 text-balance">{currentContent.description}</p>
           </div>

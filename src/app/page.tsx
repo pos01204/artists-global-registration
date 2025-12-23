@@ -121,7 +121,7 @@ export default function Home() {
             <span className="text-idus-orange text-sm">Global</span>
           </div>
           <p className="text-sm text-white/60 mb-2">
-            💬 문의: idus.channel.io | 상담시간: 평일 오전 10시 ~ 오후 6시
+            궁금한 점은 FAQ에서 먼저 확인해요
           </p>
           <p className="text-xs text-white/40">
             © 2024 Backpackr Inc. All rights reserved.
