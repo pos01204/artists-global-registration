@@ -135,16 +135,20 @@ export default function StepPage() {
                 key={index}
                 className={`p-4 rounded-xl ${
                   section.highlight 
-                    ? 'bg-idus-orange-light/30 border-2 border-idus-orange' 
+                    ? 'bg-gradient-to-r from-idus-orange/10 to-orange-50 border-l-4 border-idus-orange' 
                     : 'bg-idus-gray'
                 }`}
               >
                 <div className="flex items-start gap-3">
                   {section.icon && (
-                    <span className="text-2xl flex-shrink-0">{section.icon}</span>
+                    <span className={`text-2xl flex-shrink-0 ${section.highlight ? 'bg-idus-orange text-white w-10 h-10 rounded-full flex items-center justify-center text-lg' : ''}`}>
+                      {section.icon}
+                    </span>
                   )}
-                  <div>
-                    <h3 className="font-semibold text-idus-black mb-2">{section.title}</h3>
+                  <div className="flex-1">
+                    <h3 className={`font-semibold mb-2 ${section.highlight ? 'text-idus-orange' : 'text-idus-black'}`}>
+                      {section.title}
+                    </h3>
                     <p className="text-idus-black-70 text-sm whitespace-pre-line leading-relaxed">
                       {section.content}
                     </p>
