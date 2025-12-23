@@ -198,7 +198,11 @@ export default function LearnPage() {
         </Card>
 
         {/* Reward Reminder */}
-        <Card variant="elevated" className="relative bg-idus-orange text-white animate-slide-up animation-delay-500 overflow-hidden">
+        <Card
+          variant="elevated"
+          className="relative bg-idus-orange text-white animate-slide-up animation-delay-500 overflow-hidden"
+          style={{ backgroundColor: 'var(--idus-orange)' }}
+        >
           <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none" aria-hidden="true">
             <Image
               src="/brand/brand assets/선물.png"
@@ -218,12 +222,23 @@ export default function LearnPage() {
           </div>
         </Card>
 
-        {/* FAQ Link */}
-        <div className="mt-6 text-center">
-          <Link href="/faq" className="text-idus-black-50 hover:text-idus-orange transition-colors">
-            ❓ 자주 묻는 질문 보기
+        {/* FAQ */}
+        <Card variant="outlined" hoverable className="mt-6">
+          <Link href="/faq" className="block">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-idus-orange-light/40 flex items-center justify-center text-2xl">
+                ❓
+              </div>
+              <div className="flex-1">
+                <div className="font-semibold text-idus-black">자주 묻는 질문</div>
+                <div className="text-sm text-idus-black-50">
+                  배송/정산/문의 대응 등 궁금한 점을 바로 확인해보세요
+                </div>
+              </div>
+              <div className="text-idus-orange text-xl">→</div>
+            </div>
           </Link>
-        </div>
+        </Card>
       </div>
     </main>
   );

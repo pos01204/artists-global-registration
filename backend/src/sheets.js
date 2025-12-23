@@ -10,8 +10,12 @@ function getPrivateKey() {
   return requireEnv('GOOGLE_SHEETS_PRIVATE_KEY').replace(/\\n/g, '\n');
 }
 
-function getSheetName() {
-  return process.env.GOOGLE_SHEETS_SHEET_NAME || 'events';
+function sheetNames() {
+  return {
+    MAIN: process.env.GOOGLE_SHEETS_MAIN_SHEET || '전체데이터',
+    WAITLIST_2026: process.env.GOOGLE_SHEETS_WAITLIST_SHEET || '2026확장대기',
+    NO_BUSINESS: process.env.GOOGLE_SHEETS_NO_BUSINESS_SHEET || '사업자미등록',
+  };
 }
 
 async function getSheets() {
@@ -25,57 +29,39 @@ async function getSheets() {
   return { sheets, spreadsheetId: requireEnv('GOOGLE_SHEETS_SPREADSHEET_ID') };
 }
 
-const SNAPSHOT_HEADER = [
-  'createdAt',
-  'updatedAt',
-  'artistName',
-  'phoneNumber',
-  'hasBusinessNumber',
-  'qualificationStatus',
-  'categories',
-  'interested2026Food',
-  'interested2026Digital',
-  'step1Completed',
-  'step2Completed',
-  'step3Completed',
-  'quizCompleted',
-  'quizScore',
-  'learningCompletedAt',
-  'registrationClicked',
-  'utmSource',
-  'utmMedium',
-  'utmCampaign',
-  'totalTimeMinutes',
-];
+const HEADERS = {
+  MAIN: [
+    '타임스탬프', '작가명', '연락처', '사업자보유', '카테고리',
+    '자격상태', '식품관심', '디지털관심', 'STEP1완료', 'STEP2완료',
+    'STEP3완료', '퀴즈완료', '퀴즈점수', '등록클릭', 'UTM_SOURCE',
+    'UTM_MEDIUM', 'UTM_CAMPAIGN',
+  ],
+  WAITLIST_2026: ['타임스탬프', '작가명', '연락처', '관심카테고리', '비고'],
+  NO_BUSINESS: ['타임스탬프', '작가명', '연락처', '관심카테고리'],
+};
 
-export async function ensureSnapshotHeader() {
+async function ensureHeader(sheetName, headers) {
   const { sheets, spreadsheetId } = await getSheets();
-  const sheetName = getSheetName();
-
   const head = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `${sheetName}!A1:T1`,
+    range: `${sheetName}!A1:Z1`,
   });
-
   const row1 = head.data.values?.[0] ?? [];
   if (row1.length === 0) {
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `${sheetName}!A1:T1`,
+      range: `${sheetName}!A1`,
       valueInputOption: 'USER_ENTERED',
-      requestBody: { values: [SNAPSHOT_HEADER] },
+      requestBody: { values: [headers] },
     });
   }
 }
 
-async function findRowIndexByPhone(phoneNumber) {
+async function findRowIndexByPhone(sheetName, phoneNumber, columnLetter) {
   const { sheets, spreadsheetId } = await getSheets();
-  const sheetName = getSheetName();
-
-  // D열(phoneNumber). 1행은 header로 간주.
   const col = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `${sheetName}!D:D`,
+    range: `${sheetName}!${columnLetter}:${columnLetter}`,
   });
 
   const values = col.data.values ?? [];
@@ -88,56 +74,61 @@ async function findRowIndexByPhone(phoneNumber) {
   return null;
 }
 
-async function getCreatedAt(rowIndex) {
+async function getCell(sheetName, a1) {
   const { sheets, spreadsheetId } = await getSheets();
-  const sheetName = getSheetName();
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `${sheetName}!A${rowIndex}:A${rowIndex}`,
+    range: `${sheetName}!${a1}`,
   });
   return res.data.values?.[0]?.[0] ?? null;
 }
 
-export async function upsertOnboardingSnapshot(snapshot, nowIso) {
-  await ensureSnapshotHeader();
+function boolToYN(v) {
+  return v ? 'Y' : 'N';
+}
+
+function normalizeSnapshot(snapshot) {
+  const interestedFood =
+    snapshot.interestedIn2026?.food ?? snapshot.interested2026Food ?? false;
+  const interestedDigital =
+    snapshot.interestedIn2026?.digital ?? snapshot.interested2026Digital ?? false;
+
+  const lp = snapshot.learningProgress || {};
+  const step1Completed = lp.step1Completed ?? snapshot.step1Completed ?? false;
+  const step2Completed = lp.step2Completed ?? snapshot.step2Completed ?? false;
+  const step3Completed = lp.step3Completed ?? snapshot.step3Completed ?? false;
+  const quizCompleted = lp.quizCompleted ?? snapshot.quizCompleted ?? false;
+  const quizScore = lp.quizScore ?? snapshot.quizScore ?? 0;
+
+  return {
+    interestedFood,
+    interestedDigital,
+    step1Completed,
+    step2Completed,
+    step3Completed,
+    quizCompleted,
+    quizScore,
+  };
+}
+
+async function upsertRow(sheetName, headers, phoneNumber, phoneColumnLetter, rowValues, nowIso) {
+  await ensureHeader(sheetName, headers);
 
   const { sheets, spreadsheetId } = await getSheets();
-  const sheetName = getSheetName();
+  const rowIndex = await findRowIndexByPhone(sheetName, phoneNumber, phoneColumnLetter);
 
-  const lp = snapshot.learningProgress;
-  const rowIndex = await findRowIndexByPhone(snapshot.phoneNumber);
+  // A열(타임스탬프)은 최초 값 유지
+  const existingTimestamp = rowIndex ? await getCell(sheetName, `A${rowIndex}:A${rowIndex}`) : null;
+  const timestamp = existingTimestamp || nowIso;
 
-  const createdAt = rowIndex ? (await getCreatedAt(rowIndex)) || nowIso : nowIso;
-
-  const row = [
-    createdAt,
-    nowIso,
-    snapshot.artistName,
-    snapshot.phoneNumber,
-    snapshot.hasBusinessNumber ? 'Y' : 'N',
-    snapshot.qualificationStatus,
-    (snapshot.categories ?? []).join(', '),
-    snapshot.interestedIn2026?.food ? 'Y' : 'N',
-    snapshot.interestedIn2026?.digital ? 'Y' : 'N',
-    lp?.step1Completed ? 'Y' : 'N',
-    lp?.step2Completed ? 'Y' : 'N',
-    lp?.step3Completed ? 'Y' : 'N',
-    lp?.quizCompleted ? 'Y' : 'N',
-    lp?.quizScore ?? 0,
-    lp?.completedAt ? String(lp.completedAt) : '',
-    snapshot.registrationClicked ? 'Y' : 'N',
-    snapshot.utmSource ?? '',
-    snapshot.utmMedium ?? '',
-    snapshot.utmCampaign ?? '',
-    lp?.totalTimeMinutes ?? 0,
-  ];
+  const finalRow = [timestamp, ...rowValues];
 
   if (rowIndex) {
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `${sheetName}!A${rowIndex}:T${rowIndex}`,
+      range: `${sheetName}!A${rowIndex}`,
       valueInputOption: 'USER_ENTERED',
-      requestBody: { values: [row] },
+      requestBody: { values: [finalRow] },
     });
     return { mode: 'updated', rowIndex };
   }
@@ -147,10 +138,78 @@ export async function upsertOnboardingSnapshot(snapshot, nowIso) {
     range: `${sheetName}!A1`,
     valueInputOption: 'USER_ENTERED',
     insertDataOption: 'INSERT_ROWS',
-    requestBody: { values: [row] },
+    requestBody: { values: [finalRow] },
   });
-
   return { mode: 'inserted' };
+}
+
+export async function upsertOnboardingSnapshot(snapshot, nowIso) {
+  const names = sheetNames();
+  const n = normalizeSnapshot(snapshot);
+
+  // MAIN (전체데이터) - 연락처는 C열
+  await upsertRow(
+    names.MAIN,
+    HEADERS.MAIN,
+    snapshot.phoneNumber,
+    'C',
+    [
+      snapshot.artistName || '',
+      snapshot.phoneNumber || '',
+      boolToYN(snapshot.hasBusinessNumber),
+      (snapshot.categories ?? []).join(', '),
+      snapshot.qualificationStatus || '',
+      boolToYN(n.interestedFood),
+      boolToYN(n.interestedDigital),
+      boolToYN(n.step1Completed),
+      boolToYN(n.step2Completed),
+      boolToYN(n.step3Completed),
+      boolToYN(n.quizCompleted),
+      Number(n.quizScore) || 0,
+      boolToYN(snapshot.registrationClicked),
+      snapshot.utmSource || '',
+      snapshot.utmMedium || '',
+      snapshot.utmCampaign || '',
+    ],
+    nowIso
+  );
+
+  // NO_BUSINESS (사업자미등록)
+  if (snapshot.qualificationStatus === 'no_business') {
+    await upsertRow(
+      names.NO_BUSINESS,
+      HEADERS.NO_BUSINESS,
+      snapshot.phoneNumber,
+      'C',
+      [
+        snapshot.artistName || '',
+        snapshot.phoneNumber || '',
+        (snapshot.categories ?? []).join(', '),
+      ],
+      nowIso
+    );
+  }
+
+  // WAITLIST_2026 (2026확장대기)
+  if (n.interestedFood || n.interestedDigital) {
+    const interests = [];
+    if (n.interestedFood) interests.push('식품');
+    if (n.interestedDigital) interests.push('디지털작품');
+
+    await upsertRow(
+      names.WAITLIST_2026,
+      HEADERS.WAITLIST_2026,
+      snapshot.phoneNumber,
+      'C',
+      [
+        snapshot.artistName || '',
+        snapshot.phoneNumber || '',
+        interests.join(', '),
+        '2026년 확장 시 연락 예정',
+      ],
+      nowIso
+    );
+  }
 }
 
 export async function appendEventRow(row) {

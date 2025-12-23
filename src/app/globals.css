@@ -98,6 +98,13 @@ html {
   }
 }
 
+/* Component primitives */
+@layer components {
+  .card-surface {
+    background-color: var(--idus-white);
+  }
+}
+
 /* Progress bar styles */
 .progress-bar {
   background: linear-gradient(90deg, var(--idus-orange) 0%, var(--idus-orange-light) 100%);

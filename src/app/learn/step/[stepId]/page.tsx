@@ -154,9 +154,45 @@ export default function StepPage() {
                     <h3 className={`font-semibold mb-2 ${section.highlight ? 'text-idus-orange' : 'text-idus-black'}`}>
                       {section.title}
                     </h3>
-                    <p className="text-idus-black-70 text-sm whitespace-pre-line leading-relaxed">
-                      {section.content}
-                    </p>
+                    {section.table ? (
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-sm border-collapse">
+                          <thead>
+                            <tr className="bg-idus-orange text-white">
+                              {section.table.columns.map((col, idx) => (
+                                <th
+                                  key={idx}
+                                  className="px-3 py-2 text-left font-semibold whitespace-nowrap"
+                                >
+                                  {col}
+                                </th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {section.table.rows.map((row, rIdx) => (
+                              <tr
+                                key={rIdx}
+                                className={rIdx % 2 === 0 ? 'bg-white' : 'bg-idus-gray'}
+                              >
+                                {row.map((cell, cIdx) => (
+                                  <td
+                                    key={cIdx}
+                                    className="px-3 py-2 border-t border-idus-black-10 whitespace-nowrap"
+                                  >
+                                    {cell}
+                                  </td>
+                                ))}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    ) : (
+                      <p className="text-idus-black-70 text-sm whitespace-pre-line leading-relaxed">
+                        {section.content}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>

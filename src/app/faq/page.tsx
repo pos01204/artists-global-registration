@@ -146,8 +146,8 @@ export default function FAQPage() {
                   <span className="text-idus-orange font-bold">Q</span>
                   <span className="font-medium text-idus-black">{item.question}</span>
                 </div>
-                <span className={`text-xl transition-transform ${openItems.includes(item.id) ? 'rotate-180' : ''}`}>
-                  ▼
+                <span className={`text-2xl text-idus-black-50 transition-transform ${openItems.includes(item.id) ? 'rotate-45' : ''}`}>
+                  +
                 </span>
               </button>
               
@@ -164,25 +164,38 @@ export default function FAQPage() {
         </div>
 
         {/* 추가 문의 */}
-        <div className="mt-12 bg-idus-orange-light/20 rounded-2xl p-6 text-center border border-idus-black-10">
-          <h3 className="text-lg font-bold text-idus-black mb-2">
-            찾으시는 답변이 없으신가요?
-          </h3>
-          <p className="text-gray-600 mb-4">
-            채널톡으로 문의해주시면 친절하게 안내해드릴게요!
-          </p>
-          <a 
-            href="https://idus.channel.io" 
-            target="_blank" 
-            rel="noopener noreferrer"
-          >
-            <Button variant="primary">
-              💬 채널톡 문의하기
-            </Button>
-          </a>
-          <p className="text-sm text-gray-500 mt-3">
-            상담시간: 평일 오전 10시 ~ 오후 6시
-          </p>
+        <div className="mt-12">
+          <div className="bg-idus-orange-light/20 rounded-2xl p-6 border border-idus-black-10">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
+              <div className="flex items-start gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-sm border border-idus-black-10">
+                  💬
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-idus-black mb-1">
+                    찾으시는 답변이 없으신가요?
+                  </h3>
+                  <p className="text-idus-black-70 text-sm">
+                    채널톡으로 문의해주시면 친절하게 안내해드릴게요
+                  </p>
+                  <p className="text-xs text-idus-black-50 mt-1">
+                    상담시간: 평일 오전 10시 ~ 오후 6시
+                  </p>
+                </div>
+              </div>
+
+              <a
+                href="https://idus.channel.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto"
+              >
+                <Button variant="primary" className="w-full sm:w-auto">
+                  채널톡으로 문의하기 →
+                </Button>
+              </a>
+            </div>
+          </div>
         </div>
       </main>
     </div>

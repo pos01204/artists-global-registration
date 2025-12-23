@@ -148,7 +148,19 @@ export default function QualificationPage() {
         </Card>
 
         {/* 다음 단계 안내 */}
-        <Card variant="elevated" className="mb-8 bg-idus-orange text-white">
+        <Card
+          variant="elevated"
+          className="mb-8 bg-idus-orange text-white overflow-hidden"
+          style={{ backgroundColor: 'var(--idus-orange)' }}
+        >
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none" aria-hidden="true">
+            <Image
+              src="/brand/brand assets/선물.png"
+              alt=""
+              width={140}
+              height={140}
+            />
+          </div>
           <div className="text-center">
             {/* 메인 아이콘 */}
             <div className="flex justify-center mb-4">
