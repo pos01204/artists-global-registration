@@ -288,23 +288,23 @@ export const STEP2_CONTENTS: ContentItem[] = [
     content: {
       sections: [
         {
-          title: '✅ 판매 가능 품목',
+          title: '판매 가능 품목',
           content:
             '• 액세서리 (귀걸이, 목걸이, 반지 등)\n  ※ 14K/18K/24K 작품은 판매 불가\n• 가방/파우치, 의류, 문구/팬시\n• 홈데코, 주방용품 (칼 제외)\n• 캔들 (MSDS 사전 제출 필수)\n• 영유아동용품, 반려동물용품',
           highlight: true,
-          icon: '✅',
+          icon: 'ok',
         },
         {
-          title: '❌ 판매 불가능 품목',
+          title: '판매 불가능 품목',
           content:
             '• 식품류 (농축수산물, 가공식품, 음료 등)\n• 향수, 디퓨저, 차량용 방향제\n• 디지털 콘텐츠 (굿노트, 영상, 음원)\n• 대형 가구, 침구류, 생화/식물\n• 30kg 초과 또는 우체국 4호 박스 초과 작품\n\n*2026년 식품/디지털 카테고리 확장 예정',
-          icon: '❌',
+          icon: 'no',
         },
         {
-          title: '⚠️ MSDS 제출 필요 품목',
+          title: 'MSDS 제출 필요 품목',
           content:
             '• 리튬이온 배터리 포함 전자기기\n• 염료/향료 첨가 캔들\n\n제출처: global_help@backpac.kr\n제목: [아이디어스글로벌] 작가명_MSDS 자료제출',
-          icon: '⚠️',
+          icon: 'warn',
         },
       ],
       summary: [
@@ -316,13 +316,13 @@ export const STEP2_CONTENTS: ContentItem[] = [
         {
           title: '판매 가능/불가능 품목 상세 안내',
           url: 'https://artist-mate.idus.com/b5131e26-6b56-4f1a-81c0-83c9cd66ea9e',
-          icon: '📋',
+          icon: 'info',
           description: '카테고리별 상세 확인',
         },
         {
           title: '문의하기',
           url: 'https://idus.channel.io',
-          icon: '💬',
+          icon: 'info',
           description: '판매 가능 여부 문의',
         },
       ],

@@ -9,6 +9,7 @@ import Button from '@/components/ui/Button';
 import InfoGraphic from '@/components/learning/InfoGraphic';
 import VideoEmbed from '@/components/learning/VideoEmbed';
 import { IconArrowLeft, IconArrowRight, IconCheck, IconChevronRight } from '@/components/ui/icons';
+import ExternalLinkItem from '@/components/learning/ExternalLinkItem';
 
 export default function ContentDetailPage() {
   const params = useParams();
@@ -222,29 +223,11 @@ export default function ContentDetailPage() {
         {content.content.externalLinks && content.content.externalLinks.length > 0 && (
           <div className="bg-idus-orange-light/20 rounded-2xl p-6 mb-8 border border-idus-black-10">
             <h3 className="font-bold text-idus-black mb-4 flex items-center gap-2">
-              <span>🔗</span>
               관련 링크
             </h3>
             <div className="grid gap-3">
               {content.content.externalLinks.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-4 bg-white rounded-xl hover:shadow-md transition-all border border-gray-100 group"
-                >
-                  <span className="text-2xl">{link.icon || '🔗'}</span>
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium text-idus-black group-hover:text-idus-orange transition-colors truncate">
-                      {link.title}
-                    </div>
-                    {link.description && (
-                      <div className="text-sm text-gray-500 truncate">{link.description}</div>
-                    )}
-                  </div>
-                    <IconChevronRight className="w-5 h-5 text-gray-400 group-hover:text-idus-orange transition-colors flex-shrink-0" />
-                </a>
+                <ExternalLinkItem key={index} link={link} variant="card" />
               ))}
             </div>
           </div>

@@ -3,6 +3,8 @@
 import React from 'react';
 import { ContentSection } from '@/data/contents';
 import ResponsiveTable from '@/components/learning/ResponsiveTable';
+import SectionIcon from '@/components/learning/SectionIcon';
+import { ClipboardList, Check } from 'lucide-react';
 
 interface InfoGraphicProps {
   sections: ContentSection[];
@@ -25,7 +27,9 @@ export default function InfoGraphic({ sections, summary }: InfoGraphicProps) {
           >
             <div className="flex items-start gap-4">
               {section.icon && (
-                <span className="text-3xl flex-shrink-0">{section.icon}</span>
+                <div className="flex-shrink-0">
+                  <SectionIcon icon={section.icon} />
+                </div>
               )}
               <div className="flex-1">
                 <h4 className={`font-bold mb-2 ${
@@ -63,13 +67,13 @@ export default function InfoGraphic({ sections, summary }: InfoGraphicProps) {
       {summary && summary.length > 0 && (
         <div className="bg-idus-gray rounded-xl p-5 border border-idus-black-10">
           <h4 className="font-bold text-idus-black mb-3 flex items-center gap-2">
-            <span>📋</span>
+            <ClipboardList className="w-5 h-5 text-idus-orange" />
             핵심 포인트
           </h4>
           <ul className="space-y-2">
             {summary.map((item, index) => (
               <li key={index} className="flex items-start gap-2 text-idus-black-70">
-                <span className="text-idus-orange font-bold">✓</span>
+                <Check className="w-4 h-4 text-idus-orange mt-0.5" />
                 <span>{item}</span>
               </li>
             ))}

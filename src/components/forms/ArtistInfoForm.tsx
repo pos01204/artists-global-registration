@@ -1,146 +1,136 @@
 'use client';
 
-import { useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Card from '@/components/ui/Card';
 import { AVAILABLE_CATEGORIES, RESTRICTED_CATEGORIES, ArtistInfo } from '@/types/onboarding';
 import { initOnboardingData } from '@/lib/storage';
-import Image from 'next/image';
 import BrandIcon, { BrandIconName } from '@/components/ui/BrandIcon';
 import { IconArrowRight } from '@/components/ui/icons';
 import { useToast } from '@/components/ui/ToastProvider';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { artistInfoSchema, ArtistInfoFormValues } from '@/components/forms/artistInfoSchema';
+import { AlertTriangle } from 'lucide-react';
+import Tooltip from '@/components/ui/Tooltip';
 
 export default function ArtistInfoForm() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const [formData, setFormData] = useState<ArtistInfo>({
-    artistName: '',
-    phoneNumber: '',
-    hasBusinessNumber: false,
-    categories: [],
-    interestedIn2026: {
-      food: false,
-      digital: false,
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors, isSubmitting },
+    setFocus,
+  } = useForm<ArtistInfoFormValues>({
+    resolver: zodResolver(artistInfoSchema),
+    defaultValues: {
+      artistName: '',
+      phoneNumber: '',
+      // 선택 전에는 undefined로 두어 required_error가 동작하게 함
+      hasBusinessNumber: undefined as unknown as boolean,
+      categories: [],
+      interestedIn2026: { food: false, digital: false },
     },
+    mode: 'onBlur',
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [businessNumberDecided, setBusinessNumberDecided] = useState(false);
 
-  const validateForm = (): boolean => {
-    const newErrors: Record<string, string> = {};
+  const categories = watch('categories') ?? [];
+  const interested = watch('interestedIn2026');
+  const hasBusinessNumber = watch('hasBusinessNumber');
 
-    if (!formData.artistName.trim()) {
-      newErrors.artistName = '작가명(브랜드명)을 입력해주세요';
-    }
+  const businessNumberDecided = typeof hasBusinessNumber === 'boolean';
 
-    if (!formData.phoneNumber.trim()) {
-      newErrors.phoneNumber = '연락처를 입력해주세요';
-    } else if (!/^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$/.test(formData.phoneNumber.replace(/-/g, ''))) {
-      newErrors.phoneNumber = '올바른 휴대폰 번호를 입력해주세요';
-    }
-
-    if (!businessNumberDecided) {
-      newErrors.businessNumber = '사업자등록번호 보유 여부를 선택해주세요';
-    }
-
-    if (formData.categories.length === 0 && !formData.interestedIn2026.food && !formData.interestedIn2026.digital) {
-      newErrors.categories = '최소 하나 이상의 카테고리를 선택해주세요';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const formatPhone = (value: string) => {
+    const digits = value.replace(/\D/g, '').slice(0, 11);
+    if (digits.length <= 3) return digits;
+    if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
   };
 
-  const handleCategoryToggle = (categoryId: string) => {
-    setFormData(prev => ({
-      ...prev,
-      categories: prev.categories.includes(categoryId)
-        ? prev.categories.filter(c => c !== categoryId)
-        : [...prev.categories, categoryId],
-    }));
-    setErrors(prev => ({ ...prev, categories: '' }));
+  const toggleCategory = (categoryId: string) => {
+    const next = categories.includes(categoryId)
+      ? categories.filter(c => c !== categoryId)
+      : [...categories, categoryId];
+    setValue('categories', next, { shouldValidate: true });
   };
 
-  const handle2026Toggle = (type: 'food' | 'digital') => {
-    setFormData(prev => ({
-      ...prev,
-      interestedIn2026: {
-        ...prev.interestedIn2026,
-        [type]: !prev.interestedIn2026[type],
-      },
-    }));
-    setErrors(prev => ({ ...prev, categories: '' }));
+  const toggle2026 = (type: 'food' | 'digital') => {
+    setValue(`interestedIn2026.${type}`, !interested?.[type], { shouldValidate: true });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!validateForm()) return;
-
-    setIsLoading(true);
-
+  const onValid = async (values: ArtistInfoFormValues) => {
     try {
-      // 데이터 저장 및 자격 상태 결정
-      const data = initOnboardingData(formData);
+      const payload: ArtistInfo = {
+        artistName: values.artistName.trim(),
+        phoneNumber: values.phoneNumber.replace(/-/g, ''),
+        hasBusinessNumber: Boolean(values.hasBusinessNumber),
+        categories: values.categories ?? [],
+        interestedIn2026: values.interestedIn2026,
+      };
+
+      const data = initOnboardingData(payload);
 
       toast({
         type: 'success',
         title: '정보 저장 완료',
         description: '이제 글로벌 판매 가능 여부를 확인할게요.',
       });
-      
-      // 자격 상태에 따라 라우팅
-      if (data.qualificationStatus === 'no_business') {
-        router.push('/qualification/no-business');
-      } else if (data.qualificationStatus === 'restricted_category') {
-        router.push('/qualification/2026-waitlist');
-      } else {
-        router.push('/qualification');
-      }
+
+      if (data.qualificationStatus === 'no_business') router.push('/qualification/no-business');
+      else if (data.qualificationStatus === 'restricted_category') router.push('/qualification/2026-waitlist');
+      else router.push('/qualification');
     } catch (error) {
       console.error('Error saving data:', error);
-      toast({
-        type: 'error',
-        title: '저장에 실패했어요',
-        description: '잠시 후 다시 시도해주세요.',
-      });
-    } finally {
-      setIsLoading(false);
+      toast({ type: 'error', title: '저장에 실패했어요', description: '잠시 후 다시 시도해주세요.' });
     }
   };
 
+  const onInvalid = (invalid: any) => {
+    // 에러가 발생한 첫 필드로 포커스 이동
+    if (invalid?.artistName) setFocus('artistName');
+    else if (invalid?.phoneNumber) setFocus('phoneNumber');
+
+    toast({
+      type: 'warning',
+      title: '입력값을 확인해주세요',
+      description: '필수 항목을 채워야 다음 단계로 진행할 수 있어요.',
+    });
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit(onValid, onInvalid)} className="space-y-8">
       {/* 작가 정보 입력 */}
       <Card variant="outlined" className="space-y-6">
         <h2 className="text-xl font-bold text-idus-black flex items-center gap-2">
-          ✍️ 작가님 정보를 입력해주세요
+          <BrandIcon name="stationery" size={22} alt="" />
+          작가님 정보를 입력해주세요
         </h2>
         
         <Input
           label="작가명 (브랜드명)"
           placeholder="예: 핸드메이드 공방, 김작가"
-          value={formData.artistName}
-          onChange={(e) => {
-            setFormData(prev => ({ ...prev, artistName: e.target.value }));
-            setErrors(prev => ({ ...prev, artistName: '' }));
-          }}
-          error={errors.artistName}
+          {...register('artistName')}
+          error={errors.artistName?.message}
           required
         />
 
         <Input
           label="연락처 (휴대폰 번호)"
           placeholder="010-0000-0000"
-          value={formData.phoneNumber}
-          onChange={(e) => {
-            setFormData(prev => ({ ...prev, phoneNumber: e.target.value }));
-            setErrors(prev => ({ ...prev, phoneNumber: '' }));
-          }}
-          error={errors.phoneNumber}
+          inputMode="tel"
+          autoComplete="tel"
+          {...register('phoneNumber', {
+            onChange: (e) => {
+              const v = formatPhone(e.target.value);
+              setValue('phoneNumber', v, { shouldValidate: false, shouldDirty: true });
+            },
+          })}
+          error={errors.phoneNumber?.message}
           required
         />
       </Card>
@@ -148,8 +138,17 @@ export default function ArtistInfoForm() {
       {/* 사업자 등록 여부 */}
       <Card variant="outlined" className="space-y-4">
         <h2 className="text-xl font-bold text-idus-black flex items-center gap-2">
-          📋 사업자등록번호를 보유하고 계신가요?
+          <BrandIcon name="best" size={22} alt="" />
+          사업자등록번호를 보유하고 계신가요?
           <span className="text-idus-orange text-sm">*</span>
+          <Tooltip
+            content={
+              <div className="space-y-1">
+                <div className="font-semibold text-idus-black">왜 필요한가요?</div>
+                <div>해외 판매 정산/세금 처리 및 증빙을 위해 사업자등록이 필요합니다.</div>
+              </div>
+            }
+          />
         </h2>
         <p className="text-sm text-idus-black-50">
           글로벌 작가 등록을 위해서는 사업자등록이 필요합니다
@@ -159,23 +158,21 @@ export default function ArtistInfoForm() {
           <button
             type="button"
             onClick={() => {
-              setFormData(prev => ({ ...prev, hasBusinessNumber: true }));
-              setBusinessNumberDecided(true);
-              setErrors(prev => ({ ...prev, businessNumber: '' }));
+              setValue('hasBusinessNumber', true, { shouldValidate: true });
             }}
             className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
-              businessNumberDecided && formData.hasBusinessNumber
+              businessNumberDecided && hasBusinessNumber === true
                 ? 'border-idus-orange bg-idus-orange-light/30'
                 : 'border-idus-black-20 hover:border-idus-orange'
             }`}
           >
             <div className="flex items-center gap-3">
               <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                businessNumberDecided && formData.hasBusinessNumber
+                businessNumberDecided && hasBusinessNumber === true
                   ? 'border-idus-orange bg-idus-orange'
                   : 'border-idus-black-20'
               }`}>
-                {businessNumberDecided && formData.hasBusinessNumber && (
+                {businessNumberDecided && hasBusinessNumber === true && (
                   <div className="w-2 h-2 bg-white rounded-full" />
                 )}
               </div>
@@ -186,23 +183,21 @@ export default function ArtistInfoForm() {
           <button
             type="button"
             onClick={() => {
-              setFormData(prev => ({ ...prev, hasBusinessNumber: false }));
-              setBusinessNumberDecided(true);
-              setErrors(prev => ({ ...prev, businessNumber: '' }));
+              setValue('hasBusinessNumber', false, { shouldValidate: true });
             }}
             className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
-              businessNumberDecided && !formData.hasBusinessNumber
+              businessNumberDecided && hasBusinessNumber === false
                 ? 'border-idus-orange bg-idus-orange-light/30'
                 : 'border-idus-black-20 hover:border-idus-orange'
             }`}
           >
             <div className="flex items-center gap-3">
               <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                businessNumberDecided && !formData.hasBusinessNumber
+                businessNumberDecided && hasBusinessNumber === false
                   ? 'border-idus-orange bg-idus-orange'
                   : 'border-idus-black-20'
               }`}>
-                {businessNumberDecided && !formData.hasBusinessNumber && (
+                {businessNumberDecided && hasBusinessNumber === false && (
                   <div className="w-2 h-2 bg-white rounded-full" />
                 )}
               </div>
@@ -210,8 +205,8 @@ export default function ArtistInfoForm() {
             </div>
           </button>
         </div>
-        {errors.businessNumber && (
-          <p className="text-sm text-red-500">{errors.businessNumber}</p>
+        {errors.hasBusinessNumber?.message && (
+          <p className="text-sm text-red-500">{errors.hasBusinessNumber.message}</p>
         )}
       </Card>
 
@@ -236,9 +231,9 @@ export default function ArtistInfoForm() {
               <button
                 key={category.id}
                 type="button"
-                onClick={() => handleCategoryToggle(category.id)}
+                onClick={() => toggleCategory(category.id)}
                 className={`p-3 rounded-xl border-2 transition-all duration-300 text-center ${
-                  formData.categories.includes(category.id)
+                  categories.includes(category.id)
                     ? 'border-idus-orange bg-idus-orange-light/30'
                     : 'border-idus-black-10 hover:border-idus-orange'
                 }`}
@@ -264,9 +259,9 @@ export default function ArtistInfoForm() {
               <button
                 key={category.id}
                 type="button"
-                onClick={() => handle2026Toggle(category.id as 'food' | 'digital')}
+                onClick={() => toggle2026(category.id as 'food' | 'digital')}
                 className={`p-4 rounded-xl border-2 border-dashed transition-all duration-300 text-left ${
-                  formData.interestedIn2026[category.id as 'food' | 'digital']
+                  Boolean(interested?.[category.id as 'food' | 'digital'])
                     ? 'border-idus-orange bg-idus-orange-light/20'
                     : 'border-idus-black-20 hover:border-idus-orange'
                 }`}
@@ -283,8 +278,11 @@ export default function ArtistInfoForm() {
           </div>
         </div>
 
-        {errors.categories && (
-          <p className="text-sm text-red-500">{errors.categories}</p>
+        {errors.categories?.message && (
+          <div className="text-sm text-red-600 flex items-start gap-2">
+            <AlertTriangle className="w-4 h-4 mt-0.5" />
+            <span>{errors.categories.message}</span>
+          </div>
         )}
       </Card>
 
@@ -293,7 +291,7 @@ export default function ArtistInfoForm() {
         type="submit"
         size="lg"
         className="w-full"
-        isLoading={isLoading}
+        isLoading={isSubmitting}
       >
         시작하기
         <IconArrowRight className="w-4 h-4" />

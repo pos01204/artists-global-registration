@@ -14,6 +14,9 @@ import { submitOnboardingData } from '@/lib/api';
 import ResponsiveTable from '@/components/learning/ResponsiveTable';
 import { IconArrowLeft, IconArrowRight, IconChevronRight } from '@/components/ui/icons';
 import BrandIcon, { BrandIconName } from '@/components/ui/BrandIcon';
+import SectionIcon from '@/components/learning/SectionIcon';
+import { Lightbulb, Link as LinkIcon } from 'lucide-react';
+import ExternalLinkItem from '@/components/learning/ExternalLinkItem';
 
 export default function StepPage() {
   const router = useRouter();
@@ -157,9 +160,9 @@ export default function StepPage() {
               >
                 <div className="flex items-start gap-3">
                   {section.icon && (
-                    <span className="text-2xl flex-shrink-0 leading-none">
-                      {section.icon}
-                    </span>
+                    <div className="flex-shrink-0">
+                      <SectionIcon icon={section.icon} size="md" />
+                    </div>
                   )}
                   <div className="flex-1">
                     <h3 className={`font-semibold mb-2 ${section.highlight ? 'text-idus-orange' : 'text-idus-black'}`}>
@@ -199,7 +202,8 @@ export default function StepPage() {
             {currentContent.content.summary && (
               <div className="bg-idus-orange-light/20 rounded-xl p-4">
                 <h4 className="font-semibold text-idus-black mb-3 flex items-center gap-2">
-                  💡 핵심 포인트
+                  <Lightbulb className="w-5 h-5 text-idus-orange" />
+                  핵심 포인트
                 </h4>
                 <ul className="space-y-2">
                   {currentContent.content.summary.map((point, index) => (
@@ -216,28 +220,12 @@ export default function StepPage() {
             {currentContent.content.externalLinks && currentContent.content.externalLinks.length > 0 && (
               <div className="bg-idus-gray rounded-xl p-4">
                 <h4 className="font-semibold text-idus-black mb-3 flex items-center gap-2">
-                  🔗 관련 링크
+                  <LinkIcon className="w-5 h-5 text-idus-orange" />
+                  관련 링크
                 </h4>
                 <div className="space-y-2">
                   {currentContent.content.externalLinks.map((link, index) => (
-                    <a
-                      key={index}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 bg-white rounded-lg hover:bg-idus-orange-light/20 transition-colors group border border-idus-black-10"
-                    >
-                      <span className="text-xl">{link.icon || '🔗'}</span>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-idus-black group-hover:text-idus-orange transition-colors truncate">
-                          {link.title}
-                        </div>
-                        {link.description && (
-                          <div className="text-xs text-idus-black-50 truncate">{link.description}</div>
-                        )}
-                      </div>
-                      <IconChevronRight className="w-5 h-5 text-idus-black-20 group-hover:text-idus-orange transition-colors flex-shrink-0" />
-                    </a>
+                    <ExternalLinkItem key={index} link={link} variant="row" />
                   ))}
                 </div>
               </div>
