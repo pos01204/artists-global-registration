@@ -200,7 +200,50 @@ export default function ContentDetailPage() {
               )}
             </div>
           )}
+
+          {/* 비디오 타입에서 섹션이 있는 경우 */}
+          {content.type === 'video' && content.content.sections && (
+            <div className="mt-6">
+              <InfoGraphic 
+                sections={content.content.sections} 
+              />
+            </div>
+          )}
         </div>
+
+        {/* 외부 링크 섹션 */}
+        {content.content.externalLinks && content.content.externalLinks.length > 0 && (
+          <div className="bg-gradient-to-r from-idusOrange-10 to-orange-50 rounded-2xl p-6 mb-8 border border-idusOrange/20">
+            <h3 className="font-bold text-idusBlack mb-4 flex items-center gap-2">
+              <span>🔗</span>
+              관련 링크
+            </h3>
+            <div className="grid gap-3">
+              {content.content.externalLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-4 bg-white rounded-xl hover:shadow-md transition-all border border-gray-100 group"
+                >
+                  <span className="text-2xl">{link.icon || '🔗'}</span>
+                  <div className="flex-1">
+                    <div className="font-medium text-idusBlack group-hover:text-idusOrange transition-colors">
+                      {link.title}
+                    </div>
+                    {link.description && (
+                      <div className="text-sm text-gray-500">{link.description}</div>
+                    )}
+                  </div>
+                  <span className="text-gray-400 group-hover:text-idusOrange transition-colors">
+                    →
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* 완료 버튼 */}
         {!isCompleted && (

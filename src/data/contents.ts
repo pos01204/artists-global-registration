@@ -17,6 +17,14 @@ export interface ContentDetail {
   videoThumbnail?: string;
   items?: ChecklistItem[];
   summary?: string[];
+  externalLinks?: ExternalLink[];
+}
+
+export interface ExternalLink {
+  title: string;
+  url: string;
+  icon?: string;
+  description?: string;
 }
 
 export interface ContentSection {
@@ -95,6 +103,14 @@ export const STEP1_CONTENTS: ContentItem[] = [
         '글로벌 시장은 한국의 32배, 해외 고객 평균 주문액은 2배',
         '45개국 판매 + 번역 지원으로 쉽게 시작',
       ],
+      externalLinks: [
+        {
+          title: '노션 원본 페이지 보기',
+          url: 'https://idus.notion.site/idus-5e2b9c0f19b246c2a1e726946635b113',
+          icon: '📄',
+          description: '더 자세한 내용은 노션에서 확인하세요',
+        },
+      ],
     },
   },
   {
@@ -138,13 +154,47 @@ export const STEP1_CONTENTS: ContentItem[] = [
     type: 'video',
     duration: 7,
     content: {
-      // 노션 페이지에서 유튜브 임베드가 확인되면 실제 VIDEO_ID로 교체하세요.
-      videoUrl: 'https://www.youtube.com/@idus_official',
+      videoUrl: 'https://www.youtube.com/embed/VIDEO_ID_HERE',
       videoThumbnail: '/brand/brand assets/배송박스.png',
+      sections: [
+        {
+          title: '배송 가능 국가 (총 45개국)',
+          content:
+            '아시아/오세아니아: 일본, 싱가포르, 홍콩, 대만, 말레이시아, 태국, 인도네시아, 필리핀, 베트남, 호주, 뉴질랜드, 인도\n북미: 미국, 캐나다\n유럽: 영국, 독일, 프랑스, 이탈리아, 스페인, 네덜란드 외 다수',
+          icon: '🌍',
+        },
+        {
+          title: '원스톱 통합 물류 서비스',
+          content:
+            '작가님 작품 발송 → idus 국내 물류센터 → 검수/포장/통관 → 해외 배송 → 고객 수령\n\n작가님은 국내 물류센터까지만 보내주시면 됩니다!',
+          highlight: true,
+          icon: '📦',
+        },
+        {
+          title: '정산 안내',
+          content:
+            '• 정산 주기: 월 2회 (1일, 16일)\n• 정산 통화: 원화 (KRW)\n• 환율 적용: 정산일 기준\n• 수수료: 글로벌 판매 수수료 적용',
+          icon: '💵',
+        },
+      ],
       summary: [
         '국내 물류센터로 발송 → idus가 해외 배송',
         '배송 가능 국가: 45개국',
         '정산: 월 2회 (1일, 16일) 원화로',
+      ],
+      externalLinks: [
+        {
+          title: '노션 원본 페이지 보기',
+          url: 'https://idus.notion.site/idus-ae504b2716cf4bbc8b2f916caf3b21ef',
+          icon: '📄',
+          description: '물류/정산 상세 정보',
+        },
+        {
+          title: 'idus 공식 유튜브',
+          url: 'https://www.youtube.com/@idus_official',
+          icon: '▶️',
+          description: '글로벌 교육 영상 더 보기',
+        },
       ],
     },
   },
@@ -171,6 +221,20 @@ export const STEP1_CONTENTS: ContentItem[] = [
         },
       ],
       summary: ['작가 앱에서 1분이면 신청 완료', '본인 인증/정산계좌 등록이 필요해요'],
+      externalLinks: [
+        {
+          title: '지금 글로벌 작가 등록하기',
+          url: 'https://www.idus.com/w/artist/register',
+          icon: '✈️',
+          description: '바로 등록 페이지로 이동',
+        },
+        {
+          title: '문의하기 (채널톡)',
+          url: 'https://idus.channel.io',
+          icon: '💬',
+          description: '등록 관련 문의',
+        },
+      ],
     },
   },
   {
@@ -291,12 +355,12 @@ export const STEP2_CONTENTS: ContentItem[] = [
       sections: [
         {
           title: '추천 번역 도구',
-          content: '• 파파고 (papago.naver.com)\n• DeepL (deepl.com)\n• ChatGPT',
+          content: '• 파파고 - 한국어 특화, 자연스러운 번역\n• DeepL - 고품질 번역, 전문 용어 지원\n• 구글 번역 - 다양한 언어 지원\n• ChatGPT - 문맥 이해 번역, 톤 조절 가능',
           icon: '🔧',
         },
         {
           title: '번역 팁',
-          content: '• 간결하고 명확한 문장으로 작성\n• 전문 용어는 영문 그대로 사용\n• 사이즈, 소재 정보는 정확하게',
+          content: '• 간결하고 명확한 문장으로 작성\n• 전문 용어는 영문 그대로 사용\n• 사이즈, 소재 정보는 정확하게\n• 번역 후 검토 필수!',
           icon: '💡',
         },
         {
@@ -304,11 +368,42 @@ export const STEP2_CONTENTS: ContentItem[] = [
           content: '• Handmade with care (정성을 담아 만들었습니다)\n• Ships from Korea (한국에서 배송됩니다)\n• Free international shipping (해외 배송비 무료)',
           icon: '📝',
         },
+        {
+          title: '피해야 할 것들',
+          content: '• ❌ 기계 번역 그대로 사용\n• ❌ 한국어 직역\n• ❌ 문화적으로 부적절한 표현\n• ❌ 이모지 과다 사용',
+          icon: '⚠️',
+        },
       ],
       summary: [
         '파파고, DeepL 활용',
         '간결하고 명확하게',
         '사이즈/소재 정확히',
+      ],
+      externalLinks: [
+        {
+          title: '파파고 번역',
+          url: 'https://papago.naver.com',
+          icon: '🌐',
+          description: '한국어 특화 번역',
+        },
+        {
+          title: 'DeepL 번역',
+          url: 'https://www.deepl.com/translator',
+          icon: '🌐',
+          description: '고품질 AI 번역',
+        },
+        {
+          title: '구글 번역',
+          url: 'https://translate.google.com',
+          icon: '🌐',
+          description: '다양한 언어 지원',
+        },
+        {
+          title: 'ChatGPT',
+          url: 'https://chat.openai.com',
+          icon: '🤖',
+          description: '문맥 이해 번역',
+        },
       ],
     },
   },
@@ -496,6 +591,14 @@ export const STEP3_CONTENTS: ContentItem[] = [
       summary: [
         '채널톡에서 신청',
         '주문번호/발송일/작가정보 준비',
+      ],
+      externalLinks: [
+        {
+          title: '채널톡 문의하기',
+          url: 'https://idus.channel.io',
+          icon: '💬',
+          description: '소포수령증 신청 및 기타 문의',
+        },
       ],
     },
   },
