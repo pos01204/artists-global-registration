@@ -33,6 +33,11 @@ export interface ContentSection {
   highlight?: boolean;
   icon?: string;
   image?: string;
+  meta?: Array<{
+    label: string;
+    value: string;
+    copy?: boolean;
+  }>;
   table?: {
     columns: string[];
     rows: string[][];
@@ -303,8 +308,12 @@ export const STEP2_CONTENTS: ContentItem[] = [
         {
           title: 'MSDS 제출 필요 품목',
           content:
-            '• 리튬이온 배터리 포함 전자기기\n• 염료/향료 첨가 캔들\n\n제출처: global_help@backpac.kr\n제목: [아이디어스글로벌] 작가명_MSDS 자료제출',
+            '• 리튬이온 배터리 포함 전자기기\n• 염료/향료 첨가 캔들',
           icon: 'warn',
+          meta: [
+            { label: '제출처', value: 'global_help@backpac.kr', copy: true },
+            { label: '메일 제목', value: '[아이디어스글로벌] 작가명_MSDS 자료제출', copy: true },
+          ],
         },
       ],
       summary: [
@@ -322,7 +331,7 @@ export const STEP2_CONTENTS: ContentItem[] = [
         {
           title: '문의하기',
           url: 'https://idus.channel.io',
-          icon: 'info',
+          icon: 'brand:cheer',
           description: '판매 가능 여부 문의',
         },
       ],

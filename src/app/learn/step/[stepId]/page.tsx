@@ -17,6 +17,7 @@ import BrandIcon, { BrandIconName } from '@/components/ui/BrandIcon';
 import SectionIcon from '@/components/learning/SectionIcon';
 import { Lightbulb, Link as LinkIcon } from 'lucide-react';
 import ExternalLinkItem from '@/components/learning/ExternalLinkItem';
+import SectionMeta from '@/components/learning/SectionMeta';
 
 export default function StepPage() {
   const router = useRouter();
@@ -175,6 +176,9 @@ export default function StepPage() {
                         {section.content}
                       </p>
                     )}
+                    {section.meta && section.meta.length > 0 ? (
+                      <SectionMeta items={section.meta} />
+                    ) : null}
                   </div>
                 </div>
               </div>

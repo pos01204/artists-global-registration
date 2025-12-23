@@ -5,6 +5,7 @@ import { ContentSection } from '@/data/contents';
 import ResponsiveTable from '@/components/learning/ResponsiveTable';
 import SectionIcon from '@/components/learning/SectionIcon';
 import { ClipboardList, Check } from 'lucide-react';
+import SectionMeta from '@/components/learning/SectionMeta';
 
 interface InfoGraphicProps {
   sections: ContentSection[];
@@ -48,6 +49,9 @@ export default function InfoGraphic({ sections, summary }: InfoGraphicProps) {
                     {section.content}
                   </p>
                 )}
+                {section.meta && section.meta.length > 0 ? (
+                  <SectionMeta items={section.meta} />
+                ) : null}
               </div>
             </div>
             {section.image && (
