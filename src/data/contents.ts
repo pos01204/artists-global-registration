@@ -369,47 +369,42 @@ export const STEP2_CONTENTS: ContentItem[] = [
   },
 ];
 
-// STEP 3: 주문 처리 & 운영하기 (3개)
+// STEP 3: 주문 관리 & 운영하기 (3개)
 export const STEP3_CONTENTS: ContentItem[] = [
   {
     id: 'order-processing',
     stepId: 3,
     order: 1,
     title: '주문 확인 & 발송',
-    description: '글로벌 주문이 들어오면 이렇게 처리해요',
-    type: 'checklist',
+    description: '글로벌 주문이 들어오면 이렇게 진행돼요',
+    type: 'guide',
     duration: 4,
     content: {
       sections: [
         {
-          title: '주문 확인',
+          title: '주문 확인하기',
           content:
-            '작가 앱 → 주문 관리 → 글로벌 주문에서 확인\n(푸시 알림 ON 권장)',
+            '작가 앱 → 주문 관리 → 글로벌 주문에서 확인\n\n💡 TIP: 푸시 알림을 켜두시면 주문 알림을 바로 받을 수 있어요!',
+          highlight: true,
           icon: '📱',
         },
         {
-          title: '포장 & 발송',
+          title: '포장 & 발송하기',
           content:
-            '• 완충재 충분히 사용\n• 방수 포장 권장\n• 국내 물류센터로 발송\n• 앱에서 운송장 번호 입력',
-          highlight: true,
+            '• 완충재를 충분히 사용해주세요\n• 방수 포장을 권장드려요\n• 국내 물류센터로 발송해주세요\n• 앱에서 운송장 번호를 입력해주세요',
           icon: '📦',
         },
         {
-          title: '이후 과정 (idus 처리)',
+          title: '이후 과정은 idus가 진행해요',
           content:
-            '물류센터 검수 → 해외 발송 → 배송 현황 자동 안내',
+            '물류센터 도착 → 검수/포장 → 해외 발송 → 배송 현황 자동 안내\n\n작가님은 국내 물류센터까지만 보내주시면 됩니다 😊',
+          highlight: true,
           icon: '🌏',
         },
       ],
-      items: [
-        { id: 'check-1', text: '주문 정보 확인 (옵션/수량/국가)', checked: false },
-        { id: 'check-2', text: '완충재로 꼼꼼히 포장', checked: false },
-        { id: 'check-3', text: '물류센터로 발송', checked: false },
-        { id: 'check-4', text: '운송장 번호 입력 완료', checked: false },
-      ],
       summary: [
         '주문 확인 → 포장 → 물류센터 발송',
-        '해외 배송은 idus가 처리',
+        '해외 배송은 idus가 진행해드려요',
       ],
     },
   },
@@ -433,7 +428,7 @@ export const STEP3_CONTENTS: ContentItem[] = [
         {
           title: '자주 묻는 질문 답변 예시',
           content:
-            '• 배송 기간: "약 7-14일 소요됩니다"\n• 교환/환불: "도착 후 7일 이내 가능"\n• 사이즈: 정확한 치수 안내',
+            '• 배송 기간: "약 7-14일 소요됩니다"\n• 교환/환불: "도착 후 7일 이내 가능해요"\n• 사이즈: 정확한 치수를 안내해주세요',
           icon: '💬',
         },
         {
@@ -462,13 +457,13 @@ export const STEP3_CONTENTS: ContentItem[] = [
         {
           title: '소포수령증 신청',
           content:
-            '해외 발송 증빙이 필요할 때:\n채널톡 문의 → 주문번호/발송일/작가정보 전달',
+            '해외 발송 증빙이 필요하실 때:\n채널톡 문의 → 주문번호/발송일/작가정보 전달',
           icon: '📄',
         },
         {
           title: '일본 고객 특성 TIP',
           content:
-            '• 상세한 제품 설명 선호\n• 포장에 관심이 높음\n• 정중한 커뮤니케이션 중시',
+            '• 상세한 제품 설명을 선호해요\n• 포장에 관심이 높아요\n• 정중한 커뮤니케이션을 중시해요',
           icon: '🇯🇵',
         },
         {
