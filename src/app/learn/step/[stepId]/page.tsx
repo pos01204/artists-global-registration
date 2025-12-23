@@ -36,7 +36,11 @@ export default function StepPage() {
   }, [stepId, router]);
 
   const handleContentView = (contentId: string) => {
-    setViewedContents(prev => new Set([...prev, contentId]));
+    setViewedContents(prev => {
+      const newSet = new Set(Array.from(prev));
+      newSet.add(contentId);
+      return newSet;
+    });
   };
 
   const handleNext = () => {

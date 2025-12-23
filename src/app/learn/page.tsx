@@ -200,6 +200,13 @@ export default function LearnPage() {
             </div>
           </div>
         </Card>
+
+        {/* FAQ Link */}
+        <div className="mt-6 text-center">
+          <Link href="/faq" className="text-idus-black-50 hover:text-idus-orange transition-colors">
+            ❓ 자주 묻는 질문 보기
+          </Link>
+        </div>
       </div>
     </main>
   );

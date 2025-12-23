@@ -1,0 +1,73 @@
+'use client';
+
+import React from 'react';
+import { ContentSection } from '@/data/contents';
+
+interface InfoGraphicProps {
+  sections: ContentSection[];
+  summary?: string[];
+}
+
+export default function InfoGraphic({ sections, summary }: InfoGraphicProps) {
+  return (
+    <div className="space-y-6">
+      {/* 섹션 카드들 */}
+      <div className="grid gap-4">
+        {sections.map((section, index) => (
+          <div
+            key={index}
+            className={`p-5 rounded-xl border transition-all ${
+              section.highlight
+                ? 'bg-idusOrange-10 border-idusOrange shadow-md'
+                : 'bg-white border-gray-200 hover:border-idusOrange-50'
+            }`}
+          >
+            <div className="flex items-start gap-4">
+              {section.icon && (
+                <span className="text-3xl flex-shrink-0">{section.icon}</span>
+              )}
+              <div className="flex-1">
+                <h4 className={`font-bold mb-2 ${
+                  section.highlight ? 'text-idusOrange-70' : 'text-idusBlack'
+                }`}>
+                  {section.title}
+                </h4>
+                <p className="text-gray-700 whitespace-pre-line leading-relaxed">
+                  {section.content}
+                </p>
+              </div>
+            </div>
+            {section.image && (
+              <div className="mt-4 rounded-lg overflow-hidden">
+                <img 
+                  src={section.image} 
+                  alt={section.title}
+                  className="w-full h-auto"
+                />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* 요약 */}
+      {summary && summary.length > 0 && (
+        <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
+          <h4 className="font-bold text-idusBlack mb-3 flex items-center gap-2">
+            <span>📋</span>
+            핵심 포인트
+          </h4>
+          <ul className="space-y-2">
+            {summary.map((item, index) => (
+              <li key={index} className="flex items-start gap-2 text-gray-700">
+                <span className="text-idusOrange font-bold">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+

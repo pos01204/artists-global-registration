@@ -141,3 +141,71 @@ export function isLearningCompleted(): boolean {
   );
 }
 
+// 콘텐츠 진행 상태 관리
+const PROGRESS_KEY = 'idus_content_progress';
+
+export interface ContentProgress {
+  completedContents: string[];
+  completedSteps: number[];
+  startedAt?: Date;
+}
+
+export function getProgress(): ContentProgress {
+  if (typeof window === 'undefined') {
+    return { completedContents: [], completedSteps: [] };
+  }
+  
+  const data = localStorage.getItem(PROGRESS_KEY);
+  if (!data) {
+    return { completedContents: [], completedSteps: [] };
+  }
+  
+  try {
+    return JSON.parse(data);
+  } catch {
+    return { completedContents: [], completedSteps: [] };
+  }
+}
+
+export function saveProgress(progress: ContentProgress): void {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+}
+
+export function markContentComplete(contentId: string): void {
+  const progress = getProgress();
+  if (!progress.completedContents.includes(contentId)) {
+    progress.completedContents.push(contentId);
+    if (!progress.startedAt) {
+      progress.startedAt = new Date();
+    }
+    saveProgress(progress);
+  }
+}
+
+export function markStepComplete(stepId: number): void {
+  const progress = getProgress();
+  if (!progress.completedSteps.includes(stepId)) {
+    progress.completedSteps.push(stepId);
+    saveProgress(progress);
+  }
+  
+  // 기존 온보딩 데이터에도 반영
+  markStepCompleted(stepId);
+}
+
+export function isContentCompleted(contentId: string): boolean {
+  const progress = getProgress();
+  return progress.completedContents.includes(contentId);
+}
+
+export function isStepCompleted(stepId: number): boolean {
+  const progress = getProgress();
+  return progress.completedSteps.includes(stepId);
+}
+
+export function resetProgress(): void {
+  if (typeof window === 'undefined') return;
+  localStorage.removeItem(PROGRESS_KEY);
+}
+
