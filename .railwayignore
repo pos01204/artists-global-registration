@@ -1,0 +1,16 @@
+# Ignore frontend files for Railway backend deployment
+src/
+public/
+docs/
+.next/
+node_modules/
+package.json
+package-lock.json
+tsconfig.json
+tailwind.config.ts
+postcss.config.mjs
+next.config.mjs
+next-env.d.ts
+*.md
+!backend/
+
