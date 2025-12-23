@@ -16,7 +16,6 @@ import { useToast } from '@/components/ui/ToastProvider';
 export default function CompletePage() {
   const router = useRouter();
   const [artistName, setArtistName] = useState('');
-  const [quizScore, setQuizScore] = useState(0);
   const [showConfetti, setShowConfetti] = useState(true);
   const [openConfirm, setOpenConfirm] = useState(false);
   const { toast } = useToast();
@@ -34,7 +33,6 @@ export default function CompletePage() {
     }
     
     setArtistName(data.artistName);
-    setQuizScore(data.learningProgress.quizScore);
     
     // 학습 완료 데이터 제출
     submitOnboardingData(data).catch(console.error);
@@ -111,35 +109,6 @@ export default function CompletePage() {
           </p>
         </div>
 
-        {/* Stats */}
-        <Card variant="elevated" className="mb-8 animate-slide-up">
-          <div className="flex items-center justify-between gap-3 mb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-2xl bg-idus-orange-light/35 border border-idus-black-10 flex items-center justify-center">
-                <BrandIcon name="best" size={20} alt="" />
-              </div>
-              <h3 className="font-semibold text-idus-black">학습 결과</h3>
-            </div>
-            <div className="text-xs text-idus-black-50">완료</div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-            <div className="text-center p-4 bg-idus-gray rounded-xl">
-              <div className="text-2xl font-bold text-idus-orange mb-1">3/3</div>
-              <div className="text-xs text-idus-black-50">학습 완료</div>
-            </div>
-            <div className="text-center p-4 bg-idus-gray rounded-xl">
-              <div className="text-2xl font-bold text-idus-orange mb-1">{quizScore}/5</div>
-              <div className="text-xs text-idus-black-50">퀴즈 정답</div>
-            </div>
-            <div className="text-center p-4 bg-idus-gray rounded-xl">
-              <div className="flex items-center justify-center mb-1">
-                <IconCheck className="w-7 h-7 text-green-600" />
-              </div>
-              <div className="text-xs text-idus-black-50">완료</div>
-            </div>
-          </div>
-        </Card>
-
         {/* Reward */}
         <Card
           variant="elevated"
@@ -191,44 +160,7 @@ export default function CompletePage() {
           </div>
         </Card>
 
-        {/* Next Steps */}
-        <Card variant="outlined" className="animate-slide-up animation-delay-400">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-9 h-9 rounded-2xl bg-idus-gray border border-idus-black-10 flex items-center justify-center">
-              <BrandIcon name="stationery" size={18} alt="" />
-            </div>
-            <h3 className="font-semibold text-idus-black">다음 단계</h3>
-          </div>
-          <div className="space-y-4">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 bg-idus-orange text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                1
-              </div>
-              <div>
-                <h4 className="font-medium text-idus-black">글로벌 작가 등록</h4>
-                <p className="text-sm text-idus-black-50">위 버튼을 눌러 등록을 완료해요</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 bg-idus-black-20 text-idus-black-70 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                2
-              </div>
-              <div>
-                <h4 className="font-medium text-idus-black">작품 글로벌 판매 ON</h4>
-                <p className="text-sm text-idus-black-50">판매할 작품의 글로벌 판매를 켜줘요</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 bg-idus-black-20 text-idus-black-70 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                3
-              </div>
-              <div>
-                <h4 className="font-medium text-idus-black">해외 주문 받기</h4>
-                <p className="text-sm text-idus-black-50">전 세계 고객에게 작품을 판매해봐요</p>
-              </div>
-            </div>
-          </div>
-        </Card>
+        {/* (의도) 완료 페이지의 목적은 "글로벌 작가 등록" CTA에 집중 */}
 
         {/* Appendix */}
         <Card variant="outlined" className="mt-6 animate-slide-up animation-delay-500">

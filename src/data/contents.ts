@@ -173,6 +173,7 @@ export const STEP1_CONTENTS: ContentItem[] = [
         {
           title: '수수료 안내',
           content: '수수료는 등급에 따라 아래와 같이 적용됩니다.',
+          importance: 'secondary',
           icon: '📊',
           table: {
             columns: ['수수료 항목', '일반', '프리미엄', '새싹', '국가 공인'],

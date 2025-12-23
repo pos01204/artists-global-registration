@@ -22,11 +22,11 @@ export default function ExternalLinkItem({ link, variant = 'row' }: ExternalLink
         <SectionIcon icon={link.icon || 'info'} size="md" />
       </div>
       <div className="flex-1 min-w-0">
-        <div className="font-medium text-idus-black group-hover:text-idus-orange transition-colors truncate">
+        <div className="font-medium text-idus-black group-hover:text-idus-orange transition-colors whitespace-normal break-words leading-snug">
           {link.title}
         </div>
         {link.description ? (
-          <div className="text-xs text-idus-black-50 truncate">{link.description}</div>
+          <div className="text-xs text-idus-black-50 whitespace-normal break-words leading-snug mt-0.5">{link.description}</div>
         ) : null}
       </div>
       <IconChevronRight className="w-5 h-5 text-idus-black-20 group-hover:text-idus-orange transition-colors flex-shrink-0" />

@@ -15,6 +15,7 @@ export default function Tooltip({ content, label = '도움말', className = '' }
   const [open, setOpen] = useState(false);
   const id = useId();
   const btnRef = useRef<HTMLButtonElement | null>(null);
+  const tipRef = useRef<HTMLDivElement | null>(null);
   const [pos, setPos] = useState<{ left: number; top: number }>({ left: 0, top: 0 });
 
   const hasWindow = typeof window !== 'undefined';
@@ -43,6 +44,28 @@ export default function Tooltip({ content, label = '도움말', className = '' }
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    const onPointerDown = (e: PointerEvent) => {
+      const btn = btnRef.current;
+      const tip = tipRef.current;
+      const target = e.target as Node | null;
+      if (!target) return;
+      if (btn?.contains(target)) return;
+      if (tip?.contains(target)) return;
+      setOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('pointerdown', onPointerDown);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('pointerdown', onPointerDown);
+    };
+  }, [open]);
+
   return (
     <span className={`relative inline-flex ${className}`}>
       <button
@@ -51,10 +74,13 @@ export default function Tooltip({ content, label = '도움말', className = '' }
         aria-label={label}
         aria-describedby={open ? id : undefined}
         onClick={() => setOpen(v => !v)}
+        onPointerDown={(e) => {
+          // 모바일 탭에서 focus/blur로 바로 닫히는 케이스 방지
+          e.preventDefault();
+        }}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
-        onFocus={() => setOpen(true)}
-        onBlur={() => setOpen(false)}
+        // 모바일에서는 blur로 닫히면 바로 사라지는 경우가 있어, 외부 클릭으로 닫도록 변경
         className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-idus-gray border border-idus-black-10 text-idus-black-50 hover:text-idus-orange hover:border-idus-orange/40 transition-colors"
       >
         <Info className="w-4 h-4" />
@@ -64,6 +90,7 @@ export default function Tooltip({ content, label = '도움말', className = '' }
         {open && portalEl
           ? createPortal(
               <motion.div
+                ref={tipRef}
                 id={id}
                 role="tooltip"
                 initial={{ opacity: 0, y: 6, scale: 0.98 }}
