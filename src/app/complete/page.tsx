@@ -45,7 +45,7 @@ export default function CompletePage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-idus-orange-light/30 to-white relative overflow-hidden">
+    <main className="min-h-screen bg-gradient-to-b from-idus-orange-light/20 to-white relative overflow-hidden">
       {/* Confetti Effect */}
       {showConfetti && (
         <div className="fixed inset-0 pointer-events-none z-50">
@@ -116,8 +116,16 @@ export default function CompletePage() {
         {/* Reward */}
         <Card 
           variant="elevated" 
-          className="mb-8 bg-gradient-to-r from-idus-orange to-idus-orange-dark text-white animate-slide-up animation-delay-200"
+        className="relative mb-8 bg-idus-orange text-white animate-slide-up animation-delay-200 overflow-hidden"
         >
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none" aria-hidden="true">
+          <Image
+            src="/brand/brand assets/선물.png"
+            alt=""
+            width={140}
+            height={140}
+          />
+        </div>
           <div className="text-center">
             <div className="text-5xl mb-4">🎁</div>
             <h3 className="text-xl font-bold mb-2">보상 안내</h3>

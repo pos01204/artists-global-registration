@@ -33,9 +33,14 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5 pointer-events-none" aria-hidden="true">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-idus-orange rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-20 w-40 h-40 bg-idus-orange rounded-full blur-3xl" />
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <Image
+            src="/brand/brand assets/pattern01.png"
+            alt=""
+            fill
+            className="object-cover opacity-[0.06]"
+            priority={false}
+          />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 py-12 md:py-20">
@@ -72,7 +77,15 @@ export default function Home() {
           </div>
 
           {/* Reward Banner */}
-          <div className="bg-gradient-to-r from-idus-orange to-idus-orange-dark rounded-2xl p-6 mb-12 text-white animate-slide-up animation-delay-200">
+          <div className="relative bg-idus-orange rounded-2xl p-6 mb-12 text-white animate-slide-up animation-delay-200 overflow-hidden">
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none" aria-hidden="true">
+              <Image
+                src="/brand/brand assets/선물.png"
+                alt=""
+                width={120}
+                height={120}
+              />
+            </div>
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div className="text-4xl">🎁</div>

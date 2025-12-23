@@ -27,13 +27,9 @@ export const OnboardingSnapshotSchema = z.object({
   utmCampaign: z.string().optional(),
 });
 
-export type OnboardingSnapshot = z.infer<typeof OnboardingSnapshotSchema>;
-
 export const EventSchema = z.object({
   eventType: z.string().min(1),
   payload: z.unknown(),
 });
-
-export type Event = z.infer<typeof EventSchema>;
 
 

@@ -48,6 +48,15 @@ export default function LearnPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-idus-gray">
+      {/* Subtle pattern */}
+      <div className="pointer-events-none fixed inset-0 -z-10" aria-hidden="true">
+        <Image
+          src="/brand/brand assets/pattern02.png"
+          alt=""
+          fill
+          className="object-cover opacity-[0.05]"
+        />
+      </div>
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-idus-black-10">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -189,7 +198,15 @@ export default function LearnPage() {
         </Card>
 
         {/* Reward Reminder */}
-        <Card variant="elevated" className="bg-gradient-to-r from-idus-orange to-idus-orange-dark text-white animate-slide-up animation-delay-500">
+        <Card variant="elevated" className="relative bg-idus-orange text-white animate-slide-up animation-delay-500 overflow-hidden">
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none" aria-hidden="true">
+            <Image
+              src="/brand/brand assets/선물.png"
+              alt=""
+              width={110}
+              height={110}
+            />
+          </div>
           <div className="flex items-center gap-4">
             <div className="text-4xl">🎁</div>
             <div className="flex-1">
