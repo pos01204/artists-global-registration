@@ -16,6 +16,7 @@ export default function QuizPage() {
   const [showResult, setShowResult] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+  const [finalScore, setFinalScore] = useState<number | null>(null);
 
   const currentQuestion = QUIZ_QUESTIONS[currentQuestionIndex];
   const totalQuestions = QUIZ_QUESTIONS.length;
@@ -56,18 +57,19 @@ export default function QuizPage() {
       setShowResult(false);
     } else {
       // 퀴즈 완료
-      const finalScore = selectedAnswer === currentQuestion.correctAnswer 
+      const computedFinalScore = selectedAnswer === currentQuestion.correctAnswer 
         ? correctCount + 1 
         : correctCount;
-      markQuizCompleted(finalScore);
+      setFinalScore(computedFinalScore);
+      markQuizCompleted(computedFinalScore);
       markLearningCompleted();
       setIsFinished(true);
     }
   };
 
   if (isFinished) {
-    const finalScore = correctCount;
-    const percentage = Math.round((finalScore / totalQuestions) * 100);
+    const score = finalScore ?? correctCount;
+    const percentage = Math.round((score / totalQuestions) * 100);
     
     return (
       <main className="min-h-screen bg-gradient-to-b from-white to-idus-gray flex items-center justify-center px-4">
@@ -79,7 +81,7 @@ export default function QuizPage() {
             퀴즈 완료!
           </h1>
           <p className="text-idus-black-70 mb-6">
-            {totalQuestions}문제 중 {finalScore}문제 정답
+            {totalQuestions}문제 중 {score}문제 정답
           </p>
           
           <div className="bg-idus-gray rounded-xl p-6 mb-6">

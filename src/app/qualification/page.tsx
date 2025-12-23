@@ -9,11 +9,16 @@ import Card from '@/components/ui/Card';
 import { getOnboardingData } from '@/lib/storage';
 import { OnboardingData } from '@/types/onboarding';
 import { submitOnboardingData } from '@/lib/api';
+import { AVAILABLE_CATEGORIES, RESTRICTED_CATEGORIES } from '@/types/onboarding';
 
 export default function QualificationPage() {
   const router = useRouter();
   const [data, setData] = useState<OnboardingData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const categoryNameById = new Map(
+    [...AVAILABLE_CATEGORIES, ...RESTRICTED_CATEGORIES].map(c => [c.id, c.name])
+  );
 
   useEffect(() => {
     const onboardingData = getOnboardingData();
@@ -103,7 +108,7 @@ export default function QualificationPage() {
                 key={category}
                 className="px-3 py-1 bg-idusOrange-10 text-idusOrange rounded-full text-sm"
               >
-                {category}
+                {categoryNameById.get(category) ?? category}
               </span>
             ))}
           </div>

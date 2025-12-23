@@ -51,10 +51,9 @@ export function initOnboardingData(artistInfo: ArtistInfo): OnboardingData {
   
   if (!artistInfo.hasBusinessNumber) {
     qualificationStatus = 'no_business';
-  } else if (
-    artistInfo.categories.length === 0 ||
-    (artistInfo.interestedIn2026.food && artistInfo.interestedIn2026.digital && artistInfo.categories.length === 0)
-  ) {
+  } else if (artistInfo.categories.length === 0 && (artistInfo.interestedIn2026.food || artistInfo.interestedIn2026.digital)) {
+    // 판매 가능 카테고리는 없고(=글로벌 판매 바로 시작 불가),
+    // 2026 확장 예정 카테고리(식품/디지털)만 관심 선택한 경우
     qualificationStatus = 'restricted_category';
   }
   
