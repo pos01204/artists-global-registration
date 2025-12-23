@@ -47,7 +47,7 @@ export default function QualificationPage() {
   if (!data || data.qualificationStatus !== 'qualified') {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-idusOrange border-t-transparent rounded-full" />
+        <div className="animate-spin w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -65,7 +65,7 @@ export default function QualificationPage() {
               height={32}
               className="h-8 w-auto"
             />
-            <span className="text-sm font-medium text-idusOrange">Global</span>
+            <span className="text-sm font-medium text-orange-500">Global</span>
           </Link>
         </div>
       </header>
@@ -82,7 +82,7 @@ export default function QualificationPage() {
             준비가 완료되었어요!
           </h1>
           <p className="text-gray-600 mb-4">
-            <span className="font-semibold text-idusOrange">{data.artistName}</span> 작가님,<br />
+            <span className="font-semibold text-orange-500">{data.artistName}</span> 작가님,<br />
             글로벌 판매를 시작할 준비가 되었습니다
           </p>
           
@@ -127,7 +127,7 @@ export default function QualificationPage() {
             {data.categories.map((category) => (
               <span
                 key={category}
-                className="px-4 py-2 bg-idusOrange text-white rounded-full text-sm font-semibold shadow-sm"
+                className="px-4 py-2 bg-orange-500 text-white rounded-full text-sm font-semibold shadow-sm"
               >
                 {categoryNameById.get(category) ?? category}
               </span>
@@ -147,9 +147,9 @@ export default function QualificationPage() {
           )}
         </Card>
 
-        {/* 다음 단계 안내 - 주황색 배경 깔끔 버전 */}
-        <Card variant="elevated" className="mb-8 bg-idusOrange text-white">
-          <div className="text-center">
+        {/* 다음 단계 안내 - 주황색 배경 */}
+        <div className="mb-8 rounded-2xl p-6 shadow-lg" style={{ backgroundColor: '#FF6F00' }}>
+          <div className="text-center text-white">
             {/* 메인 아이콘 */}
             <div className="flex justify-center mb-4">
               <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center">
@@ -161,7 +161,7 @@ export default function QualificationPage() {
             <h3 className="text-xl font-bold mb-2">
               이제 학습을 시작해볼까요?
             </h3>
-            <p className="text-sm text-white/80 mb-6">
+            <p className="text-sm opacity-80 mb-6">
               짧은 학습으로 글로벌 판매를 준비해보세요
             </p>
             
@@ -169,39 +169,37 @@ export default function QualificationPage() {
             <div className="grid grid-cols-3 gap-3 mb-6">
               <div className="bg-white/15 rounded-xl p-3 text-center">
                 <div className="text-xl font-bold">3</div>
-                <div className="text-xs text-white/70">단계 학습</div>
+                <div className="text-xs opacity-70">단계 학습</div>
               </div>
               <div className="bg-white/15 rounded-xl p-3 text-center">
                 <div className="text-xl font-bold">30분</div>
-                <div className="text-xs text-white/70">평균 소요</div>
+                <div className="text-xs opacity-70">평균 소요</div>
               </div>
               <div className="bg-white/15 rounded-xl p-3 text-center">
                 <div className="text-xl font-bold">10,000P</div>
-                <div className="text-xs text-white/70">완료 보상</div>
+                <div className="text-xs opacity-70">완료 보상</div>
               </div>
             </div>
             
-            {/* 보상 안내 - 통합 */}
-            <p className="text-sm text-white/90 mb-5">
+            {/* 보상 안내 */}
+            <p className="text-sm opacity-90 mb-5">
               🎁 학습 완료 후 글로벌 등록 시 <span className="font-bold">광고포인트 10,000P</span> 지급
             </p>
             
             {/* CTA 버튼 */}
-            <Button
-              variant="secondary"
-              size="lg"
-              className="w-full bg-white text-idusOrange hover:bg-white/90 font-bold"
+            <button
               onClick={handleStartLearning}
+              className="w-full py-4 bg-white text-orange-500 rounded-xl font-bold text-lg hover:bg-gray-50 transition-colors shadow-md"
             >
               🚀 학습 시작하기
-            </Button>
+            </button>
             
             {/* 하단 안내 */}
-            <p className="text-center text-xs text-white/60 mt-4">
+            <p className="text-center text-xs opacity-60 mt-4">
               언제든지 중단하고 이어서 학습할 수 있어요
             </p>
           </div>
-        </Card>
+        </div>
 
         {/* 학습 과정 미리보기 */}
         <Card variant="outlined">
@@ -213,7 +211,7 @@ export default function QualificationPage() {
           <div className="space-y-2">
             {/* STEP 1 */}
             <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <span className="w-8 h-8 bg-idusOrange/10 rounded-lg flex items-center justify-center text-sm">🌏</span>
+              <span className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-sm">🌏</span>
               <div className="flex-1">
                 <h4 className="font-medium text-gray-900 text-sm">STEP 1. 글로벌 서비스 이해하기</h4>
               </div>
@@ -222,7 +220,7 @@ export default function QualificationPage() {
             
             {/* STEP 2 */}
             <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <span className="w-8 h-8 bg-idusOrange/10 rounded-lg flex items-center justify-center text-sm">📝</span>
+              <span className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-sm">📝</span>
               <div className="flex-1">
                 <h4 className="font-medium text-gray-900 text-sm">STEP 2. 작품 등록 마스터하기</h4>
               </div>
@@ -231,7 +229,7 @@ export default function QualificationPage() {
             
             {/* STEP 3 */}
             <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <span className="w-8 h-8 bg-idusOrange/10 rounded-lg flex items-center justify-center text-sm">📦</span>
+              <span className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-sm">📦</span>
               <div className="flex-1">
                 <h4 className="font-medium text-gray-900 text-sm">STEP 3. 주문 처리 & 운영하기</h4>
               </div>
@@ -239,8 +237,8 @@ export default function QualificationPage() {
             </div>
             
             {/* 퀴즈 */}
-            <div className="flex items-center gap-3 p-3 bg-idusOrange/5 rounded-lg border border-idusOrange/10">
-              <span className="w-8 h-8 bg-idusOrange/10 rounded-lg flex items-center justify-center text-sm">🎯</span>
+            <div className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg border border-orange-100">
+              <span className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-sm">🎯</span>
               <div className="flex-1">
                 <h4 className="font-medium text-gray-900 text-sm">FINAL. 간단 퀴즈</h4>
               </div>
@@ -256,7 +254,7 @@ export default function QualificationPage() {
             href="https://idus.channel.io" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-idusOrange hover:underline text-sm"
+            className="text-orange-500 hover:underline text-sm"
           >
             채널톡으로 문의하기
           </a>

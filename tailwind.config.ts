@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // idus 브랜드 컬러
+        // idus 브랜드 컬러 (idus-orange 형태)
         idus: {
           orange: '#FF6F00',
           'orange-light': '#FFE0B2',
@@ -23,6 +23,14 @@ const config: Config = {
           white: '#FFFFFF',
           gray: '#F5F5F5',
           'gray-dark': '#9E9E9E',
+        },
+        // idusOrange 형태도 지원
+        idusOrange: {
+          DEFAULT: '#FF6F00',
+          10: 'rgba(255, 111, 0, 0.1)',
+          20: 'rgba(255, 111, 0, 0.2)',
+          light: '#FFE0B2',
+          dark: '#E65100',
         },
       },
       fontFamily: {

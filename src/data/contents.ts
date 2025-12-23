@@ -249,7 +249,7 @@ export const STEP2_CONTENTS: ContentItem[] = [
         {
           title: '글로벌 판매 설정',
           content:
-            '1) 작품 등록/수정 페이지 접속\n2) "글로벌 판매" 옵션 ON\n3) 영문 작품명/설명 입력\n4) 저장 후 판매 시작!',
+            '1) 작품 등록/수정 페이지 접속\n2) "글로벌 판매" 옵션 ON\n3) 영문(일본어) 작품명/설명 입력\n4) 저장 후 판매 시작!',
           highlight: true,
           icon: '🚀',
         },
@@ -259,28 +259,72 @@ export const STEP2_CONTENTS: ContentItem[] = [
             '• 해외 판매가: 원화 기준 자동 환산\n• 배송 소요일 설정 (7-14일 권장)\n• 해외 배송비: 무료 (idus 부담)',
           icon: '💰',
         },
+      ],
+      summary: [
+        '글로벌 판매 ON → 영문(일본어) 정보 입력',
+        '가격은 자동 환산, 배송비 무료',
+      ],
+    },
+  },
+  {
+    id: 'sellable-items',
+    stepId: 2,
+    order: 2,
+    title: '판매 가능/불가능 품목',
+    description: '글로벌 판매 전 반드시 확인하세요!',
+    type: 'guide',
+    duration: 4,
+    content: {
+      sections: [
         {
-          title: '판매 가능 품목 확인',
+          title: '✅ 판매 가능 품목',
           content:
-            '✅ 가능: 악세서리, 가방, 인테리어, 캔들, 도자기, 의류\n❌ 불가: 화장품, 식품, 의약품, 동식물',
-          icon: '📋',
+            '• 액세서리 (귀걸이, 목걸이, 반지 등)\n  ※ 14K/18K/24K 작품은 판매 불가\n• 가방/파우치, 의류, 문구/팬시\n• 홈데코, 주방용품 (칼 제외)\n• 캔들 (MSDS 사전 제출 필수)\n• 영유아동용품, 반려동물용품',
+          highlight: true,
+          icon: '✅',
+        },
+        {
+          title: '❌ 판매 불가능 품목',
+          content:
+            '• 식품류 (농축수산물, 가공식품, 음료 등)\n• 향수, 디퓨저, 차량용 방향제\n• 디지털 콘텐츠 (굿노트, 영상, 음원)\n• 대형 가구, 침구류, 생화/식물\n• 30kg 초과 또는 우체국 4호 박스 초과 작품\n\n*2026년 식품/디지털 카테고리 확장 예정',
+          icon: '❌',
+        },
+        {
+          title: '⚠️ MSDS 제출 필요 품목',
+          content:
+            '• 리튬이온 배터리 포함 전자기기\n• 염료/향료 첨가 캔들\n\n제출처: global_help@backpac.kr\n제목: [아이디어스글로벌] 작가명_MSDS 자료제출',
+          icon: '⚠️',
         },
       ],
       summary: [
-        '글로벌 판매 ON → 영문 정보 입력',
-        '가격은 자동 환산',
-        '식품/화장품은 판매 불가',
+        '식품/향수는 판매 불가 (*2026년 식품/디지털 확장 예정)',
+        '캔들은 MSDS 사전 제출 필수',
+        '14K 이상 귀금속 판매 불가',
+      ],
+      externalLinks: [
+        {
+          title: '판매 가능/불가능 품목 상세 안내',
+          url: 'https://artist-mate.idus.com/b5131e26-6b56-4f1a-81c0-83c9cd66ea9e',
+          icon: '📋',
+          description: '카테고리별 상세 확인',
+        },
+        {
+          title: '문의하기',
+          url: 'https://idus.channel.io',
+          icon: '💬',
+          description: '판매 가능 여부 문의',
+        },
       ],
     },
   },
   {
     id: 'translation-guide',
     stepId: 2,
-    order: 2,
+    order: 3,
     title: '쉽게 하는 번역 가이드',
-    description: '번역 도구를 활용해 쉽게 영문 정보를 입력해요',
+    description: '번역 도구를 활용해 쉽게 영문(일본어) 정보를 입력해요',
     type: 'guide',
-    duration: 4,
+    duration: 2,
     content: {
       sections: [
         {
@@ -306,7 +350,6 @@ export const STEP2_CONTENTS: ContentItem[] = [
       summary: [
         '작품명/설명/옵션명은 필수',
         'ChatGPT, Perplexity 활용 추천',
-        '번역 후 검토는 필수',
       ],
       externalLinks: [
         {
@@ -320,56 +363,6 @@ export const STEP2_CONTENTS: ContentItem[] = [
           url: 'https://chat.openai.com',
           icon: '🤖',
           description: 'LLM 기반 번역 (추천)',
-        },
-        {
-          title: '파파고 번역',
-          url: 'https://papago.naver.com',
-          icon: '🌐',
-          description: '단순 문장 번역용',
-        },
-      ],
-    },
-  },
-  {
-    id: 'promotion-guide',
-    stepId: 2,
-    order: 3,
-    title: '글로벌 홍보 링크 만들기',
-    description: 'SNS에 공유할 수 있는 글로벌 링크를 생성해요',
-    type: 'guide',
-    duration: 2,
-    content: {
-      sections: [
-        {
-          title: '글로벌 작가홈 링크',
-          content:
-            '글로벌 작가홈은 신청을 통해 생성할 수 있어요.\n모바일 앱 환경에서 지원됩니다.',
-          highlight: true,
-          icon: '🏠',
-        },
-        {
-          title: '글로벌 작품 공유 링크',
-          content:
-            '글로벌 앱 접속 → 작품 상세페이지 → 공유하기 버튼 클릭',
-          icon: '🔗',
-        },
-        {
-          title: '활용 방법',
-          content:
-            '• Instagram Bio에 링크 추가\n• 해외 해시태그와 함께 공유\n• QR 코드로 만들어 패키지에 부착',
-          icon: '📣',
-        },
-      ],
-      summary: [
-        '글로벌 앱에서 작품 공유 링크 생성',
-        'SNS, QR 코드로 홍보 활용',
-      ],
-      externalLinks: [
-        {
-          title: '글로벌 링크 생성 가이드 (상세)',
-          url: 'https://artist-mate.idus.com/ce124c57-9e9b-4eb5-9a85-07b1d9531b2f',
-          icon: '🔗',
-          description: '작가홈/작품 공유 링크 생성 방법',
         },
       ],
     },

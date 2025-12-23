@@ -64,7 +64,7 @@ export default function StepPage() {
   if (!step || contents.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-idus-orange border-t-transparent rounded-full" />
+        <div className="animate-spin w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -72,16 +72,16 @@ export default function StepPage() {
   const stepProgress = Math.round(((currentContentIndex + 1) / contents.length) * 100);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-idus-gray">
+    <main className="min-h-screen bg-gradient-to-b from-white to-gray-100">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-idus-black-10">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-3">
-            <Link href="/learn" className="flex items-center gap-2 text-idus-black-70 hover:text-idus-orange transition-colors">
+            <Link href="/learn" className="flex items-center gap-2 text-gray-500 hover:text-orange-500 transition-colors">
               <span>←</span>
               <span className="text-sm">학습 목록</span>
             </Link>
-            <span className="text-sm text-idus-black-50">
+            <span className="text-sm text-gray-400">
               {currentContentIndex + 1} / {contents.length}
             </span>
           </div>
@@ -94,28 +94,30 @@ export default function StepPage() {
         <div className="mb-8 animate-fade-in">
           <div className="flex items-center gap-3 mb-2">
             <span className="text-3xl">{step.icon}</span>
-            <span className="text-sm font-medium text-idus-orange">STEP {step.id}</span>
+            <span className="text-sm font-medium text-orange-500">STEP {step.id}</span>
           </div>
-          <h1 className="text-2xl font-bold text-idus-black">{step.title}</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{step.title}</h1>
         </div>
 
         {/* Content Card */}
         <Card variant="elevated" className="mb-8 animate-slide-up">
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-xs text-idus-black-50">약 {currentContent.duration}분</span>
+              <span className="text-xs text-gray-400">약 {currentContent.duration}분</span>
             </div>
-            <h2 className="text-xl font-bold text-idus-black mb-2">{currentContent.title}</h2>
-            <p className="text-idus-black-70">{currentContent.description}</p>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">{currentContent.title}</h2>
+            <p className="text-gray-600">{currentContent.description}</p>
           </div>
 
           {/* Content Body */}
           <div className="space-y-6">
             {/* Video Content - 실제 영상 임베딩 */}
             {currentContent.type === 'video' && currentContent.content.videoUrl && (
-              <div className="aspect-video bg-idus-black-10 rounded-xl overflow-hidden shadow-lg">
+              <div className="aspect-video bg-gray-100 rounded-xl overflow-hidden shadow-lg">
                 <iframe
-                  src={currentContent.content.videoUrl.replace('youtu.be/', 'www.youtube.com/embed/').replace('watch?v=', 'embed/') + '?rel=0'}
+                  src={currentContent.content.videoUrl.includes('embed') 
+                    ? currentContent.content.videoUrl 
+                    : currentContent.content.videoUrl.replace('youtu.be/', 'www.youtube.com/embed/').replace('watch?v=', 'embed/') + '?rel=0'}
                   title={currentContent.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -130,8 +132,8 @@ export default function StepPage() {
                 key={index}
                 className={`p-4 rounded-xl ${
                   section.highlight 
-                    ? 'bg-gradient-to-r from-idus-orange/10 to-orange-50 border-l-4 border-idus-orange' 
-                    : 'bg-idus-gray'
+                    ? 'bg-gradient-to-r from-orange-50 to-amber-50 border-l-4 border-orange-500' 
+                    : 'bg-gray-50'
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -141,10 +143,10 @@ export default function StepPage() {
                     </span>
                   )}
                   <div className="flex-1">
-                    <h3 className={`font-semibold mb-2 ${section.highlight ? 'text-idus-orange' : 'text-idus-black'}`}>
+                    <h3 className={`font-semibold mb-2 ${section.highlight ? 'text-orange-600' : 'text-gray-900'}`}>
                       {section.title}
                     </h3>
-                    <p className="text-idus-black-70 text-sm whitespace-pre-line leading-relaxed">
+                    <p className="text-gray-600 text-sm whitespace-pre-line leading-relaxed">
                       {section.content}
                     </p>
                   </div>
@@ -158,13 +160,13 @@ export default function StepPage() {
                 {currentContent.content.items.map((item) => (
                   <label
                     key={item.id}
-                    className="flex items-center gap-3 p-3 bg-idus-gray rounded-xl cursor-pointer hover:bg-idus-black-10 transition-colors"
+                    className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors"
                   >
                     <input
                       type="checkbox"
-                      className="w-5 h-5 rounded border-2 border-idus-black-20 checked:bg-idus-orange checked:border-idus-orange"
+                      className="w-5 h-5 rounded border-2 border-gray-300 checked:bg-orange-500 checked:border-orange-500 accent-orange-500"
                     />
-                    <span className="text-idus-black">{item.text}</span>
+                    <span className="text-gray-800">{item.text}</span>
                   </label>
                 ))}
               </div>
@@ -172,14 +174,14 @@ export default function StepPage() {
 
             {/* Summary */}
             {currentContent.content.summary && (
-              <div className="bg-idus-orange-light/20 rounded-xl p-4">
-                <h4 className="font-semibold text-idus-black mb-3 flex items-center gap-2">
+              <div className="bg-amber-50 rounded-xl p-4">
+                <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   💡 핵심 포인트
                 </h4>
                 <ul className="space-y-2">
                   {currentContent.content.summary.map((point, index) => (
-                    <li key={index} className="flex items-center gap-2 text-sm text-idus-black-70">
-                      <span className="w-1.5 h-1.5 bg-idus-orange rounded-full" />
+                    <li key={index} className="flex items-center gap-2 text-sm text-gray-600">
+                      <span className="w-1.5 h-1.5 bg-orange-500 rounded-full flex-shrink-0" />
                       {point}
                     </li>
                   ))}
@@ -189,8 +191,8 @@ export default function StepPage() {
 
             {/* External Links */}
             {currentContent.content.externalLinks && currentContent.content.externalLinks.length > 0 && (
-              <div className="bg-idus-gray rounded-xl p-4">
-                <h4 className="font-semibold text-idus-black mb-3 flex items-center gap-2">
+              <div className="bg-gray-50 rounded-xl p-4">
+                <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   🔗 관련 링크
                 </h4>
                 <div className="space-y-2">
@@ -200,18 +202,18 @@ export default function StepPage() {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 bg-white rounded-lg hover:bg-idus-orange-light/30 transition-colors group"
+                      className="flex items-center gap-3 p-3 bg-white rounded-lg hover:bg-orange-50 transition-colors group border border-gray-100"
                     >
                       <span className="text-xl">{link.icon || '🔗'}</span>
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium text-idus-black group-hover:text-idus-orange transition-colors truncate">
+                        <div className="font-medium text-gray-900 group-hover:text-orange-600 transition-colors truncate">
                           {link.title}
                         </div>
                         {link.description && (
-                          <div className="text-xs text-idus-black-50 truncate">{link.description}</div>
+                          <div className="text-xs text-gray-400 truncate">{link.description}</div>
                         )}
                       </div>
-                      <span className="text-idus-black-30 group-hover:text-idus-orange transition-colors">→</span>
+                      <span className="text-gray-300 group-hover:text-orange-500 transition-colors">→</span>
                     </a>
                   ))}
                 </div>
@@ -242,4 +244,3 @@ export default function StepPage() {
     </main>
   );
 }
-
