@@ -10,6 +10,7 @@ import { getOnboardingData } from '@/lib/storage';
 import { OnboardingData } from '@/types/onboarding';
 import { submitOnboardingData } from '@/lib/api';
 import { AVAILABLE_CATEGORIES, RESTRICTED_CATEGORIES } from '@/types/onboarding';
+import { IconArrowRight, IconCheck } from '@/components/ui/icons';
 
 // 카테고리 ID → 이름 매핑 (string 키 타입으로 명시)
 const categoryNameById: Map<string, string> = new Map(
@@ -75,7 +76,7 @@ export default function QualificationPage() {
         <div className="text-center mb-10">
           {/* 아이콘 */}
           <div className="inline-flex items-center justify-center w-20 h-20 bg-green-50 rounded-full mb-5">
-            <span className="text-4xl">✅</span>
+            <IconCheck className="w-10 h-10 text-green-600" />
           </div>
           
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
@@ -88,7 +89,7 @@ export default function QualificationPage() {
           
           {/* 배지 */}
           <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-2 rounded-full text-sm font-medium">
-            <span>🌟</span>
+            <span className="w-2 h-2 bg-green-500 rounded-full" aria-hidden="true" />
             <span>글로벌 판매 가능</span>
           </div>
         </div>
@@ -96,20 +97,23 @@ export default function QualificationPage() {
         {/* 확인 결과 */}
         <Card variant="outlined" className="mb-6">
           <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <span className="text-lg">📋</span>
             확인 결과
           </h3>
           <div className="space-y-2">
             <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <div className="flex items-center gap-3">
-                <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
+                <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white">
+                  <IconCheck className="w-4 h-4" />
+                </span>
                 <span className="text-gray-700">사업자등록번호</span>
               </div>
               <span className="text-green-600 text-sm font-medium">보유</span>
             </div>
             <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <div className="flex items-center gap-3">
-                <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
+                <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white">
+                  <IconCheck className="w-4 h-4" />
+                </span>
                 <span className="text-gray-700">판매 카테고리</span>
               </div>
               <span className="text-green-600 text-sm font-medium">판매 가능</span>
@@ -178,7 +182,7 @@ export default function QualificationPage() {
             </p>
             
             {/* 학습 정보 요약 */}
-            <div className="grid grid-cols-3 gap-3 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
               <div className="bg-white/15 rounded-xl p-3 text-center">
                 <div className="text-xl font-bold">3</div>
                 <div className="text-xs opacity-70">단계 학습</div>
@@ -205,7 +209,8 @@ export default function QualificationPage() {
               className="w-full bg-white text-idus-orange hover:bg-white/90 font-bold shadow-md"
               onClick={handleStartLearning}
             >
-              🚀 학습 시작하기
+              학습 시작하기
+              <IconArrowRight className="w-4 h-4" />
             </Button>
             
             {/* 하단 안내 */}

@@ -160,7 +160,9 @@ export default function ContentDetailPage() {
                   <ul className="space-y-2">
                     {content.content.summary.map((item, index) => (
                       <li key={index} className="flex items-start gap-2 text-idus-black-70">
-                        <span className="text-idus-orange font-bold">✓</span>
+                        <span className="text-idus-orange mt-0.5">
+                          <IconCheck className="w-4 h-4" />
+                        </span>
                         <span>{item}</span>
                       </li>
                     ))}

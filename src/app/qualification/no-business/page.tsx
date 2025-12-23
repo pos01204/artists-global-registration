@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
+import { IconArrowRight } from '@/components/ui/icons';
 
 export default function NoBusinessPage() {
   return (
@@ -60,7 +61,7 @@ export default function NoBusinessPage() {
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <span className="w-6 h-6 bg-idus-orange text-white rounded-full flex items-center justify-center text-xs font-bold">2</span>
-                  <span>신청/제출 → 사업자등록 신청</span>
+                  <span>신청/제출 - 사업자등록 신청</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <span className="w-6 h-6 bg-idus-orange text-white rounded-full flex items-center justify-center text-xs font-bold">3</span>
@@ -97,7 +98,8 @@ export default function NoBusinessPage() {
             className="block"
           >
             <Button variant="primary" size="lg" className="w-full">
-              홈택스 바로가기 →
+              홈택스 바로가기
+              <IconArrowRight className="w-4 h-4" />
             </Button>
           </a>
           

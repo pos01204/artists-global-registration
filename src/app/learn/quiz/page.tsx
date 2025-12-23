@@ -126,12 +126,12 @@ export default function QuizPage() {
             <div className="space-y-2">
               {QUIZ_QUESTIONS.map((q, index) => (
                 <div key={q.id} className="flex items-center gap-2 text-sm">
-                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold ${
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center ${
                     answers[index] === q.correctAnswer 
                       ? 'bg-green-500 text-white' 
                       : 'bg-red-500 text-white'
                   }`}>
-                    {answers[index] === q.correctAnswer ? '✓' : '✗'}
+                    {answers[index] === q.correctAnswer ? <IconCheck className="w-3.5 h-3.5" /> : <IconX className="w-3.5 h-3.5" />}
                   </span>
                   <span className="text-idus-black-70 truncate">Q{index + 1}. {q.question.slice(0, 25)}...</span>
                 </div>
@@ -288,7 +288,17 @@ export default function QuizPage() {
               size="lg"
               onClick={handleNext}
             >
-              {currentQuestionIndex < totalQuestions - 1 ? '다음 문제 →' : '결과 보기 🎉'}
+              {currentQuestionIndex < totalQuestions - 1 ? (
+                <>
+                  다음 문제
+                  <IconArrowRight className="w-4 h-4" />
+                </>
+              ) : (
+                <>
+                  결과 보기
+                  <IconArrowRight className="w-4 h-4" />
+                </>
+              )}
             </Button>
           )}
         </div>
