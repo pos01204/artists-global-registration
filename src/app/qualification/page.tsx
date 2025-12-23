@@ -11,14 +11,15 @@ import { OnboardingData } from '@/types/onboarding';
 import { submitOnboardingData } from '@/lib/api';
 import { AVAILABLE_CATEGORIES, RESTRICTED_CATEGORIES } from '@/types/onboarding';
 
+// 카테고리 ID → 이름 매핑 (string 키 타입으로 명시)
+const categoryNameById: Map<string, string> = new Map(
+  [...AVAILABLE_CATEGORIES, ...RESTRICTED_CATEGORIES].map(c => [c.id, c.name])
+);
+
 export default function QualificationPage() {
   const router = useRouter();
   const [data, setData] = useState<OnboardingData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const categoryNameById = new Map(
-    [...AVAILABLE_CATEGORIES, ...RESTRICTED_CATEGORIES].map(c => [c.id, c.name])
-  );
 
   useEffect(() => {
     const onboardingData = getOnboardingData();
