@@ -127,7 +127,7 @@ export default function AppendixPage() {
             <div className="grid gap-3">
               {contents.map((c) => (
                 <Card key={c.id} variant="outlined" hoverable>
-                  <Link href={`/learn/content/${c.id}`} className="block">
+                  <Link href={`/learn/content/${c.id}?from=appendix`} className="block">
                     <div className="flex items-start gap-4 p-4">
                       <div className="w-12 h-12 rounded-2xl bg-idus-orange-light/25 border border-idus-black-10 flex items-center justify-center flex-shrink-0">
                         <BrandIcon name={c.stepId === 1 ? 'best' : c.stepId === 2 ? 'stationery' : 'shipping'} size={26} alt="" />

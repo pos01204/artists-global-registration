@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { getContentById, getAllContents, ContentItem } from '@/data/contents';
 import { getProgress, markContentComplete } from '@/lib/storage';
@@ -14,11 +14,14 @@ import ExternalLinkItem from '@/components/learning/ExternalLinkItem';
 export default function ContentDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const contentId = params.contentId as string;
   
   const [content, setContent] = useState<ContentItem | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
   const [checklistState, setChecklistState] = useState<Record<string, boolean>>({});
+
+  const isAppendixMode = useMemo(() => searchParams.get('from') === 'appendix', [searchParams]);
 
   useEffect(() => {
     const contentData = getContentById(contentId);
@@ -43,6 +46,7 @@ export default function ContentDetailPage() {
   }, [contentId]);
 
   const handleComplete = () => {
+    if (isAppendixMode) return;
     markContentComplete(contentId);
     setIsCompleted(true);
   };
@@ -94,9 +98,12 @@ export default function ContentDetailPage() {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href={`/learn/step/${content.stepId}`} className="text-idus-black-70 hover:text-idus-orange inline-flex items-center gap-2">
+            <Link
+              href={isAppendixMode ? '/learn/appendix' : `/learn/step/${content.stepId}`}
+              className="text-idus-black-70 hover:text-idus-orange inline-flex items-center gap-2"
+            >
               <IconArrowLeft className="w-4 h-4" />
-              <span className="text-sm">STEP {content.stepId}로 돌아가기</span>
+              <span className="text-sm">{isAppendixMode ? '부록(다시보기)로 돌아가기' : `STEP ${content.stepId}로 돌아가기`}</span>
             </Link>
             <span className="text-sm text-gray-400">
               {content.duration}분 소요
@@ -233,8 +240,8 @@ export default function ContentDetailPage() {
           </div>
         )}
 
-        {/* 완료 버튼 */}
-        {!isCompleted && (
+        {/* 완료 버튼 (부록 모드에서는 숨김: 다시보기 목적) */}
+        {!isAppendixMode && !isCompleted && (
           <div className="text-center mb-8">
             <Button variant="primary" size="lg" onClick={handleComplete}>
               <IconCheck className="w-5 h-5" />

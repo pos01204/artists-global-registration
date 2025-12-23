@@ -93,13 +93,29 @@ export default function StepPage() {
 
   const { primarySections, extraSections } = useMemo(() => {
     const sections = currentContent?.content.sections ?? [];
-    const primary = sections.filter(s => s.highlight);
-    const extra = sections.filter(s => !s.highlight);
-    // highlight가 없으면 1개는 primary로 올려서 정보가 과도하게 "접히는" 느낌을 방지
-    if (primary.length === 0 && extra.length > 0) {
-      return { primarySections: [extra[0]], extraSections: extra.slice(1) };
+    const MAX_PRIMARY = 3;
+
+    // 1) highlight는 우선 핵심으로, 단 핵심은 최대 3개까지
+    const highlightIdx: number[] = [];
+    sections.forEach((s, i) => {
+      if (s.highlight) highlightIdx.push(i);
+    });
+
+    const primaryIdx = new Set<number>();
+    if (highlightIdx.length >= MAX_PRIMARY) {
+      highlightIdx.slice(0, MAX_PRIMARY).forEach(i => primaryIdx.add(i));
+    } else {
+      highlightIdx.forEach(i => primaryIdx.add(i));
+      // 2) highlight가 부족하면(=동급 주제/필수 섹션) 앞에서부터 채워서 핵심 최대 3개 구성
+      for (let i = 0; i < sections.length && primaryIdx.size < MAX_PRIMARY; i++) {
+        if (!primaryIdx.has(i)) primaryIdx.add(i);
+      }
     }
-    return { primarySections: primary, extraSections: extra };
+
+    return {
+      primarySections: sections.filter((_, i) => primaryIdx.has(i)),
+      extraSections: sections.filter((_, i) => !primaryIdx.has(i)),
+    };
   }, [currentContent]);
 
   const externalLinks = useMemo(() => {
