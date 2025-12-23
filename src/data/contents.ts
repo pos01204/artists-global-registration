@@ -1,4 +1,4 @@
-// 학습 콘텐츠 데이터
+// 학습 콘텐츠 데이터 - 간소화 버전
 
 export interface ContentItem {
   id: string;
@@ -42,158 +42,92 @@ export interface ChecklistItem {
 }
 
 /**
- * 노션 크롤링 완전판(`docs/노션_크롤링_데이터.md`) 기준
- * - FAQ 제외 14개 페이지를 3개 STEP(5/5/4)로 구성
+ * 콘텐츠 구조 간소화 (페이지당 3개 섹션 이하)
+ * - STEP 1: 3개 콘텐츠
+ * - STEP 2: 3개 콘텐츠  
+ * - STEP 3: 3개 콘텐츠
  */
 
-// STEP 1: 글로벌 서비스 이해하기 (5)
+// STEP 1: 글로벌 서비스 이해하기 (3개)
 export const STEP1_CONTENTS: ContentItem[] = [
   {
-    id: 'why-global',
+    id: 'global-intro',
     stepId: 1,
     order: 1,
-    title: '[글로벌] idus에서 해외 고객을 만나보세요!',
-    description: '해외 배송 없는 해외 판매! idus 글로벌로 손쉽게 해외 고객과 만나보세요',
+    title: 'idus 글로벌 판매란?',
+    description: '해외 배송 없이 해외 판매! idus가 모든 것을 지원해드려요',
     type: 'infographic',
     duration: 3,
     content: {
       sections: [
         {
-          title: '글로벌 이커머스 시장 규모',
+          title: '글로벌 시장, 왜 도전해야 할까요?',
           content:
-            '글로벌 이커머스 시장은 약 4,147조원으로 한국 시장의 32배에 달합니다. 2030년에는 약 1경원(한국의 50배)까지 성장할 것으로 예상됩니다.',
+            '• 글로벌 시장은 한국의 32배 규모\n• 해외 고객 평균 주문액은 국내의 2배\n• K-핸드메이드 인기 상승 중',
           highlight: true,
           icon: '🌍',
-          image: '/brand/brand assets/line_01.png',
         },
         {
-          title: '해외 고객의 높은 객단가',
+          title: 'idus가 해드리는 것',
           content:
-            '해외 고객의 평균 주문액은 국내의 2배입니다!\n• 영어권: $116 (약 157,000원)\n• 일본: $75 (약 101,000원)',
-          icon: '💰',
+            '• 해외 배송 처리 (작가님 부담 0원)\n• 통관/검수/포장 대행\n• 45개국 판매 지원\n• 번역 도구 안내',
+          icon: '✅',
         },
         {
-          title: 'K-핸드메이드의 인기',
+          title: '작가님이 하실 것',
           content:
-            '한국 핸드메이드 제품은 해외에서 높은 인기를 얻고 있습니다. 특히 악세서리, 도자기, 캔들 등의 카테고리가 인기입니다.',
-          icon: '⭐',
-        },
-        {
-          title: 'idus 글로벌로 시작해야 하는 이유',
-          content:
-            '• 해외 배송비 0원(작가님 부담 없음)\n• 원스톱 물류 서비스(검수/포장/통관/해외 배송)\n• 45개국 판매\n• 언어 장벽 해소(번역 지원)',
-          highlight: true,
-          icon: '🌏',
-        },
-        {
-          title: '영어가 어려워서 망설이시나요?',
-          content:
-            '걱정하지 마세요!\n한국어로 작성하면 영어/일본어로 번역을 도와드리고, 번역 가이드/도구도 함께 안내해드려요.',
-          icon: '🔤',
-        },
-        {
-          title: '간편한 작품 등록',
-          content:
-            '1) 기존 작품의 “글로벌 판매” 토글 ON\n2) 번역 정보 입력(자동 번역/도구 활용)\n3) 판매 시작!',
+            '• 기존 작품에 "글로벌 판매" ON\n• 영문 정보 입력 (번역 도구 활용)\n• 국내 물류센터로 발송',
           icon: '📝',
         },
       ],
       summary: [
-        '해외 배송 없는 해외 판매(해외 배송은 idus가 처리)',
-        '글로벌 시장은 한국의 32배, 해외 고객 평균 주문액은 2배',
-        '45개국 판매 + 번역 지원으로 쉽게 시작',
-      ],
-      externalLinks: [
-        {
-          title: '노션 원본 페이지 보기',
-          url: 'https://idus.notion.site/idus-5e2b9c0f19b246c2a1e726946635b113',
-          icon: '📄',
-          description: '더 자세한 내용은 노션에서 확인하세요',
-        },
+        '해외 배송은 idus가 처리',
+        '45개국 판매, 번역 지원',
+        '기존 작품으로 바로 시작 가능',
       ],
     },
   },
   {
-    id: 'easy-start',
+    id: 'logistics-settlement',
     stepId: 1,
     order: 2,
-    title: 'idus 작가님은 해외판매도 쉽게 시작!',
-    description: '해외판매 원스톱 서비스로, 작가님은 작품 제작에만 집중하실 수 있어요',
+    title: '물류 & 정산 안내',
+    description: '배송 가능 국가와 정산 방식을 알아봐요',
     type: 'guide',
-    duration: 5,
+    duration: 4,
     content: {
       sections: [
         {
-          title: '해외판매 원스톱 서비스',
+          title: '배송 흐름',
           content:
-            '복잡한 해외 판매 절차를 idus가 대신 처리해요.\n작가님은 작품 제작과 고객 경험에만 집중하시면 됩니다.',
-          highlight: true,
-          icon: '🧡',
-        },
-        {
-          title: '글로벌 판매 시작 방법',
-          content:
-            '1) 글로벌 작가 신청\n2) 기존 작품에 글로벌 판매 설정\n3) 번역 정보 입력\n4) 판매 시작!',
-          icon: '🚀',
-        },
-        {
-          title: 'idus가 처리하는 것',
-          content: '• 해외 배송\n• 통관 처리\n• 현지 배송\n• 1차 고객 CS 지원',
-          icon: '✅',
-        },
-      ],
-      summary: ['해외 판매 절차는 idus가 지원', '작가님은 제작/포장에 집중', '기존 작품으로도 시작 가능'],
-    },
-  },
-  {
-    id: 'logistics-video',
-    stepId: 1,
-    order: 3,
-    title: 'idus 물류/정산',
-    description: '영상으로 쉽게 이해하는 물류와 정산',
-    type: 'video',
-    duration: 7,
-    content: {
-      videoUrl: 'https://www.youtube.com/embed/VIDEO_ID_HERE',
-      videoThumbnail: '/brand/brand assets/배송박스.png',
-      sections: [
-        {
-          title: '배송 가능 국가 (총 45개국)',
-          content:
-            '아시아/오세아니아: 일본, 싱가포르, 홍콩, 대만, 말레이시아, 태국, 인도네시아, 필리핀, 베트남, 호주, 뉴질랜드, 인도\n북미: 미국, 캐나다\n유럽: 영국, 독일, 프랑스, 이탈리아, 스페인, 네덜란드 외 다수',
-          icon: '🌍',
-        },
-        {
-          title: '원스톱 통합 물류 서비스',
-          content:
-            '작가님 작품 발송 → idus 국내 물류센터 → 검수/포장/통관 → 해외 배송 → 고객 수령\n\n작가님은 국내 물류센터까지만 보내주시면 됩니다!',
+            '작가님 발송 → idus 물류센터 → 검수/포장/통관 → 해외 배송\n\n작가님은 국내 물류센터까지만 보내주시면 됩니다!',
           highlight: true,
           icon: '📦',
         },
         {
+          title: '배송 가능 국가 (45개국)',
+          content:
+            '미국, 일본, 영국, 독일, 프랑스, 호주, 싱가포르, 홍콩, 대만 등\n아시아/북미/유럽/오세아니아 주요 국가',
+          icon: '🌏',
+        },
+        {
           title: '정산 안내',
           content:
-            '• 정산 주기: 월 2회 (1일, 16일)\n• 정산 통화: 원화 (KRW)\n• 환율 적용: 정산일 기준\n• 수수료: 글로벌 판매 수수료 적용',
+            '• 정산 주기: 월 2회 (1일, 16일)\n• 정산 통화: 원화 (KRW)\n• 수수료: 글로벌 판매 수수료 적용',
           icon: '💵',
         },
       ],
       summary: [
-        '국내 물류센터로 발송 → idus가 해외 배송',
-        '배송 가능 국가: 45개국',
-        '정산: 월 2회 (1일, 16일) 원화로',
+        '국내 물류센터로 발송하면 끝',
+        '45개국 배송 가능',
+        '월 2회 원화 정산',
       ],
       externalLinks: [
-        {
-          title: '노션 원본 페이지 보기',
-          url: 'https://idus.notion.site/idus-ae504b2716cf4bbc8b2f916caf3b21ef',
-          icon: '📄',
-          description: '물류/정산 상세 정보',
-        },
         {
           title: 'idus 공식 유튜브',
           url: 'https://www.youtube.com/@idus_official',
           icon: '▶️',
-          description: '글로벌 교육 영상 더 보기',
+          description: '글로벌 안내 영상 보기',
         },
       ],
     },
@@ -201,112 +135,91 @@ export const STEP1_CONTENTS: ContentItem[] = [
   {
     id: 'artist-registration',
     stepId: 1,
-    order: 4,
-    title: '1분 만에 글로벌 작가 등록하기',
-    description: '작가 앱에서 간단히 글로벌 판매 신청을 완료해요',
-    type: 'guide',
-    duration: 1,
-    content: {
-      sections: [
-        {
-          title: '등록 방법',
-          content: '1) 아이디어스 작가 앱 접속\n2) 설정 → 글로벌 판매 신청\n3) 약관 동의\n4) 신청 완료!',
-          highlight: true,
-          icon: '✈️',
-        },
-        {
-          title: '신청 조건',
-          content: '• 아이디어스 작가로 등록\n• 본인 인증 완료 필요\n• 정산 계좌 등록 필요',
-          icon: '⚠️',
-        },
-      ],
-      summary: ['작가 앱에서 1분이면 신청 완료', '본인 인증/정산계좌 등록이 필요해요'],
-      externalLinks: [
-        {
-          title: '지금 글로벌 작가 등록하기',
-          url: 'https://www.idus.com/w/artist/register',
-          icon: '✈️',
-          description: '바로 등록 페이지로 이동',
-        },
-        {
-          title: '문의하기 (채널톡)',
-          url: 'https://idus.channel.io',
-          icon: '💬',
-          description: '등록 관련 문의',
-        },
-      ],
-    },
-  },
-  {
-    id: 'app-download-language',
-    stepId: 1,
-    order: 5,
-    title: '구매자 앱 다운로드 / 언어 설정',
-    description: '해외 고객이 보는 화면을 직접 확인해보세요',
+    order: 3,
+    title: '글로벌 작가 등록하기',
+    description: '작가 앱에서 1분 만에 신청 완료!',
     type: 'guide',
     duration: 2,
     content: {
       sections: [
         {
-          title: '앱 다운로드',
-          content: '• iOS: App Store에서 "idus" 검색\n• Android: Google Play에서 "idus" 검색',
-          icon: '📲',
-        },
-        {
-          title: '언어 설정 방법',
-          content: '1) idus 앱 실행\n2) 설정 → 언어 설정\n3) 한국어/영어/일본어 중 선택',
-          highlight: true,
-          icon: '🌐',
-        },
-        {
-          title: '활용 팁',
+          title: '신청 방법',
           content:
-            '작가님도 언어를 변경해 해외 고객이 보는 화면을 확인할 수 있어요.\n번역 상태 점검에 활용해보세요!',
+            '1) 아이디어스 작가 앱 접속\n2) 설정 → 글로벌 판매 신청\n3) 약관 동의 후 완료!',
+          highlight: true,
+          icon: '✈️',
+        },
+        {
+          title: '신청 조건',
+          content:
+            '• 아이디어스 작가 등록 완료\n• 본인 인증 완료\n• 정산 계좌 등록',
+          icon: '📋',
+        },
+        {
+          title: 'TIP: 해외 고객 화면 확인하기',
+          content:
+            '구매자 앱에서 언어 설정을 영어/일본어로 변경하면\n해외 고객이 보는 화면을 미리 확인할 수 있어요!',
           icon: '💡',
         },
       ],
-      summary: ['언어 설정으로 해외 고객 화면 확인', '번역 품질 점검에 도움'],
+      summary: [
+        '작가 앱에서 1분이면 신청 완료',
+        '본인 인증/정산계좌 필요',
+      ],
+      externalLinks: [
+        {
+          title: '글로벌 작가 등록하기',
+          url: 'https://www.idus.com/w/artist/global',
+          icon: '✈️',
+          description: '지금 바로 신청',
+        },
+        {
+          title: '문의하기',
+          url: 'https://idus.channel.io',
+          icon: '💬',
+          description: '채널톡 문의',
+        },
+      ],
     },
   },
 ];
 
-// STEP 2: 작품 등록 마스터하기 (5)
+// STEP 2: 작품 등록 마스터하기 (3개)
 export const STEP2_CONTENTS: ContentItem[] = [
   {
     id: 'product-registration',
     stepId: 2,
     order: 1,
-    title: '글로벌 작품 등록 가이드',
-    description: '글로벌 판매를 위한 작품 등록 방법',
+    title: '글로벌 작품 등록 방법',
+    description: '기존 작품을 글로벌로 전환하는 간단한 방법',
     type: 'guide',
-    duration: 8,
+    duration: 4,
     content: {
       sections: [
         {
-          title: 'STEP 1: 글로벌 판매 ON',
-          content: '작품 등록/수정 페이지에서 "글로벌 판매" 옵션을 ON으로 설정합니다.',
-          icon: '1️⃣',
+          title: '글로벌 판매 설정',
+          content:
+            '1) 작품 등록/수정 페이지 접속\n2) "글로벌 판매" 옵션 ON\n3) 영문 작품명/설명 입력\n4) 저장 후 판매 시작!',
+          highlight: true,
+          icon: '🚀',
         },
         {
-          title: 'STEP 2: 영문 정보 입력',
-          content: '작품명, 설명을 영어로 입력합니다. 파파고나 DeepL을 활용하면 쉽게 번역할 수 있어요!',
-          icon: '2️⃣',
+          title: '가격 & 배송 설정',
+          content:
+            '• 해외 판매가: 원화 기준 자동 환산\n• 배송 소요일 설정 (7-14일 권장)\n• 해외 배송비: 무료 (idus 부담)',
+          icon: '💰',
         },
         {
-          title: 'STEP 3: 배송 설정',
-          content: '해외 배송 가능 여부를 확인하고, 배송 소요일을 설정합니다.',
-          icon: '3️⃣',
-        },
-        {
-          title: 'STEP 4: 가격 확인',
-          content: '해외 판매가는 원화 가격 기준으로 자동 환산됩니다.',
-          icon: '4️⃣',
+          title: '판매 가능 품목 확인',
+          content:
+            '✅ 가능: 악세서리, 가방, 인테리어, 캔들, 도자기, 의류\n❌ 불가: 화장품, 식품, 의약품, 동식물',
+          icon: '📋',
         },
       ],
       summary: [
-        '글로벌 판매 ON 설정',
-        '영문 정보 입력 (번역 도구 활용)',
-        '배송 설정 확인',
+        '글로벌 판매 ON → 영문 정보 입력',
+        '가격은 자동 환산',
+        '식품/화장품은 판매 불가',
       ],
     },
   },
@@ -314,283 +227,207 @@ export const STEP2_CONTENTS: ContentItem[] = [
     id: 'translation-guide',
     stepId: 2,
     order: 2,
-    title: '작품 번역 가이드',
-    description: '해외 고객을 위한 번역 필수 항목과 예시를 알아봐요',
+    title: '쉽게 하는 번역 가이드',
+    description: '번역 도구를 활용해 쉽게 영문 정보를 입력해요',
     type: 'guide',
-    duration: 5,
+    duration: 4,
     content: {
       sections: [
         {
-          title: '번역 필수 항목',
+          title: '필수 번역 항목',
           content:
-            '1) 작품명 번역\n2) 작품 설명 번역(소재/크기/사용법/주의사항/배송 안내)\n3) 옵션명 번역',
+            '• 작품명\n• 작품 설명 (소재/크기/사용법)\n• 옵션명 (색상/사이즈 등)',
           highlight: true,
           icon: '📝',
         },
         {
-          title: '번역 예시',
-          content:
-            '• 수제 가죽 지갑 → Handmade Leather Wallet / 手作り革財布\n• 브라운 → Brown / ブラウン\n• 블랙 → Black / ブラック',
-          icon: '🌍',
-        },
-        {
-          title: '번역 팁',
-          content:
-            '• 짧고 명확한 문장 사용\n• 수치/크기는 국제 단위 사용(cm, g)\n• 번역 후 검토/수정 필수\n• 한국 특유 표현/직역은 피하기',
-          icon: '💡',
-        },
-      ],
-      summary: ['작품명/설명/옵션명은 필수', '예시를 참고해 일관된 번역 작성', '번역 후 검토는 꼭!'],
-    },
-  },
-  {
-    id: 'translation-tips',
-    stepId: 2,
-    order: 3,
-    title: '번역 쉽게 하기',
-    description: '번역 도구 활용 팁',
-    type: 'guide',
-    duration: 5,
-    content: {
-      sections: [
-        {
           title: '추천 번역 도구',
-          content: '• 파파고 - 한국어 특화, 자연스러운 번역\n• DeepL - 고품질 번역, 전문 용어 지원\n• 구글 번역 - 다양한 언어 지원\n• ChatGPT - 문맥 이해 번역, 톤 조절 가능',
+          content:
+            '• 파파고: 한국어 특화, 자연스러운 번역\n• DeepL: 고품질 AI 번역\n• ChatGPT: 문맥 이해, 톤 조절 가능',
           icon: '🔧',
         },
         {
           title: '번역 팁',
-          content: '• 간결하고 명확한 문장으로 작성\n• 전문 용어는 영문 그대로 사용\n• 사이즈, 소재 정보는 정확하게\n• 번역 후 검토 필수!',
+          content:
+            '• 짧고 명확한 문장 사용\n• 사이즈는 cm, 무게는 g 단위로\n• 번역 후 검토 필수!',
           icon: '💡',
-        },
-        {
-          title: '자주 쓰는 표현',
-          content: '• Handmade with care (정성을 담아 만들었습니다)\n• Ships from Korea (한국에서 배송됩니다)\n• Free international shipping (해외 배송비 무료)',
-          icon: '📝',
-        },
-        {
-          title: '피해야 할 것들',
-          content: '• ❌ 기계 번역 그대로 사용\n• ❌ 한국어 직역\n• ❌ 문화적으로 부적절한 표현\n• ❌ 이모지 과다 사용',
-          icon: '⚠️',
         },
       ],
       summary: [
-        '파파고, DeepL 활용',
-        '간결하고 명확하게',
-        '사이즈/소재 정확히',
+        '작품명/설명/옵션명은 필수',
+        '파파고, DeepL 활용 추천',
+        '번역 후 검토는 필수',
       ],
       externalLinks: [
         {
           title: '파파고 번역',
           url: 'https://papago.naver.com',
           icon: '🌐',
-          description: '한국어 특화 번역',
         },
         {
           title: 'DeepL 번역',
           url: 'https://www.deepl.com/translator',
           icon: '🌐',
-          description: '고품질 AI 번역',
-        },
-        {
-          title: '구글 번역',
-          url: 'https://translate.google.com',
-          icon: '🌐',
-          description: '다양한 언어 지원',
         },
         {
           title: 'ChatGPT',
           url: 'https://chat.openai.com',
           icon: '🤖',
-          description: '문맥 이해 번역',
         },
       ],
     },
   },
   {
-    id: 'link-creation',
+    id: 'promotion-guide',
     stepId: 2,
-    order: 4,
-    title: '글로벌 작가홈/작품 공유 링크 생성 가이드',
-    description: '해외 고객에게 공유할 홍보용 링크를 만들어보세요',
+    order: 3,
+    title: '글로벌 홍보 링크 만들기',
+    description: 'SNS에 공유할 수 있는 글로벌 링크를 생성해요',
     type: 'guide',
-    duration: 3,
+    duration: 2,
     content: {
       sections: [
         {
-          title: '글로벌 작가홈 링크',
+          title: '글로벌 링크 생성 방법',
           content:
-            'https://www.idus.com/w/artist/[작가ID]?lang=en\nhttps://www.idus.com/w/artist/[작가ID]?lang=ja',
+            '기존 URL 뒤에 언어 파라미터 추가:\n• 영어: ?lang=en\n• 일본어: ?lang=ja',
           highlight: true,
-          icon: '🏠',
+          icon: '🔗',
         },
         {
-          title: '글로벌 작품 링크',
+          title: '링크 예시',
           content:
-            'https://www.idus.com/w/product/[작품ID]?lang=en\nhttps://www.idus.com/w/product/[작품ID]?lang=ja',
-          icon: '🧩',
+            '작가홈: idus.com/w/artist/[ID]?lang=en\n작품: idus.com/w/product/[ID]?lang=en',
+          icon: '📎',
         },
         {
           title: '활용 방법',
           content:
-            '• Instagram Bio에 링크 추가\n• 해외 해시태그와 함께 공유\n• QR 코드로 만들어 명함/패키지에 부착',
+            '• Instagram Bio에 링크 추가\n• 해외 해시태그와 함께 공유\n• QR 코드로 만들어 패키지에 부착',
           icon: '📣',
         },
       ],
-      summary: ['언어 파라미터(lang=en/ja)로 링크 생성', 'SNS/QR로 손쉽게 홍보'],
-    },
-  },
-  {
-    id: 'prohibited-items',
-    stepId: 2,
-    order: 5,
-    title: '판매 가능/불가 품목',
-    description: '글로벌 판매 가능한 품목 확인',
-    type: 'checklist',
-    duration: 5,
-    content: {
-      sections: [
-        {
-          title: '✅ 판매 가능',
-          content: '• 악세서리/주얼리\n• 가방/지갑/파우치\n• 패션소품\n• 인테리어/소품\n• 문구/팬시\n• 캔들/디퓨저\n• 도자기/그릇\n• 의류/패브릭',
-          icon: '✅',
-        },
-        {
-          title: '❌ 판매 불가',
-          content: '• 화장품/뷰티\n• 식품\n• 의약품/건강기능식품\n• 동식물/씨앗\n• 배터리 포함 제품 (일부 국가)\n• 가죽 제품 (일부 국가)',
-          icon: '❌',
-        },
-        {
-          title: '⚠️ 국가별 주의',
-          content: '일부 국가에서는 특정 소재(가죽, 모피 등)의 반입이 제한될 수 있습니다. 작품 소재를 정확히 기재해주세요.',
-          icon: '⚠️',
-        },
-      ],
       summary: [
-        '악세서리, 가방, 인테리어 등 가능',
-        '화장품, 식품 불가',
-        '국가별 제한 품목 확인 필요',
+        'URL에 ?lang=en 추가로 영문 링크 생성',
+        'SNS, QR 코드로 홍보 활용',
       ],
     },
   },
 ];
 
-// STEP 3: 주문 처리 & 운영하기 (4)
+// STEP 3: 주문 처리 & 운영하기 (3개)
 export const STEP3_CONTENTS: ContentItem[] = [
   {
-    id: 'customer-service',
+    id: 'order-processing',
     stepId: 3,
     order: 1,
-    title: '고객 문의 대응',
-    description: '해외 고객 문의에 답변하는 방법',
-    type: 'guide',
-    duration: 5,
+    title: '주문 확인 & 발송',
+    description: '글로벌 주문이 들어오면 이렇게 처리해요',
+    type: 'checklist',
+    duration: 4,
     content: {
       sections: [
         {
-          title: '자동 번역 활용',
-          content: 'idus 앱 내 채팅은 자동 번역을 지원합니다. 한국어로 답변하시면 고객에게는 영어/일본어로 전달됩니다.',
+          title: '주문 확인',
+          content:
+            '작가 앱 → 주문 관리 → 글로벌 주문에서 확인\n(푸시 알림 ON 권장)',
+          icon: '📱',
+        },
+        {
+          title: '포장 & 발송',
+          content:
+            '• 완충재 충분히 사용\n• 방수 포장 권장\n• 국내 물류센터로 발송\n• 앱에서 운송장 번호 입력',
+          highlight: true,
+          icon: '📦',
+        },
+        {
+          title: '이후 과정 (idus 처리)',
+          content:
+            '물류센터 검수 → 해외 발송 → 배송 현황 자동 안내',
+          icon: '🌏',
+        },
+      ],
+      items: [
+        { id: 'check-1', text: '주문 정보 확인 (옵션/수량/국가)', checked: false },
+        { id: 'check-2', text: '완충재로 꼼꼼히 포장', checked: false },
+        { id: 'check-3', text: '물류센터로 발송', checked: false },
+        { id: 'check-4', text: '운송장 번호 입력 완료', checked: false },
+      ],
+      summary: [
+        '주문 확인 → 포장 → 물류센터 발송',
+        '해외 배송은 idus가 처리',
+      ],
+    },
+  },
+  {
+    id: 'customer-service',
+    stepId: 3,
+    order: 2,
+    title: '고객 문의 대응',
+    description: '해외 고객 문의, 한국어로 답변해도 괜찮아요',
+    type: 'guide',
+    duration: 3,
+    content: {
+      sections: [
+        {
+          title: '자동 번역 지원',
+          content:
+            'idus 앱 내 채팅은 자동 번역을 지원해요.\n한국어로 답변하시면 고객에게 번역되어 전달됩니다.',
           highlight: true,
           icon: '🔄',
         },
         {
           title: '자주 묻는 질문 답변 예시',
           content:
-            '• 배송 기간: "약 7-14일 소요됩니다"\n• 교환/환불: "도착 후 7일 이내 요청 시 가능합니다(주문제작 제외)"\n• 사이즈 문의: 정확한 치수를 안내해주세요',
+            '• 배송 기간: "약 7-14일 소요됩니다"\n• 교환/환불: "도착 후 7일 이내 가능"\n• 사이즈: 정확한 치수 안내',
           icon: '💬',
         },
         {
-          title: '친절한 응대 팁',
-          content: '• 감사 인사로 시작하기\n• 이모지 적절히 활용 😊\n• 명확하고 간결하게 답변',
+          title: '응대 팁',
+          content:
+            '• 감사 인사로 시작하기\n• 명확하고 간결하게 답변\n• 이모지 적절히 활용 😊',
           icon: '💡',
         },
       ],
       summary: [
-        '자동 번역 지원',
-        '한국어로 답변 가능',
+        '자동 번역으로 한국어 답변 OK',
         '친절하고 명확하게',
       ],
     },
   },
   {
-    id: 'order-processing',
-    stepId: 3,
-    order: 2,
-    title: '주문 처리 및 작품 발송 가이드',
-    description: '주문부터 발송까지의 프로세스 (체크리스트 포함)',
-    type: 'checklist',
-    duration: 10,
-    content: {
-      sections: [
-        {
-          title: '주문 확인',
-          content: '작가 앱 → 주문 관리 → 글로벌 주문에서 확인할 수 있어요.\n(알림 설정: 푸시 ON 권장)',
-          icon: '📦',
-        },
-        {
-          title: '포장 가이드',
-          content:
-            '해외 배송이므로 완충재를 충분히 사용하고, 방수 처리까지 해주시면 파손/오염 리스크를 줄일 수 있어요.',
-          icon: '🎁',
-        },
-        {
-          title: '국내 물류센터로 발송',
-          content:
-            '작가님은 국내 물류센터까지만 보내주시면 됩니다.\n발송 후 앱에서 운송장 번호를 입력하고 “발송 완료” 처리해주세요.',
-          icon: '🚚',
-        },
-        {
-          title: '해외 배송 (idus 처리)',
-          content: '물류센터에서 해외 배송을 진행합니다. 배송 현황은 자동으로 고객에게 안내됩니다.',
-          icon: '🌏',
-        },
-      ],
-      items: [
-        { id: 'ship-1', text: '주문번호/옵션/수량/국가/고객 메시지 확인', checked: false },
-        { id: 'ship-2', text: '완충재(에어캡/종이완충재) 충분히 사용', checked: false },
-        { id: 'ship-3', text: '방수 포장(비닐 등) 추가', checked: false },
-        { id: 'ship-4', text: '박스 테이프로 꼼꼼히 밀봉', checked: false },
-        { id: 'ship-5', text: '주문번호를 박스 외부에 기재(권장)', checked: false },
-        { id: 'ship-6', text: '지정 물류센터 주소로 발송 완료', checked: false },
-        { id: 'ship-7', text: '작가 앱에 운송장 번호 입력 후 발송 완료 처리', checked: false },
-      ],
-      summary: [
-        '주문 확인 → 포장 → 물류센터 발송',
-        '해외 배송은 idus가 처리',
-        '배송 현황 자동 안내',
-      ],
-    },
-  },
-  {
-    id: 'parcel-receipt',
+    id: 'additional-info',
     stepId: 3,
     order: 3,
-    title: '글로벌 소포수령증 신청 가이드',
-    description: '해외 발송 증빙 서류가 필요할 때 신청 방법을 안내해요',
+    title: '추가 안내사항',
+    description: '소포수령증 신청 및 기타 안내',
     type: 'guide',
-    duration: 3,
+    duration: 2,
     content: {
       sections: [
         {
-          title: '소포수령증이란?',
-          content: '해외 발송 증빙 서류로, 세금 처리/증빙 또는 분실·파손 보험 청구에 활용할 수 있어요.',
-          highlight: true,
+          title: '소포수령증 신청',
+          content:
+            '해외 발송 증빙이 필요할 때:\n채널톡 문의 → 주문번호/발송일/작가정보 전달',
           icon: '📄',
         },
         {
-          title: '신청 방법',
-          content: '채널톡(idus.channel.io) → 소포수령증 신청 → 필요 정보 입력',
-          icon: '💬',
+          title: '일본 고객 특성 TIP',
+          content:
+            '• 상세한 제품 설명 선호\n• 포장에 관심이 높음\n• 정중한 커뮤니케이션 중시',
+          icon: '🇯🇵',
         },
         {
-          title: '필요 정보',
-          content: '• 주문번호\n• 발송일\n• 작가 정보(작가명/연락처)',
-          icon: '✅',
+          title: '도움이 필요하시면',
+          content:
+            '글로벌 판매 관련 문의는\n채널톡으로 편하게 연락주세요!',
+          highlight: true,
+          icon: '💬',
         },
       ],
       summary: [
-        '채널톡에서 신청',
-        '주문번호/발송일/작가정보 준비',
+        '소포수령증은 채널톡에서 신청',
+        '일본 고객은 상세 설명/포장 중시',
       ],
       externalLinks: [
         {
@@ -600,38 +437,6 @@ export const STEP3_CONTENTS: ContentItem[] = [
           description: '소포수령증 신청 및 기타 문의',
         },
       ],
-    },
-  },
-  {
-    id: 'hmj-fair',
-    stepId: 3,
-    order: 4,
-    title: '[대신 다녀왔습니다] HMJ - 일본 핸드메이드 페어',
-    description: '일본 시장 트렌드와 고객 특성을 빠르게 훑어봐요 (읽을거리)',
-    type: 'infographic',
-    duration: 5,
-    content: {
-      sections: [
-        {
-          title: 'HMJ(Handmade Japan) 소개',
-          content: '일본 최대 핸드메이드 박람회 중 하나로, 다양한 작가와 브랜드가 참여해요.',
-          highlight: true,
-          icon: '📰',
-        },
-        {
-          title: '인기 카테고리(예시)',
-          content:
-            '1) 악세서리(미니멀/천연석)\n2) 가죽소품(빈티지/자수)\n3) 캔들·향(힐링)\n4) 도자기(일상 식기)\n5) 패브릭(자수/염색)',
-          icon: '🏷️',
-        },
-        {
-          title: '일본 고객 특성',
-          content:
-            '• 품질 기대치 높음\n• 상세한 제품 설명 선호\n• 포장에 관심 높음\n• 정중한 커뮤니케이션 중시',
-          icon: '🇯🇵',
-        },
-      ],
-      summary: ['일본 고객은 설명/포장/소통을 중요하게 봐요', '트렌드를 참고해 작품 소개를 더 탄탄히!'],
     },
   },
 ];
@@ -658,4 +463,3 @@ export function getContentById(contentId: string): ContentItem | undefined {
 export function getAllContents(): ContentItem[] {
   return [...STEP1_CONTENTS, ...STEP2_CONTENTS, ...STEP3_CONTENTS];
 }
-
