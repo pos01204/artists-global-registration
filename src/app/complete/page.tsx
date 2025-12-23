@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import { getOnboardingData, markRegistrationClicked, isLearningCompleted } from '@/lib/storage';
+import { submitOnboardingData } from '@/lib/api';
 
 export default function CompletePage() {
   const router = useRouter();
@@ -28,6 +29,9 @@ export default function CompletePage() {
     
     setArtistName(data.artistName);
     setQuizScore(data.learningProgress.quizScore);
+    
+    // 학습 완료 데이터 제출
+    submitOnboardingData(data).catch(console.error);
     
     // 3초 후 confetti 숨기기
     const timer = setTimeout(() => setShowConfetti(false), 3000);

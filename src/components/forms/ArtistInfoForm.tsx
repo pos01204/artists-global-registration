@@ -88,7 +88,7 @@ export default function ArtistInfoForm() {
       } else if (data.qualificationStatus === 'restricted_category') {
         router.push('/qualification/2026-waitlist');
       } else {
-        router.push('/learn');
+        router.push('/qualification');
       }
     } catch (error) {
       console.error('Error saving data:', error);
