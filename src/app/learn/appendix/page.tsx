@@ -1,0 +1,177 @@
+'use client';
+
+import { useEffect, useMemo, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import BrandIcon from '@/components/ui/BrandIcon';
+import { IconArrowLeft, IconChevronRight } from '@/components/ui/icons';
+import { getAllContents } from '@/data/contents';
+import { getOnboardingData, isLearningCompleted } from '@/lib/storage';
+import { LEARNING_STEPS } from '@/types/onboarding';
+
+type StepFilter = 0 | 1 | 2 | 3;
+
+export default function AppendixPage() {
+  const router = useRouter();
+  const [query, setQuery] = useState('');
+  const [stepFilter, setStepFilter] = useState<StepFilter>(0);
+
+  useEffect(() => {
+    const data = getOnboardingData();
+    if (!data) {
+      router.push('/');
+    }
+  }, [router]);
+
+  const completed = isLearningCompleted();
+
+  const stepNameById = useMemo(() => {
+    const map = new Map<number, string>();
+    LEARNING_STEPS.forEach(s => map.set(s.id, s.title));
+    return map;
+  }, []);
+
+  const contents = useMemo(() => {
+    const all = getAllContents();
+    const q = query.trim().toLowerCase();
+    return all
+      .filter(c => (stepFilter === 0 ? true : c.stepId === stepFilter))
+      .filter(c => {
+        if (!q) return true;
+        return (
+          c.title.toLowerCase().includes(q) ||
+          c.description.toLowerCase().includes(q) ||
+          (c.content.summary ?? []).some(s => String(s).toLowerCase().includes(q))
+        );
+      })
+      .sort((a, b) => (a.stepId - b.stepId) || (a.order - b.order));
+  }, [query, stepFilter]);
+
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-white to-idus-gray">
+      <div className="pointer-events-none fixed inset-0 -z-10" aria-hidden="true">
+        <Image src="/brand/brand assets/pattern02.png" alt="" fill className="object-cover opacity-[0.05]" />
+      </div>
+
+      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-idus-black-10">
+        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
+          <Link href="/complete" className="inline-flex items-center gap-2 text-idus-black-70 hover:text-idus-orange">
+            <IconArrowLeft className="w-4 h-4" />
+            <span className="text-sm">완료 페이지</span>
+          </Link>
+          <div className="text-sm font-medium text-idus-black">부록 · 주제별 다시보기</div>
+          <div className="w-[76px]" aria-hidden="true" />
+        </div>
+      </header>
+
+      <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8 pb-10">
+        <div className="mb-6">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-2xl bg-idus-orange-light/30 flex items-center justify-center">
+              <BrandIcon name="best" size={26} alt="" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-idus-black">필요한 정보만 다시 찾아보세요</h1>
+              <p className="text-sm text-idus-black-50">
+                학습을 완료하신 작가님을 위한 부록 페이지입니다. 키워드 검색 후 원하는 주제로 바로 이동할 수 있어요.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {!completed ? (
+          <Card variant="outlined" className="p-6">
+            <div className="text-idus-black font-semibold mb-2">아직 학습이 완료되지 않았어요</div>
+            <div className="text-sm text-idus-black-70 mb-4">
+              부록(다시보기)은 학습 완료 후 이용할 수 있습니다.
+            </div>
+            <Link href="/learn">
+              <Button variant="primary">학습 목록으로</Button>
+            </Link>
+          </Card>
+        ) : (
+          <>
+            <Card variant="outlined" className="p-4 mb-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+                <div className="flex-1">
+                  <div className="text-sm font-semibold text-idus-black mb-2">검색</div>
+                  <input
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="예) 물류센터, 수수료, 소포수령증, MSDS…"
+                    className="w-full rounded-xl border border-idus-black-10 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-idus-orange/30"
+                  />
+                </div>
+                <div className="sm:w-64">
+                  <div className="text-sm font-semibold text-idus-black mb-2">STEP 필터</div>
+                  <select
+                    value={stepFilter}
+                    onChange={(e) => setStepFilter(Number(e.target.value) as StepFilter)}
+                    className="w-full rounded-xl border border-idus-black-10 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-idus-orange/30"
+                  >
+                    <option value={0}>전체</option>
+                    <option value={1}>STEP 1</option>
+                    <option value={2}>STEP 2</option>
+                    <option value={3}>STEP 3</option>
+                  </select>
+                </div>
+              </div>
+              <div className="text-xs text-idus-black-50 mt-3">
+                총 {contents.length}개 주제
+              </div>
+            </Card>
+
+            <div className="grid gap-3">
+              {contents.map((c) => (
+                <Card key={c.id} variant="outlined" hoverable>
+                  <Link href={`/learn/content/${c.id}`} className="block">
+                    <div className="flex items-start gap-4 p-4">
+                      <div className="w-12 h-12 rounded-2xl bg-idus-orange-light/25 border border-idus-black-10 flex items-center justify-center flex-shrink-0">
+                        <BrandIcon name={c.stepId === 1 ? 'best' : c.stepId === 2 ? 'stationery' : 'shipping'} size={26} alt="" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-wrap items-center gap-2 mb-1">
+                          <span className="text-xs font-medium text-idus-black-50">
+                            STEP {c.stepId} · {stepNameById.get(c.stepId) ?? ''}
+                          </span>
+                          <span className="text-xs bg-idus-gray px-2 py-0.5 rounded-full text-idus-black-50">
+                            약 {c.duration}분
+                          </span>
+                        </div>
+                        <div className="font-bold text-idus-black mb-1 truncate">{c.title}</div>
+                        <div className="text-sm text-idus-black-70 line-clamp-2">{c.description}</div>
+                        {c.content.summary && c.content.summary.length > 0 ? (
+                          <div className="mt-2 text-xs text-idus-black-50 line-clamp-1">
+                            핵심: {c.content.summary[0]}
+                          </div>
+                        ) : null}
+                      </div>
+                      <IconChevronRight className="w-5 h-5 text-idus-orange flex-shrink-0 mt-1" />
+                    </div>
+                  </Link>
+                </Card>
+              ))}
+            </div>
+
+            <Card variant="outlined" className="mt-6 p-4">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                <div className="flex-1">
+                  <div className="font-semibold text-idus-black">자주 묻는 질문도 함께 확인하세요</div>
+                  <div className="text-sm text-idus-black-50">배송/정산/문의 대응 등 빠르게 찾을 수 있어요</div>
+                </div>
+                <Link href="/faq" className="sm:w-auto">
+                  <Button variant="secondary" className="w-full sm:w-auto">FAQ 보기</Button>
+                </Link>
+              </div>
+            </Card>
+          </>
+        )}
+      </div>
+    </main>
+  );
+}
+
+

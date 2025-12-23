@@ -17,6 +17,7 @@ export default function LearnPage() {
   const [progress, setProgress] = useState(0);
   const [artistName, setArtistName] = useState('');
   const [completedSteps, setCompletedSteps] = useState<boolean[]>([false, false, false]);
+  const [completedAll, setCompletedAll] = useState(false);
 
   useEffect(() => {
     const data = getOnboardingData();
@@ -32,11 +33,7 @@ export default function LearnPage() {
       data.learningProgress.step2Completed,
       data.learningProgress.step3Completed,
     ]);
-
-    // 학습 완료 시 완료 페이지로 이동
-    if (isLearningCompleted()) {
-      router.push('/complete');
-    }
+    setCompletedAll(isLearningCompleted());
   }, [router]);
 
   const getStepStatus = (index: number) => {
@@ -95,6 +92,33 @@ export default function LearnPage() {
           </p>
           <ProgressBar progress={progress} />
         </div>
+
+        {completedAll ? (
+          <Card variant="elevated" className="mb-6 border border-idus-orange/30">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-idus-orange text-white flex items-center justify-center">
+                  <BrandIcon name="cheer" size={28} alt="" />
+                </div>
+                <div>
+                  <div className="font-bold text-idus-black">학습을 완료하셨어요</div>
+                  <div className="text-sm text-idus-black-50">필요하면 주제별 부록에서 원하는 정보를 다시 찾아볼 수 있어요.</div>
+                </div>
+              </div>
+              <div className="sm:ml-auto flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                <Link href="/learn/appendix" className="w-full sm:w-auto">
+                  <Button variant="secondary" className="w-full">부록(다시보기)</Button>
+                </Link>
+                <Link href="/complete" className="w-full sm:w-auto">
+                  <Button variant="primary" className="w-full">
+                    완료 페이지
+                    <IconArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </Card>
+        ) : null}
 
         {/* Learning Steps */}
         <div className="space-y-4 mb-8">

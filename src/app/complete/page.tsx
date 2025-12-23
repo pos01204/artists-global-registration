@@ -211,21 +211,38 @@ export default function CompletePage() {
           </div>
         </Card>
 
-        {/* Help */}
-        <div className="text-center mt-8 text-sm text-idus-black-50">
-          <p>도움이 필요하시면 언제든 문의해주세요!</p>
-          <a
-            href="https://idus.channel.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-idus-orange hover:underline"
-          >
-            채널톡 문의하기
-            <IconArrowRight className="w-4 h-4 inline-block ml-1" />
-          </a>
-          <span className="mx-2">|</span>
-          <span>평일 오전 10시 ~ 오후 6시</span>
-        </div>
+        {/* Appendix */}
+        <Card variant="outlined" className="mt-6 animate-slide-up animation-delay-500">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-idus-orange-light/40 flex items-center justify-center">
+              <BrandIcon name="like" size={26} alt="" />
+            </div>
+            <div className="flex-1">
+              <div className="font-semibold text-idus-black">부록 · 주제별 다시보기</div>
+              <div className="text-sm text-idus-black-50">
+                학습이 끝난 후에도 필요한 정보를 빠르게 다시 찾아볼 수 있어요.
+              </div>
+            </div>
+            <Link href="/learn/appendix">
+              <IconArrowRight className="w-5 h-5 text-idus-orange" />
+            </Link>
+          </div>
+        </Card>
+
+        <Card variant="outlined" className="mt-4">
+          <Link href="/faq" className="block">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-idus-gray flex items-center justify-center text-2xl">
+                ❓
+              </div>
+              <div className="flex-1">
+                <div className="font-semibold text-idus-black">자주 묻는 질문</div>
+                <div className="text-sm text-idus-black-50">배송/정산/운영 관련 궁금한 점을 빠르게 확인하세요</div>
+              </div>
+              <IconArrowRight className="w-5 h-5 text-idus-orange" />
+            </div>
+          </Link>
+        </Card>
       </div>
 
       {/* Footer */}
