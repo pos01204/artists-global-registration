@@ -167,24 +167,24 @@ export default function StepPage() {
 
       <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8 pb-28 sm:pb-8">
         {/* Step Title */}
-        <div className="mb-8 animate-fade-in">
-          <div className="flex items-center gap-3 mb-2">
+        <div className="mb-7 sm:mb-8 animate-fade-in text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-3 mb-2">
             <div className="w-10 h-10 rounded-2xl bg-idus-orange-light/30 flex items-center justify-center">
               <BrandIcon name={getStepBrandIconName(step.id)} size={26} alt="" />
             </div>
             <span className="text-sm font-medium text-idus-orange">STEP {step.id}</span>
           </div>
-          <h1 className="text-2xl font-bold text-idus-black">{step.title}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-idus-black text-balance">{step.title}</h1>
         </div>
 
         {/* Content Card */}
         <Card variant="elevated" className="mb-8 animate-slide-up">
-          <div className="mb-6">
-            <div className="flex items-center gap-2 mb-2">
+          <div className="mb-5 sm:mb-6 text-center sm:text-left">
+            <div className="flex items-center justify-center sm:justify-start gap-2 mb-2">
               <span className="text-xs text-idus-black-50">약 {currentContent.duration}분</span>
             </div>
-            <h2 className="text-xl font-bold text-idus-black mb-2">{currentContent.title}</h2>
-            <p className="text-idus-black-70">{currentContent.description}</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-idus-black mb-2 text-balance">{currentContent.title}</h2>
+            <p className="text-idus-black-70 text-balance">{currentContent.description}</p>
           </div>
 
           {/* Content Body */}

@@ -187,7 +187,7 @@ export default function QuizPage() {
             </span>
           </div>
           
-          <h2 className="text-xl font-bold text-idus-black mb-6">
+          <h2 className="text-xl font-bold text-idus-black mb-6 text-balance">
             {currentQuestion.question}
           </h2>
 
@@ -263,7 +263,7 @@ export default function QuizPage() {
                   }`}>
                     {selectedAnswer === currentQuestion.correctAnswer ? '정답이에요!' : '아쉬워요!'}
                   </h4>
-                  <p className="text-sm text-idus-black-70">
+                  <p className="text-sm text-idus-black-70 text-balance">
                     {currentQuestion.explanation}
                   </p>
                 </div>

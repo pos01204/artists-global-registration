@@ -54,6 +54,15 @@ export default function CompletePage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-idus-orange-light/20 to-white relative overflow-hidden">
+      {/* Subtle pattern */}
+      <div className="pointer-events-none fixed inset-0 -z-10" aria-hidden="true">
+        <Image
+          src="/brand/brand assets/pattern02.png"
+          alt=""
+          fill
+          className="object-cover opacity-[0.05]"
+        />
+      </div>
       {/* Confetti Effect */}
       {showConfetti && (
         <div className="fixed inset-0 pointer-events-none z-50">
@@ -88,7 +97,7 @@ export default function CompletePage() {
         </div>
       </header>
 
-      <div className="max-w-2xl mx-auto px-4 py-12">
+      <div className="max-w-2xl mx-auto px-4 py-10 sm:py-12">
         {/* Celebration */}
         <div className="text-center mb-8 animate-fade-in">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-idus-orange-light/40 border border-idus-black-10 mb-5">
@@ -104,9 +113,15 @@ export default function CompletePage() {
 
         {/* Stats */}
         <Card variant="elevated" className="mb-8 animate-slide-up">
-          <h3 className="font-semibold text-idus-black mb-4 flex items-center gap-2">
-            학습 결과
-          </h3>
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <div className="flex items-center gap-2">
+              <div className="w-9 h-9 rounded-2xl bg-idus-orange-light/35 border border-idus-black-10 flex items-center justify-center">
+                <BrandIcon name="best" size={20} alt="" />
+              </div>
+              <h3 className="font-semibold text-idus-black">학습 결과</h3>
+            </div>
+            <div className="text-xs text-idus-black-50">완료</div>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             <div className="text-center p-4 bg-idus-gray rounded-xl">
               <div className="text-2xl font-bold text-idus-orange mb-1">3/3</div>
@@ -155,7 +170,7 @@ export default function CompletePage() {
         {/* CTA */}
         <Card variant="outlined" className="mb-8 border-idus-orange animate-slide-up animation-delay-300">
           <div className="text-center">
-            <h3 className="text-xl font-bold text-idus-black mb-2">
+            <h3 className="text-xl font-bold text-idus-black mb-2 text-balance">
               이제 진짜 글로벌 작가가 될 차례예요!
             </h3>
             <p className="text-idus-black-70 mb-6 text-balance">
@@ -178,9 +193,12 @@ export default function CompletePage() {
 
         {/* Next Steps */}
         <Card variant="outlined" className="animate-slide-up animation-delay-400">
-          <h3 className="font-semibold text-idus-black mb-4 flex items-center gap-2">
-            📋 다음 단계
-          </h3>
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-9 h-9 rounded-2xl bg-idus-gray border border-idus-black-10 flex items-center justify-center">
+              <BrandIcon name="stationery" size={18} alt="" />
+            </div>
+            <h3 className="font-semibold text-idus-black">다음 단계</h3>
+          </div>
           <div className="space-y-4">
             <div className="flex items-start gap-3">
               <div className="w-8 h-8 bg-idus-orange text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
@@ -206,7 +224,7 @@ export default function CompletePage() {
               </div>
               <div>
                 <h4 className="font-medium text-idus-black">해외 주문 받기</h4>
-                <p className="text-sm text-idus-black-50">전 세계 고객에게 작품을 판매해보세요!</p>
+                <p className="text-sm text-idus-black-50">전 세계 고객에게 작품을 판매해봐요</p>
               </div>
             </div>
           </div>
@@ -271,11 +289,11 @@ export default function CompletePage() {
         title="글로벌 작가 등록 안내"
       >
         <div className="space-y-4">
-          <div className="text-sm text-idus-black-70 leading-relaxed">
+          <div className="text-sm text-idus-black-70 leading-relaxed text-balance">
             등록은 <span className="font-semibold text-idus-black">작가웹 로그인</span> 후 진행됩니다.
             새 탭이 열리면 아래 경로에서 등록을 완료해주세요.
           </div>
-          <div className="bg-idus-gray rounded-xl p-4 border border-idus-black-10 text-sm text-idus-black">
+          <div className="bg-idus-gray rounded-xl p-4 border border-idus-black-10 text-sm text-idus-black break-words">
             작가웹 로그인 → 전체메뉴 → 내 정보 → 글로벌 작가 관리
           </div>
           <div className="flex flex-col-reverse sm:flex-row gap-3">

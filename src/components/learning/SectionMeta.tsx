@@ -38,9 +38,16 @@ export default function SectionMeta({ items }: { items: MetaItem[] }) {
   return (
     <div className="mt-3 space-y-2">
       {items.map((m, idx) => (
-        <div key={idx} className="flex items-start gap-3 rounded-xl bg-white border border-idus-black-10 px-3 py-2">
-          <div className="text-xs text-idus-black-50 w-20 pt-0.5 flex-shrink-0">{m.label}</div>
-          <div className="flex-1 text-sm text-idus-black break-words">{m.value}</div>
+        <div
+          key={idx}
+          className="rounded-xl bg-white border border-idus-black-10 px-3 py-2"
+        >
+          <div className="flex items-start gap-3">
+            <div className="text-xs text-idus-black-50 w-16 sm:w-20 pt-0.5 flex-shrink-0">{m.label}</div>
+            {/* 이메일/제목 같은 긴 문자열은 keep-all의 영향을 받지 않도록 break-all로 예외 처리 */}
+            <div className="flex-1 text-sm text-idus-black break-all leading-relaxed">
+              {m.value}
+            </div>
           {m.copy ? (
             <button
               type="button"
@@ -57,6 +64,7 @@ export default function SectionMeta({ items }: { items: MetaItem[] }) {
               <Copy className="w-4 h-4" />
             </button>
           ) : null}
+          </div>
         </div>
       ))}
     </div>

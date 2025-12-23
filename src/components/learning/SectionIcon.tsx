@@ -77,7 +77,11 @@ export default function SectionIcon({ icon, size = 'md' }: SectionIconProps) {
 
   // Fallback: emoji/text
   return (
-    <span className="leading-none" style={{ fontSize: emoji }}>
+    <span
+      className="inline-flex items-center justify-center rounded-xl bg-idus-gray border border-idus-black-10"
+      style={{ width: box, height: box, fontSize: emoji }}
+      aria-hidden="true"
+    >
       {icon}
     </span>
   );
