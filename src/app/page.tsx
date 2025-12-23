@@ -33,12 +33,12 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 opacity-5 pointer-events-none" aria-hidden="true">
           <div className="absolute top-10 left-10 w-32 h-32 bg-idus-orange rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-20 w-40 h-40 bg-idus-orange rounded-full blur-3xl" />
         </div>
 
-        <div className="max-w-4xl mx-auto px-4 py-12 md:py-20">
+        <div className="relative z-10 max-w-4xl mx-auto px-4 py-12 md:py-20">
           {/* Hero Content */}
           <div className="text-center mb-12 animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-idus-orange-light/50 text-idus-orange-dark px-4 py-2 rounded-full text-sm font-medium mb-6">
