@@ -65,13 +65,13 @@ export interface LearningContent {
   imageUrl?: string;
 }
 
-// 학습 단계 정의 (총 30분 = 9 + 10 + 9 + 2분 퀴즈)
+// 학습 단계 정의 (총 30분 = 11 + 10 + 9 + 2분 퀴즈)
 export const LEARNING_STEPS = [
   {
     id: 1,
     title: '글로벌 서비스 이해하기',
     description: 'idus 글로벌 서비스와 물류/정산을 알아봅니다',
-    duration: 9,
+    duration: 11,
     icon: '🌏',
   },
   {

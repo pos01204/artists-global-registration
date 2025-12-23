@@ -103,11 +103,6 @@ export default function StepPage() {
         <Card variant="elevated" className="mb-8 animate-slide-up">
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-xs bg-idus-orange-light text-idus-orange-dark px-2 py-1 rounded-full">
-                {currentContent.type === 'video' ? '📹 영상' : 
-                 currentContent.type === 'guide' ? '📖 가이드' :
-                 currentContent.type === 'checklist' ? '✅ 체크리스트' : '📊 인포그래픽'}
-              </span>
               <span className="text-xs text-idus-black-50">약 {currentContent.duration}분</span>
             </div>
             <h2 className="text-xl font-bold text-idus-black mb-2">{currentContent.title}</h2>
@@ -141,7 +136,7 @@ export default function StepPage() {
               >
                 <div className="flex items-start gap-3">
                   {section.icon && (
-                    <span className={`text-2xl flex-shrink-0 ${section.highlight ? 'bg-idus-orange text-white w-10 h-10 rounded-full flex items-center justify-center text-lg' : ''}`}>
+                    <span className="text-2xl flex-shrink-0">
                       {section.icon}
                     </span>
                   )}

@@ -217,7 +217,7 @@ export default function QualificationPage() {
               <div className="flex-1">
                 <h4 className="font-medium text-gray-900 text-sm">STEP 1. 글로벌 서비스 이해하기</h4>
               </div>
-              <span className="text-xs text-gray-400">약 9분</span>
+              <span className="text-xs text-gray-400">약 11분</span>
             </div>
             
             {/* STEP 2 */}

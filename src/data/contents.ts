@@ -43,12 +43,12 @@ export interface ChecklistItem {
 
 /**
  * 콘텐츠 구조 간소화 (페이지당 3개 섹션 이하)
- * - STEP 1: 3개 콘텐츠
+ * - STEP 1: 4개 콘텐츠 (글로벌 소개, 물류, 정산, 작가 등록)
  * - STEP 2: 3개 콘텐츠  
  * - STEP 3: 3개 콘텐츠
  */
 
-// STEP 1: 글로벌 서비스 이해하기 (3개)
+// STEP 1: 글로벌 서비스 이해하기 (4개)
 export const STEP1_CONTENTS: ContentItem[] = [
   {
     id: 'global-intro',
@@ -56,7 +56,7 @@ export const STEP1_CONTENTS: ContentItem[] = [
     order: 1,
     title: 'idus 글로벌 판매란?',
     description: '해외 배송 없이 해외 판매! idus가 모든 것을 지원해드려요',
-    type: 'infographic',
+    type: 'guide',
     duration: 3,
     content: {
       sections: [
@@ -87,13 +87,13 @@ export const STEP1_CONTENTS: ContentItem[] = [
       ],
       externalLinks: [
         {
-          title: '🎬 글로벌 시작해야 하는 이유 (영상)',
+          title: '글로벌 시작해야 하는 이유 (영상)',
           url: 'https://youtu.be/97NVKTTCTZU',
           icon: '▶️',
           description: '2분 만에 알아보기',
         },
         {
-          title: '🎬 글로벌 작가님 후기 (ccnmade 작가님)',
+          title: '글로벌 작가님 후기 (ccnmade 작가님)',
           url: 'https://youtu.be/H8iRAmqdTzY',
           icon: '▶️',
           description: '실제 작가님의 경험담',
@@ -102,16 +102,15 @@ export const STEP1_CONTENTS: ContentItem[] = [
     },
   },
   {
-    id: 'logistics-settlement',
+    id: 'logistics',
     stepId: 1,
     order: 2,
-    title: '물류 & 정산 안내',
-    description: '배송 가능 국가와 정산 방식을 알아봐요',
+    title: '물류 안내',
+    description: '배송 흐름과 물류센터 주소를 확인하세요',
     type: 'video',
-    duration: 4,
+    duration: 3,
     content: {
       videoUrl: 'https://www.youtube.com/embed/35n47GhEsgs',
-      videoThumbnail: '/brand/brand assets/배송박스.png',
       sections: [
         {
           title: '배송 흐름',
@@ -127,31 +126,60 @@ export const STEP1_CONTENTS: ContentItem[] = [
           icon: '🌏',
         },
         {
-          title: '정산 안내',
+          title: '국내 물류창고 주소',
           content:
-            '• 정산 주기: 월 2회 (1일, 16일)\n• 정산 통화: 원화 (KRW)\n• 수수료: 글로벌 판매 수수료 적용',
-          icon: '💵',
+            '인천시 중구 자유무역로 67, 롯데글로벌로지스 C3 3층 특송수출 백패커\n백패커 GC\n📞 032-745-9470',
+          highlight: true,
+          icon: '🏭',
         },
       ],
       summary: [
         '국내 물류센터로 발송하면 끝',
         '45개국 배송 가능',
-        '월 2회 원화 정산',
       ],
-      externalLinks: [
+    },
+  },
+  {
+    id: 'settlement',
+    stepId: 1,
+    order: 3,
+    title: '정산 안내',
+    description: '수수료와 정산 방식을 알아봐요',
+    type: 'guide',
+    duration: 3,
+    content: {
+      sections: [
         {
-          title: '물류/정산 안내 영상 보기',
-          url: 'https://youtu.be/35n47GhEsgs',
-          icon: '▶️',
-          description: 'YouTube에서 자세히 보기',
+          title: '정산 기본 정보',
+          content:
+            '• 정산 주기: 월 2회 (1일, 16일)\n• 정산 통화: 원화 (KRW)\n• 별도 외화계좌 불필요\n\n환율, 통화, 외화계좌... 신경 쓰실 필요 없습니다!\nidus 글로벌 정산은 작가님 국내 통장으로 원화 정산됩니다.',
+          highlight: true,
+          icon: '💵',
         },
+        {
+          title: '수수료 안내',
+          content:
+            '┌────────────┬────┬────┬────┬────┐\n│ 수수료 항목      │ 일반 │프리미엄│ 새싹 │국가공인│\n├────────────┼────┼────┼────┼────┤\n│ idus 수수료(동일) │ 15% │ 15% │  5% │  0% │\n│ 해외 PG(%)      │  5% │  5% │  5% │  0% │\n├────────────┼────┼────┼────┼────┤\n│ 총수수료        │ 20% │ 20% │ 10% │  0% │\n└────────────┴────┴────┴────┴────┘',
+          icon: '📊',
+        },
+        {
+          title: '부가세 영세율(0%) 적용',
+          content:
+            '해외 매출은 0%의 부가세율이 적용되어 납부 세액이 \'0\'입니다.\n\nidus 수수료에 대한 부가세를 환급 받을 수 있습니다.\n→ 영세율 적용/부가세 환급으로 해외 매출의 수익성이 더 좋습니다!',
+          highlight: true,
+          icon: '✅',
+        },
+      ],
+      summary: [
+        '월 2회 원화 정산 (외화계좌 불필요)',
+        '해외 매출 부가세 0% + 환급 가능',
       ],
     },
   },
   {
     id: 'artist-registration',
     stepId: 1,
-    order: 3,
+    order: 4,
     title: '글로벌 작가 등록하기',
     description: '작가웹에서 간단하게 신청 완료!',
     type: 'guide',
@@ -282,7 +310,7 @@ export const STEP2_CONTENTS: ContentItem[] = [
       ],
       externalLinks: [
         {
-          title: '📚 작품 번역 가이드 (상세)',
+          title: '작품 번역 가이드 (상세)',
           url: 'https://artist-mate.idus.com/df148f78-62e8-4792-a668-99a66ab7e314',
           icon: '📖',
           description: 'ChatGPT 프롬프트, Flitto 제휴 안내',
@@ -338,7 +366,7 @@ export const STEP2_CONTENTS: ContentItem[] = [
       ],
       externalLinks: [
         {
-          title: '📚 글로벌 링크 생성 가이드 (상세)',
+          title: '글로벌 링크 생성 가이드 (상세)',
           url: 'https://artist-mate.idus.com/ce124c57-9e9b-4eb5-9a85-07b1d9531b2f',
           icon: '🔗',
           description: '작가홈/작품 공유 링크 생성 방법',
