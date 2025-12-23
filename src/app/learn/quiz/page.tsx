@@ -58,7 +58,7 @@ export default function QuizPage() {
       setShowResult(false);
     } else {
       // 퀴즈 완료 - 정답 수 계산
-      const correctCount = answers.reduce((count, answer, index) => {
+      const correctCount = answers.reduce((count: number, answer, index) => {
         if (answer === QUIZ_QUESTIONS[index].correctAnswer) {
           return count + 1;
         }
@@ -80,8 +80,8 @@ export default function QuizPage() {
   };
 
   // 정답 수 계산 (결과 화면용)
-  const calculateScore = () => {
-    return answers.reduce((count, answer, index) => {
+  const calculateScore = (): number => {
+    return answers.reduce((count: number, answer, index) => {
       if (answer === QUIZ_QUESTIONS[index].correctAnswer) {
         return count + 1;
       }
