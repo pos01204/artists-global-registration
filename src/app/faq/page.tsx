@@ -6,7 +6,7 @@ import Button from '@/components/ui/Button';
 import Accordion from '@/components/ui/Accordion';
 import BrandIcon from '@/components/ui/BrandIcon';
 import { useToast } from '@/components/ui/ToastProvider';
-import { ArrowLeft, MessageCircle, Search } from 'lucide-react';
+import { ArrowLeft, Search } from 'lucide-react';
 
 interface FAQItem {
   id: string;
@@ -197,41 +197,6 @@ export default function FAQPage() {
             <div className="text-sm text-idus-black-70 mt-1">다른 키워드로 다시 검색해보세요.</div>
           </div>
         )}
-
-        {/* 추가 문의 */}
-        <div className="mt-12">
-          <div className="bg-idus-orange-light/20 rounded-2xl p-6 border border-idus-black-10">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
-              <div className="flex items-start gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-sm border border-idus-black-10">
-                  <MessageCircle className="w-6 h-6 text-idus-orange" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-idus-black mb-1">
-                    찾으시는 답변이 없으신가요?
-                  </h3>
-                  <p className="text-idus-black-70 text-sm">
-                    채널톡으로 문의해주시면 친절하게 안내해드릴게요
-                  </p>
-                  <p className="text-xs text-idus-black-50 mt-1">
-                    상담시간: 평일 오전 10시 ~ 오후 6시
-                  </p>
-                </div>
-              </div>
-
-              <a
-                href="https://idus.channel.io"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto"
-              >
-                <Button variant="primary" className="w-full sm:w-auto">
-                  채널톡으로 문의하기
-                </Button>
-              </a>
-            </div>
-          </div>
-        </div>
       </main>
     </div>
   );
