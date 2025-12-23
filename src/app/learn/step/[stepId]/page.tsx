@@ -116,25 +116,16 @@ export default function StepPage() {
 
           {/* Content Body */}
           <div className="space-y-6">
-            {/* Video Content */}
+            {/* Video Content - 실제 영상 임베딩 */}
             {currentContent.type === 'video' && currentContent.content.videoUrl && (
-              <div className="aspect-video bg-idus-black-10 rounded-xl overflow-hidden">
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-idus-black-10 to-idus-black-20">
-                  <div className="text-center">
-                    <div className="w-20 h-20 bg-idus-orange rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-white text-3xl ml-1">▶</span>
-                    </div>
-                    <p className="text-idus-black-70">영상을 시청해주세요</p>
-                    <a
-                      href="https://www.youtube.com/@idus_official"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-idus-orange hover:underline text-sm mt-2 inline-block"
-                    >
-                      YouTube에서 보기 →
-                    </a>
-                  </div>
-                </div>
+              <div className="aspect-video bg-idus-black-10 rounded-xl overflow-hidden shadow-lg">
+                <iframe
+                  src={currentContent.content.videoUrl.replace('youtu.be/', 'www.youtube.com/embed/').replace('watch?v=', 'embed/') + '?rel=0'}
+                  title={currentContent.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
               </div>
             )}
 
@@ -194,6 +185,37 @@ export default function StepPage() {
                     </li>
                   ))}
                 </ul>
+              </div>
+            )}
+
+            {/* External Links */}
+            {currentContent.content.externalLinks && currentContent.content.externalLinks.length > 0 && (
+              <div className="bg-idus-gray rounded-xl p-4">
+                <h4 className="font-semibold text-idus-black mb-3 flex items-center gap-2">
+                  🔗 관련 링크
+                </h4>
+                <div className="space-y-2">
+                  {currentContent.content.externalLinks.map((link, index) => (
+                    <a
+                      key={index}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 p-3 bg-white rounded-lg hover:bg-idus-orange-light/30 transition-colors group"
+                    >
+                      <span className="text-xl">{link.icon || '🔗'}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-idus-black group-hover:text-idus-orange transition-colors truncate">
+                          {link.title}
+                        </div>
+                        {link.description && (
+                          <div className="text-xs text-idus-black-50 truncate">{link.description}</div>
+                        )}
+                      </div>
+                      <span className="text-idus-black-30 group-hover:text-idus-orange transition-colors">→</span>
+                    </a>
+                  ))}
+                </div>
               </div>
             )}
           </div>

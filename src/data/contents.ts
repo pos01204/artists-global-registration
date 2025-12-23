@@ -1,4 +1,4 @@
-// 학습 콘텐츠 데이터 - 간소화 버전
+// 학습 콘텐츠 데이터 - 간소화 버전 (링크 업데이트)
 
 export interface ContentItem {
   id: string;
@@ -85,6 +85,20 @@ export const STEP1_CONTENTS: ContentItem[] = [
         '45개국 판매, 번역 지원',
         '기존 작품으로 바로 시작 가능',
       ],
+      externalLinks: [
+        {
+          title: '🎬 글로벌 시작해야 하는 이유 (영상)',
+          url: 'https://youtu.be/97NVKTTCTZU',
+          icon: '▶️',
+          description: '2분 만에 알아보기',
+        },
+        {
+          title: '🎬 글로벌 작가님 후기 (ccnmade 작가님)',
+          url: 'https://youtu.be/H8iRAmqdTzY',
+          icon: '▶️',
+          description: '실제 작가님의 경험담',
+        },
+      ],
     },
   },
   {
@@ -93,9 +107,11 @@ export const STEP1_CONTENTS: ContentItem[] = [
     order: 2,
     title: '물류 & 정산 안내',
     description: '배송 가능 국가와 정산 방식을 알아봐요',
-    type: 'guide',
+    type: 'video',
     duration: 4,
     content: {
+      videoUrl: 'https://www.youtube.com/embed/35n47GhEsgs',
+      videoThumbnail: '/brand/brand assets/배송박스.png',
       sections: [
         {
           title: '배송 흐름',
@@ -124,10 +140,10 @@ export const STEP1_CONTENTS: ContentItem[] = [
       ],
       externalLinks: [
         {
-          title: 'idus 공식 유튜브',
-          url: 'https://www.youtube.com/@idus_official',
+          title: '물류/정산 안내 영상 보기',
+          url: 'https://youtu.be/35n47GhEsgs',
           icon: '▶️',
-          description: '글로벌 안내 영상 보기',
+          description: 'YouTube에서 자세히 보기',
         },
       ],
     },
@@ -137,15 +153,15 @@ export const STEP1_CONTENTS: ContentItem[] = [
     stepId: 1,
     order: 3,
     title: '글로벌 작가 등록하기',
-    description: '작가 앱에서 1분 만에 신청 완료!',
+    description: '작가웹에서 간단하게 신청 완료!',
     type: 'guide',
     duration: 2,
     content: {
       sections: [
         {
-          title: '신청 방법',
+          title: '등록 경로',
           content:
-            '1) 아이디어스 작가 앱 접속\n2) 설정 → 글로벌 판매 신청\n3) 약관 동의 후 완료!',
+            '작가웹 로그인 → 전체메뉴 → 내 정보 → 글로벌 작가 관리',
           highlight: true,
           icon: '✈️',
         },
@@ -163,21 +179,27 @@ export const STEP1_CONTENTS: ContentItem[] = [
         },
       ],
       summary: [
-        '작가 앱에서 1분이면 신청 완료',
+        '작가웹 > 내 정보 > 글로벌 작가 관리',
         '본인 인증/정산계좌 필요',
       ],
       externalLinks: [
         {
-          title: '글로벌 작가 등록하기',
-          url: 'https://www.idus.com/w/artist/global',
+          title: '글로벌 작가 관리 페이지',
+          url: 'https://artist.idus.com/setting/global-artist/manage',
           icon: '✈️',
-          description: '지금 바로 신청',
+          description: '작가웹 로그인 후 이용',
+        },
+        {
+          title: '구매자 앱 다운로드 / 언어 설정 가이드',
+          url: 'https://artist-mate.idus.com/12a788bc-bb8d-420b-8ef7-4d6d049313c0',
+          icon: '📲',
+          description: '해외 고객 화면 확인하기',
         },
         {
           title: '문의하기',
           url: 'https://idus.channel.io',
           icon: '💬',
-          description: '채널톡 문의',
+          description: '채널톡 문의 (평일 10시~18시)',
         },
       ],
     },
@@ -243,7 +265,7 @@ export const STEP2_CONTENTS: ContentItem[] = [
         {
           title: '추천 번역 도구',
           content:
-            '• 파파고: 한국어 특화, 자연스러운 번역\n• DeepL: 고품질 AI 번역\n• ChatGPT: 문맥 이해, 톤 조절 가능',
+            '• ChatGPT / Perplexity: 자연스러운 번역 (추천!)\n• 파파고: 단순 문장에 활용\n• 전문 번역: Flitto (idus 제휴 할인)',
           icon: '🔧',
         },
         {
@@ -255,24 +277,27 @@ export const STEP2_CONTENTS: ContentItem[] = [
       ],
       summary: [
         '작품명/설명/옵션명은 필수',
-        '파파고, DeepL 활용 추천',
+        'ChatGPT, Perplexity 활용 추천',
         '번역 후 검토는 필수',
       ],
       externalLinks: [
         {
-          title: '파파고 번역',
-          url: 'https://papago.naver.com',
-          icon: '🌐',
-        },
-        {
-          title: 'DeepL 번역',
-          url: 'https://www.deepl.com/translator',
-          icon: '🌐',
+          title: '📚 작품 번역 가이드 (상세)',
+          url: 'https://artist-mate.idus.com/df148f78-62e8-4792-a668-99a66ab7e314',
+          icon: '📖',
+          description: 'ChatGPT 프롬프트, Flitto 제휴 안내',
         },
         {
           title: 'ChatGPT',
           url: 'https://chat.openai.com',
           icon: '🤖',
+          description: 'LLM 기반 번역 (추천)',
+        },
+        {
+          title: '파파고 번역',
+          url: 'https://papago.naver.com',
+          icon: '🌐',
+          description: '단순 문장 번역용',
         },
       ],
     },
@@ -288,17 +313,17 @@ export const STEP2_CONTENTS: ContentItem[] = [
     content: {
       sections: [
         {
-          title: '글로벌 링크 생성 방법',
+          title: '글로벌 작가홈 링크',
           content:
-            '기존 URL 뒤에 언어 파라미터 추가:\n• 영어: ?lang=en\n• 일본어: ?lang=ja',
+            '글로벌 작가홈은 신청을 통해 생성할 수 있어요.\n모바일 앱 환경에서 지원됩니다.',
           highlight: true,
-          icon: '🔗',
+          icon: '🏠',
         },
         {
-          title: '링크 예시',
+          title: '글로벌 작품 공유 링크',
           content:
-            '작가홈: idus.com/w/artist/[ID]?lang=en\n작품: idus.com/w/product/[ID]?lang=en',
-          icon: '📎',
+            '글로벌 앱 접속 → 작품 상세페이지 → 공유하기 버튼 클릭',
+          icon: '🔗',
         },
         {
           title: '활용 방법',
@@ -308,8 +333,16 @@ export const STEP2_CONTENTS: ContentItem[] = [
         },
       ],
       summary: [
-        'URL에 ?lang=en 추가로 영문 링크 생성',
+        '글로벌 앱에서 작품 공유 링크 생성',
         'SNS, QR 코드로 홍보 활용',
+      ],
+      externalLinks: [
+        {
+          title: '📚 글로벌 링크 생성 가이드 (상세)',
+          url: 'https://artist-mate.idus.com/ce124c57-9e9b-4eb5-9a85-07b1d9531b2f',
+          icon: '🔗',
+          description: '작가홈/작품 공유 링크 생성 방법',
+        },
       ],
     },
   },
@@ -434,7 +467,7 @@ export const STEP3_CONTENTS: ContentItem[] = [
           title: '채널톡 문의하기',
           url: 'https://idus.channel.io',
           icon: '💬',
-          description: '소포수령증 신청 및 기타 문의',
+          description: '평일 10시~18시 상담 가능',
         },
       ],
     },
