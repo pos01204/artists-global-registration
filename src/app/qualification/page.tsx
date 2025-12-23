@@ -274,16 +274,11 @@ export default function QualificationPage() {
           </div>
         </Card>
         
-        {/* 하단 문의 안내 */}
+        {/* 하단 안내 */}
         <div className="mt-8 text-center">
-          <p className="text-xs text-gray-400 mb-1">도움이 필요하신가요?</p>
-          <a 
-            href="https://idus.channel.io" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-idus-orange hover:underline text-sm"
-          >
-            채널톡으로 문의하기
+          <p className="text-xs text-gray-400 mb-2">궁금한 점이 있으면 FAQ에서 먼저 확인해요</p>
+          <a href="/faq" className="text-idus-orange hover:underline text-sm">
+            자주 묻는 질문 보러가기
           </a>
         </div>
       </div>

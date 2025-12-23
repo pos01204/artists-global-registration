@@ -187,7 +187,7 @@ export default function CompletePage() {
               </div>
               <div>
                 <h4 className="font-medium text-idus-black">글로벌 작가 등록</h4>
-                <p className="text-sm text-idus-black-50">위 버튼을 눌러 등록을 완료하세요</p>
+                <p className="text-sm text-idus-black-50">위 버튼을 눌러 등록을 완료해요</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
@@ -196,7 +196,7 @@ export default function CompletePage() {
               </div>
               <div>
                 <h4 className="font-medium text-idus-black">작품 글로벌 판매 ON</h4>
-                <p className="text-sm text-idus-black-50">판매할 작품의 글로벌 판매를 활성화하세요</p>
+                <p className="text-sm text-idus-black-50">판매할 작품의 글로벌 판매를 켜줘요</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
@@ -237,7 +237,7 @@ export default function CompletePage() {
               </div>
               <div className="flex-1">
                 <div className="font-semibold text-idus-black">자주 묻는 질문</div>
-                <div className="text-sm text-idus-black-50">배송/정산/운영 관련 궁금한 점을 빠르게 확인하세요</div>
+                <div className="text-sm text-idus-black-50">배송/정산/운영 관련 궁금한 점을 빠르게 확인해요</div>
               </div>
               <IconArrowRight className="w-5 h-5 text-idus-orange" />
             </div>

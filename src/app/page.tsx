@@ -21,12 +21,10 @@ export default function Home() {
             <span className="text-sm font-medium text-idus-orange">Global</span>
           </div>
           <a
-            href="https://idus.channel.io"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/faq"
             className="text-sm text-idus-black-70 hover:text-idus-orange transition-colors"
           >
-            문의하기
+            자주 묻는 질문
           </a>
         </div>
       </header>
@@ -58,7 +56,7 @@ export default function Home() {
             
             <p className="text-lg md:text-xl text-idus-black-70 max-w-2xl mx-auto leading-relaxed">
               전 세계 고객에게 작품을 선보일 준비가 되셨나요?<br />
-              <span className="text-idus-orange font-semibold">해외 배송비 0원</span>으로 쉽게 시작하세요!
+              <span className="text-idus-orange font-semibold">해외 배송비 0원</span>으로 쉽게 시작해요!
             </p>
           </div>
 

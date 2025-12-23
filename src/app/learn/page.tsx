@@ -230,7 +230,7 @@ export default function LearnPage() {
                 )}
               </div>
               <h3 className="font-bold text-idus-black mb-1">간단 퀴즈</h3>
-              <p className="text-sm text-idus-black-50">배운 내용을 확인해보세요!</p>
+              <p className="text-sm text-idus-black-50">배운 내용을 간단히 확인해요!</p>
             </div>
             <div className="text-right">
               <div className="text-sm text-idus-black-50 mb-1">약 2분</div>
@@ -278,7 +278,7 @@ export default function LearnPage() {
               <div className="flex-1">
                 <div className="font-semibold text-idus-black">자주 묻는 질문</div>
                 <div className="text-sm text-idus-black-50">
-                  배송/정산/문의 대응 등 궁금한 점을 바로 확인해보세요
+                  배송/정산/문의 대응 등 궁금한 점을 바로 확인해요
                 </div>
               </div>
               <IconChevronRight className="w-5 h-5 text-idus-orange" />

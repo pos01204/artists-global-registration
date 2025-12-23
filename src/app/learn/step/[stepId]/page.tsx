@@ -95,27 +95,36 @@ export default function StepPage() {
     const sections = currentContent?.content.sections ?? [];
     const MAX_PRIMARY = 3;
 
-    // 1) highlight는 우선 핵심으로, 단 핵심은 최대 3개까지
-    const highlightIdx: number[] = [];
+    const isSecondaryByTitle = (title?: string) => {
+      if (!title) return false;
+      const t = title.trim();
+      return /^(TIP:|TIP\b|안내\b|참고\b|추가\b)/.test(t);
+    };
+
+    const secondaryIdx: number[] = [];
+    const primaryCandidateIdx: number[] = [];
+
     sections.forEach((s, i) => {
-      if (s.highlight) highlightIdx.push(i);
+      if (s.importance === 'secondary' || isSecondaryByTitle(s.title)) secondaryIdx.push(i);
+      else primaryCandidateIdx.push(i);
     });
 
-    const primaryIdx = new Set<number>();
-    if (highlightIdx.length >= MAX_PRIMARY) {
-      highlightIdx.slice(0, MAX_PRIMARY).forEach(i => primaryIdx.add(i));
-    } else {
-      highlightIdx.forEach(i => primaryIdx.add(i));
-      // 2) highlight가 부족하면(=동급 주제/필수 섹션) 앞에서부터 채워서 핵심 최대 3개 구성
-      for (let i = 0; i < sections.length && primaryIdx.size < MAX_PRIMARY; i++) {
-        if (!primaryIdx.has(i)) primaryIdx.add(i);
-      }
+    // 핵심 카드 구성: highlight 우선, 그 다음 나머지(최대 3개)
+    const picked = new Set<number>();
+    for (const i of primaryCandidateIdx) {
+      if (picked.size >= MAX_PRIMARY) break;
+      if (sections[i]?.highlight) picked.add(i);
+    }
+    for (const i of primaryCandidateIdx) {
+      if (picked.size >= MAX_PRIMARY) break;
+      if (!picked.has(i)) picked.add(i);
     }
 
-    return {
-      primarySections: sections.filter((_, i) => primaryIdx.has(i)),
-      extraSections: sections.filter((_, i) => !primaryIdx.has(i)),
-    };
+    const primarySections = sections.filter((_, i) => picked.has(i));
+    // secondary는 무조건 extra로 강제 + primary에 포함되지 않은 섹션도 extra로 보관
+    const finalExtraSections = sections.filter((_, i) => (!picked.has(i)) || secondaryIdx.includes(i));
+
+    return { primarySections, extraSections: finalExtraSections };
   }, [currentContent]);
 
   const externalLinks = useMemo(() => {

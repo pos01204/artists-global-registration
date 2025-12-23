@@ -159,7 +159,7 @@ export default function AppendixPage() {
             <Card variant="outlined" className="mt-6 p-4">
               <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                 <div className="flex-1">
-                  <div className="font-semibold text-idus-black">자주 묻는 질문도 함께 확인하세요</div>
+                  <div className="font-semibold text-idus-black">자주 묻는 질문도 함께 확인해요</div>
                   <div className="text-sm text-idus-black-50">배송/정산/문의 대응 등 빠르게 찾을 수 있어요</div>
                 </div>
                 <Link href="/faq" className="sm:w-auto">

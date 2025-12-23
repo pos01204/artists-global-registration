@@ -51,8 +51,8 @@ export default function NoBusinessPage() {
               <div>
                 <h3 className="font-semibold text-idus-black mb-2">왜 사업자등록이 필요한가요?</h3>
                 <p className="text-sm text-idus-black-70 leading-relaxed">
-                  해외 판매 시 세금계산서 발행 및 정산을 위해 사업자등록이 필수입니다.
-                  개인사업자로도 간편하게 등록하실 수 있어요!
+                  해외 판매 정산/세금 처리를 위해 사업자등록이 꼭 필요해요.
+                  개인사업자로도 간편하게 등록할 수 있어요!
                 </p>
               </div>
             </div>
