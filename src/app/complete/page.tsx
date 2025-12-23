@@ -10,12 +10,16 @@ import { getOnboardingData, markRegistrationClicked, isLearningCompleted } from 
 import { submitOnboardingData } from '@/lib/api';
 import { IconArrowRight, IconCheck } from '@/components/ui/icons';
 import BrandIcon from '@/components/ui/BrandIcon';
+import Modal from '@/components/ui/Modal';
+import { useToast } from '@/components/ui/ToastProvider';
 
 export default function CompletePage() {
   const router = useRouter();
   const [artistName, setArtistName] = useState('');
   const [quizScore, setQuizScore] = useState(0);
   const [showConfetti, setShowConfetti] = useState(true);
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const data = getOnboardingData();
@@ -40,10 +44,12 @@ export default function CompletePage() {
     return () => clearTimeout(timer);
   }, [router]);
 
-  const handleRegistrationClick = () => {
+  const handleRegistrationClick = () => setOpenConfirm(true);
+  const proceedRegistration = () => {
     markRegistrationClicked();
-    // 글로벌 작가 등록 페이지로 이동 (작가웹 > 내 정보 > 글로벌 작가 관리)
+    toast({ type: 'success', title: '등록 페이지로 이동합니다', description: '새 탭에서 글로벌 작가 등록을 진행해주세요.' });
     window.open('https://artist.idus.com/setting/global-artist/manage', '_blank');
+    setOpenConfirm(false);
   };
 
   return (
@@ -240,6 +246,34 @@ export default function CompletePage() {
           </p>
         </div>
       </footer>
+
+      <Modal
+        open={openConfirm}
+        onClose={() => setOpenConfirm(false)}
+        title="글로벌 작가 등록 안내"
+      >
+        <div className="space-y-4">
+          <div className="text-sm text-idus-black-70 leading-relaxed">
+            등록은 <span className="font-semibold text-idus-black">작가웹 로그인</span> 후 진행됩니다.
+            새 탭이 열리면 아래 경로에서 등록을 완료해주세요.
+          </div>
+          <div className="bg-idus-gray rounded-xl p-4 border border-idus-black-10 text-sm text-idus-black">
+            작가웹 로그인 → 전체메뉴 → 내 정보 → 글로벌 작가 관리
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button variant="secondary" className="w-full" onClick={() => setOpenConfirm(false)}>
+              취소
+            </Button>
+            <Button variant="primary" className="w-full" onClick={proceedRegistration}>
+              등록하러 가기
+              <IconArrowRight className="w-4 h-4" />
+            </Button>
+          </div>
+          <div className="text-xs text-idus-black-50">
+            팁: 등록 완료 후에도 이 페이지는 닫지 않으셔도 됩니다.
+          </div>
+        </div>
+      </Modal>
     </main>
   );
 }

@@ -10,10 +10,12 @@ import { initOnboardingData } from '@/lib/storage';
 import Image from 'next/image';
 import BrandIcon, { BrandIconName } from '@/components/ui/BrandIcon';
 import { IconArrowRight } from '@/components/ui/icons';
+import { useToast } from '@/components/ui/ToastProvider';
 
 export default function ArtistInfoForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
   const [formData, setFormData] = useState<ArtistInfo>({
     artistName: '',
     phoneNumber: '',
@@ -83,6 +85,12 @@ export default function ArtistInfoForm() {
     try {
       // 데이터 저장 및 자격 상태 결정
       const data = initOnboardingData(formData);
+
+      toast({
+        type: 'success',
+        title: '정보 저장 완료',
+        description: '이제 글로벌 판매 가능 여부를 확인할게요.',
+      });
       
       // 자격 상태에 따라 라우팅
       if (data.qualificationStatus === 'no_business') {
@@ -94,6 +102,11 @@ export default function ArtistInfoForm() {
       }
     } catch (error) {
       console.error('Error saving data:', error);
+      toast({
+        type: 'error',
+        title: '저장에 실패했어요',
+        description: '잠시 후 다시 시도해주세요.',
+      });
     } finally {
       setIsLoading(false);
     }

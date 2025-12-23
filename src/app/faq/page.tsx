@@ -1,9 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
-import { IconArrowLeft, IconArrowRight, IconPlus } from '@/components/ui/icons';
+import Accordion from '@/components/ui/Accordion';
+import BrandIcon from '@/components/ui/BrandIcon';
+import { useToast } from '@/components/ui/ToastProvider';
+import { ArrowLeft, MessageCircle, Search } from 'lucide-react';
 
 interface FAQItem {
   id: string;
@@ -82,12 +85,22 @@ const FAQ_DATA: FAQItem[] = [
 export default function FAQPage() {
   const [activeCategory, setActiveCategory] = useState<string>('전체');
   const [openItems, setOpenItems] = useState<string[]>([]);
+  const [query, setQuery] = useState('');
+  const { toast } = useToast();
 
   const categories = ['전체', ...Array.from(new Set(FAQ_DATA.map(item => item.category)))];
   
-  const filteredFAQs = activeCategory === '전체' 
-    ? FAQ_DATA 
-    : FAQ_DATA.filter(item => item.category === activeCategory);
+  const filteredFAQs = useMemo(() => {
+    const base = activeCategory === '전체'
+      ? FAQ_DATA
+      : FAQ_DATA.filter(item => item.category === activeCategory);
+
+    const q = query.trim().toLowerCase();
+    if (!q) return base;
+    return base.filter(item =>
+      item.question.toLowerCase().includes(q) || item.answer.toLowerCase().includes(q)
+    );
+  }, [activeCategory, query]);
 
   const toggleItem = (id: string) => {
     setOpenItems(prev => 
@@ -97,6 +110,24 @@ export default function FAQPage() {
     );
   };
 
+  const accordionItems = useMemo(() => {
+    return filteredFAQs.map(item => ({
+      id: item.id,
+      header: (
+        <div className="flex items-start gap-3">
+          <div className="w-8 h-8 rounded-xl bg-idus-orange-light/30 flex items-center justify-center flex-shrink-0">
+            <BrandIcon name="like" size={18} alt="" />
+          </div>
+          <div className="min-w-0">
+            <div className="font-semibold text-idus-black">{item.question}</div>
+            <div className="text-xs text-idus-black-50 mt-0.5">FAQ</div>
+          </div>
+        </div>
+      ),
+      content: item.answer,
+    }));
+  }, [filteredFAQs]);
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* 헤더 */}
@@ -104,7 +135,7 @@ export default function FAQPage() {
         <div className="max-w-3xl mx-auto px-4 py-6">
           <Link href="/learn" className="text-idus-black-70 hover:text-idus-orange mb-4 inline-block">
             <span className="inline-flex items-center gap-2">
-              <IconArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4" />
               학습으로 돌아가기
             </span>
           </Link>
@@ -116,6 +147,28 @@ export default function FAQPage() {
       {/* 카테고리 필터 */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-3">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="relative flex-1">
+              <Search className="w-4 h-4 text-idus-black-50 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="질문/키워드로 검색"
+                className="w-full pl-9 pr-3 py-2 rounded-xl border border-idus-black-10 bg-idus-gray focus:outline-none focus:ring-2 focus:ring-idus-orange/40"
+              />
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                setQuery('');
+                toast({ type: 'info', title: '검색 초기화', description: '전체 질문을 다시 보여드릴게요.' });
+              }}
+            >
+              초기화
+            </Button>
+          </div>
+
           <div className="flex gap-2 overflow-x-auto pb-2">
             {categories.map(category => (
               <button
@@ -136,36 +189,14 @@ export default function FAQPage() {
 
       {/* FAQ 리스트 */}
       <main className="max-w-3xl mx-auto px-4 py-8">
-        <div className="space-y-3">
-          {filteredFAQs.map(item => (
-            <div 
-              key={item.id}
-              className="bg-white rounded-xl border border-gray-200 overflow-hidden"
-            >
-              <button
-                onClick={() => toggleItem(item.id)}
-                className="w-full px-5 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
-              >
-                <div className="flex items-start gap-3">
-                  <span className="text-idus-orange font-bold">Q</span>
-                  <span className="font-medium text-idus-black">{item.question}</span>
-                </div>
-                <span className={`text-idus-black-50 transition-transform ${openItems.includes(item.id) ? 'rotate-45' : ''}`}>
-                  <IconPlus className="w-6 h-6" />
-                </span>
-              </button>
-              
-              {openItems.includes(item.id) && (
-                <div className="px-5 pb-4 border-t border-gray-100">
-                  <div className="flex items-start gap-3 pt-4">
-                    <span className="text-gray-400 font-bold">A</span>
-                    <p className="text-gray-700 leading-relaxed">{item.answer}</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+        {accordionItems.length > 0 ? (
+          <Accordion items={accordionItems} openIds={openItems} onToggle={toggleItem} />
+        ) : (
+          <div className="bg-white border border-idus-black-10 rounded-2xl p-6 text-center">
+            <div className="text-idus-black font-semibold">검색 결과가 없어요</div>
+            <div className="text-sm text-idus-black-70 mt-1">다른 키워드로 다시 검색해보세요.</div>
+          </div>
+        )}
 
         {/* 추가 문의 */}
         <div className="mt-12">
@@ -173,7 +204,7 @@ export default function FAQPage() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
               <div className="flex items-start gap-3">
                 <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-sm border border-idus-black-10">
-                  💬
+                  <MessageCircle className="w-6 h-6 text-idus-orange" />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-idus-black mb-1">
@@ -196,7 +227,6 @@ export default function FAQPage() {
               >
                 <Button variant="primary" className="w-full sm:w-auto">
                   채널톡으로 문의하기
-                  <IconArrowRight className="w-4 h-4" />
                 </Button>
               </a>
             </div>
