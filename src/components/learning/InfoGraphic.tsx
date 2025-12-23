@@ -18,8 +18,8 @@ export default function InfoGraphic({ sections, summary }: InfoGraphicProps) {
             key={index}
             className={`p-5 rounded-xl border transition-all ${
               section.highlight
-                ? 'bg-idusOrange-10 border-idusOrange shadow-md'
-                : 'bg-white border-gray-200 hover:border-idusOrange-50'
+                ? 'bg-idus-orange-light/20 border-idus-orange shadow-md'
+                : 'bg-white border-gray-200 hover:border-idus-orange-light'
             }`}
           >
             <div className="flex items-start gap-4">
@@ -28,11 +28,11 @@ export default function InfoGraphic({ sections, summary }: InfoGraphicProps) {
               )}
               <div className="flex-1">
                 <h4 className={`font-bold mb-2 ${
-                  section.highlight ? 'text-idusOrange-70' : 'text-idusBlack'
+                  section.highlight ? 'text-idus-orange-dark' : 'text-idus-black'
                 }`}>
                   {section.title}
                 </h4>
-                <p className="text-gray-700 whitespace-pre-line leading-relaxed">
+                <p className="text-idus-black-70 whitespace-pre-line leading-relaxed">
                   {section.content}
                 </p>
               </div>
@@ -52,15 +52,15 @@ export default function InfoGraphic({ sections, summary }: InfoGraphicProps) {
 
       {/* 요약 */}
       {summary && summary.length > 0 && (
-        <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
-          <h4 className="font-bold text-idusBlack mb-3 flex items-center gap-2">
+        <div className="bg-idus-gray rounded-xl p-5 border border-idus-black-10">
+          <h4 className="font-bold text-idus-black mb-3 flex items-center gap-2">
             <span>📋</span>
             핵심 포인트
           </h4>
           <ul className="space-y-2">
             {summary.map((item, index) => (
-              <li key={index} className="flex items-start gap-2 text-gray-700">
-                <span className="text-idusOrange font-bold">✓</span>
+              <li key={index} className="flex items-start gap-2 text-idus-black-70">
+                <span className="text-idus-orange font-bold">✓</span>
                 <span>{item}</span>
               </li>
             ))}

@@ -24,7 +24,7 @@ export default function VideoEmbed({ videoUrl, title, thumbnail }: VideoEmbedPro
   return (
     <div className="w-full">
       {title && (
-        <h3 className="text-lg font-semibold text-idusBlack mb-3">{title}</h3>
+        <h3 className="text-lg font-semibold text-idus-black mb-3">{title}</h3>
       )}
       <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-gray-100 shadow-lg">
         <iframe

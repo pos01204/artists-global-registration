@@ -34,6 +34,13 @@ const config: Config = {
         },
       },
       fontFamily: {
+        pretendard: [
+          'Pretendard Variable',
+          'Pretendard',
+          'SUITE Variable',
+          'system-ui',
+          'sans-serif',
+        ],
         suite: ['SUITE Variable', 'sans-serif'],
       },
       animation: {

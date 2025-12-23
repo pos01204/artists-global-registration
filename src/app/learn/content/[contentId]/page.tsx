@@ -92,7 +92,7 @@ export default function ContentDetailPage() {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href={`/learn/step/${content.stepId}`} className="text-gray-500 hover:text-idusOrange">
+            <Link href={`/learn/step/${content.stepId}`} className="text-idus-black-70 hover:text-idus-orange">
               ← STEP {content.stepId}로 돌아가기
             </Link>
             <span className="text-sm text-gray-400">
@@ -113,7 +113,7 @@ export default function ContentDetailPage() {
               {content.type === 'guide' && '📖'}
               {content.type === 'checklist' && '✅'}
             </span>
-            <span className="text-sm px-2 py-1 bg-idusOrange-10 text-idusOrange rounded-full">
+            <span className="text-sm px-2 py-1 bg-idus-orange-light/30 text-idus-orange rounded-full">
               STEP {content.stepId}
             </span>
             {isCompleted && (
@@ -122,7 +122,7 @@ export default function ContentDetailPage() {
               </span>
             )}
           </div>
-          <h1 className="text-2xl font-bold text-idusBlack mb-2">{content.title}</h1>
+          <h1 className="text-2xl font-bold text-idus-black mb-2">{content.title}</h1>
           <p className="text-gray-600">{content.description}</p>
         </div>
 
@@ -147,15 +147,15 @@ export default function ContentDetailPage() {
               
               {/* 영상 요약 */}
               {content.content.summary && (
-                <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
-                  <h4 className="font-bold text-idusBlack mb-3 flex items-center gap-2">
+                <div className="bg-idus-gray rounded-xl p-5 border border-idus-black-10">
+                  <h4 className="font-bold text-idus-black mb-3 flex items-center gap-2">
                     <span>📋</span>
                     영상 요약
                   </h4>
                   <ul className="space-y-2">
                     {content.content.summary.map((item, index) => (
-                      <li key={index} className="flex items-start gap-2 text-gray-700">
-                        <span className="text-idusOrange font-bold">✓</span>
+                      <li key={index} className="flex items-start gap-2 text-idus-black-70">
+                        <span className="text-idus-orange font-bold">✓</span>
                         <span>{item}</span>
                       </li>
                     ))}
@@ -173,8 +173,8 @@ export default function ContentDetailPage() {
               )}
               
               {content.content.items && (
-                <div className="bg-idusOrange-10 rounded-xl p-5">
-                  <h4 className="font-bold text-idusBlack mb-4 flex items-center gap-2">
+                <div className="bg-idus-orange-light/20 rounded-xl p-5">
+                  <h4 className="font-bold text-idus-black mb-4 flex items-center gap-2">
                     <span>✅</span>
                     체크리스트
                   </h4>
@@ -188,7 +188,7 @@ export default function ContentDetailPage() {
                           type="checkbox"
                           checked={checklistState[item.id] || false}
                           onChange={() => handleChecklistToggle(item.id)}
-                          className="w-5 h-5 rounded border-gray-300 text-idusOrange focus:ring-idusOrange"
+                          className="w-5 h-5 rounded border-gray-300 text-idus-orange focus:ring-idus-orange"
                         />
                         <span className={checklistState[item.id] ? 'line-through text-gray-400' : 'text-gray-700'}>
                           {item.text}
@@ -213,8 +213,8 @@ export default function ContentDetailPage() {
 
         {/* 외부 링크 섹션 */}
         {content.content.externalLinks && content.content.externalLinks.length > 0 && (
-          <div className="bg-gradient-to-r from-idusOrange-10 to-orange-50 rounded-2xl p-6 mb-8 border border-idusOrange/20">
-            <h3 className="font-bold text-idusBlack mb-4 flex items-center gap-2">
+          <div className="bg-idus-orange-light/20 rounded-2xl p-6 mb-8 border border-idus-black-10">
+            <h3 className="font-bold text-idus-black mb-4 flex items-center gap-2">
               <span>🔗</span>
               관련 링크
             </h3>
@@ -229,14 +229,14 @@ export default function ContentDetailPage() {
                 >
                   <span className="text-2xl">{link.icon || '🔗'}</span>
                   <div className="flex-1">
-                    <div className="font-medium text-idusBlack group-hover:text-idusOrange transition-colors">
+                    <div className="font-medium text-idus-black group-hover:text-idus-orange transition-colors">
                       {link.title}
                     </div>
                     {link.description && (
                       <div className="text-sm text-gray-500">{link.description}</div>
                     )}
                   </div>
-                  <span className="text-gray-400 group-hover:text-idusOrange transition-colors">
+                  <span className="text-gray-400 group-hover:text-idus-orange transition-colors">
                     →
                   </span>
                 </a>

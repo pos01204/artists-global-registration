@@ -19,7 +19,7 @@ export default function ContentCard({ content, isCompleted, isLocked = false }: 
   };
 
   const typeLabels = {
-    infographic: '인포그래픽',
+    infographic: '핵심 요약',
     video: '영상',
     guide: '가이드',
     checklist: '체크리스트',
@@ -32,14 +32,14 @@ export default function ContentCard({ content, isCompleted, isLocked = false }: 
           ? 'bg-gray-50 border-gray-200 opacity-60 cursor-not-allowed'
           : isCompleted
           ? 'bg-green-50 border-green-200 hover:border-green-300'
-          : 'bg-white border-gray-200 hover:border-idusOrange hover:shadow-md cursor-pointer'
+          : 'bg-white border-gray-200 hover:border-idus-orange hover:shadow-md cursor-pointer'
       }`}
     >
       <div className="flex items-start gap-4">
         {/* 아이콘 */}
         <div
           className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl ${
-            isCompleted ? 'bg-green-100' : 'bg-idusOrange-10'
+            isCompleted ? 'bg-green-100' : 'bg-idus-orange-light/30'
           }`}
         >
           {isCompleted ? '✓' : typeIcons[content.type]}
@@ -52,7 +52,7 @@ export default function ContentCard({ content, isCompleted, isLocked = false }: 
               className={`text-xs px-2 py-0.5 rounded-full ${
                 isCompleted
                   ? 'bg-green-100 text-green-700'
-                  : 'bg-idusOrange-10 text-idusOrange'
+                  : 'bg-idus-orange-light/30 text-idus-orange'
               }`}
             >
               {typeLabels[content.type]}
@@ -61,7 +61,7 @@ export default function ContentCard({ content, isCompleted, isLocked = false }: 
               {content.duration}분
             </span>
           </div>
-          <h4 className="font-bold text-idusBlack mb-1">{content.title}</h4>
+          <h4 className="font-bold text-idus-black mb-1">{content.title}</h4>
           <p className="text-sm text-gray-500">{content.description}</p>
         </div>
 

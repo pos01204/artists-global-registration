@@ -27,9 +27,9 @@ export default function StepProgress({ steps, currentStep, completedSteps }: Ste
               <div
                 className={`w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold transition-all ${
                   completedSteps.includes(step.id)
-                    ? 'bg-idusOrange text-white'
+                    ? 'bg-idus-orange text-white'
                     : currentStep === step.id
-                    ? 'bg-idusOrange-20 text-idusOrange border-2 border-idusOrange'
+                    ? 'bg-idus-orange-light/30 text-idus-orange border-2 border-idus-orange'
                     : 'bg-gray-100 text-gray-400'
                 }`}
               >
@@ -38,7 +38,7 @@ export default function StepProgress({ steps, currentStep, completedSteps }: Ste
               <span
                 className={`mt-2 text-sm font-medium ${
                   completedSteps.includes(step.id) || currentStep === step.id
-                    ? 'text-idusBlack'
+                    ? 'text-idus-black'
                     : 'text-gray-400'
                 }`}
               >
@@ -51,7 +51,7 @@ export default function StepProgress({ steps, currentStep, completedSteps }: Ste
               <div className="flex-1 h-1 mx-2 rounded-full bg-gray-200">
                 <div
                   className={`h-full rounded-full transition-all ${
-                    completedSteps.includes(step.id) ? 'bg-idusOrange' : 'bg-transparent'
+                    completedSteps.includes(step.id) ? 'bg-idus-orange' : 'bg-transparent'
                   }`}
                   style={{
                     width: completedSteps.includes(step.id) ? '100%' : '0%',
@@ -67,7 +67,7 @@ export default function StepProgress({ steps, currentStep, completedSteps }: Ste
       <div className="bg-white rounded-xl p-4 border border-gray-200">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-bold text-idusBlack">
+            <h3 className="font-bold text-idus-black">
               {steps.find(s => s.id === currentStep)?.title}
             </h3>
             <p className="text-sm text-gray-500">

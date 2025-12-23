@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="font-suite antialiased">
+      <body className="font-pretendard antialiased">
         {children}
       </body>
     </html>

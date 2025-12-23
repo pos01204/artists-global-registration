@@ -101,10 +101,10 @@ export default function FAQPage() {
       {/* 헤더 */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-3xl mx-auto px-4 py-6">
-          <Link href="/learn" className="text-gray-500 hover:text-idusOrange mb-4 inline-block">
+          <Link href="/learn" className="text-idus-black-70 hover:text-idus-orange mb-4 inline-block">
             ← 학습으로 돌아가기
           </Link>
-          <h1 className="text-2xl font-bold text-idusBlack">❓ 자주 묻는 질문</h1>
+          <h1 className="text-2xl font-bold text-idus-black">❓ 자주 묻는 질문</h1>
           <p className="text-gray-600 mt-2">글로벌 판매에 대해 궁금한 점을 확인해보세요</p>
         </div>
       </header>
@@ -119,7 +119,7 @@ export default function FAQPage() {
                 onClick={() => setActiveCategory(category)}
                 className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
                   activeCategory === category
-                    ? 'bg-idusOrange text-white'
+                    ? 'bg-idus-orange text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
@@ -143,8 +143,8 @@ export default function FAQPage() {
                 className="w-full px-5 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
               >
                 <div className="flex items-start gap-3">
-                  <span className="text-idusOrange font-bold">Q</span>
-                  <span className="font-medium text-idusBlack">{item.question}</span>
+                  <span className="text-idus-orange font-bold">Q</span>
+                  <span className="font-medium text-idus-black">{item.question}</span>
                 </div>
                 <span className={`text-xl transition-transform ${openItems.includes(item.id) ? 'rotate-180' : ''}`}>
                   ▼
@@ -164,8 +164,8 @@ export default function FAQPage() {
         </div>
 
         {/* 추가 문의 */}
-        <div className="mt-12 bg-idusOrange-10 rounded-2xl p-6 text-center">
-          <h3 className="text-lg font-bold text-idusBlack mb-2">
+        <div className="mt-12 bg-idus-orange-light/20 rounded-2xl p-6 text-center border border-idus-black-10">
+          <h3 className="text-lg font-bold text-idus-black mb-2">
             찾으시는 답변이 없으신가요?
           </h3>
           <p className="text-gray-600 mb-4">

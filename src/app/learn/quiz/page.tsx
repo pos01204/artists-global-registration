@@ -94,23 +94,23 @@ export default function QuizPage() {
     const percentage = Math.round((score / totalQuestions) * 100);
     
     return (
-      <main className="min-h-screen bg-gradient-to-b from-white to-gray-100 flex items-center justify-center px-4">
+      <main className="min-h-screen bg-gradient-to-b from-white to-idus-gray flex items-center justify-center px-4">
         <Card variant="elevated" className="max-w-md w-full text-center animate-scale-in">
           <div className="text-6xl mb-6">
             {percentage >= 60 ? '🎉' : '💪'}
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl font-bold text-idus-black mb-2">
             퀴즈 완료!
           </h1>
-          <p className="text-gray-600 mb-6">
-            {totalQuestions}문제 중 <span className="font-bold text-orange-500">{score}문제</span> 정답
+          <p className="text-idus-black-70 mb-6">
+            {totalQuestions}문제 중 <span className="font-bold text-idus-orange">{score}문제</span> 정답
           </p>
           
-          <div className="bg-orange-50 rounded-xl p-6 mb-6">
-            <div className="text-4xl font-bold text-orange-500 mb-2">
+          <div className="bg-idus-orange-light/20 rounded-xl p-6 mb-6">
+            <div className="text-4xl font-bold text-idus-orange mb-2">
               {percentage}%
             </div>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-idus-black-70">
               {percentage >= 80 
                 ? '훌륭해요! 글로벌 작가가 될 준비가 됐어요!' 
                 : percentage >= 60
@@ -120,8 +120,8 @@ export default function QuizPage() {
           </div>
 
           {/* 문제별 결과 요약 */}
-          <div className="bg-gray-50 rounded-xl p-4 mb-6 text-left">
-            <h4 className="font-semibold text-gray-900 mb-3 text-sm">문제별 결과</h4>
+          <div className="bg-idus-gray rounded-xl p-4 mb-6 text-left">
+            <h4 className="font-semibold text-idus-black mb-3 text-sm">문제별 결과</h4>
             <div className="space-y-2">
               {QUIZ_QUESTIONS.map((q, index) => (
                 <div key={q.id} className="flex items-center gap-2 text-sm">
@@ -132,7 +132,7 @@ export default function QuizPage() {
                   }`}>
                     {answers[index] === q.correctAnswer ? '✓' : '✗'}
                   </span>
-                  <span className="text-gray-600 truncate">Q{index + 1}. {q.question.slice(0, 25)}...</span>
+                  <span className="text-idus-black-70 truncate">Q{index + 1}. {q.question.slice(0, 25)}...</span>
                 </div>
               ))}
             </div>
@@ -152,22 +152,22 @@ export default function QuizPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-gray-100">
+    <main className="min-h-screen bg-gradient-to-b from-white to-idus-gray">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-idus-black-10">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-3">
-            <Link href="/learn" className="flex items-center gap-2 text-gray-500 hover:text-orange-500 transition-colors">
+            <Link href="/learn" className="flex items-center gap-2 text-idus-black-70 hover:text-idus-orange transition-colors">
               <span>←</span>
               <span className="text-sm">학습 목록</span>
             </Link>
-            <span className="text-sm text-gray-400">
+            <span className="text-sm text-idus-black-50">
               {currentQuestionIndex + 1} / {totalQuestions}
             </span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full bg-idus-black-10 rounded-full h-2">
             <div
-              className="h-full bg-orange-500 rounded-full transition-all duration-300"
+              className="h-full bg-idus-orange rounded-full transition-all duration-300"
               style={{ width: `${((currentQuestionIndex + 1) / totalQuestions) * 100}%` }}
             />
           </div>
@@ -179,12 +179,12 @@ export default function QuizPage() {
         <Card variant="elevated" className="mb-8 animate-fade-in">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-2xl">🎯</span>
-            <span className="text-sm font-medium text-orange-500">
+            <span className="text-sm font-medium text-idus-orange">
               Q{currentQuestionIndex + 1}
             </span>
           </div>
           
-          <h2 className="text-xl font-bold text-gray-900 mb-6">
+          <h2 className="text-xl font-bold text-idus-black mb-6">
             {currentQuestion.question}
           </h2>
 
@@ -195,8 +195,8 @@ export default function QuizPage() {
               const isCorrect = index === currentQuestion.correctAnswer;
               const isWrong = showResult && isSelected && !isCorrect;
               
-              let optionStyle = 'border-gray-200 hover:border-orange-300 hover:bg-orange-50';
-              let checkStyle = 'border-gray-300 bg-white';
+              let optionStyle = 'border-idus-black-10 hover:border-idus-orange hover:bg-idus-orange-light/20';
+              let checkStyle = 'border-idus-black-20 bg-white';
               
               if (showResult) {
                 if (isCorrect) {
@@ -207,8 +207,8 @@ export default function QuizPage() {
                   checkStyle = 'border-red-500 bg-red-500 text-white';
                 }
               } else if (isSelected) {
-                optionStyle = 'border-orange-500 bg-orange-50';
-                checkStyle = 'border-orange-500 bg-orange-500 text-white';
+                optionStyle = 'border-idus-orange bg-idus-orange-light/20';
+                checkStyle = 'border-idus-orange bg-idus-orange text-white';
               }
 
               return (
@@ -247,7 +247,7 @@ export default function QuizPage() {
               mt-6 p-4 rounded-xl animate-slide-up
               ${selectedAnswer === currentQuestion.correctAnswer 
                 ? 'bg-green-50 border border-green-200' 
-                : 'bg-amber-50 border border-amber-200'
+                : 'bg-idus-orange-light/20 border border-idus-orange-light/50'
               }
             `}>
               <div className="flex items-start gap-3">
@@ -256,11 +256,11 @@ export default function QuizPage() {
                 </span>
                 <div>
                   <h4 className={`font-semibold mb-1 ${
-                    selectedAnswer === currentQuestion.correctAnswer ? 'text-green-700' : 'text-amber-700'
+                    selectedAnswer === currentQuestion.correctAnswer ? 'text-green-700' : 'text-idus-orange-dark'
                   }`}>
                     {selectedAnswer === currentQuestion.correctAnswer ? '정답이에요!' : '아쉬워요!'}
                   </h4>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-idus-black-70">
                     {currentQuestion.explanation}
                   </p>
                 </div>
