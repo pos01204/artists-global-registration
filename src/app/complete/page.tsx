@@ -121,7 +121,7 @@ export default function CompletePage() {
 
         {/* Reward */}
         <Card
-          variant="elevated"
+          variant="custom"
           className="relative mb-8 bg-idus-orange text-white animate-slide-up animation-delay-200 overflow-hidden"
         >
           <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-20 pointer-events-none" aria-hidden="true">

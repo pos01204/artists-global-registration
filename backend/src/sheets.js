@@ -106,12 +106,22 @@ async function findRowIndexByPhone(sheetName, phoneNumber, columnLetter) {
 
   const values = col.data.values ?? [];
   const target = normalizePhone(phoneNumber);
+  
+  // eslint-disable-next-line no-console
+  console.log(`🔍 findRowIndexByPhone: sheet=${sheetName}, target=${target}, totalRows=${values.length}`);
+  
   for (let i = 1; i < values.length; i++) {
     const v = values[i]?.[0];
-    if (v && normalizePhone(v) === target) {
+    // fuzzy 매칭 사용 (마지막 8자리 비교)
+    if (phoneMatchesFuzzy(v, phoneNumber)) {
+      // eslint-disable-next-line no-console
+      console.log(`✅ Found match at row ${i + 1}: raw="${v}", target="${target}"`);
       return i + 1; // 1-based row index
     }
   }
+  
+  // eslint-disable-next-line no-console
+  console.log(`❌ No match found for ${target}`);
   return null;
 }
 
@@ -131,12 +141,35 @@ function boolToYN(v) {
 function normalizePhone(raw) {
   if (!raw) return '';
   let digits = String(raw).replace(/[^\d]/g, '');
+  
   // 구글시트가 숫자 형식으로 저장하면 선행 0이 사라지는 케이스 보정
-  // 예: 01012345678 -> 1012345678
+  // 예: 1012345678 -> 01012345678
   if (digits.length === 10 && digits.startsWith('10')) {
     digits = `0${digits}`;
   }
+  
+  // 국제 번호 형식(821012345678)도 처리
+  if (digits.length === 12 && digits.startsWith('82')) {
+    digits = `0${digits.slice(2)}`;
+  }
+  
   return digits;
+}
+
+// 전화번호 비교용 - 마지막 8자리로 비교 (더 robust한 매칭)
+function phoneMatchesFuzzy(stored, input) {
+  const s = normalizePhone(stored);
+  const i = normalizePhone(input);
+  
+  // 완전 일치
+  if (s === i) return true;
+  
+  // 마지막 8자리 비교 (선행 0 문제 우회)
+  if (s.length >= 8 && i.length >= 8) {
+    return s.slice(-8) === i.slice(-8);
+  }
+  
+  return false;
 }
 
 function formatPhoneForSheet(raw) {
@@ -184,11 +217,14 @@ async function upsertRow(sheetName, headers, phoneNumber, phoneColumnLetter, row
 
   const finalRow = [timestamp, ...rowValues];
 
+  // eslint-disable-next-line no-console
+  console.log(`📊 upsertRow: sheet=${sheetName}, phone=${phoneNumber}, rowIndex=${rowIndex}, mode=${rowIndex ? 'update' : 'insert'}`);
+
   if (rowIndex) {
     await sheets.spreadsheets.values.update({
       spreadsheetId,
       range: `${sheetName}!A${rowIndex}`,
-      valueInputOption: 'RAW',
+      valueInputOption: 'USER_ENTERED', // 텍스트 강제 마커(') 지원
       requestBody: { values: [finalRow] },
     });
     return { mode: 'updated', rowIndex };
@@ -197,7 +233,7 @@ async function upsertRow(sheetName, headers, phoneNumber, phoneColumnLetter, row
   await sheets.spreadsheets.values.append({
     spreadsheetId,
     range: `${sheetName}!A1`,
-    valueInputOption: 'RAW',
+    valueInputOption: 'USER_ENTERED', // 텍스트 강제 마커(') 지원
     insertDataOption: 'INSERT_ROWS',
     requestBody: { values: [finalRow] },
   });
