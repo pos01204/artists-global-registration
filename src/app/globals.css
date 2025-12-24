@@ -225,3 +225,248 @@ body {
   }
 }
 
+/* =========================================================
+ * 120% 완성도 - 마이크로 인터랙션 & 애니메이션
+ * ========================================================= */
+
+/* CTA 버튼 펄스 애니메이션 */
+@keyframes subtle-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 14px rgba(255, 111, 0, 0.3);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(255, 111, 0, 0.4);
+  }
+}
+
+.cta-pulse {
+  animation: subtle-pulse 2s ease-in-out infinite;
+}
+
+/* 체크마크 바운스 애니메이션 */
+@keyframes check-bounce {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.check-bounce {
+  animation: check-bounce 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* 카운트업 애니메이션 */
+@keyframes count-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.count-up {
+  animation: count-up 0.6s ease-out forwards;
+}
+
+/* 순차 등장 애니메이션 */
+@keyframes stagger-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-in {
+  animation: stagger-in 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.stagger-delay-1 { animation-delay: 0.1s; }
+.stagger-delay-2 { animation-delay: 0.2s; }
+.stagger-delay-3 { animation-delay: 0.3s; }
+.stagger-delay-4 { animation-delay: 0.4s; }
+.stagger-delay-5 { animation-delay: 0.5s; }
+
+/* 성공 아이콘 애니메이션 */
+@keyframes success-pop {
+  0% {
+    transform: scale(0) rotate(-45deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.success-pop {
+  animation: success-pop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* 카드 호버 효과 강화 */
+.card-interactive {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.card-interactive:active {
+  transform: translateY(0);
+}
+
+/* 링크 아이콘 호버 효과 */
+.link-arrow {
+  transition: transform 0.2s ease;
+}
+
+.group:hover .link-arrow {
+  transform: translateX(3px);
+}
+
+/* 프로그레스 바 빛나는 효과 */
+@keyframes progress-shine {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.progress-shine {
+  background: linear-gradient(
+    90deg,
+    var(--idus-orange) 0%,
+    #ffab40 50%,
+    var(--idus-orange) 100%
+  );
+  background-size: 200% 100%;
+  animation: progress-shine 2s ease-in-out infinite;
+}
+
+/* 포커스 링 강화 */
+.focus-ring {
+  @apply focus-visible:ring-2 focus-visible:ring-idus-orange focus-visible:ring-offset-2 focus-visible:outline-none;
+}
+
+/* 버튼 리플 효과 */
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+  transform: scale(0);
+  opacity: 1;
+  pointer-events: none;
+}
+
+.btn-ripple:active::after {
+  animation: ripple 0.6s ease-out;
+}
+
+/* 글로우 효과 */
+.glow-orange {
+  box-shadow: 0 0 20px rgba(255, 111, 0, 0.3);
+}
+
+/* 배지 반짝임 효과 */
+@keyframes badge-shine {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.badge-shine {
+  animation: badge-shine 2s ease-in-out infinite;
+}
+
+/* 스켈레톤 로딩 */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--idus-gray) 0%,
+    #e0e0e0 50%,
+    var(--idus-gray) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+/* 축하 아이콘 흔들림 */
+@keyframes celebrate-shake {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+.celebrate-shake {
+  animation: celebrate-shake 0.5s ease-in-out;
+}
+
+/* 부드러운 페이드 전환 */
+.fade-transition {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+

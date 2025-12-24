@@ -131,28 +131,28 @@ export default function LearnPage() {
                 variant={status === 'active' ? 'elevated' : 'outlined'}
                 hoverable={status !== 'locked'}
                 className={`
-                  animate-slide-up transition-all duration-300
-                  ${status === 'locked' ? 'opacity-50' : ''}
-                  ${status === 'completed' ? 'border-green-500 bg-green-50/50' : ''}
-                  ${status === 'active' ? 'border-idus-orange' : ''}
+                  animate-slide-up transition-all duration-300 group
+                  ${status === 'locked' ? 'opacity-50' : 'card-interactive'}
+                  ${status === 'completed' ? 'border-green-500 bg-gradient-to-r from-green-50/50 to-white' : ''}
+                  ${status === 'active' ? 'border-idus-orange glow-orange' : ''}
                 `}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <Link 
                   href={status !== 'locked' ? `/learn/step/${step.id}` : '#'}
-                  className={status === 'locked' ? 'cursor-not-allowed' : ''}
+                  className={status === 'locked' ? 'cursor-not-allowed' : 'focus-ring rounded-xl block'}
                   onClick={(e) => status === 'locked' && e.preventDefault()}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                     {/* Step Icon */}
                     <div className={`
-                      w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-2xl sm:text-3xl
-                      ${status === 'completed' ? 'bg-green-500 text-white' : ''}
-                      ${status === 'active' ? 'bg-idus-orange text-white' : ''}
+                      w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-2xl sm:text-3xl transition-transform duration-300
+                      ${status === 'completed' ? 'bg-gradient-to-br from-green-500 to-green-600 text-white' : ''}
+                      ${status === 'active' ? 'bg-gradient-to-br from-idus-orange to-idus-orange-dark text-white group-hover:scale-105' : ''}
                       ${status === 'locked' ? 'bg-idus-black-10 text-idus-black-50' : ''}
                     `}>
                       {status === 'completed' ? (
-                        <IconCheck className="w-7 h-7 text-white" />
+                        <IconCheck className="w-7 h-7 text-white check-bounce" />
                       ) : (
                         <BrandIcon
                           name={getStepBrandIconName(step.id)}
@@ -169,7 +169,7 @@ export default function LearnPage() {
                           STEP {step.id}
                         </span>
                         {status === 'active' && (
-                          <span className="text-xs bg-idus-orange text-white px-2 py-0.5 rounded-full">
+                          <span className="text-xs bg-idus-orange text-white px-2 py-0.5 rounded-full badge-shine">
                             진행 중
                           </span>
                         )}
@@ -189,7 +189,7 @@ export default function LearnPage() {
                     {/* Arrow */}
                     <div className="flex items-center justify-end">
                       {status !== 'locked' && (
-                        <IconChevronRight className="w-5 h-5 text-idus-orange" />
+                        <IconChevronRight className="w-5 h-5 text-idus-orange link-arrow" />
                       )}
                     </div>
                   </div>

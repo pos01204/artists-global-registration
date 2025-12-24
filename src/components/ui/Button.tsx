@@ -10,13 +10,34 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className = '', variant = 'primary', size = 'md', isLoading, children, disabled, ...props }, ref) => {
-    const baseStyles = 'font-semibold rounded-xl transition-all duration-300 active:scale-95 flex items-center justify-center gap-2';
+    const baseStyles = `
+      font-semibold rounded-xl transition-all duration-300 
+      active:scale-95 flex items-center justify-center gap-2
+      focus-visible:ring-2 focus-visible:ring-idus-orange focus-visible:ring-offset-2 focus-visible:outline-none
+      relative overflow-hidden
+    `;
     
     const variants = {
-      primary: 'bg-idus-orange text-white hover:bg-idus-orange-dark hover:shadow-lg disabled:bg-idus-black-20 disabled:cursor-not-allowed',
-      secondary: 'bg-white text-idus-black border-2 border-idus-black-20 hover:border-idus-orange hover:text-idus-orange disabled:opacity-50 disabled:cursor-not-allowed',
-      ghost: 'bg-transparent text-idus-black-70 hover:text-idus-orange hover:bg-idus-black-10 disabled:opacity-50 disabled:cursor-not-allowed',
-      outline: 'bg-transparent text-idus-black border-2 border-idus-black-20 hover:border-idus-orange hover:text-idus-orange disabled:opacity-50 disabled:cursor-not-allowed',
+      primary: `
+        bg-idus-orange text-white 
+        hover:bg-idus-orange-dark hover:shadow-lg 
+        disabled:bg-idus-black-20 disabled:cursor-not-allowed disabled:shadow-none
+      `,
+      secondary: `
+        bg-white text-idus-black border-2 border-idus-black-20 
+        hover:border-idus-orange hover:text-idus-orange 
+        disabled:opacity-50 disabled:cursor-not-allowed
+      `,
+      ghost: `
+        bg-transparent text-idus-black-70 
+        hover:text-idus-orange hover:bg-idus-black-10 
+        disabled:opacity-50 disabled:cursor-not-allowed
+      `,
+      outline: `
+        bg-transparent text-idus-black border-2 border-idus-black-20 
+        hover:border-idus-orange hover:text-idus-orange 
+        disabled:opacity-50 disabled:cursor-not-allowed
+      `,
     };
     
     const sizes = {
@@ -30,10 +51,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
         disabled={disabled || isLoading}
+        aria-busy={isLoading}
+        aria-disabled={disabled || isLoading}
         {...props}
       >
         {isLoading && (
-          <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+          <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
             <circle
               className="opacity-25"
               cx="12"

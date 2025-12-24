@@ -73,15 +73,23 @@ export default function Tooltip({ content, label = '도움말', className = '' }
         type="button"
         aria-label={label}
         aria-describedby={open ? id : undefined}
-        onClick={() => setOpen(v => !v)}
+        /**
+         * 모바일 Safari/앱 웹뷰에서 `touchstart` 이후 `click`이 연속으로 발생하면
+         * 토글이 2번 실행되어 "안 열리는 것처럼" 보이는 문제가 있어요.
+         * - pointerdown에서만 토글하고
+         * - preventDefault로 뒤따르는 click을 차단
+         * - 키보드 접근성은 onKeyDown으로 보완
+         */
         onPointerDown={(e) => {
-          // 외부 클릭 감지 로직과 충돌 방지
-          e.stopPropagation();
-        }}
-        onTouchStart={(e) => {
-          // 모바일에서 터치 기반으로 확실히 토글
+          e.preventDefault();
           e.stopPropagation();
           setOpen(v => !v);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setOpen(v => !v);
+          }
         }}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}

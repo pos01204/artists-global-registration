@@ -60,25 +60,25 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Stats */}
+          {/* Stats - 강화된 카드 */}
           <div className="grid grid-cols-3 gap-4 mb-12 animate-slide-up">
-            <div className="bg-white rounded-2xl p-4 md:p-6 text-center shadow-sm border border-idus-black-10">
-              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1">45</div>
+            <div className="bg-white rounded-2xl p-4 md:p-6 text-center shadow-sm border border-idus-black-10 card-interactive stagger-in stagger-delay-1">
+              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1 count-up">45</div>
               <div className="text-xs md:text-sm text-idus-black-50">판매 국가</div>
             </div>
-            <div className="bg-white rounded-2xl p-4 md:p-6 text-center shadow-sm border border-idus-black-10">
-              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1">32x</div>
+            <div className="bg-white rounded-2xl p-4 md:p-6 text-center shadow-sm border border-idus-black-10 card-interactive stagger-in stagger-delay-2">
+              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1 count-up">32x</div>
               <div className="text-xs md:text-sm text-idus-black-50">글로벌 시장 규모</div>
             </div>
-            <div className="bg-white rounded-2xl p-4 md:p-6 text-center shadow-sm border border-idus-black-10">
-              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1">2x</div>
+            <div className="bg-white rounded-2xl p-4 md:p-6 text-center shadow-sm border border-idus-black-10 card-interactive stagger-in stagger-delay-3">
+              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1 count-up">2x</div>
               <div className="text-xs md:text-sm text-idus-black-50">해외 평균 주문액</div>
             </div>
           </div>
 
-          {/* Reward Banner */}
-          <div className="relative bg-idus-orange rounded-2xl p-6 mb-12 text-white animate-slide-up animation-delay-200 overflow-hidden">
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none" aria-hidden="true">
+          {/* Reward Banner - 강화된 스타일 */}
+          <div className="relative bg-gradient-to-r from-idus-orange to-idus-orange-dark rounded-2xl p-6 mb-12 text-white animate-slide-up animation-delay-200 overflow-hidden glow-orange">
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none celebrate-shake" aria-hidden="true">
               <Image
                 src="/brand/brand assets/선물.png"
                 alt=""
@@ -88,13 +88,15 @@ export default function Home() {
             </div>
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-4">
-                <BrandIcon name="gift" size={36} alt="" />
+                <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center">
+                  <BrandIcon name="gift" size={36} alt="" />
+                </div>
                 <div>
                   <div className="font-bold text-lg">온보딩 완료 보상!</div>
                   <div className="text-white/80">학습 완료 후 글로벌 등록 시</div>
                 </div>
               </div>
-              <div className="bg-white/20 rounded-xl px-6 py-3">
+              <div className="bg-white/20 rounded-xl px-6 py-3 backdrop-blur-sm border border-white/10">
                 <span className="text-2xl font-bold">KR 광고포인트 10,000P</span>
               </div>
             </div>

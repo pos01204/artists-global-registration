@@ -248,4 +248,19 @@ export async function appendEventRow(row) {
   });
 }
 
+export async function checkSheetsAccess() {
+  try {
+    const { sheets, spreadsheetId } = await getSheets();
+    // 최소 필드만 조회해서 권한/ID 오류를 빠르게 진단
+    const res = await sheets.spreadsheets.get({
+      spreadsheetId,
+      fields: 'spreadsheetId,properties.title',
+    });
+    return { ok: true, title: res.data.properties?.title ?? null };
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    return { ok: false, error: msg?.slice(0, 500) ?? 'unknown error' };
+  }
+}
+
 

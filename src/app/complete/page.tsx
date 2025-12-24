@@ -35,12 +35,22 @@ export default function CompletePage() {
     setArtistName(data.artistName);
     
     // 학습 완료 데이터 제출
-    submitOnboardingData(data).catch(console.error);
+    submitOnboardingData(data).then((r) => {
+      if (!r.success) {
+        toast({
+          type: 'warning',
+          title: '진행 정보 저장이 원활하지 않아요',
+          description: '학습은 완료되었어요. 네트워크/설정 확인이 필요할 수 있어요.',
+        });
+        // eslint-disable-next-line no-console
+        console.warn('[submit] complete failed:', r);
+      }
+    });
     
     // 3초 후 confetti 숨기기
     const timer = setTimeout(() => setShowConfetti(false), 3000);
     return () => clearTimeout(timer);
-  }, [router]);
+  }, [router, toast]);
 
   const handleRegistrationClick = () => setOpenConfirm(true);
   const proceedRegistration = () => {
@@ -136,8 +146,8 @@ export default function CompletePage() {
           </div>
         </Card>
 
-        {/* CTA */}
-        <Card variant="outlined" className="mb-8 border-idus-orange animate-slide-up animation-delay-300">
+        {/* CTA - 강화된 스타일 */}
+        <Card variant="outlined" className="mb-8 border-idus-orange animate-slide-up animation-delay-300 glow-orange">
           <div className="text-center">
             <h3 className="text-xl font-bold text-idus-black mb-2 text-balance">
               이제 진짜 글로벌 작가가 되실 차례예요!
@@ -148,13 +158,13 @@ export default function CompletePage() {
             <Button
               variant="primary"
               size="lg"
-              className="w-full max-w-sm mx-auto"
+              className="w-full max-w-sm mx-auto cta-pulse btn-ripple"
               onClick={handleRegistrationClick}
             >
               글로벌 작가 등록하러 가기
               <IconArrowRight className="w-4 h-4" />
             </Button>
-            <p className="text-xs text-idus-black-50 mt-3">
+            <p className="text-xs text-idus-black-50 mt-3 badge-shine">
               (1분이면 끝!)
             </p>
           </div>
@@ -163,34 +173,34 @@ export default function CompletePage() {
         {/* (의도) 완료 페이지의 목적은 "글로벌 작가 등록" CTA에 집중 */}
 
         {/* Appendix */}
-        <Card variant="outlined" className="mt-6 animate-slide-up animation-delay-500">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-idus-orange-light/40 flex items-center justify-center">
-              <BrandIcon name="like" size={26} alt="" />
-            </div>
-            <div className="flex-1">
-              <div className="font-semibold text-idus-black">부록 · 주제별 다시보기</div>
-              <div className="text-sm text-idus-black-50">
-                학습이 끝난 후에도 필요한 정보를 빠르게 다시 찾아볼 수 있어요.
+        <Card variant="outlined" className="mt-6 animate-slide-up animation-delay-500 card-interactive group">
+          <Link href="/learn/appendix" className="block">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-idus-orange-light/40 to-idus-orange-light/20 flex items-center justify-center">
+                <BrandIcon name="like" size={26} alt="" />
               </div>
+              <div className="flex-1">
+                <div className="font-semibold text-idus-black">부록 · 주제별 다시보기</div>
+                <div className="text-sm text-idus-black-50">
+                  학습이 끝난 후에도 필요한 정보를 빠르게 다시 찾아볼 수 있어요.
+                </div>
+              </div>
+              <IconArrowRight className="w-5 h-5 text-idus-orange link-arrow" />
             </div>
-            <Link href="/learn/appendix">
-              <IconArrowRight className="w-5 h-5 text-idus-orange" />
-            </Link>
-          </div>
+          </Link>
         </Card>
 
-        <Card variant="outlined" className="mt-4">
+        <Card variant="outlined" className="mt-4 card-interactive group">
           <Link href="/faq" className="block">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-idus-gray flex items-center justify-center text-2xl">
-                ❓
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-idus-gray to-idus-black-10 flex items-center justify-center">
+                <BrandIcon name="like" size={26} alt="" />
               </div>
               <div className="flex-1">
                 <div className="font-semibold text-idus-black">자주 묻는 질문</div>
                 <div className="text-sm text-idus-black-50">배송/정산/운영 관련 궁금한 점을 빠르게 확인해요</div>
               </div>
-              <IconArrowRight className="w-5 h-5 text-idus-orange" />
+              <IconArrowRight className="w-5 h-5 text-idus-orange link-arrow" />
             </div>
           </Link>
         </Card>

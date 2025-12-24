@@ -33,3 +33,4 @@ export const artistInfoSchema = z
 export type ArtistInfoFormValues = z.infer<typeof artistInfoSchema>;
 
 
+

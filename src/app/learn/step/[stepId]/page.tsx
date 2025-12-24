@@ -19,11 +19,13 @@ import { Lightbulb, Link as LinkIcon } from 'lucide-react';
 import ExternalLinkItem from '@/components/learning/ExternalLinkItem';
 import SectionMeta from '@/components/learning/SectionMeta';
 import Accordion from '@/components/ui/Accordion';
+import { useToast } from '@/components/ui/ToastProvider';
 
 export default function StepPage() {
   const router = useRouter();
   const params = useParams();
   const stepId = Number(params.stepId);
+  const { toast } = useToast();
   
   const [contents, setContents] = useState<ContentItem[]>([]);
   const [currentContentIndex, setCurrentContentIndex] = useState(0);
@@ -70,7 +72,16 @@ export default function StepPage() {
       // 구글 시트에 진행 상황 전송
       const data = getOnboardingData();
       if (data) {
-        await submitOnboardingData(data);
+        const r = await submitOnboardingData(data);
+        if (!r.success) {
+          toast({
+            type: 'warning',
+            title: '진행 정보 저장이 원활하지 않아요',
+            description: '학습은 계속 진행할 수 있어요. 네트워크/설정 확인이 필요할 수 있어요.',
+          });
+          // eslint-disable-next-line no-console
+          console.warn('[submit] step failed:', r);
+        }
       }
       
       router.push('/learn');

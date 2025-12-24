@@ -11,9 +11,9 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ className = '', variant = 'default', padding = 'md', hoverable = false, children, ...props }, ref) => {
     const variants = {
-      default: '',
-      outlined: 'border-2 border-idus-black-10',
-      elevated: 'shadow-lg',
+      default: 'bg-white',
+      outlined: 'bg-white border-2 border-idus-black-10',
+      elevated: 'bg-white shadow-lg',
     };
     
     const paddings = {
@@ -24,13 +24,15 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
     };
     
     const hoverStyles = hoverable 
-      ? 'transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer' 
-      : '';
+      ? 'transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-1 cursor-pointer active:translate-y-0 active:shadow-lg' 
+      : 'transition-shadow duration-300';
     
     return (
       <div
         ref={ref}
-        className={`card-surface rounded-2xl ${variants[variant]} ${paddings[padding]} ${hoverStyles} ${className}`}
+        className={`rounded-2xl ${variants[variant]} ${paddings[padding]} ${hoverStyles} ${className}`}
+        role={hoverable ? 'button' : undefined}
+        tabIndex={hoverable ? 0 : undefined}
         {...props}
       >
         {children}

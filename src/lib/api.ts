@@ -4,7 +4,25 @@ import { OnboardingData } from '@/types/onboarding';
 
 const API_BASE = '/api';
 
-export async function submitOnboardingData(data: OnboardingData): Promise<{ success: boolean; message?: string }> {
+type SubmitResult = {
+  success: boolean;
+  message?: string;
+  target?: 'railway' | 'google_script' | 'dev_console';
+  error?: string;
+  railwayError?: string | null;
+  googleError?: string | null;
+  status?: number;
+};
+
+async function safeReadJson(res: Response): Promise<any | null> {
+  try {
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function submitOnboardingData(data: OnboardingData): Promise<SubmitResult> {
   try {
     const response = await fetch(`${API_BASE}/submit`, {
       method: 'POST',
@@ -14,14 +32,29 @@ export async function submitOnboardingData(data: OnboardingData): Promise<{ succ
       body: JSON.stringify(data),
     });
 
-    if (!response.ok) {
-      throw new Error('API request failed');
-    }
+    const json = await safeReadJson(response);
+    if (response.ok) return (json ?? { success: true }) as SubmitResult;
 
-    return await response.json();
+    const result: SubmitResult = {
+      success: false,
+      status: response.status,
+      message: json?.message,
+      error: json?.error ?? '데이터 저장에 실패했어요.',
+      railwayError: json?.railwayError ?? null,
+      googleError: json?.googleError ?? null,
+    };
+
+    // eslint-disable-next-line no-console
+    console.warn('[submit] failed:', result);
+    return result;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Submit error:', error);
-    return { success: false, message: '데이터 전송에 실패했습니다.' };
+    return {
+      success: false,
+      error: '데이터 전송에 실패했습니다. (네트워크/서버 오류)',
+      message: error instanceof Error ? error.message : String(error),
+    };
   }
 }
 

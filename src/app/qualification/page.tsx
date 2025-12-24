@@ -12,6 +12,7 @@ import { submitOnboardingData } from '@/lib/api';
 import { AVAILABLE_CATEGORIES, RESTRICTED_CATEGORIES } from '@/types/onboarding';
 import { IconArrowRight, IconCheck } from '@/components/ui/icons';
 import BrandIcon from '@/components/ui/BrandIcon';
+import { useToast } from '@/components/ui/ToastProvider';
 
 // 카테고리 ID → 이름 매핑 (string 키 타입으로 명시)
 const categoryNameById: Map<string, string> = new Map(
@@ -22,6 +23,7 @@ export default function QualificationPage() {
   const router = useRouter();
   const [data, setData] = useState<OnboardingData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const onboardingData = getOnboardingData();
@@ -32,7 +34,17 @@ export default function QualificationPage() {
     setData(onboardingData);
 
     // 데이터 제출
-    submitOnboardingData(onboardingData).catch(console.error);
+    submitOnboardingData(onboardingData).then((r) => {
+      if (!r.success) {
+        toast({
+          type: 'warning',
+          title: '진행 정보 저장이 원활하지 않아요',
+          description: '학습은 계속 진행할 수 있어요. 네트워크/설정 확인이 필요할 수 있어요.',
+        });
+        // eslint-disable-next-line no-console
+        console.warn('[submit] qualification failed:', r);
+      }
+    });
 
     // 자격 상태에 따라 리다이렉트
     if (onboardingData.qualificationStatus === 'no_business') {
@@ -40,7 +52,7 @@ export default function QualificationPage() {
     } else if (onboardingData.qualificationStatus === 'restricted_category') {
       router.push('/qualification/2026-waitlist');
     }
-  }, [router]);
+  }, [router, toast]);
 
   const handleStartLearning = () => {
     router.push('/learn');
@@ -73,49 +85,49 @@ export default function QualificationPage() {
       </header>
 
       <div className="max-w-2xl mx-auto px-4 py-12">
-        {/* 환영 메시지 */}
-        <div className="text-center mb-10">
+        {/* 환영 메시지 - 강화된 스타일 */}
+        <div className="text-center mb-10 animate-fade-in">
           {/* 아이콘 */}
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-green-50 rounded-full mb-5">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-50 to-green-100 rounded-full mb-5 success-pop">
             <IconCheck className="w-10 h-10 text-green-600" />
           </div>
           
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl font-bold text-idus-black mb-2 stagger-in stagger-delay-1">
             준비가 완료되었어요!
           </h1>
-          <p className="text-gray-600 mb-4">
+          <p className="text-idus-black-70 mb-4 stagger-in stagger-delay-2">
             <span className="font-semibold text-idus-orange">{data.artistName}</span> 작가님,<br />
             글로벌 판매를 시작할 준비가 되었습니다
           </p>
           
           {/* 배지 */}
-          <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-2 rounded-full text-sm font-medium">
-            <span className="w-2 h-2 bg-green-500 rounded-full" aria-hidden="true" />
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium border border-green-200 stagger-in stagger-delay-3">
+            <span className="w-2 h-2 bg-green-500 rounded-full badge-shine" aria-hidden="true" />
             <span>글로벌 판매 가능</span>
           </div>
         </div>
 
-        {/* 확인 결과 */}
-        <Card variant="outlined" className="mb-6">
-          <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        {/* 확인 결과 - 강화된 스타일 */}
+        <Card variant="outlined" className="mb-6 stagger-in stagger-delay-4">
+          <h3 className="font-semibold text-idus-black mb-4 flex items-center gap-2">
             확인 결과
           </h3>
           <div className="space-y-2">
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-green-50/50 to-white rounded-lg border border-green-100">
               <div className="flex items-center gap-3">
-                <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white">
+                <span className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white check-bounce">
                   <IconCheck className="w-4 h-4" />
                 </span>
-                <span className="text-gray-700">사업자등록번호</span>
+                <span className="text-idus-black-70">사업자등록번호</span>
               </div>
               <span className="text-green-600 text-sm font-medium">보유</span>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-green-50/50 to-white rounded-lg border border-green-100">
               <div className="flex items-center gap-3">
-                <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white">
+                <span className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white check-bounce">
                   <IconCheck className="w-4 h-4" />
                 </span>
-                <span className="text-gray-700">판매 카테고리</span>
+                <span className="text-idus-black-70">판매 카테고리</span>
               </div>
               <span className="text-green-600 text-sm font-medium">판매 가능</span>
             </div>

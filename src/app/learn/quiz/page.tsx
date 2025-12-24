@@ -11,9 +11,11 @@ import { getOnboardingData, markQuizCompleted, markLearningCompleted } from '@/l
 import { submitOnboardingData } from '@/lib/api';
 import { IconArrowLeft, IconArrowRight, IconCheck, IconX } from '@/components/ui/icons';
 import BrandIcon from '@/components/ui/BrandIcon';
+import { useToast } from '@/components/ui/ToastProvider';
 
 export default function QuizPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -74,7 +76,16 @@ export default function QuizPage() {
       // 구글 시트에 결과 전송
       const data = getOnboardingData();
       if (data) {
-        await submitOnboardingData(data);
+        const r = await submitOnboardingData(data);
+        if (!r.success) {
+          toast({
+            type: 'warning',
+            title: '퀴즈 결과 저장이 원활하지 않아요',
+            description: '학습은 완료 처리되었어요. 네트워크/설정 확인이 필요할 수 있어요.',
+          });
+          // eslint-disable-next-line no-console
+          console.warn('[submit] quiz failed:', r);
+        }
       }
       
       setIsFinished(true);
@@ -98,21 +109,35 @@ export default function QuizPage() {
     return (
       <main className="min-h-screen bg-gradient-to-b from-white to-idus-gray flex items-center justify-center px-4">
         <Card variant="elevated" className="max-w-md w-full text-center animate-scale-in">
-          <div className="text-6xl mb-6">
-            {percentage >= 60 ? '🎉' : '💪'}
+          {/* 축하 아이콘 - 이모지 대신 BrandIcon */}
+          <div className="mb-6 flex justify-center">
+            <div className={`w-20 h-20 rounded-2xl flex items-center justify-center success-pop ${
+              percentage >= 60 
+                ? 'bg-gradient-to-br from-idus-orange to-idus-orange-dark' 
+                : 'bg-gradient-to-br from-idus-orange-light to-idus-orange'
+            }`}>
+              <BrandIcon 
+                name={percentage >= 60 ? 'cheer' : 'best'} 
+                size={44} 
+                alt="" 
+                className="drop-shadow-lg"
+              />
+            </div>
           </div>
-          <h1 className="text-2xl font-bold text-idus-black mb-2">
+          
+          <h1 className="text-2xl font-bold text-idus-black mb-2 stagger-in stagger-delay-1">
             퀴즈 완료!
           </h1>
-          <p className="text-idus-black-70 mb-6">
+          <p className="text-idus-black-70 mb-6 stagger-in stagger-delay-2">
             {totalQuestions}문제 중 <span className="font-bold text-idus-orange">{score}문제</span> 정답
           </p>
           
-          <div className="bg-idus-orange-light/20 rounded-xl p-6 mb-6">
-            <div className="text-4xl font-bold text-idus-orange mb-2">
+          {/* 점수 표시 - 강화된 스타일 */}
+          <div className="bg-gradient-to-br from-idus-orange-light/30 to-idus-orange-light/10 rounded-2xl p-6 mb-6 border border-idus-orange/20 stagger-in stagger-delay-3">
+            <div className="text-5xl font-bold text-idus-orange mb-2 count-up">
               {percentage}%
             </div>
-            <p className="text-sm text-idus-black-70">
+            <p className="text-sm text-idus-black-70 text-balance">
               {percentage >= 80 
                 ? '훌륭해요! 글로벌 작가가 될 준비가 됐어요!' 
                 : percentage >= 60
@@ -121,15 +146,19 @@ export default function QuizPage() {
             </p>
           </div>
 
-          {/* 문제별 결과 요약 */}
-          <div className="bg-idus-gray rounded-xl p-4 mb-6 text-left">
+          {/* 문제별 결과 요약 - 개선된 스타일 */}
+          <div className="bg-idus-gray rounded-xl p-4 mb-6 text-left stagger-in stagger-delay-4">
             <h4 className="font-semibold text-idus-black mb-3 text-sm">문제별 결과</h4>
             <div className="space-y-2">
               {QUIZ_QUESTIONS.map((q, index) => (
-                <div key={q.id} className="flex items-center gap-2 text-sm">
-                  <span className={`w-5 h-5 rounded-full flex items-center justify-center ${
+                <div 
+                  key={q.id} 
+                  className="flex items-center gap-2 text-sm stagger-in"
+                  style={{ animationDelay: `${0.5 + index * 0.1}s` }}
+                >
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${
                     answers[index] === q.correctAnswer 
-                      ? 'bg-green-500 text-white' 
+                      ? 'bg-green-500 text-white check-bounce' 
                       : 'bg-red-500 text-white'
                   }`}>
                     {answers[index] === q.correctAnswer ? <IconCheck className="w-3.5 h-3.5" /> : <IconX className="w-3.5 h-3.5" />}
@@ -143,7 +172,7 @@ export default function QuizPage() {
           <Button
             variant="primary"
             size="lg"
-            className="w-full"
+            className="w-full cta-pulse btn-ripple"
             onClick={() => router.push('/complete')}
           >
             완료 페이지로 이동

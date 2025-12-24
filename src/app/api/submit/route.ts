@@ -170,9 +170,50 @@ export async function POST(request: NextRequest) {
 }
 
 // GET 요청 처리 (헬스체크용)
-export async function GET() {
-  return NextResponse.json({ 
+export async function GET(request: NextRequest) {
+  const RAILWAY_BACKEND_URL = process.env.RAILWAY_BACKEND_URL;
+  const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL;
+  const ALLOW_GOOGLE_SCRIPT_FALLBACK = process.env.ALLOW_GOOGLE_SCRIPT_FALLBACK === 'true';
+
+  const normalizeBaseUrl = (raw?: string) => {
+    if (!raw) return null;
+    const trimmed = raw.trim().replace(/\/$/, '');
+    if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) return trimmed;
+    return `https://${trimmed}`;
+  };
+
+  const railwayBase = normalizeBaseUrl(RAILWAY_BACKEND_URL);
+  const url = new URL(request.url);
+  const check = url.searchParams.get('check') === '1';
+
+  let railwayHealth: any = null;
+  let railwayHealthError: string | null = null;
+
+  if (check && railwayBase) {
+    try {
+      const controller = new AbortController();
+      const t = setTimeout(() => controller.abort(), 2500);
+      const res = await fetch(`${railwayBase}/health`, { signal: controller.signal });
+      clearTimeout(t);
+      railwayHealth = await res.json().catch(() => null);
+      if (!res.ok) {
+        railwayHealthError = `health status ${res.status}`;
+      }
+    } catch (e) {
+      railwayHealthError = e instanceof Error ? e.message : String(e);
+    }
+  }
+
+  return NextResponse.json({
     status: 'ok',
-    message: 'Global Artist Onboarding API'
+    message: 'Global Artist Onboarding API',
+    config: {
+      hasRailwayBackendUrl: Boolean(RAILWAY_BACKEND_URL),
+      railwayBase,
+      hasGoogleScriptUrl: Boolean(GOOGLE_SCRIPT_URL),
+      allowGoogleScriptFallback: ALLOW_GOOGLE_SCRIPT_FALLBACK,
+    },
+    railwayHealth,
+    railwayHealthError,
   });
 }
