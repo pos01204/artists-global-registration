@@ -186,11 +186,8 @@ export default function LearnPage() {
                       <p className="text-sm text-idus-black-50 line-clamp-2">{step.description}</p>
                     </div>
 
-                    {/* Duration & Arrow */}
-                    <div className="flex items-center justify-between sm:justify-end sm:text-right gap-3">
-                      <div className="text-sm text-idus-black-50">
-                        약 {step.duration}분
-                      </div>
+                    {/* Arrow */}
+                    <div className="flex items-center justify-end">
                       {status !== 'locked' && (
                         <IconChevronRight className="w-5 h-5 text-idus-orange" />
                       )}
@@ -228,7 +225,6 @@ export default function LearnPage() {
               <p className="text-sm text-idus-black-50">배운 내용을 간단히 확인해요!</p>
             </div>
             <div className="text-right">
-              <div className="text-sm text-idus-black-50 mb-1">약 2분</div>
               {completedSteps.every(Boolean) && (
                 <Link href="/learn/quiz">
                   <IconChevronRight className="w-5 h-5 text-idus-orange inline-block" />

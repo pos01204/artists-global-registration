@@ -137,9 +137,6 @@ export default function AppendixPage() {
                           <span className="text-xs font-medium text-idus-black-50">
                             STEP {c.stepId} · {stepNameById.get(c.stepId) ?? ''}
                           </span>
-                          <span className="text-xs bg-idus-gray px-2 py-0.5 rounded-full text-idus-black-50">
-                            약 {c.duration}분
-                          </span>
                         </div>
                         <div className="font-bold text-idus-black mb-1 truncate">{c.title}</div>
                         <div className="text-sm text-idus-black-70 line-clamp-2">{c.description}</div>

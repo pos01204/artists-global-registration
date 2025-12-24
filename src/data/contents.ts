@@ -310,6 +310,7 @@ export const STEP2_CONTENTS: ContentItem[] = [
           title: 'MSDS 제출 필요 품목',
           content:
             '• 리튬이온 배터리 포함 전자기기\n• 염료/향료 첨가 캔들',
+          importance: 'secondary',
           icon: 'warn',
           meta: [
             { label: '제출처', value: 'global_help@backpac.kr', copy: true },
@@ -359,6 +360,7 @@ export const STEP2_CONTENTS: ContentItem[] = [
           title: '번역 팁',
           content:
             '• 짧고 명확하게 써요\n• 사이즈는 cm, 무게는 g 단위로 써요\n• 번역한 뒤 한 번만 확인하면 좋아요',
+          importance: 'secondary',
           icon: '💡',
         },
       ],
