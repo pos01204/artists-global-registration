@@ -14,7 +14,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { artistInfoSchema, ArtistInfoFormValues } from '@/components/forms/artistInfoSchema';
 import { AlertTriangle } from 'lucide-react';
-import Tooltip from '@/components/ui/Tooltip';
 
 export default function ArtistInfoForm() {
   const router = useRouter();
@@ -141,17 +140,9 @@ export default function ArtistInfoForm() {
           <BrandIcon name="best" size={22} alt="" />
           사업자등록번호 보유 여부
           <span className="text-idus-orange text-sm">*</span>
-          <Tooltip
-            content={
-              <div className="space-y-1">
-                <div className="font-semibold text-idus-black">왜 필요한가요?</div>
-                <div>해외 판매 정산/세금 처리 및 증빙을 위해 사업자등록이 필요합니다.</div>
-              </div>
-            }
-          />
         </h2>
         <p className="text-sm text-idus-black-50">
-          글로벌 작가 등록을 위해서는 사업자등록이 필요합니다
+          글로벌 작가 등록을 위해서는 사업자등록이 필요해요
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

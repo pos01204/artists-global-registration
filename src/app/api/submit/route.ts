@@ -49,7 +49,8 @@ export async function POST(request: NextRequest) {
      */
     const RAILWAY_BACKEND_URL = process.env.RAILWAY_BACKEND_URL;
     const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL;
-    const ALLOW_GOOGLE_SCRIPT_FALLBACK = process.env.ALLOW_GOOGLE_SCRIPT_FALLBACK === 'true';
+    // Apps Script 폴백: 명시적으로 'false'가 아니면 활성화 (기본값: true)
+    const ALLOW_GOOGLE_SCRIPT_FALLBACK = process.env.ALLOW_GOOGLE_SCRIPT_FALLBACK !== 'false';
 
     const normalizeBaseUrl = (raw?: string) => {
       if (!raw) return null;

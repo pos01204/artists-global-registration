@@ -124,23 +124,30 @@ export default function CompletePage() {
           variant="elevated"
           className="relative mb-8 bg-idus-orange text-white animate-slide-up animation-delay-200 overflow-hidden"
         >
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none" aria-hidden="true">
-          <Image
-            src="/brand/brand assets/선물.png"
-            alt=""
-            width={140}
-            height={140}
-          />
-        </div>
-          <div className="text-center">
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-20 pointer-events-none" aria-hidden="true">
+            <Image
+              src="/brand/brand assets/선물.png"
+              alt=""
+              width={140}
+              height={140}
+            />
+          </div>
+          <div className="text-center relative z-10">
             <div className="flex justify-center mb-4">
-              <BrandIcon name="gift" size={44} alt="" />
+              <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center">
+                <Image
+                  src="/brand/brand assets/선물.png"
+                  alt="선물"
+                  width={44}
+                  height={44}
+                />
+              </div>
             </div>
             <h3 className="text-xl font-bold mb-2">보상 안내</h3>
             <p className="text-white/80 mb-4 text-balance">
               글로벌 작가 등록을 완료하면 7일 이내 포인트가 지급돼요
             </p>
-            <div className="bg-white/20 rounded-xl p-4 inline-block">
+            <div className="bg-white/20 rounded-xl p-4 inline-block backdrop-blur-sm">
               <span className="text-3xl font-bold">KR 광고포인트 10,000P</span>
             </div>
           </div>

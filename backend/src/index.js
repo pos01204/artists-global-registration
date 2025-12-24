@@ -10,13 +10,25 @@ app.use(cors());
 app.use(express.json({ limit: '1mb' }));
 
 app.get('/health', async (_req, res) => {
+  const pk = process.env.GOOGLE_SHEETS_PRIVATE_KEY || '';
+  
   const env = {
     GOOGLE_SHEETS_SPREADSHEET_ID: Boolean(process.env.GOOGLE_SHEETS_SPREADSHEET_ID),
     GOOGLE_SHEETS_CLIENT_EMAIL: Boolean(process.env.GOOGLE_SHEETS_CLIENT_EMAIL),
-    GOOGLE_SHEETS_PRIVATE_KEY: Boolean(process.env.GOOGLE_SHEETS_PRIVATE_KEY),
+    GOOGLE_SHEETS_PRIVATE_KEY: Boolean(pk),
     GOOGLE_SHEETS_MAIN_SHEET: process.env.GOOGLE_SHEETS_MAIN_SHEET || '전체데이터',
     GOOGLE_SHEETS_WAITLIST_SHEET: process.env.GOOGLE_SHEETS_WAITLIST_SHEET || '2026확장대기',
     GOOGLE_SHEETS_NO_BUSINESS_SHEET: process.env.GOOGLE_SHEETS_NO_BUSINESS_SHEET || '사업자미등록',
+  };
+
+  // Private Key 형식 진단 정보
+  const privateKeyDiag = {
+    length: pk.length,
+    hasBeginMarker: pk.includes('-----BEGIN'),
+    hasEndMarker: pk.includes('-----END'),
+    hasEscapedNewline: pk.includes('\\n'),
+    startsWithQuote: pk.startsWith('"') || pk.startsWith("'"),
+    preview: pk.slice(0, 50) + '...',
   };
 
   let sheetsAccess = { ok: false, error: 'not checked' };
@@ -27,6 +39,7 @@ app.get('/health', async (_req, res) => {
   res.json({
     ok: true,
     env,
+    privateKeyDiag,
     sheetsAccess,
   });
 });
@@ -59,6 +72,19 @@ const port = Number(process.env.PORT || 8080);
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`✅ backend listening on :${port}`);
+  
+  // 시작 시 환경변수 상태 로깅 (디버깅용)
+  const pk = process.env.GOOGLE_SHEETS_PRIVATE_KEY || '';
+  const pkInfo = {
+    length: pk.length,
+    hasBegin: pk.includes('-----BEGIN'),
+    hasEnd: pk.includes('-----END'),
+    hasEscapedNewline: pk.includes('\\n'),
+    hasRealNewline: pk.includes('\n') && !pk.includes('\\n'),
+    startsWithQuote: pk.startsWith('"') || pk.startsWith("'"),
+  };
+  // eslint-disable-next-line no-console
+  console.log('🔑 Private Key Info:', pkInfo);
 });
 
 
