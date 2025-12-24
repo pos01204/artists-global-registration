@@ -49,6 +49,7 @@ export async function POST(request: NextRequest) {
      */
     const RAILWAY_BACKEND_URL = process.env.RAILWAY_BACKEND_URL;
     const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL;
+    const ALLOW_GOOGLE_SCRIPT_FALLBACK = process.env.ALLOW_GOOGLE_SCRIPT_FALLBACK === 'true';
 
     const normalizeBaseUrl = (raw?: string) => {
       if (!raw) return null;
@@ -93,7 +94,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 2) 폴백: Google Apps Script
-    if (GOOGLE_SCRIPT_URL) {
+    if (GOOGLE_SCRIPT_URL && ALLOW_GOOGLE_SCRIPT_FALLBACK) {
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -123,6 +124,18 @@ export async function POST(request: NextRequest) {
           error: '데이터 저장에 실패했습니다. (Railway/Google Script 모두 실패)',
           railwayError,
           googleError,
+        },
+        { status: 502 }
+      );
+    }
+
+    if (GOOGLE_SCRIPT_URL && !ALLOW_GOOGLE_SCRIPT_FALLBACK) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            'Railway로 저장하지 못했습니다. (Google Script 폴백은 비활성화되어 있어요) Railway 환경/주소를 확인해주세요.',
+          railwayError,
         },
         { status: 502 }
       );

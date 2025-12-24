@@ -38,8 +38,12 @@ app.post('/v1/events', async (req, res) => {
     await appendEventRow([now, eventType, JSON.stringify(payload ?? null)]);
     return res.json({ success: true });
   } catch (err) {
-    const message = err instanceof z.ZodError ? err.message : err?.message;
-    return res.status(400).json({ success: false, message: message || 'invalid request' });
+    if (err instanceof z.ZodError) {
+      return res.status(400).json({ success: false, message: err.message || 'invalid request' });
+    }
+    // eslint-disable-next-line no-console
+    console.error('server error:', err);
+    return res.status(500).json({ success: false, message: err?.message || 'server error' });
   }
 });
 

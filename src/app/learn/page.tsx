@@ -9,7 +9,7 @@ import Card from '@/components/ui/Card';
 import ProgressBar from '@/components/ui/ProgressBar';
 import { LEARNING_STEPS } from '@/types/onboarding';
 import { getOnboardingData, calculateProgress, isLearningCompleted } from '@/lib/storage';
-import { IconChevronRight, IconLock, IconArrowRight } from '@/components/ui/icons';
+import { IconChevronRight, IconLock, IconArrowRight, IconCheck } from '@/components/ui/icons';
 import BrandIcon, { BrandIconName } from '@/components/ui/BrandIcon';
 
 export default function LearnPage() {
@@ -152,7 +152,7 @@ export default function LearnPage() {
                       ${status === 'locked' ? 'bg-idus-black-10 text-idus-black-50' : ''}
                     `}>
                       {status === 'completed' ? (
-                        '완료'
+                        <IconCheck className="w-7 h-7 text-white" />
                       ) : (
                         <BrandIcon
                           name={getStepBrandIconName(step.id)}
@@ -168,11 +168,6 @@ export default function LearnPage() {
                         <span className="text-xs font-medium text-idus-black-50">
                           STEP {step.id}
                         </span>
-                        {status === 'completed' && (
-                          <span className="text-xs bg-green-500 text-white px-2 py-0.5 rounded-full">
-                            완료
-                          </span>
-                        )}
                         {status === 'active' && (
                           <span className="text-xs bg-idus-orange text-white px-2 py-0.5 rounded-full">
                             진행 중

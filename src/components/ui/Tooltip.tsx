@@ -75,8 +75,13 @@ export default function Tooltip({ content, label = '도움말', className = '' }
         aria-describedby={open ? id : undefined}
         onClick={() => setOpen(v => !v)}
         onPointerDown={(e) => {
-          // 모바일 탭에서 focus/blur로 바로 닫히는 케이스 방지
-          e.preventDefault();
+          // 외부 클릭 감지 로직과 충돌 방지
+          e.stopPropagation();
+        }}
+        onTouchStart={(e) => {
+          // 모바일에서 터치 기반으로 확실히 토글
+          e.stopPropagation();
+          setOpen(v => !v);
         }}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
