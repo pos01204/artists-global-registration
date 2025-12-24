@@ -51,6 +51,16 @@ app.post('/v1/events', async (req, res) => {
 
     if (eventType === 'onboarding_snapshot') {
       const snap = OnboardingSnapshotSchema.parse(payload);
+      
+      // 디버깅: 수신된 데이터 로깅
+      // eslint-disable-next-line no-console
+      console.log('📥 Received snapshot:', {
+        artistName: snap.artistName,
+        phoneNumber: snap.phoneNumber?.slice(-4), // 마지막 4자리만
+        learningProgress: snap.learningProgress,
+        registrationClicked: snap.registrationClicked,
+      });
+      
       await upsertOnboardingSnapshot(snap, now);
       return res.json({ success: true });
     }
@@ -60,6 +70,8 @@ app.post('/v1/events', async (req, res) => {
     return res.json({ success: true });
   } catch (err) {
     if (err instanceof z.ZodError) {
+      // eslint-disable-next-line no-console
+      console.error('Zod validation error:', err.errors);
       return res.status(400).json({ success: false, message: err.message || 'invalid request' });
     }
     // eslint-disable-next-line no-console

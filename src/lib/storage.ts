@@ -38,13 +38,20 @@ export function saveOnboardingData(data: Partial<OnboardingData>): void {
 }
 
 export function initOnboardingData(artistInfo: ArtistInfo): OnboardingData {
-  const initialProgress: LearningProgress = {
-    step1Completed: false,
-    step2Completed: false,
-    step3Completed: false,
-    quizCompleted: false,
-    quizScore: 0,
-  };
+  // 기존 데이터 확인 (전화번호로 식별)
+  const existing = getOnboardingData();
+  const isSameUser = existing && normalizePhoneNumber(existing.phoneNumber) === normalizePhoneNumber(artistInfo.phoneNumber);
+  
+  // 기존 진행 상태 유지 또는 초기화
+  const learningProgress: LearningProgress = isSameUser && existing.learningProgress
+    ? existing.learningProgress
+    : {
+        step1Completed: false,
+        step2Completed: false,
+        step3Completed: false,
+        quizCompleted: false,
+        quizScore: 0,
+      };
   
   // 자격 상태 결정
   let qualificationStatus: OnboardingData['qualificationStatus'] = 'qualified';
@@ -60,14 +67,25 @@ export function initOnboardingData(artistInfo: ArtistInfo): OnboardingData {
   const data: OnboardingData = {
     ...artistInfo,
     qualificationStatus,
-    learningProgress: initialProgress,
-    registrationClicked: false,
-    createdAt: new Date(),
+    learningProgress,
+    registrationClicked: isSameUser ? (existing.registrationClicked ?? false) : false,
+    createdAt: isSameUser && existing.createdAt ? existing.createdAt : new Date(),
     updatedAt: new Date(),
   };
   
   saveOnboardingData(data);
   return data;
+}
+
+// 전화번호 정규화 (비교용)
+function normalizePhoneNumber(phone: string): string {
+  if (!phone) return '';
+  let digits = phone.replace(/[^\d]/g, '');
+  // 선행 0이 없는 경우 보정 (예: 1012345678 -> 01012345678)
+  if (digits.length === 10 && digits.startsWith('10')) {
+    digits = `0${digits}`;
+  }
+  return digits;
 }
 
 export function updateLearningProgress(progress: Partial<LearningProgress>): void {

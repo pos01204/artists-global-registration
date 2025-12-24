@@ -63,15 +63,15 @@ export default function Home() {
           {/* Stats - 강화된 카드 */}
           <div className="grid grid-cols-3 gap-4 mb-12 animate-slide-up">
             <div className="bg-white rounded-2xl p-4 md:p-6 text-center shadow-sm border border-idus-black-10 card-interactive stagger-in stagger-delay-1">
-              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1 count-up">45</div>
+              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1 count-up">45개국</div>
               <div className="text-xs md:text-sm text-idus-black-50">판매 국가</div>
             </div>
             <div className="bg-white rounded-2xl p-4 md:p-6 text-center shadow-sm border border-idus-black-10 card-interactive stagger-in stagger-delay-2">
-              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1 count-up">32x</div>
+              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1 count-up">32배</div>
               <div className="text-xs md:text-sm text-idus-black-50">글로벌 시장 규모</div>
             </div>
             <div className="bg-white rounded-2xl p-4 md:p-6 text-center shadow-sm border border-idus-black-10 card-interactive stagger-in stagger-delay-3">
-              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1 count-up">2x</div>
+              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1 count-up">2배</div>
               <div className="text-xs md:text-sm text-idus-black-50">해외 평균 주문액</div>
             </div>
           </div>

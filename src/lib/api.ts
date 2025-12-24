@@ -23,6 +23,15 @@ async function safeReadJson(res: Response): Promise<any | null> {
 }
 
 export async function submitOnboardingData(data: OnboardingData): Promise<SubmitResult> {
+  // 디버깅: 전송 데이터 로깅
+  // eslint-disable-next-line no-console
+  console.log('[submit] 📤 Sending data:', {
+    artistName: data.artistName,
+    phoneNumber: data.phoneNumber?.slice(-4), // 마지막 4자리만
+    learningProgress: data.learningProgress,
+    registrationClicked: data.registrationClicked,
+  });
+  
   try {
     const response = await fetch(`${API_BASE}/submit`, {
       method: 'POST',
@@ -33,7 +42,11 @@ export async function submitOnboardingData(data: OnboardingData): Promise<Submit
     });
 
     const json = await safeReadJson(response);
-    if (response.ok) return (json ?? { success: true }) as SubmitResult;
+    if (response.ok) {
+      // eslint-disable-next-line no-console
+      console.log('[submit] ✅ Success:', json);
+      return (json ?? { success: true }) as SubmitResult;
+    }
 
     const result: SubmitResult = {
       success: false,

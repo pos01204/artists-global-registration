@@ -161,14 +161,28 @@ function phoneMatchesFuzzy(stored, input) {
   const s = normalizePhone(stored);
   const i = normalizePhone(input);
   
+  // eslint-disable-next-line no-console
+  console.log(`📞 Comparing: stored="${stored}" (norm="${s}") vs input="${input}" (norm="${i}")`);
+  
   // 완전 일치
-  if (s === i) return true;
+  if (s === i) {
+    // eslint-disable-next-line no-console
+    console.log(`   → Exact match!`);
+    return true;
+  }
   
   // 마지막 8자리 비교 (선행 0 문제 우회)
   if (s.length >= 8 && i.length >= 8) {
-    return s.slice(-8) === i.slice(-8);
+    const sLast8 = s.slice(-8);
+    const iLast8 = i.slice(-8);
+    const match = sLast8 === iLast8;
+    // eslint-disable-next-line no-console
+    console.log(`   → Last 8 digits: "${sLast8}" vs "${iLast8}" = ${match}`);
+    return match;
   }
   
+  // eslint-disable-next-line no-console
+  console.log(`   → No match`);
   return false;
 }
 
@@ -243,6 +257,17 @@ async function upsertRow(sheetName, headers, phoneNumber, phoneColumnLetter, row
 export async function upsertOnboardingSnapshot(snapshot, nowIso) {
   const names = sheetNames();
   const n = normalizeSnapshot(snapshot);
+
+  // 디버깅: 정규화된 데이터 로깅
+  // eslint-disable-next-line no-console
+  console.log('📊 Normalized snapshot:', {
+    step1: n.step1Completed,
+    step2: n.step2Completed,
+    step3: n.step3Completed,
+    quiz: n.quizCompleted,
+    quizScore: n.quizScore,
+    registrationClicked: snapshot.registrationClicked,
+  });
 
   // MAIN (전체데이터) - 연락처는 C열
   await upsertRow(
