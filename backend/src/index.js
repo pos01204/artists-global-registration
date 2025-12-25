@@ -81,7 +81,7 @@ app.post('/v1/events', async (req, res) => {
 });
 
 const port = Number(process.env.PORT || 8080);
-app.listen(port, () => {
+app.listen(port, async () => {
   // eslint-disable-next-line no-console
   console.log(`✅ backend listening on :${port}`);
   
@@ -91,12 +91,22 @@ app.listen(port, () => {
     length: pk.length,
     hasBegin: pk.includes('-----BEGIN'),
     hasEnd: pk.includes('-----END'),
-    hasEscapedNewline: pk.includes('\\n'),
-    hasRealNewline: pk.includes('\n') && !pk.includes('\\n'),
-    startsWithQuote: pk.startsWith('"') || pk.startsWith("'"),
+    hasLiteralBackslashN: pk.includes('\\n'),
+    first30: pk.slice(0, 30),
   };
   // eslint-disable-next-line no-console
   console.log('🔑 Private Key Info:', pkInfo);
+  
+  // 시작 시 Google Sheets 연결 테스트
+  try {
+    const { checkSheetsAccess } = await import('./sheets.js');
+    const result = await checkSheetsAccess();
+    // eslint-disable-next-line no-console
+    console.log('📊 Sheets Access Test:', result);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('📊 Sheets Access Test Failed:', err.message);
+  }
 });
 
 

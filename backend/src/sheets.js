@@ -19,33 +19,38 @@ function requireEnv(name) {
 function getPrivateKey() {
   let raw = requireEnv('GOOGLE_SHEETS_PRIVATE_KEY');
   
+  // eslint-disable-next-line no-console
+  console.log('🔐 Raw key before processing:', {
+    length: raw.length,
+    first50: raw.slice(0, 50),
+    hasLiteralBackslashN: raw.includes('\\n'),
+    hasRealNewline: raw.includes('\n') && !raw.includes('\\n'),
+  });
+  
   // 1. 앞뒤 따옴표 제거 (실수로 포함된 경우)
   raw = raw.replace(/^["']|["']$/g, '');
   
-  // 2. 이스케이프된 줄바꿈을 실제 줄바꿈으로 변환
-  // Railway에서는 \n이 문자열 그대로 저장되는 경우가 있음
-  raw = raw.replace(/\\n/g, '\n');
-  
-  // 3. 이중 이스케이프 처리 (\\n -> \n)
-  raw = raw.replace(/\\\\n/g, '\n');
-  
-  // 4. 공백으로 구분된 경우 (일부 환경에서 발생)
-  // "-----BEGIN PRIVATE KEY----- MIIEv..." 형태
-  if (!raw.includes('\n') && raw.includes('-----BEGIN')) {
-    raw = raw
-      .replace(/-----BEGIN PRIVATE KEY-----\s*/g, '-----BEGIN PRIVATE KEY-----\n')
-      .replace(/\s*-----END PRIVATE KEY-----/g, '\n-----END PRIVATE KEY-----')
-      .replace(/(.{64})/g, '$1\n')
-      .replace(/\n\n/g, '\n');
+  // 2. 리터럴 백슬래시+n을 실제 줄바꿈으로 변환
+  // Railway에서는 \n이 문자열 그대로 저장됨
+  // 중요: 정규식에서 \\n은 리터럴 \n (백슬래시 + n)을 의미
+  while (raw.includes('\\n')) {
+    raw = raw.split('\\n').join('\n');
   }
   
-  // 5. 유효성 검사
+  // 3. 유효성 검사
   if (!raw.includes('-----BEGIN PRIVATE KEY-----')) {
     throw new Error('Invalid GOOGLE_SHEETS_PRIVATE_KEY format: missing BEGIN marker');
   }
   if (!raw.includes('-----END PRIVATE KEY-----')) {
     throw new Error('Invalid GOOGLE_SHEETS_PRIVATE_KEY format: missing END marker');
   }
+  
+  // eslint-disable-next-line no-console
+  console.log('🔐 Key after processing:', {
+    length: raw.length,
+    hasRealNewline: raw.includes('\n'),
+    lineCount: raw.split('\n').length,
+  });
   
   return raw;
 }
