@@ -22,22 +22,43 @@ function getPrivateKey() {
   // eslint-disable-next-line no-console
   console.log('🔐 Raw key before processing:', {
     length: raw.length,
-    first50: raw.slice(0, 50),
+    first60: raw.slice(0, 60),
     hasLiteralBackslashN: raw.includes('\\n'),
-    hasRealNewline: raw.includes('\n') && !raw.includes('\\n'),
   });
   
   // 1. 앞뒤 따옴표 제거 (실수로 포함된 경우)
   raw = raw.replace(/^["']|["']$/g, '');
   
   // 2. 리터럴 백슬래시+n을 실제 줄바꿈으로 변환
-  // Railway에서는 \n이 문자열 그대로 저장됨
-  // 중요: 정규식에서 \\n은 리터럴 \n (백슬래시 + n)을 의미
   while (raw.includes('\\n')) {
     raw = raw.split('\\n').join('\n');
   }
   
-  // 3. 유효성 검사
+  // 3. BEGIN/END 마커 뒤에 줄바꿈이 없으면 추가
+  // "-----BEGIN PRIVATE KEY-----MII..." → "-----BEGIN PRIVATE KEY-----\nMII..."
+  if (!raw.includes('-----BEGIN PRIVATE KEY-----\n')) {
+    raw = raw.replace('-----BEGIN PRIVATE KEY-----', '-----BEGIN PRIVATE KEY-----\n');
+  }
+  if (!raw.includes('\n-----END PRIVATE KEY-----')) {
+    raw = raw.replace('-----END PRIVATE KEY-----', '\n-----END PRIVATE KEY-----');
+  }
+  
+  // 4. Base64 내용이 한 줄로 되어있으면 64자마다 줄바꿈 추가
+  const lines = raw.split('\n');
+  if (lines.length < 10) {
+    // BEGIN과 END 사이의 Base64 내용 추출
+    const beginIdx = raw.indexOf('-----BEGIN PRIVATE KEY-----\n') + '-----BEGIN PRIVATE KEY-----\n'.length;
+    const endIdx = raw.indexOf('\n-----END PRIVATE KEY-----');
+    
+    if (beginIdx > 0 && endIdx > beginIdx) {
+      const base64Content = raw.slice(beginIdx, endIdx).replace(/\n/g, '');
+      // 64자마다 줄바꿈
+      const formattedBase64 = base64Content.match(/.{1,64}/g)?.join('\n') || base64Content;
+      raw = '-----BEGIN PRIVATE KEY-----\n' + formattedBase64 + '\n-----END PRIVATE KEY-----\n';
+    }
+  }
+  
+  // 5. 유효성 검사
   if (!raw.includes('-----BEGIN PRIVATE KEY-----')) {
     throw new Error('Invalid GOOGLE_SHEETS_PRIVATE_KEY format: missing BEGIN marker');
   }
@@ -48,8 +69,8 @@ function getPrivateKey() {
   // eslint-disable-next-line no-console
   console.log('🔐 Key after processing:', {
     length: raw.length,
-    hasRealNewline: raw.includes('\n'),
     lineCount: raw.split('\n').length,
+    first60: raw.slice(0, 60),
   });
   
   return raw;
