@@ -318,21 +318,39 @@ export default function StepPage() {
               </div>
             )}
 
-            {/* Summary */}
-            {currentContent.content.summary && (
-              <div className="bg-idus-orange-light/20 rounded-xl p-4">
-                <h4 className="font-semibold text-idus-black mb-3 flex items-center gap-2">
-                  <Lightbulb className="w-5 h-5 text-idus-orange" />
-                  핵심 포인트
-                </h4>
-                <ul className="space-y-2">
-                  {currentContent.content.summary.map((point, index) => (
-                    <li key={index} className="flex items-center gap-2 text-sm text-idus-black-70">
-                      <span className="w-1.5 h-1.5 bg-idus-orange rounded-full flex-shrink-0" />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
+            {/* Summary - 아코디언으로 기본 접힘 */}
+            {currentContent.content.summary && currentContent.content.summary.length > 0 && (
+              <div className="bg-idus-orange-light/10 rounded-xl p-2 border border-idus-orange/10">
+                <Accordion
+                  items={[
+                    {
+                      id: 'summary',
+                      header: (
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-xl bg-idus-orange-light/30 flex items-center justify-center">
+                            <Lightbulb className="w-4 h-4 text-idus-orange" />
+                          </div>
+                          <div className="font-semibold text-idus-black">핵심 포인트</div>
+                          <div className="text-xs text-idus-black-50">({currentContent.content.summary.length}개)</div>
+                        </div>
+                      ),
+                      content: (
+                        <ul className="space-y-2 pt-2">
+                          {currentContent.content.summary.map((point, index) => (
+                            <li key={index} className="flex items-start gap-2 text-sm text-idus-black-70">
+                              <span className="w-1.5 h-1.5 bg-idus-orange rounded-full flex-shrink-0 mt-1.5" />
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      ),
+                    },
+                  ]}
+                  openIds={openExtra.filter(id => id === 'summary')}
+                  onToggle={(id) =>
+                    setOpenExtra(prev => (prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]))
+                  }
+                />
               </div>
             )}
 
