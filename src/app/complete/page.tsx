@@ -145,7 +145,7 @@ export default function CompletePage() {
             </div>
             <h3 className="text-xl font-bold mb-2">보상 안내</h3>
             <p className="text-white/80 mb-4 text-balance">
-              글로벌 작가 등록을 완료하면 7일 이내 포인트가 지급돼요
+              글로벌 작가 등록을 완료하면 익월 1일에 포인트가 지급돼요
             </p>
             <div className="bg-white/20 rounded-xl p-4 inline-block backdrop-blur-sm">
               <span className="text-3xl font-bold">KR 광고포인트 10,000P</span>
