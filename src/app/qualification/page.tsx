@@ -93,24 +93,24 @@ export default function QualificationPage() {
           </div>
           
           <h1 className="text-2xl font-bold text-idus-black mb-2 stagger-in stagger-delay-1">
-            준비가 완료되었어요!
+            자격 요건을 확인했어요!
           </h1>
           <p className="text-idus-black-70 mb-4 stagger-in stagger-delay-2">
             <span className="font-semibold text-idus-orange">{data.artistName}</span> 작가님,<br />
-            글로벌 판매를 시작할 준비가 되었습니다
+            글로벌 판매 자격 요건을 충족하셨어요
           </p>
           
           {/* 배지 */}
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium border border-green-200 stagger-in stagger-delay-3">
             <span className="w-2 h-2 bg-green-500 rounded-full badge-shine" aria-hidden="true" />
-            <span>글로벌 판매 가능</span>
+            <span>자격 요건 충족</span>
           </div>
         </div>
 
         {/* 확인 결과 - 강화된 스타일 */}
         <Card variant="outlined" className="mb-6 stagger-in stagger-delay-4">
           <h3 className="font-semibold text-idus-black mb-4 flex items-center gap-2">
-            확인 결과
+            자격 요건 확인 결과
           </h3>
           <div className="space-y-2">
             <div className="flex items-center justify-between p-3 bg-gradient-to-r from-green-50/50 to-white rounded-lg border border-green-100">
@@ -164,7 +164,57 @@ export default function QualificationPage() {
           )}
         </Card>
 
-        {/* 다음 단계 안내 */}
+        {/* 다음 단계 안내 - 프로세스 시각화 */}
+        <Card variant="outlined" className="mb-6 stagger-in stagger-delay-5">
+          <h3 className="font-semibold text-idus-black mb-4 flex items-center gap-2">
+            글로벌 판매까지 남은 단계
+          </h3>
+          <div className="flex items-center justify-between text-sm">
+            {/* Step 1: 자격 확인 (완료) */}
+            <div className="flex flex-col items-center flex-1">
+              <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white mb-2">
+                <IconCheck className="w-5 h-5" />
+              </div>
+              <span className="text-green-600 font-medium text-xs">자격 확인</span>
+              <span className="text-green-500 text-xs">완료</span>
+            </div>
+            
+            {/* 연결선 */}
+            <div className="flex-1 h-0.5 bg-gray-200 relative -mt-6">
+              <div className="absolute inset-0 bg-green-500" style={{ width: '100%' }} />
+            </div>
+            
+            {/* Step 2: 학습 (현재) */}
+            <div className="flex flex-col items-center flex-1">
+              <div className="w-10 h-10 bg-idus-orange rounded-full flex items-center justify-center text-white mb-2 ring-4 ring-idus-orange/20">
+                <span className="text-sm font-bold">2</span>
+              </div>
+              <span className="text-idus-orange font-medium text-xs">학습</span>
+              <span className="text-idus-orange text-xs">진행 예정</span>
+            </div>
+            
+            {/* 연결선 */}
+            <div className="flex-1 h-0.5 bg-gray-200 -mt-6" />
+            
+            {/* Step 3: 등록 */}
+            <div className="flex flex-col items-center flex-1">
+              <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-400 mb-2">
+                <span className="text-sm font-bold">3</span>
+              </div>
+              <span className="text-gray-400 font-medium text-xs">작가 등록</span>
+              <span className="text-gray-300 text-xs">대기</span>
+            </div>
+          </div>
+          
+          {/* 안내 문구 */}
+          <div className="mt-5 p-3 bg-amber-50 rounded-lg border border-amber-100">
+            <p className="text-sm text-amber-700 text-center">
+              💡 실제 판매를 시작하려면 <span className="font-semibold">학습 완료</span> 후 <span className="font-semibold">글로벌 작가 등록</span>이 필요해요
+            </p>
+          </div>
+        </Card>
+
+        {/* 학습 시작 CTA */}
         <Card
           variant="elevated"
           className="mb-8 bg-idus-orange text-white overflow-hidden"
