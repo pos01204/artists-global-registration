@@ -61,7 +61,7 @@ export default function Home() {
           </div>
 
           {/* Stats - 강화된 카드 */}
-          <div className="grid grid-cols-3 gap-4 mb-12 animate-slide-up">
+          <div className="grid grid-cols-3 gap-4 mb-8 animate-slide-up">
             <div className="bg-white rounded-2xl p-4 md:p-6 text-center shadow-sm border border-idus-black-10 card-interactive stagger-in stagger-delay-1">
               <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1 count-up">45개국</div>
               <div className="text-xs md:text-sm text-idus-black-50">판매 국가</div>
@@ -73,6 +73,17 @@ export default function Home() {
             <div className="bg-white rounded-2xl p-4 md:p-6 text-center shadow-sm border border-idus-black-10 card-interactive stagger-in stagger-delay-3">
               <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1 count-up">2배</div>
               <div className="text-xs md:text-sm text-idus-black-50">해외 평균 주문액</div>
+            </div>
+          </div>
+
+          {/* Social Proof - 사회적 증거 */}
+          <div className="text-center mb-10 animate-fade-in animation-delay-150">
+            <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-5 py-3 rounded-full text-sm font-medium border border-green-200 shadow-sm">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+              </span>
+              <span>이미 <strong className="font-bold">3,851명</strong>의 작가님이 글로벌 판매를 시작했어요</span>
             </div>
           </div>
 

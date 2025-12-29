@@ -286,15 +286,26 @@ export default function QuizPage() {
                 <span className="text-2xl">
                   {selectedAnswer === currentQuestion.correctAnswer ? '🎉' : '💡'}
                 </span>
-                <div>
+                <div className="flex-1">
                   <h4 className={`font-semibold mb-1 ${
                     selectedAnswer === currentQuestion.correctAnswer ? 'text-green-700' : 'text-idus-orange-dark'
                   }`}>
                     {selectedAnswer === currentQuestion.correctAnswer ? '정답이에요!' : '아쉬워요!'}
                   </h4>
-                  <p className="text-sm text-idus-black-70 text-balance">
+                  <p className="text-sm text-idus-black-70 text-balance mb-3">
                     {currentQuestion.explanation}
                   </p>
+                  
+                  {/* 오답 시 관련 학습 링크 */}
+                  {selectedAnswer !== currentQuestion.correctAnswer && currentQuestion.relatedContentId && (
+                    <Link 
+                      href={`/learn/content/${currentQuestion.relatedContentId}?from=quiz`}
+                      className="inline-flex items-center gap-2 text-sm text-idus-orange hover:text-idus-orange-dark font-medium transition-colors group"
+                    >
+                      <IconArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                      관련 내용 다시보기
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

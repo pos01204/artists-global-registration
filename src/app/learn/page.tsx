@@ -259,12 +259,16 @@ export default function LearnPage() {
           </div>
         </Card>
 
-        {/* FAQ */}
-        <Card variant="outlined" hoverable className="mt-6">
+        {/* FAQ - 강조 스타일 */}
+        <Card 
+          variant="outlined" 
+          hoverable 
+          className="mt-6 bg-gradient-to-r from-blue-50 to-white border-blue-200 card-interactive"
+        >
           <Link href="/faq" className="block">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-idus-orange-light/40 flex items-center justify-center text-2xl">
-                ❓
+              <div className="w-12 h-12 rounded-2xl bg-blue-100 border border-blue-200 flex items-center justify-center">
+                <BrandIcon name="like" size={26} alt="" />
               </div>
               <div className="flex-1">
                 <div className="font-semibold text-idus-black">자주 묻는 질문</div>
@@ -272,7 +276,7 @@ export default function LearnPage() {
                   배송/정산/문의 대응 등 궁금한 점을 바로 확인해요
                 </div>
               </div>
-              <IconChevronRight className="w-5 h-5 text-idus-orange" />
+              <IconChevronRight className="w-5 h-5 text-blue-500" />
             </div>
           </Link>
         </Card>

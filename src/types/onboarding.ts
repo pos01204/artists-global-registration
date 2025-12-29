@@ -97,6 +97,7 @@ export interface QuizQuestion {
   options: string[];
   correctAnswer: number;
   explanation: string;
+  relatedContentId?: string; // 오답 시 관련 학습 콘텐츠 ID
 }
 
 // 퀴즈 문제 (5문제)
@@ -112,6 +113,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     ],
     correctAnswer: 1,
     explanation: '해외 배송비는 0원입니다! 작가님은 국내 물류센터까지만 보내시면 돼요.',
+    relatedContentId: 'logistics', // 물류 안내
   },
   {
     id: 'q2',
@@ -119,6 +121,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     options: ['25개국', '35개국', '45개국', '55개국'],
     correctAnswer: 2,
     explanation: 'idus 글로벌은 전 세계 45개국에 판매할 수 있습니다!',
+    relatedContentId: 'global-intro', // idus 글로벌 판매란?
   },
   {
     id: 'q3',
@@ -131,6 +134,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     ],
     correctAnswer: 2,
     explanation: '글로벌 정산은 월 2회, 매월 1일과 16일에 원화로 정산됩니다.',
+    relatedContentId: 'settlement', // 정산 안내
   },
   {
     id: 'q4',
@@ -143,6 +147,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     ],
     correctAnswer: 2,
     explanation: '작가님은 국내 물류센터로 발송만 해주시면 됩니다. 해외 배송, 통관, 고객 응대(1차)는 idus가 진행해드려요!',
+    relatedContentId: 'order-processing', // 주문 확인 & 발송
   },
   {
     id: 'q5',
@@ -155,6 +160,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     ],
     correctAnswer: 2,
     explanation: '향수와 디퓨저는 항공 운송 규정상 글로벌 판매가 불가능합니다. 캔들은 MSDS 사전 제출 후 판매 가능해요!',
+    relatedContentId: 'sellable-items', // 판매 가능/불가능 품목
   },
 ];
 
