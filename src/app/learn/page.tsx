@@ -200,38 +200,52 @@ export default function LearnPage() {
         </div>
 
         {/* Quiz Section */}
-        <Card variant="outlined" className="mb-8 animate-slide-up animation-delay-400">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-idus-orange-light flex items-center justify-center text-2xl sm:text-3xl">
-              <BrandIcon name="camera" size={28} alt="" />
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-medium text-idus-black-50">FINAL</span>
-                {completedSteps.every(Boolean) ? (
-                  <span className="text-xs bg-idus-orange text-white px-2 py-0.5 rounded-full">
-                    도전 가능
-                  </span>
-                ) : (
+        <Card 
+          variant="outlined" 
+          hoverable={completedSteps.every(Boolean)}
+          className={`mb-8 animate-slide-up animation-delay-400 ${
+            completedSteps.every(Boolean) ? 'card-interactive' : 'opacity-50'
+          }`}
+        >
+          {completedSteps.every(Boolean) ? (
+            <Link href="/learn/quiz" className="block">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-idus-orange-light flex items-center justify-center text-2xl sm:text-3xl">
+                  <BrandIcon name="camera" size={28} alt="" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-medium text-idus-black-50">FINAL</span>
+                    <span className="text-xs bg-idus-orange text-white px-2 py-0.5 rounded-full badge-shine">
+                      도전 가능
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-idus-black mb-1">간단 퀴즈</h3>
+                  <p className="text-sm text-idus-black-50">배운 내용을 간단히 확인해요!</p>
+                </div>
+                <IconChevronRight className="w-5 h-5 text-idus-orange link-arrow" />
+              </div>
+            </Link>
+          ) : (
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-idus-black-10 flex items-center justify-center text-2xl sm:text-3xl">
+                <BrandIcon name="camera" size={28} alt="" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-xs font-medium text-idus-black-50">FINAL</span>
                   <span className="text-xs bg-idus-black-20 text-idus-black-50 px-2 py-0.5 rounded-full">
                     <span className="inline-flex items-center gap-1">
                       <IconLock className="w-3.5 h-3.5" />
                       잠김
                     </span>
                   </span>
-                )}
+                </div>
+                <h3 className="font-bold text-idus-black mb-1">간단 퀴즈</h3>
+                <p className="text-sm text-idus-black-50">배운 내용을 간단히 확인해요!</p>
               </div>
-              <h3 className="font-bold text-idus-black mb-1">간단 퀴즈</h3>
-              <p className="text-sm text-idus-black-50">배운 내용을 간단히 확인해요!</p>
             </div>
-            <div className="text-right">
-              {completedSteps.every(Boolean) && (
-                <Link href="/learn/quiz">
-                  <IconChevronRight className="w-5 h-5 text-idus-orange inline-block" />
-                </Link>
-              )}
-            </div>
-          </div>
+          )}
         </Card>
 
         {/* Reward Reminder */}
