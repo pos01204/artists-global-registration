@@ -289,13 +289,13 @@ export default function ContentDetailPage() {
         {isQuizMode ? (
           /* 퀴즈 복습 모드: 퀴즈로 돌아가기 CTA 강조 */
           <div className="pt-6 border-t border-gray-200">
-            <div className="bg-gradient-to-r from-idus-orange-light/20 to-idus-orange-light/10 rounded-2xl p-5 border border-idus-orange/20">
-              <div className="text-center">
-                <p className="text-sm text-idus-black-70 mb-3">
+            <div className="bg-gradient-to-r from-idus-orange-light/20 to-idus-orange-light/10 rounded-2xl p-6 border border-idus-orange/20">
+              <div className="flex flex-col items-center text-center">
+                <p className="text-sm text-idus-black-70 mb-4">
                   내용을 확인하셨나요? 다시 퀴즈로 돌아가서 계속 진행해요!
                 </p>
-                <Link href="/learn/quiz">
-                  <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                <Link href="/learn/quiz" className="w-full sm:w-auto">
+                  <Button variant="primary" size="lg" className="w-full sm:min-w-[200px] justify-center">
                     <IconArrowLeft className="w-4 h-4" />
                     퀴즈로 돌아가기
                   </Button>
