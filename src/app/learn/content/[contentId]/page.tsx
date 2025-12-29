@@ -22,6 +22,7 @@ export default function ContentDetailPage() {
   const [checklistState, setChecklistState] = useState<Record<string, boolean>>({});
 
   const isAppendixMode = useMemo(() => searchParams.get('from') === 'appendix', [searchParams]);
+  const isQuizMode = useMemo(() => searchParams.get('from') === 'quiz', [searchParams]);
 
   useEffect(() => {
     const contentData = getContentById(contentId);
@@ -99,11 +100,23 @@ export default function ContentDetailPage() {
         <div className="max-w-3xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link
-              href={isAppendixMode ? '/learn/appendix' : `/learn/step/${content.stepId}`}
+              href={
+                isQuizMode 
+                  ? '/learn/quiz' 
+                  : isAppendixMode 
+                    ? '/learn/appendix' 
+                    : `/learn/step/${content.stepId}`
+              }
               className="text-idus-black-70 hover:text-idus-orange inline-flex items-center gap-2"
             >
               <IconArrowLeft className="w-4 h-4" />
-              <span className="text-sm">{isAppendixMode ? '부록(다시보기)로 돌아가기' : `STEP ${content.stepId}로 돌아가기`}</span>
+              <span className="text-sm">
+                {isQuizMode 
+                  ? '퀴즈로 돌아가기' 
+                  : isAppendixMode 
+                    ? '부록(다시보기)로 돌아가기' 
+                    : `STEP ${content.stepId}로 돌아가기`}
+              </span>
             </Link>
             <span className="text-sm text-gray-400">
               {content.duration}분 소요
@@ -111,6 +124,28 @@ export default function ContentDetailPage() {
           </div>
         </div>
       </header>
+
+      {/* 퀴즈 복습 모드 안내 배너 */}
+      {isQuizMode && (
+        <div className="bg-gradient-to-r from-idus-orange-light/30 to-idus-orange-light/10 border-b border-idus-orange/20">
+          <div className="max-w-3xl mx-auto px-4 py-3">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-2 text-sm text-idus-orange-dark">
+                <span>📖</span>
+                <span className="font-medium">퀴즈 복습 모드</span>
+                <span className="text-idus-black-50">- 내용을 확인 후 퀴즈로 돌아가세요</span>
+              </div>
+              <Link 
+                href="/learn/quiz"
+                className="flex-shrink-0 inline-flex items-center gap-1.5 bg-idus-orange text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-idus-orange-dark transition-colors"
+              >
+                퀴즈로 돌아가기
+                <IconArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 메인 콘텐츠 */}
       <main className="max-w-3xl mx-auto px-4 py-6 sm:py-8">
@@ -240,8 +275,8 @@ export default function ContentDetailPage() {
           </div>
         )}
 
-        {/* 완료 버튼 (부록 모드에서는 숨김: 다시보기 목적) */}
-        {!isAppendixMode && !isCompleted && (
+        {/* 완료 버튼 (부록/퀴즈 복습 모드에서는 숨김) */}
+        {!isAppendixMode && !isQuizMode && !isCompleted && (
           <div className="text-center mb-8">
             <Button variant="primary" size="lg" onClick={handleComplete}>
               <IconCheck className="w-5 h-5" />
@@ -251,34 +286,54 @@ export default function ContentDetailPage() {
         )}
 
         {/* 네비게이션 */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-6 border-t border-gray-200">
-          {prevContent ? (
-            <Link href={`/learn/content/${prevContent.id}`}>
-              <Button variant="outline" size="sm" className="w-full sm:w-auto justify-start">
-                <IconArrowLeft className="w-4 h-4" />
-                <span className="truncate">이전: {prevContent.title}</span>
-              </Button>
-            </Link>
-          ) : (
-            <div />
-          )}
-          
-          {nextContent ? (
-            <Link href={`/learn/content/${nextContent.id}`}>
-              <Button variant="primary" size="sm" className="w-full sm:w-auto justify-between">
-                <span className="truncate">다음: {nextContent.title}</span>
-                <IconArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          ) : (
-            <Link href="/learn/quiz">
-              <Button variant="primary" size="sm" className="w-full sm:w-auto justify-between">
-                퀴즈 풀기
-                <IconArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          )}
-        </div>
+        {isQuizMode ? (
+          /* 퀴즈 복습 모드: 퀴즈로 돌아가기 CTA 강조 */
+          <div className="pt-6 border-t border-gray-200">
+            <div className="bg-gradient-to-r from-idus-orange-light/20 to-idus-orange-light/10 rounded-2xl p-5 border border-idus-orange/20">
+              <div className="text-center">
+                <p className="text-sm text-idus-black-70 mb-3">
+                  내용을 확인하셨나요? 다시 퀴즈로 돌아가서 계속 진행해요!
+                </p>
+                <Link href="/learn/quiz">
+                  <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                    <IconArrowLeft className="w-4 h-4" />
+                    퀴즈로 돌아가기
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* 일반 모드: 이전/다음 콘텐츠 네비게이션 */
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-6 border-t border-gray-200">
+            {prevContent ? (
+              <Link href={`/learn/content/${prevContent.id}`}>
+                <Button variant="outline" size="sm" className="w-full sm:w-auto justify-start">
+                  <IconArrowLeft className="w-4 h-4" />
+                  <span className="truncate">이전: {prevContent.title}</span>
+                </Button>
+              </Link>
+            ) : (
+              <div />
+            )}
+            
+            {nextContent ? (
+              <Link href={`/learn/content/${nextContent.id}`}>
+                <Button variant="primary" size="sm" className="w-full sm:w-auto justify-between">
+                  <span className="truncate">다음: {nextContent.title}</span>
+                  <IconArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+            ) : (
+              <Link href="/learn/quiz">
+                <Button variant="primary" size="sm" className="w-full sm:w-auto justify-between">
+                  퀴즈 풀기
+                  <IconArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+            )}
+          </div>
+        )}
       </main>
     </div>
   );
