@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import { QUIZ_QUESTIONS } from '@/types/onboarding';
@@ -91,6 +92,8 @@ export default function QuizPage() {
     }
   };
 
+  const progressPercent = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-idus-gray">
       {/* Header */}
@@ -101,15 +104,23 @@ export default function QuizPage() {
               <IconArrowLeft className="w-4 h-4" />
               <span className="text-sm">학습 목록</span>
             </Link>
-            <span className="text-sm font-medium text-idus-black-50">
-              {currentQuestionIndex + 1} / {totalQuestions}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-idus-orange">
+                {currentQuestionIndex + 1}
+              </span>
+              <span className="text-sm text-idus-black-30">/</span>
+              <span className="text-sm text-idus-black-50">
+                {totalQuestions}
+              </span>
+            </div>
           </div>
           {/* 프로그레스 바 */}
           <div className="w-full bg-idus-black-10 rounded-full h-2 overflow-hidden">
-            <div
-              className="h-full bg-idus-orange rounded-full transition-all duration-300"
-              style={{ width: `${((currentQuestionIndex + 1) / totalQuestions) * 100}%` }}
+            <motion.div
+              className="h-full bg-idus-orange rounded-full"
+              initial={{ width: 0 }}
+              animate={{ width: `${progressPercent}%` }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
             />
           </div>
         </div>
@@ -117,142 +128,180 @@ export default function QuizPage() {
 
       <div className="max-w-2xl mx-auto px-4 py-8">
         {/* Question */}
-        <Card variant="elevated" className="mb-8">
-          <div className="flex items-center gap-2 mb-4">
-            <BrandIcon name="camera" size={26} alt="" />
-            <span className="text-sm font-medium text-idus-orange px-2 py-1 bg-idus-orange-light/30 rounded-full">
-              Q{currentQuestionIndex + 1}
-            </span>
-          </div>
-          
-          <h2 className="text-xl font-bold text-idus-black mb-6 text-balance">
-            {currentQuestion.question}
-          </h2>
-
-          {/* Options */}
-          <div className="space-y-3">
-            {currentQuestion.options.map((option, index) => {
-              const isSelected = selectedAnswer === index;
-              const isCorrect = index === currentQuestion.correctAnswer;
-              const isWrong = showResult && isSelected && !isCorrect;
-              
-              let optionStyle = 'border-idus-black-10 hover:border-idus-orange hover:bg-idus-orange-light/20';
-              let checkStyle = 'border-idus-black-20 bg-white';
-              
-              if (showResult) {
-                if (isCorrect) {
-                  optionStyle = 'border-green-500 bg-green-50';
-                  checkStyle = 'border-green-500 bg-green-500 text-white';
-                } else if (isWrong) {
-                  optionStyle = 'border-red-500 bg-red-50';
-                  checkStyle = 'border-red-500 bg-red-500 text-white';
-                }
-              } else if (isSelected) {
-                optionStyle = 'border-idus-orange bg-idus-orange-light/20';
-                checkStyle = 'border-idus-orange bg-idus-orange text-white';
-              }
-
-              return (
-                <button
-                  key={index}
-                  onClick={() => handleAnswerSelect(index)}
-                  disabled={showResult}
-                  className={`
-                    w-full p-4 rounded-xl border-2 text-left transition-all duration-200
-                    ${optionStyle}
-                    ${showResult ? 'cursor-default' : 'cursor-pointer'}
-                  `}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`
-                      w-6 h-6 rounded-full border-2 flex items-center justify-center text-sm font-bold
-                      transition-all duration-200
-                      ${checkStyle}
-                    `}>
-                      {showResult && isCorrect && <IconCheck className="w-4 h-4" />}
-                      {showResult && isWrong && <IconX className="w-4 h-4" />}
-                      {!showResult && isSelected && <IconCheck className="w-4 h-4" />}
-                    </div>
-                    <span className={`flex-1 ${showResult && isCorrect ? 'font-semibold text-green-700' : ''}`}>
-                      {option}
-                    </span>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Result Explanation */}
-          {showResult && (
-            <div className={`
-              mt-6 p-4 rounded-xl
-              ${selectedAnswer === currentQuestion.correctAnswer 
-                ? 'bg-green-50 border border-green-200' 
-                : 'bg-idus-orange-light/20 border border-idus-orange-light/50'
-              }
-            `}>
-              <div className="flex items-start gap-3">
-                <span className="text-xl">
-                  {selectedAnswer === currentQuestion.correctAnswer ? '✅' : '💡'}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentQuestionIndex}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Card variant="elevated" className="mb-8">
+              <div className="flex items-center gap-2 mb-4">
+                <BrandIcon name="camera" size={26} alt="" />
+                <span className="text-sm font-medium text-idus-orange px-2 py-1 bg-idus-orange-light/30 rounded-full">
+                  Q{currentQuestionIndex + 1}
                 </span>
-                <div className="flex-1">
-                  <h4 className={`font-semibold mb-1 ${
-                    selectedAnswer === currentQuestion.correctAnswer ? 'text-green-700' : 'text-idus-orange-dark'
-                  }`}>
-                    {selectedAnswer === currentQuestion.correctAnswer ? '정답이에요!' : '아쉬워요!'}
-                  </h4>
-                  <p className="text-sm text-idus-black-70 text-balance">
-                    {currentQuestion.explanation}
-                  </p>
-                  
-                  {/* 오답 시 관련 학습 링크 */}
-                  {selectedAnswer !== currentQuestion.correctAnswer && currentQuestion.relatedContentId && (
-                    <Link 
-                      href={`/learn/content/${currentQuestion.relatedContentId}?from=quiz`}
-                      className="inline-flex items-center gap-2 text-sm text-idus-orange hover:text-idus-orange-dark font-medium transition-colors mt-2"
-                    >
-                      <IconArrowRight className="w-4 h-4" />
-                      관련 내용 다시보기
-                    </Link>
-                  )}
-                </div>
               </div>
-            </div>
-          )}
-        </Card>
+              
+              <h2 className="text-xl font-bold text-idus-black mb-6 text-balance">
+                {currentQuestion.question}
+              </h2>
+
+              {/* Options */}
+              <div className="space-y-3">
+                {currentQuestion.options.map((option, index) => {
+                  const isSelected = selectedAnswer === index;
+                  const isCorrect = index === currentQuestion.correctAnswer;
+                  const isWrong = showResult && isSelected && !isCorrect;
+                  
+                  let optionStyle = 'border-idus-black-10 hover:border-idus-orange hover:bg-idus-orange-light/10';
+                  let checkStyle = 'border-idus-black-20 bg-white';
+                  
+                  if (showResult) {
+                    if (isCorrect) {
+                      optionStyle = 'border-green-500 bg-green-50';
+                      checkStyle = 'border-green-500 bg-green-500 text-white';
+                    } else if (isWrong) {
+                      optionStyle = 'border-red-500 bg-red-50';
+                      checkStyle = 'border-red-500 bg-red-500 text-white';
+                    }
+                  } else if (isSelected) {
+                    optionStyle = 'border-idus-orange bg-idus-orange-light/20';
+                    checkStyle = 'border-idus-orange bg-idus-orange text-white';
+                  }
+
+                  return (
+                    <motion.button
+                      key={index}
+                      onClick={() => handleAnswerSelect(index)}
+                      disabled={showResult}
+                      className={`
+                        w-full p-4 rounded-xl border-2 text-left transition-colors duration-200
+                        ${optionStyle}
+                        ${showResult ? 'cursor-default' : 'cursor-pointer'}
+                      `}
+                      whileHover={!showResult ? { scale: 1.01 } : {}}
+                      whileTap={!showResult ? { scale: 0.99 } : {}}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`
+                          w-6 h-6 rounded-full border-2 flex items-center justify-center text-sm font-bold
+                          transition-all duration-200
+                          ${checkStyle}
+                        `}>
+                          {showResult && isCorrect && <IconCheck className="w-4 h-4" />}
+                          {showResult && isWrong && <IconX className="w-4 h-4" />}
+                          {!showResult && isSelected && <IconCheck className="w-4 h-4" />}
+                        </div>
+                        <span className={`flex-1 ${showResult && isCorrect ? 'font-semibold text-green-700' : ''}`}>
+                          {option}
+                        </span>
+                      </div>
+                    </motion.button>
+                  );
+                })}
+              </div>
+
+              {/* Result Explanation */}
+              <AnimatePresence>
+                {showResult && (
+                  <motion.div 
+                    className={`
+                      mt-6 p-4 rounded-xl
+                      ${selectedAnswer === currentQuestion.correctAnswer 
+                        ? 'bg-green-50 border border-green-200' 
+                        : 'bg-amber-50 border border-amber-200'
+                      }
+                    `}
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-xl">
+                        {selectedAnswer === currentQuestion.correctAnswer ? '✅' : '💡'}
+                      </span>
+                      <div className="flex-1">
+                        <h4 className={`font-semibold mb-1 ${
+                          selectedAnswer === currentQuestion.correctAnswer ? 'text-green-700' : 'text-amber-700'
+                        }`}>
+                          {selectedAnswer === currentQuestion.correctAnswer ? '정답이에요!' : '아쉬워요!'}
+                        </h4>
+                        <p className="text-sm text-idus-black-70 text-balance">
+                          {currentQuestion.explanation}
+                        </p>
+                        
+                        {/* 오답 시 관련 학습 링크 */}
+                        {selectedAnswer !== currentQuestion.correctAnswer && currentQuestion.relatedContentId && (
+                          <Link 
+                            href={`/learn/content/${currentQuestion.relatedContentId}?from=quiz`}
+                            className="inline-flex items-center gap-2 text-sm text-idus-orange hover:text-idus-orange-dark font-medium transition-colors mt-3"
+                          >
+                            <IconArrowRight className="w-4 h-4" />
+                            관련 내용 다시보기
+                          </Link>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Card>
+          </motion.div>
+        </AnimatePresence>
 
         {/* Navigation */}
         <div className="flex justify-center">
-          {!showResult ? (
-            <Button
-              variant="primary"
-              size="lg"
-              onClick={handleSubmit}
-              disabled={selectedAnswer === null}
-              className="w-full sm:max-w-sm"
-            >
-              정답 확인
-            </Button>
-          ) : (
-            <Button
-              variant="primary"
-              size="lg"
-              onClick={handleNext}
-              className="w-full sm:max-w-sm"
-            >
-              {currentQuestionIndex < totalQuestions - 1 ? (
-                <>
-                  다음 문제
-                  <IconArrowRight className="w-4 h-4" />
-                </>
-              ) : (
-                <>
-                  학습 완료하기
-                  <IconArrowRight className="w-4 h-4" />
-                </>
-              )}
-            </Button>
-          )}
+          <AnimatePresence mode="wait">
+            {!showResult ? (
+              <motion.div
+                key="submit"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="w-full sm:max-w-sm"
+              >
+                <Button
+                  variant="primary"
+                  size="lg"
+                  onClick={handleSubmit}
+                  disabled={selectedAnswer === null}
+                  className="w-full"
+                >
+                  정답 확인
+                </Button>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="next"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="w-full sm:max-w-sm"
+              >
+                <Button
+                  variant="primary"
+                  size="lg"
+                  onClick={handleNext}
+                  className="w-full"
+                >
+                  {currentQuestionIndex < totalQuestions - 1 ? (
+                    <>
+                      다음 문제
+                      <IconArrowRight className="w-4 h-4" />
+                    </>
+                  ) : (
+                    <>
+                      학습 완료하기
+                      <IconArrowRight className="w-4 h-4" />
+                    </>
+                  )}
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </main>

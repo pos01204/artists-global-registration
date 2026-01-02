@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import ProgressBar from '@/components/ui/ProgressBar';
@@ -83,8 +83,12 @@ function renderInfographic(infographicId: string | undefined) {
 export default function StepPage() {
   const router = useRouter();
   const params = useParams();
+  const searchParams = useSearchParams();
   const stepId = Number(params.stepId);
   const { toast } = useToast();
+  
+  // 부록에서 왔는지 확인
+  const isFromAppendix = searchParams.get('from') === 'appendix';
   
   const [contents, setContents] = useState<ContentItem[]>([]);
   const [currentContentIndex, setCurrentContentIndex] = useState(0);
@@ -223,9 +227,12 @@ export default function StepPage() {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-idus-black-10">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-3">
-            <Link href="/learn" className="flex items-center gap-2 text-idus-black-70 hover:text-idus-orange transition-colors">
+            <Link 
+              href={isFromAppendix ? '/learn/appendix' : '/learn'} 
+              className="flex items-center gap-2 text-idus-black-70 hover:text-idus-orange transition-colors"
+            >
               <IconArrowLeft className="w-4 h-4" />
-              <span className="text-sm">학습 목록</span>
+              <span className="text-sm">{isFromAppendix ? '부록으로 돌아가기' : '학습 목록'}</span>
             </Link>
             <span className="text-sm text-idus-black-50">
               {currentContentIndex + 1} / {contents.length}

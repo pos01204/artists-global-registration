@@ -188,7 +188,7 @@ export default function AppendixPage() {
                 {QUICK_LINKS.map((link) => (
                   <Link 
                     key={link.id} 
-                    href={`/learn/step/${link.stepId}`}
+                    href={`/learn/step/${link.stepId}?from=appendix`}
                     className={`
                       ${link.color} border rounded-xl p-4 
                       hover:shadow-md transition-all hover:-translate-y-0.5
@@ -214,7 +214,7 @@ export default function AppendixPage() {
                 {SECONDARY_LINKS.map((link) => (
                   <Link 
                     key={link.id} 
-                    href={`/learn/step/${link.stepId}`}
+                    href={`/learn/step/${link.stepId}?from=appendix`}
                     className="inline-flex items-center gap-2 bg-slate-50 hover:bg-slate-100 
                                border border-slate-200 rounded-full px-4 py-2 transition-colors"
                   >
@@ -266,7 +266,7 @@ export default function AppendixPage() {
             <div className="grid gap-3">
               {contents.map((c) => (
                 <Card key={c.id} variant="outlined" hoverable>
-                  <Link href={`/learn/step/${c.stepId}`} className="block">
+                  <Link href={`/learn/step/${c.stepId}?from=appendix`} className="block">
                     <div className="flex items-start gap-4 p-4">
                       <div className="w-12 h-12 rounded-2xl bg-idus-orange-light/25 border border-idus-black-10 flex items-center justify-center flex-shrink-0">
                         <BrandIcon name={c.stepId === 1 ? 'best' : c.stepId === 2 ? 'stationery' : 'shipping'} size={26} alt="" />
