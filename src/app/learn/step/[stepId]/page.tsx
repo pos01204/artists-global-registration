@@ -87,8 +87,10 @@ export default function StepPage() {
   const stepId = Number(params.stepId);
   const { toast } = useToast();
   
-  // 부록에서 왔는지 확인
-  const isFromAppendix = searchParams.get('from') === 'appendix';
+  // 어디서 왔는지 확인
+  const fromParam = searchParams.get('from');
+  const isFromAppendix = fromParam === 'appendix';
+  const isFromQuiz = fromParam === 'quiz';
   // 특정 콘텐츠로 시작하는지 확인
   const startContentId = searchParams.get('content');
   
@@ -241,11 +243,13 @@ export default function StepPage() {
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-3">
             <Link 
-              href={isFromAppendix ? '/learn/appendix' : '/learn'} 
+              href={isFromQuiz ? '/learn/quiz' : isFromAppendix ? '/learn/appendix' : '/learn'} 
               className="flex items-center gap-2 text-idus-black-70 hover:text-idus-orange transition-colors"
             >
               <IconArrowLeft className="w-4 h-4" />
-              <span className="text-sm">{isFromAppendix ? '부록으로 돌아가기' : '학습 목록'}</span>
+              <span className="text-sm">
+                {isFromQuiz ? '퀴즈로 돌아가기' : isFromAppendix ? '부록으로 돌아가기' : '학습 목록'}
+              </span>
             </Link>
             <span className="text-sm text-idus-black-50">
               {currentContentIndex + 1} / {contents.length}

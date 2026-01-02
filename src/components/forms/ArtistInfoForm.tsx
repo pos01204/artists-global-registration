@@ -151,14 +151,14 @@ export default function ArtistInfoForm() {
             onClick={() => {
               setValue('hasBusinessNumber', true, { shouldValidate: true });
             }}
-            className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
+            className={`p-4 rounded-xl border-2 transition-all duration-300 text-left min-h-[56px] active:scale-[0.98] ${
               businessNumberDecided && hasBusinessNumber === true
                 ? 'border-idus-orange bg-idus-orange-light/30'
-                : 'border-idus-black-20 hover:border-idus-orange'
+                : 'border-idus-black-20 hover:border-idus-orange active:bg-idus-gray'
             }`}
           >
             <div className="flex items-center gap-3">
-              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
                 businessNumberDecided && hasBusinessNumber === true
                   ? 'border-idus-orange bg-idus-orange'
                   : 'border-idus-black-20'
@@ -176,14 +176,14 @@ export default function ArtistInfoForm() {
             onClick={() => {
               setValue('hasBusinessNumber', false, { shouldValidate: true });
             }}
-            className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
+            className={`p-4 rounded-xl border-2 transition-all duration-300 text-left min-h-[56px] active:scale-[0.98] ${
               businessNumberDecided && hasBusinessNumber === false
                 ? 'border-idus-orange bg-idus-orange-light/30'
-                : 'border-idus-black-20 hover:border-idus-orange'
+                : 'border-idus-black-20 hover:border-idus-orange active:bg-idus-gray'
             }`}
           >
             <div className="flex items-center gap-3">
-              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
                 businessNumberDecided && hasBusinessNumber === false
                   ? 'border-idus-orange bg-idus-orange'
                   : 'border-idus-black-20'
@@ -223,10 +223,10 @@ export default function ArtistInfoForm() {
                 key={category.id}
                 type="button"
                 onClick={() => toggleCategory(category.id)}
-                className={`p-3 rounded-xl border-2 transition-all duration-300 text-center ${
+                className={`p-3 rounded-xl border-2 transition-all duration-300 text-center min-h-[72px] active:scale-95 ${
                   categories.includes(category.id)
                     ? 'border-idus-orange bg-idus-orange-light/30'
-                    : 'border-idus-black-10 hover:border-idus-orange'
+                    : 'border-idus-black-10 hover:border-idus-orange active:bg-idus-gray'
                 }`}
               >
                 <span className="block mb-1">
@@ -251,16 +251,16 @@ export default function ArtistInfoForm() {
                 key={category.id}
                 type="button"
                 onClick={() => toggle2026(category.id as 'food' | 'digital')}
-                className={`p-4 rounded-xl border-2 border-dashed transition-all duration-300 text-left ${
+                className={`p-4 rounded-xl border-2 border-dashed transition-all duration-300 text-left min-h-[64px] active:scale-[0.98] ${
                   Boolean(interested?.[category.id as 'food' | 'digital'])
                     ? 'border-idus-orange bg-idus-orange-light/20'
-                    : 'border-idus-black-20 hover:border-idus-orange'
+                    : 'border-idus-black-20 hover:border-idus-orange active:bg-idus-gray'
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <BrandIcon name={category.icon as BrandIconName} size={28} alt="" />
-                  <div>
-                    <span className="font-medium block whitespace-nowrap">{category.name}</span>
+                  <BrandIcon name={category.icon as BrandIconName} size={28} alt="" className="flex-shrink-0" />
+                  <div className="min-w-0">
+                    <span className="font-medium block truncate">{category.name}</span>
                     <span className="text-xs text-idus-orange">{category.note}</span>
                   </div>
                 </div>

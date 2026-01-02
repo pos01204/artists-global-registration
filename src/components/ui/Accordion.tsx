@@ -32,7 +32,7 @@ export default function Accordion({ items, openIds, onToggle }: AccordionProps) 
               onClick={() => onToggle(item.id)}
               aria-expanded={isOpen}
               aria-controls={contentId}
-              className="w-full px-5 py-4 text-left flex items-start justify-between gap-4 hover:bg-idus-gray transition-colors"
+              className="w-full px-5 py-4 text-left flex items-start justify-between gap-4 hover:bg-idus-gray active:bg-idus-black-10 transition-colors min-h-[56px]"
             >
               <div className="flex-1 min-w-0">{item.header}</div>
               <ChevronDown

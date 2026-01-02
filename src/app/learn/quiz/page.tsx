@@ -178,6 +178,7 @@ export default function QuizPage() {
                       disabled={showResult}
                       className={`
                         w-full p-4 rounded-xl border-2 text-left transition-colors duration-200
+                        min-h-[56px] active:bg-opacity-80
                         ${optionStyle}
                         ${showResult ? 'cursor-default' : 'cursor-pointer'}
                       `}
@@ -234,9 +235,9 @@ export default function QuizPage() {
                         </p>
                         
                         {/* 오답 시 관련 학습 링크 */}
-                        {selectedAnswer !== currentQuestion.correctAnswer && currentQuestion.relatedContentId && (
+                        {selectedAnswer !== currentQuestion.correctAnswer && currentQuestion.relatedStepId && currentQuestion.relatedContentId && (
                           <Link 
-                            href={`/learn/content/${currentQuestion.relatedContentId}?from=quiz`}
+                            href={`/learn/step/${currentQuestion.relatedStepId}?from=quiz&content=${currentQuestion.relatedContentId}`}
                             className="inline-flex items-center gap-2 text-sm text-idus-orange hover:text-idus-orange-dark font-medium transition-colors mt-3"
                           >
                             <IconArrowRight className="w-4 h-4" />
