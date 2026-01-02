@@ -59,6 +59,7 @@ export interface ContentSection {
     | 'shipping-flow'
     | 'product-categories'
     | 'translation-prompt'
+    | 'logistics-info'
     // 신규 인포그래픽 (2026.01)
     | 'global-benefits'
     | 'idus-support'

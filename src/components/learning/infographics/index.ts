@@ -7,6 +7,7 @@ export { default as OrderSeparation } from './OrderSeparation';
 export { default as GiftOption } from './GiftOption';
 export { default as ShippingFlow } from './ShippingFlow';
 export { default as ProductCategories } from './ProductCategories';
+export { default as LogisticsInfo } from './LogisticsInfo';
 
 // 신규 인포그래픽 (2026.01)
 export { default as GlobalBenefits } from './GlobalBenefits';

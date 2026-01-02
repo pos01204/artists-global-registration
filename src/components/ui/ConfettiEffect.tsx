@@ -16,6 +16,8 @@ interface ConfettiPiece {
   delay: number;
   rotation: number;
   size: number;
+  shape: 'circle' | 'square';
+  xOffset: number;
 }
 
 const COLORS = [
@@ -34,6 +36,7 @@ export default function ConfettiEffect({
   pieceCount = 50 
 }: ConfettiEffectProps) {
   const [show, setShow] = useState(false);
+  const [windowHeight, setWindowHeight] = useState(800);
 
   const pieces = useMemo<ConfettiPiece[]>(() => {
     return Array.from({ length: pieceCount }, (_, i) => ({
@@ -43,8 +46,16 @@ export default function ConfettiEffect({
       delay: Math.random() * 0.5,
       rotation: Math.random() * 360,
       size: Math.random() * 8 + 6,
+      shape: Math.random() > 0.5 ? 'circle' : 'square',
+      xOffset: Math.random() * 100 - 50,
     }));
   }, [pieceCount]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setWindowHeight(window.innerHeight);
+    }
+  }, []);
 
   useEffect(() => {
     if (isActive) {
@@ -68,7 +79,7 @@ export default function ConfettiEffect({
                 width: piece.size,
                 height: piece.size,
                 backgroundColor: piece.color,
-                borderRadius: Math.random() > 0.5 ? '50%' : '2px',
+                borderRadius: piece.shape === 'circle' ? '50%' : '2px',
               }}
               initial={{
                 y: -20,
@@ -77,11 +88,11 @@ export default function ConfettiEffect({
                 scale: 0,
               }}
               animate={{
-                y: window.innerHeight + 100,
+                y: windowHeight + 100,
                 rotate: piece.rotation + 720,
                 opacity: [1, 1, 1, 0],
                 scale: [0, 1, 1, 0.5],
-                x: [0, Math.random() * 100 - 50, Math.random() * 100 - 50],
+                x: [0, piece.xOffset, piece.xOffset * 0.5],
               }}
               transition={{
                 duration: 3,

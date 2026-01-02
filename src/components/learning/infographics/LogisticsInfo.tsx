@@ -45,10 +45,10 @@ export default function LogisticsInfo() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           {/* 아시아 */}
           <motion.div 
-            className="bg-white/70 rounded-xl p-4 border border-blue-100"
+            className="bg-white/70 rounded-xl p-3 sm:p-4 border border-blue-100"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
@@ -63,7 +63,7 @@ export default function LogisticsInfo() {
                   className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full text-xs"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.2 + i * 0.05 }}
+                  transition={{ delay: 0.2 + i * 0.03 }}
                 >
                   {country}
                 </motion.span>
@@ -73,7 +73,7 @@ export default function LogisticsInfo() {
 
           {/* 북미/유럽/오세아니아 */}
           <motion.div 
-            className="bg-white/70 rounded-xl p-4 border border-blue-100"
+            className="bg-white/70 rounded-xl p-3 sm:p-4 border border-blue-100"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
@@ -86,7 +86,7 @@ export default function LogisticsInfo() {
                   className="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-xs"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.3 + i * 0.05 }}
+                  transition={{ delay: 0.3 + i * 0.03 }}
                 >
                   {country}
                 </motion.span>
@@ -143,10 +143,10 @@ export default function LogisticsInfo() {
             </div>
           </motion.div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {/* 수령인 */}
             <motion.div 
-              className="bg-white rounded-xl p-4 border border-amber-200 cursor-pointer hover:border-amber-400 transition-colors"
+              className="bg-white rounded-xl p-3 sm:p-4 border border-amber-200 cursor-pointer hover:border-amber-400 active:bg-amber-50 transition-colors"
               onClick={() => handleCopy(warehouseInfo.receiver, 'receiver')}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -169,7 +169,7 @@ export default function LogisticsInfo() {
 
             {/* 연락처 */}
             <motion.div 
-              className="bg-white rounded-xl p-4 border border-amber-200 cursor-pointer hover:border-amber-400 transition-colors"
+              className="bg-white rounded-xl p-3 sm:p-4 border border-amber-200 cursor-pointer hover:border-amber-400 active:bg-amber-50 transition-colors"
               onClick={() => handleCopy(warehouseInfo.phone, 'phone')}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}

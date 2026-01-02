@@ -1,13 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
-import { QUIZ_QUESTIONS, QuizQuestion } from '@/types/onboarding';
+import { QUIZ_QUESTIONS } from '@/types/onboarding';
 import { getOnboardingData, markQuizCompleted, markLearningCompleted } from '@/lib/storage';
 import { submitOnboardingData } from '@/lib/api';
 import { IconArrowLeft, IconArrowRight, IconCheck, IconX } from '@/components/ui/icons';
