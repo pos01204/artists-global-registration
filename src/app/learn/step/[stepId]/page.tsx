@@ -30,6 +30,7 @@ const GiftOption = dynamic(() => import('@/components/learning/infographics/Gift
 const ShippingFlow = dynamic(() => import('@/components/learning/infographics/ShippingFlow'), { ssr: false });
 const ProductCategories = dynamic(() => import('@/components/learning/infographics/ProductCategories'), { ssr: false });
 const TranslationPrompt = dynamic(() => import('@/components/learning/TranslationPrompt'), { ssr: false });
+const LogisticsInfo = dynamic(() => import('@/components/learning/infographics/LogisticsInfo'), { ssr: false });
 
 // 인포그래픽 컴포넌트 동적 로딩 (신규 2026.01)
 const GlobalBenefits = dynamic(() => import('@/components/learning/infographics/GlobalBenefits'), { ssr: false });
@@ -59,6 +60,8 @@ function renderInfographic(infographicId: string | undefined) {
       return <ProductCategories />;
     case 'translation-prompt':
       return <TranslationPrompt />;
+    case 'logistics-info':
+      return <LogisticsInfo />;
     // 신규 인포그래픽 (2026.01)
     case 'global-benefits':
       return <GlobalBenefits />;

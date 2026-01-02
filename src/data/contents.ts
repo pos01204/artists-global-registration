@@ -150,17 +150,10 @@ export const STEP1_CONTENTS: ContentItem[] = [
           infographicId: 'shipping-flow',
         },
         {
-          title: '배송 가능 국가 (45개국)',
-          content:
-            '미국, 일본, 영국, 독일, 프랑스, 호주, 싱가포르, 홍콩, 대만 등\n아시아/북미/유럽/오세아니아 주요 국가',
+          title: '배송 가능 국가 & 물류센터',
+          content: '아래 인포그래픽에서 확인하세요',
           icon: '🌏',
-        },
-        {
-          title: '국내 물류창고 주소',
-          content:
-            '인천시 중구 자유무역로 67, 롯데글로벌로지스 C3 3층 특송수출 백패커\n백패커 GC\n📞 032-745-9470',
-          highlight: true,
-          icon: '🏭',
+          infographicId: 'logistics-info',
         },
       ],
       summary: [
