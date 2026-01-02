@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { motion } from 'framer-motion';
 import { FileEdit, ToggleRight, Languages, Save, PartyPopper, DollarSign, Package, Clock } from 'lucide-react';
 
@@ -43,18 +44,18 @@ export default function ProductSetupSteps() {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-white to-purple-50/30 rounded-2xl p-6 border border-idus-black-10">
+    <div className="bg-gradient-to-br from-white to-purple-50/30 rounded-2xl p-4 sm:p-6 border border-idus-black-10">
       {/* 헤더 */}
-      <div className="text-center mb-6">
+      <div className="text-center mb-4 sm:mb-6">
         <motion.h3 
-          className="text-lg font-bold text-idus-black mb-1"
+          className="text-base sm:text-lg font-bold text-idus-black mb-1"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
         >
           🚀 글로벌 작품 등록 4단계
         </motion.h3>
         <motion.p 
-          className="text-sm text-idus-black-50"
+          className="text-xs sm:text-sm text-idus-black-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
@@ -64,11 +65,11 @@ export default function ProductSetupSteps() {
       </div>
 
       {/* 스텝 리스트 */}
-      <div className="space-y-3 mb-6">
+      <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
         {steps.map((step, index) => (
           <motion.div
             key={step.title}
-            className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all
+            className={`flex items-center gap-2 sm:gap-4 p-3 sm:p-4 rounded-xl border-2 transition-all
               ${step.highlight 
                 ? 'bg-gradient-to-r from-emerald-50 to-green-50 border-emerald-300' 
                 : `${step.bgColor} border-transparent`
@@ -79,7 +80,7 @@ export default function ProductSetupSteps() {
             whileHover={{ x: 5 }}
           >
             {/* 스텝 번호 */}
-            <div className={`w-10 h-10 rounded-xl font-bold text-lg flex items-center justify-center flex-shrink-0
+            <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl font-bold text-sm sm:text-lg flex items-center justify-center flex-shrink-0
               ${step.highlight 
                 ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30' 
                 : 'bg-white border-2 border-slate-200 text-idus-black-50'
@@ -89,7 +90,7 @@ export default function ProductSetupSteps() {
             </div>
 
             {/* 아이콘 */}
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${step.color}
+            <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${step.color}
               ${step.highlight ? 'bg-white' : 'bg-white border border-slate-200'}`}
             >
               {step.icon}
@@ -97,10 +98,10 @@ export default function ProductSetupSteps() {
 
             {/* 텍스트 */}
             <div className="flex-1 min-w-0">
-              <div className={`font-bold ${step.highlight ? 'text-emerald-700' : 'text-idus-black'}`}>
+              <div className={`font-bold text-sm sm:text-base ${step.highlight ? 'text-emerald-700' : 'text-idus-black'}`}>
                 {step.title}
               </div>
-              <div className={`text-sm ${step.highlight ? 'text-emerald-600' : 'text-idus-black-50'}`}>
+              <div className={`text-xs sm:text-sm ${step.highlight ? 'text-emerald-600' : 'text-idus-black-50'}`}>
                 {step.subtitle}
               </div>
             </div>
@@ -108,6 +109,7 @@ export default function ProductSetupSteps() {
             {/* 완료 이펙트 */}
             {step.highlight && (
               <motion.div
+                className="flex-shrink-0"
                 animate={{ 
                   scale: [1, 1.2, 1],
                   rotate: [0, 10, -10, 0]
@@ -118,7 +120,7 @@ export default function ProductSetupSteps() {
                   repeatDelay: 1
                 }}
               >
-                <PartyPopper className="w-6 h-6 text-emerald-500" />
+                <PartyPopper className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-500" />
               </motion.div>
             )}
           </motion.div>
@@ -127,12 +129,12 @@ export default function ProductSetupSteps() {
 
       {/* 자동 설정 정보 */}
       <motion.div 
-        className="bg-gradient-to-r from-slate-50 to-slate-100 rounded-xl p-4 border border-slate-200"
+        className="bg-gradient-to-r from-slate-50 to-slate-100 rounded-xl p-3 sm:p-4 border border-slate-200"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
       >
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3">
           {infos.map((info, index) => (
             <motion.div
               key={info.label}
@@ -141,12 +143,14 @@ export default function ProductSetupSteps() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 + index * 0.1 }}
             >
-              <div className={`w-9 h-9 rounded-full bg-white border border-slate-200 shadow-sm
-                              flex items-center justify-center mx-auto mb-2 ${info.color}`}>
-                {info.icon}
+              <div className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white border border-slate-200 shadow-sm
+                              flex items-center justify-center mx-auto mb-1.5 sm:mb-2 ${info.color}`}>
+                {React.cloneElement(info.icon as React.ReactElement, {
+                  className: 'w-3 h-3 sm:w-4 sm:h-4'
+                })}
               </div>
-              <div className="text-xs font-bold text-idus-black">{info.label}</div>
-              <div className="text-[10px] text-idus-black-50 leading-tight">{info.value}</div>
+              <div className="text-[10px] sm:text-xs font-bold text-idus-black">{info.label}</div>
+              <div className="text-[9px] sm:text-[10px] text-idus-black-50 leading-tight">{info.value}</div>
             </motion.div>
           ))}
         </div>

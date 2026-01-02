@@ -44,11 +44,11 @@ export default function ShippingFlow() {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-white to-idus-gray/30 rounded-2xl p-6 border border-idus-black-10">
+    <div className="bg-gradient-to-br from-white to-idus-gray/30 rounded-2xl p-4 sm:p-6 border border-idus-black-10">
       {/* 헤더 */}
-      <div className="text-center mb-6">
-        <h3 className="text-lg font-bold text-idus-black mb-1">📦 배송, 어떻게 되나요?</h3>
-        <p className="text-sm text-idus-black-50">국내 택배 발송만 하면 끝!</p>
+      <div className="text-center mb-4 sm:mb-6">
+        <h3 className="text-base sm:text-lg font-bold text-idus-black mb-1">📦 배송, 어떻게 되나요?</h3>
+        <p className="text-xs sm:text-sm text-idus-black-50">국내 택배 발송만 하면 끝!</p>
       </div>
 
       {/* 플로우 차트 */}
@@ -93,7 +93,7 @@ export default function ShippingFlow() {
         </div>
 
         {/* 모바일: 세로 레이아웃 */}
-        <div className="md:hidden space-y-3">
+        <div className="md:hidden space-y-2">
           {steps.map((step, index) => (
             <motion.div
               key={index}
@@ -102,27 +102,27 @@ export default function ShippingFlow() {
               transition={{ delay: index * 0.1 }}
             >
               <div className={`
-                ${step.bgColor} rounded-xl p-4 flex items-center gap-4
+                ${step.bgColor} rounded-xl p-3 flex items-center gap-3
                 border border-idus-black-10
               `}>
                 {/* 아이콘 */}
                 <div className={`
-                  w-12 h-12 rounded-full ${step.bgColor} border-2 border-white shadow-md
+                  w-10 h-10 rounded-full ${step.bgColor} border-2 border-white shadow-md
                   flex items-center justify-center ${step.color} flex-shrink-0
                 `}>
                   {step.icon}
                 </div>
                 
                 {/* 텍스트 */}
-                <div className="flex-1">
-                  <div className={`font-bold ${step.color}`}>{step.title}</div>
-                  <div className="text-xs text-idus-black-50">{step.subtitle}</div>
+                <div className="flex-1 min-w-0">
+                  <div className={`font-bold text-sm ${step.color}`}>{step.title}</div>
+                  <div className="text-[10px] text-idus-black-50">{step.subtitle}</div>
                 </div>
 
                 {/* 단계 번호 */}
                 <div className={`
-                  w-7 h-7 rounded-full bg-white border border-idus-black-10
-                  flex items-center justify-center text-xs font-bold ${step.color}
+                  w-6 h-6 rounded-full bg-white border border-idus-black-10
+                  flex items-center justify-center text-[10px] font-bold ${step.color} flex-shrink-0
                 `}>
                   {index + 1}
                 </div>
@@ -130,8 +130,8 @@ export default function ShippingFlow() {
 
               {/* 연결선 */}
               {index < steps.length - 1 && (
-                <div className="flex justify-center py-1">
-                  <div className="w-0.5 h-4 bg-idus-black-10 rounded-full" />
+                <div className="flex justify-center py-0.5">
+                  <div className="w-0.5 h-3 bg-idus-black-10 rounded-full" />
                 </div>
               )}
             </motion.div>
@@ -141,21 +141,21 @@ export default function ShippingFlow() {
 
       {/* 핵심 메시지 박스 */}
       <motion.div 
-        className="mt-6 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-4"
+        className="mt-4 sm:mt-6 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-3 sm:p-4"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
       >
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
-            <Truck className="w-5 h-5 text-white" />
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+            <Truck className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
           </div>
-          <div>
-            <div className="font-bold text-green-700">✨ 작가님이 할 일</div>
-            <div className="text-sm text-green-600">
+          <div className="min-w-0">
+            <div className="font-bold text-green-700 text-sm sm:text-base">✨ 작가님이 할 일</div>
+            <div className="text-xs sm:text-sm text-green-600">
               <strong>국내 택배로 idus 물류센터에 보내기만 하세요!</strong>
               <br />
-              <span className="text-green-500 text-xs">해외 배송, 통관, CS는 idus가 모두 처리합니다</span>
+              <span className="text-green-500 text-[10px] sm:text-xs">해외 배송, 통관, CS는 idus가 모두 처리합니다</span>
             </div>
           </div>
         </div>

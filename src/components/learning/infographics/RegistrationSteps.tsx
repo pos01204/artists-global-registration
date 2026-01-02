@@ -18,18 +18,18 @@ export default function RegistrationSteps() {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-white to-blue-50/50 rounded-2xl p-6 border border-idus-black-10">
+    <div className="bg-gradient-to-br from-white to-blue-50/50 rounded-2xl p-4 sm:p-6 border border-idus-black-10">
       {/* 헤더 */}
-      <div className="text-center mb-6">
+      <div className="text-center mb-4 sm:mb-6">
         <motion.h3 
-          className="text-lg font-bold text-idus-black mb-1"
+          className="text-base sm:text-lg font-bold text-idus-black mb-1"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
         >
           ✈️ 글로벌 작가 등록 경로
         </motion.h3>
         <motion.p 
-          className="text-sm text-idus-black-50"
+          className="text-xs sm:text-sm text-idus-black-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
@@ -39,32 +39,32 @@ export default function RegistrationSteps() {
       </div>
 
       {/* 스텝 플로우 */}
-      <div className="relative mb-6">
+      <div className="relative mb-4 sm:mb-6">
         {/* 연결선 (데스크탑) */}
         <div className="hidden sm:block absolute top-1/2 left-[10%] right-[10%] h-1 bg-gradient-to-r from-blue-200 via-blue-300 to-blue-200 -translate-y-1/2 rounded-full z-0" />
         
         {/* 스텝 카드들 */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0 relative z-10">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-0 relative z-10">
           {steps.map((step, index) => (
             <motion.div
               key={step.title}
-              className="flex items-center gap-2 sm:flex-col sm:gap-0"
+              className="flex items-center gap-2 sm:flex-col sm:gap-0 w-full sm:w-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + index * 0.15 }}
             >
               {/* 스텝 넘버 + 아이콘 */}
               <motion.div 
-                className="relative"
+                className="relative flex-shrink-0"
                 whileHover={{ scale: 1.1 }}
               >
                 {/* 스텝 넘버 */}
-                <div className="absolute -top-1 -left-1 w-6 h-6 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center shadow-lg z-10">
+                <div className="absolute -top-1 -left-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-blue-500 text-white text-[10px] sm:text-xs font-bold flex items-center justify-center shadow-lg z-10">
                   {index + 1}
                 </div>
                 
                 {/* 아이콘 서클 */}
-                <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shadow-lg
+                <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shadow-lg
                   ${index === steps.length - 1 
                     ? 'bg-gradient-to-br from-idus-orange to-amber-500 text-white' 
                     : 'bg-white border-2 border-blue-200 text-blue-500'
@@ -75,8 +75,8 @@ export default function RegistrationSteps() {
               </motion.div>
 
               {/* 텍스트 */}
-              <div className="sm:mt-3 text-left sm:text-center min-w-[80px]">
-                <div className={`font-bold text-sm ${index === steps.length - 1 ? 'text-idus-orange' : 'text-idus-black'}`}>
+              <div className="sm:mt-3 text-left sm:text-center flex-1 sm:flex-none min-w-0">
+                <div className={`font-bold text-xs sm:text-sm ${index === steps.length - 1 ? 'text-idus-orange' : 'text-idus-black'}`}>
                   {step.title}
                 </div>
               </div>
@@ -84,11 +84,11 @@ export default function RegistrationSteps() {
               {/* 화살표 (모바일) */}
               {index < steps.length - 1 && (
                 <motion.div 
-                  className="sm:hidden text-blue-300 ml-auto"
+                  className="sm:hidden text-blue-300 flex-shrink-0"
                   animate={{ y: [0, 3, 0] }}
                   transition={{ duration: 1, repeat: Infinity }}
                 >
-                  <svg className="w-5 h-5 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-4 h-4 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </motion.div>
@@ -100,26 +100,26 @@ export default function RegistrationSteps() {
 
       {/* 신청 조건 */}
       <motion.div 
-        className="bg-slate-50 rounded-xl p-4 border border-slate-200 mb-4"
+        className="bg-slate-50 rounded-xl p-3 sm:p-4 border border-slate-200 mb-3 sm:mb-4"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7 }}
       >
-        <div className="text-sm font-bold text-idus-black mb-3 flex items-center gap-2">
-          <span className="text-base">📋</span>
+        <div className="text-xs sm:text-sm font-bold text-idus-black mb-2 sm:mb-3 flex items-center gap-2">
+          <span className="text-sm sm:text-base">📋</span>
           신청 조건
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
           {requirements.map((req, index) => (
             <motion.div
               key={req}
-              className="flex items-center gap-1.5 bg-white rounded-full px-3 py-1.5 border border-slate-200 shadow-sm"
+              className="flex items-center gap-1 sm:gap-1.5 bg-white rounded-full px-2 sm:px-3 py-1 sm:py-1.5 border border-slate-200 shadow-sm"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.8 + index * 0.1 }}
             >
-              <Check className="w-4 h-4 text-green-500" strokeWidth={3} />
-              <span className="text-xs text-idus-black-70">{req}</span>
+              <Check className="w-3 h-3 sm:w-4 sm:h-4 text-green-500 flex-shrink-0" strokeWidth={3} />
+              <span className="text-[10px] sm:text-xs text-idus-black-70">{req}</span>
             </motion.div>
           ))}
         </div>
@@ -130,18 +130,18 @@ export default function RegistrationSteps() {
         href="https://artist.idus.com/setting/global-artist/manage"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-center gap-2 bg-gradient-to-r from-idus-orange to-amber-500 
-                   text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-idus-orange/30
-                   hover:shadow-xl hover:shadow-idus-orange/40 transition-all duration-300"
+        className="flex items-center justify-center gap-1.5 sm:gap-2 bg-gradient-to-r from-idus-orange to-amber-500 
+                   text-white font-bold py-2.5 sm:py-3 px-4 sm:px-6 rounded-xl shadow-lg shadow-idus-orange/30
+                   hover:shadow-xl hover:shadow-idus-orange/40 transition-all duration-300 text-sm sm:text-base"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.9 }}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
-        <Plane className="w-5 h-5" />
-        <span>글로벌 작가 관리 페이지 바로가기</span>
-        <ExternalLink className="w-4 h-4" />
+        <Plane className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+        <span className="truncate">글로벌 작가 관리 페이지 바로가기</span>
+        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
       </motion.a>
     </div>
   );

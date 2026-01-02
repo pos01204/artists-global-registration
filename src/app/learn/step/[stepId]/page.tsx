@@ -138,11 +138,16 @@ export default function StepPage() {
     });
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleNext = async () => {
     handleContentView(currentContent.id);
     
     if (currentContentIndex < contents.length - 1) {
       setCurrentContentIndex(prev => prev + 1);
+      scrollToTop();
     } else {
       // 모든 콘텐츠 완료
       markStepCompleted(stepId);
@@ -169,6 +174,7 @@ export default function StepPage() {
   const handlePrev = () => {
     if (currentContentIndex > 0) {
       setCurrentContentIndex(prev => prev - 1);
+      scrollToTop();
     }
   };
 

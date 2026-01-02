@@ -27,21 +27,21 @@ export default function LogisticsInfo() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* 배송 가능 국가 */}
       <motion.div 
-        className="bg-gradient-to-br from-blue-50 to-sky-50 rounded-2xl p-5 border border-blue-100"
+        className="bg-gradient-to-br from-blue-50 to-sky-50 rounded-2xl p-4 sm:p-5 border border-blue-100"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-sky-500 flex items-center justify-center shadow-sm">
-            <Globe className="w-5 h-5 text-white" />
+        <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-blue-500 to-sky-500 flex items-center justify-center shadow-sm flex-shrink-0">
+            <Globe className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
           </div>
-          <div>
-            <h3 className="font-bold text-idus-black">배송 가능 국가</h3>
-            <p className="text-sm text-blue-600 font-medium">전 세계 45개국</p>
+          <div className="min-w-0">
+            <h3 className="font-bold text-idus-black text-sm sm:text-base">배송 가능 국가</h3>
+            <p className="text-xs sm:text-sm text-blue-600 font-medium">전 세계 45개국</p>
           </div>
         </div>
 
@@ -99,25 +99,25 @@ export default function LogisticsInfo() {
 
       {/* 물류센터 주소 */}
       <motion.div 
-        className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 border border-amber-200"
+        className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-4 sm:p-5 border border-amber-200"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.4 }}
       >
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-sm">
-            <Truck className="w-5 h-5 text-white" />
+        <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-sm flex-shrink-0">
+            <Truck className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
           </div>
-          <div>
-            <h3 className="font-bold text-idus-black">국내 물류센터 주소</h3>
-            <p className="text-sm text-amber-600 font-medium">작품 발송 시 이 주소로!</p>
+          <div className="min-w-0">
+            <h3 className="font-bold text-idus-black text-sm sm:text-base">국내 물류센터 주소</h3>
+            <p className="text-xs sm:text-sm text-amber-600 font-medium">작품 발송 시 이 주소로!</p>
           </div>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-2 sm:space-y-3">
           {/* 주소 */}
           <motion.div 
-            className="bg-white rounded-xl p-4 border border-amber-200 cursor-pointer hover:border-amber-400 transition-colors"
+            className="bg-white rounded-xl p-3 sm:p-4 border border-amber-200 cursor-pointer hover:border-amber-400 active:bg-amber-50 transition-colors"
             onClick={() => handleCopy(warehouseInfo.address, 'address')}
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
@@ -125,28 +125,28 @@ export default function LogisticsInfo() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <div className="flex items-start gap-3">
-              <MapPin className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+            <div className="flex items-start gap-2 sm:gap-3">
+              <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 flex-shrink-0 mt-0.5" />
               <div className="flex-1 min-w-0">
-                <div className="text-xs text-amber-600 font-medium mb-1">배송지 주소</div>
-                <div className="text-sm text-idus-black font-medium break-keep">
+                <div className="text-[10px] sm:text-xs text-amber-600 font-medium mb-0.5 sm:mb-1">배송지 주소</div>
+                <div className="text-xs sm:text-sm text-idus-black font-medium break-keep">
                   {warehouseInfo.address}
                 </div>
               </div>
-              <button className="flex-shrink-0 p-2 hover:bg-amber-100 rounded-lg transition-colors">
+              <button className="flex-shrink-0 p-1.5 sm:p-2 hover:bg-amber-100 rounded-lg transition-colors">
                 {copied === 'address' ? (
-                  <Check className="w-4 h-4 text-green-500" />
+                  <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-500" />
                 ) : (
-                  <Copy className="w-4 h-4 text-amber-500" />
+                  <Copy className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500" />
                 )}
               </button>
             </div>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2 sm:gap-3">
             {/* 수령인 */}
             <motion.div 
-              className="bg-white rounded-xl p-3 sm:p-4 border border-amber-200 cursor-pointer hover:border-amber-400 active:bg-amber-50 transition-colors"
+              className="bg-white rounded-xl p-2.5 sm:p-4 border border-amber-200 cursor-pointer hover:border-amber-400 active:bg-amber-50 transition-colors"
               onClick={() => handleCopy(warehouseInfo.receiver, 'receiver')}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -155,21 +155,21 @@ export default function LogisticsInfo() {
               transition={{ delay: 0.5 }}
             >
               <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-xs text-amber-600 font-medium mb-1">수령인</div>
-                  <div className="text-sm text-idus-black font-bold">{warehouseInfo.receiver}</div>
+                <div className="min-w-0">
+                  <div className="text-[10px] sm:text-xs text-amber-600 font-medium mb-0.5 sm:mb-1">수령인</div>
+                  <div className="text-xs sm:text-sm text-idus-black font-bold truncate">{warehouseInfo.receiver}</div>
                 </div>
                 {copied === 'receiver' ? (
-                  <Check className="w-4 h-4 text-green-500" />
+                  <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-500 flex-shrink-0" />
                 ) : (
-                  <Copy className="w-4 h-4 text-amber-400" />
+                  <Copy className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 flex-shrink-0" />
                 )}
               </div>
             </motion.div>
 
             {/* 연락처 */}
             <motion.div 
-              className="bg-white rounded-xl p-3 sm:p-4 border border-amber-200 cursor-pointer hover:border-amber-400 active:bg-amber-50 transition-colors"
+              className="bg-white rounded-xl p-2.5 sm:p-4 border border-amber-200 cursor-pointer hover:border-amber-400 active:bg-amber-50 transition-colors"
               onClick={() => handleCopy(warehouseInfo.phone, 'phone')}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -178,17 +178,17 @@ export default function LogisticsInfo() {
               transition={{ delay: 0.6 }}
             >
               <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-xs text-amber-600 font-medium mb-1">연락처</div>
-                  <div className="text-sm text-idus-black font-bold flex items-center gap-1">
-                    <Phone className="w-3.5 h-3.5" />
+                <div className="min-w-0">
+                  <div className="text-[10px] sm:text-xs text-amber-600 font-medium mb-0.5 sm:mb-1">연락처</div>
+                  <div className="text-xs sm:text-sm text-idus-black font-bold flex items-center gap-1 truncate">
+                    <Phone className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
                     {warehouseInfo.phone}
                   </div>
                 </div>
                 {copied === 'phone' ? (
-                  <Check className="w-4 h-4 text-green-500" />
+                  <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-500 flex-shrink-0" />
                 ) : (
-                  <Copy className="w-4 h-4 text-amber-400" />
+                  <Copy className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 flex-shrink-0" />
                 )}
               </div>
             </motion.div>
@@ -197,7 +197,7 @@ export default function LogisticsInfo() {
 
         {/* 복사 안내 */}
         <motion.div 
-          className="mt-4 text-center text-xs text-amber-600"
+          className="mt-3 sm:mt-4 text-center text-[10px] sm:text-xs text-amber-600"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}

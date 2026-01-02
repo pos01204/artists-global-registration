@@ -13,6 +13,13 @@ import { IconArrowLeft, IconArrowRight, IconCheck, IconX } from '@/components/ui
 import BrandIcon from '@/components/ui/BrandIcon';
 import { useToast } from '@/components/ui/ToastProvider';
 
+const QUIZ_PROGRESS_KEY = 'idus_quiz_progress';
+
+interface QuizProgress {
+  currentIndex: number;
+  answers: (number | null)[];
+}
+
 export default function QuizPage() {
   const router = useRouter();
   const { toast } = useToast();
@@ -20,9 +27,42 @@ export default function QuizPage() {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(QUIZ_QUESTIONS.length).fill(null));
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const currentQuestion = QUIZ_QUESTIONS[currentQuestionIndex];
   const totalQuestions = QUIZ_QUESTIONS.length;
+
+  // 퀴즈 진행 상태 저장
+  const saveQuizProgress = (index: number, ans: (number | null)[]) => {
+    try {
+      const progress: QuizProgress = { currentIndex: index, answers: ans };
+      localStorage.setItem(QUIZ_PROGRESS_KEY, JSON.stringify(progress));
+    } catch (e) {
+      console.warn('Failed to save quiz progress:', e);
+    }
+  };
+
+  // 퀴즈 진행 상태 불러오기
+  const loadQuizProgress = (): QuizProgress | null => {
+    try {
+      const saved = localStorage.getItem(QUIZ_PROGRESS_KEY);
+      if (saved) {
+        return JSON.parse(saved) as QuizProgress;
+      }
+    } catch (e) {
+      console.warn('Failed to load quiz progress:', e);
+    }
+    return null;
+  };
+
+  // 퀴즈 완료 시 진행 상태 삭제
+  const clearQuizProgress = () => {
+    try {
+      localStorage.removeItem(QUIZ_PROGRESS_KEY);
+    } catch (e) {
+      console.warn('Failed to clear quiz progress:', e);
+    }
+  };
 
   useEffect(() => {
     const data = getOnboardingData();
@@ -36,7 +76,17 @@ export default function QuizPage() {
         !data.learningProgress.step2Completed || 
         !data.learningProgress.step3Completed) {
       router.push('/learn');
+      return;
     }
+
+    // 저장된 퀴즈 진행 상태 복원
+    const savedProgress = loadQuizProgress();
+    if (savedProgress) {
+      setCurrentQuestionIndex(savedProgress.currentIndex);
+      setAnswers(savedProgress.answers);
+      setSelectedAnswer(savedProgress.answers[savedProgress.currentIndex]);
+    }
+    setIsInitialized(true);
   }, [router]);
 
   const handleAnswerSelect = (answerIndex: number) => {
@@ -47,6 +97,9 @@ export default function QuizPage() {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = answerIndex;
     setAnswers(newAnswers);
+    
+    // 진행 상태 저장
+    saveQuizProgress(currentQuestionIndex, newAnswers);
   };
 
   const handleSubmit = () => {
@@ -56,11 +109,18 @@ export default function QuizPage() {
 
   const handleNext = async () => {
     if (currentQuestionIndex < totalQuestions - 1) {
-      setCurrentQuestionIndex(prev => prev + 1);
-      setSelectedAnswer(answers[currentQuestionIndex + 1]);
+      const nextIndex = currentQuestionIndex + 1;
+      setCurrentQuestionIndex(nextIndex);
+      setSelectedAnswer(answers[nextIndex]);
       setShowResult(false);
+      
+      // 진행 상태 저장
+      saveQuizProgress(nextIndex, answers);
     } else {
-      // 퀴즈 완료 - 정답 수 계산
+      // 퀴즈 완료 - 진행 상태 삭제
+      clearQuizProgress();
+      
+      // 정답 수 계산
       const correctCount = answers.reduce((count: number, answer, index) => {
         if (answer === QUIZ_QUESTIONS[index].correctAnswer) {
           return count + 1;

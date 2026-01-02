@@ -96,27 +96,27 @@ export default function GlobalBenefits() {
       </div>
 
       {/* 통계 카드 */}
-      <div className="grid grid-cols-3 gap-3 mb-6">
+      <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6">
         {stats.map((stat, index) => (
           <motion.div
             key={stat.label}
-            className={`${stat.bgColor} rounded-xl p-4 text-center border border-white shadow-sm`}
+            className={`${stat.bgColor} rounded-xl p-3 sm:p-4 text-center border border-white shadow-sm`}
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 0.2 + index * 0.15, type: 'spring', stiffness: 200 }}
           >
             {/* 아이콘 */}
             <motion.div 
-              className={`w-12 h-12 rounded-full ${stat.bgColor} border-2 border-white shadow-md
-                          flex items-center justify-center mx-auto mb-3 ${stat.color}`}
+              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full ${stat.bgColor} border-2 border-white shadow-md
+                          flex items-center justify-center mx-auto mb-2 sm:mb-3 ${stat.color}`}
               whileHover={{ scale: 1.1, rotate: 5 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
               {stat.icon}
             </motion.div>
             
-            {/* 숫자 */}
-            <div className={`text-3xl sm:text-4xl font-black ${stat.color} mb-1`}>
+            {/* 숫자 - 단위와 함께 한 줄로 표시 */}
+            <div className={`text-xl sm:text-3xl font-black ${stat.color} whitespace-nowrap`}>
               <AnimatedNumber 
                 value={parseInt(stat.value)} 
                 suffix={stat.label === '판매 국가' ? '개국' : '배'} 
@@ -125,7 +125,7 @@ export default function GlobalBenefits() {
             </div>
             
             {/* 레이블 */}
-            <div className="text-xs text-idus-black-50 leading-tight">
+            <div className="text-[10px] sm:text-xs text-idus-black-50 leading-tight mt-1">
               {stat.subtext}
             </div>
           </motion.div>
