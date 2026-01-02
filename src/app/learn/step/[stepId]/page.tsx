@@ -279,9 +279,9 @@ export default function StepPage() {
 
         {/* Content Card */}
         <Card variant="elevated" className="mb-8 animate-slide-up">
-          <div className="mb-5 sm:mb-6 text-left">
-            <h2 className="text-xl sm:text-2xl font-bold text-idus-black mb-2 text-balance">{currentContent.title}</h2>
-            <p className="text-idus-black-70 text-balance">{currentContent.description}</p>
+          <div className="mb-4 sm:mb-6 text-left">
+            <h2 className="text-lg sm:text-2xl font-bold text-idus-black mb-1.5 sm:mb-2 text-balance">{currentContent.title}</h2>
+            <p className="text-idus-black-70 text-balance text-sm sm:text-base">{currentContent.description}</p>
           </div>
 
           {/* Content Body */}
@@ -309,8 +309,8 @@ export default function StepPage() {
                   section.infographicId 
                     ? '' 
                     : section.highlight 
-                      ? 'p-4 bg-idus-orange-light/20 border-l-4 border-idus-orange' 
-                      : 'p-4 bg-idus-gray'
+                      ? 'p-3 sm:p-4 bg-idus-orange-light/20 border-l-4 border-idus-orange' 
+                      : 'p-3 sm:p-4 bg-idus-gray'
                 }`}
               >
                 {/* 인포그래픽이 있는 경우 */}
@@ -320,20 +320,20 @@ export default function StepPage() {
                   </div>
                 ) : (
                   /* 일반 텍스트 섹션 */
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-start gap-2 sm:gap-3">
                     {section.icon && (
                       <div className="flex-shrink-0">
                         <SectionIcon icon={section.icon} size="md" />
                       </div>
                     )}
-                    <div className="flex-1">
-                      <h3 className={`font-semibold mb-2 ${section.highlight ? 'text-idus-orange' : 'text-idus-black'}`}>
+                    <div className="flex-1 min-w-0">
+                      <h3 className={`font-semibold mb-1.5 sm:mb-2 text-sm sm:text-base ${section.highlight ? 'text-idus-orange' : 'text-idus-black'}`}>
                         {section.title}
                       </h3>
                       {section.table ? (
                         <ResponsiveTable columns={section.table.columns} rows={section.table.rows} className="mt-2" />
                       ) : (
-                        <p className="text-idus-black-70 text-sm whitespace-pre-line leading-relaxed">
+                        <p className="text-idus-black-70 text-xs sm:text-sm whitespace-pre-line leading-relaxed">
                           {section.content}
                         </p>
                       )}
@@ -347,36 +347,36 @@ export default function StepPage() {
             ))}
 
             {extraSections.length > 0 ? (
-              <div className="bg-idus-gray rounded-xl p-2 border border-idus-black-10">
+              <div className="bg-idus-gray rounded-xl p-1.5 sm:p-2 border border-idus-black-10">
                 <Accordion
                   items={[
                     {
                       id: 'extra',
                       header: (
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-xl bg-white border border-idus-black-10 flex items-center justify-center">
-                            <BrandIcon name="like" size={18} alt="" />
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white border border-idus-black-10 flex items-center justify-center flex-shrink-0">
+                            <BrandIcon name="like" size={16} alt="" className="sm:w-[18px] sm:h-[18px]" />
                           </div>
-                          <div className="font-semibold text-idus-black">추가 정보</div>
-                          <div className="text-xs text-idus-black-50">({extraSections.length}개)</div>
+                          <div className="font-semibold text-idus-black text-sm sm:text-base">추가 정보</div>
+                          <div className="text-[10px] sm:text-xs text-idus-black-50">({extraSections.length}개)</div>
                         </div>
                       ),
                       content: (
-                        <div className="space-y-3">
+                        <div className="space-y-2 sm:space-y-3">
                           {extraSections.map((section, idx) => (
-                            <div key={idx} className="p-4 rounded-xl bg-white border border-idus-black-10">
-                              <div className="flex items-start gap-3">
+                            <div key={idx} className="p-3 sm:p-4 rounded-xl bg-white border border-idus-black-10">
+                              <div className="flex items-start gap-2 sm:gap-3">
                                 {section.icon ? (
                                   <div className="flex-shrink-0">
-                                    <SectionIcon icon={section.icon} size="md" />
+                                    <SectionIcon icon={section.icon} size="sm" className="sm:w-9 sm:h-9" />
                                   </div>
                                 ) : null}
-                                <div className="flex-1">
-                                  <div className="font-semibold text-idus-black mb-2">{section.title}</div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="font-semibold text-idus-black mb-1.5 sm:mb-2 text-sm sm:text-base">{section.title}</div>
                                   {section.table ? (
                                     <ResponsiveTable columns={section.table.columns} rows={section.table.rows} className="mt-2" />
                                   ) : (
-                                    <div className="text-sm text-idus-black-70 whitespace-pre-line leading-relaxed">
+                                    <div className="text-xs sm:text-sm text-idus-black-70 whitespace-pre-line leading-relaxed">
                                       {section.content}
                                     </div>
                                   )}
@@ -419,25 +419,25 @@ export default function StepPage() {
 
             {/* Summary - 아코디언으로 기본 접힘 */}
             {currentContent.content.summary && currentContent.content.summary.length > 0 && (
-              <div className="bg-idus-orange-light/10 rounded-xl p-2 border border-idus-orange/10">
+              <div className="bg-idus-orange-light/10 rounded-xl p-1.5 sm:p-2 border border-idus-orange/10">
                 <Accordion
                   items={[
                     {
                       id: 'summary',
                       header: (
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-xl bg-idus-orange-light/30 flex items-center justify-center">
-                            <Lightbulb className="w-4 h-4 text-idus-orange" />
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-idus-orange-light/30 flex items-center justify-center flex-shrink-0">
+                            <Lightbulb className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-idus-orange" />
                           </div>
-                          <div className="font-semibold text-idus-black">핵심 포인트</div>
-                          <div className="text-xs text-idus-black-50">({currentContent.content.summary.length}개)</div>
+                          <div className="font-semibold text-idus-black text-sm sm:text-base">핵심 포인트</div>
+                          <div className="text-[10px] sm:text-xs text-idus-black-50">({currentContent.content.summary.length}개)</div>
                         </div>
                       ),
                       content: (
-                        <ul className="space-y-2 pt-2">
+                        <ul className="space-y-1.5 sm:space-y-2 pt-1.5 sm:pt-2">
                           {currentContent.content.summary.map((point, index) => (
-                            <li key={index} className="flex items-start gap-2 text-sm text-idus-black-70">
-                              <span className="w-1.5 h-1.5 bg-idus-orange rounded-full flex-shrink-0 mt-1.5" />
+                            <li key={index} className="flex items-start gap-1.5 sm:gap-2 text-xs sm:text-sm text-idus-black-70">
+                              <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-idus-orange rounded-full flex-shrink-0 mt-1.5" />
                               {point}
                             </li>
                           ))}
@@ -455,12 +455,12 @@ export default function StepPage() {
 
             {/* External Links */}
             {externalLinks.length > 0 && (
-              <div className="bg-idus-gray rounded-xl p-4">
-                <h4 className="font-semibold text-idus-black mb-3 flex items-center gap-2">
-                  <LinkIcon className="w-5 h-5 text-idus-orange" />
+              <div className="bg-idus-gray rounded-xl p-3 sm:p-4">
+                <h4 className="font-semibold text-idus-black mb-2 sm:mb-3 flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base">
+                  <LinkIcon className="w-4 h-4 sm:w-5 sm:h-5 text-idus-orange flex-shrink-0" />
                   관련 링크
                 </h4>
-                <div className="space-y-2">
+                <div className="space-y-1.5 sm:space-y-2">
                   {externalLinks.map((link, index) => (
                     <ExternalLinkItem key={index} link={link} variant="row" />
                   ))}

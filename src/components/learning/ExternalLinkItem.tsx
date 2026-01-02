@@ -21,25 +21,25 @@ export default function ExternalLinkItem({ link, variant = 'row' }: ExternalLink
       target="_blank" 
       rel="noopener noreferrer" 
       className={`
-        flex items-center gap-3 group transition-all
+        flex items-center gap-2 sm:gap-3 group transition-all active:scale-[0.98]
         ${isCard 
-          ? 'p-4 bg-gradient-to-br from-white to-gray-50/50 rounded-xl hover:shadow-lg border-2 border-gray-100 hover:border-idus-orange/30' 
-          : 'p-3 bg-white rounded-xl hover:bg-idus-orange-light/20 border border-idus-black-10 hover:border-idus-orange/30'
+          ? 'p-3 sm:p-4 bg-gradient-to-br from-white to-gray-50/50 rounded-xl hover:shadow-lg border-2 border-gray-100 hover:border-idus-orange/30' 
+          : 'p-2.5 sm:p-3 bg-white rounded-lg sm:rounded-xl hover:bg-idus-orange-light/20 border border-idus-black-10 hover:border-idus-orange/30'
         }
       `}
       whileHover={{ y: -2, scale: 1.01 }}
       whileTap={{ scale: 0.99 }}
     >
-      <div className={`flex-shrink-0 ${isCard ? 'w-12 h-12' : 'w-10 h-10'} rounded-xl bg-gradient-to-br from-idus-orange-light/50 to-idus-orange-light/20 flex items-center justify-center`}>
-        <SectionIcon icon={link.icon || 'info'} size={isCard ? 'md' : 'sm'} />
+      <div className={`flex-shrink-0 ${isCard ? 'w-10 h-10 sm:w-12 sm:h-12' : 'w-8 h-8 sm:w-10 sm:h-10'} rounded-lg sm:rounded-xl bg-gradient-to-br from-idus-orange-light/50 to-idus-orange-light/20 flex items-center justify-center`}>
+        <SectionIcon icon={link.icon || 'info'} size={isCard ? 'sm' : 'sm'} />
       </div>
       <div className="flex-1 min-w-0">
-        <div className="font-semibold text-idus-black group-hover:text-idus-orange transition-colors whitespace-normal break-words leading-snug flex items-center gap-1.5">
+        <div className="font-semibold text-idus-black group-hover:text-idus-orange transition-colors whitespace-normal break-words leading-snug flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm">
           {link.title}
-          <ExternalLinkIcon className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-idus-orange" />
+          <ExternalLinkIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-idus-orange flex-shrink-0" />
         </div>
         {link.description && (
-          <div className="text-xs text-idus-black-50 whitespace-normal break-words leading-snug mt-1">{link.description}</div>
+          <div className="text-[10px] sm:text-xs text-idus-black-50 whitespace-normal break-words leading-snug mt-0.5 sm:mt-1">{link.description}</div>
         )}
       </div>
       <motion.div
@@ -47,7 +47,7 @@ export default function ExternalLinkItem({ link, variant = 'row' }: ExternalLink
         animate={{ x: [0, 4, 0] }}
         transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
       >
-        <IconChevronRight className="w-5 h-5 text-idus-black-20 group-hover:text-idus-orange transition-colors" />
+        <IconChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-idus-black-20 group-hover:text-idus-orange transition-colors" />
       </motion.div>
     </motion.a>
   );

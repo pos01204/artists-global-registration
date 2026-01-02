@@ -10,9 +10,9 @@ type SectionIconProps = {
 };
 
 function dims(size: SectionIconProps['size']) {
-  if (size === 'sm') return { box: 28, icon: 18, emoji: 18 };
+  if (size === 'sm') return { box: 24, icon: 14, emoji: 14 };
   if (size === 'lg') return { box: 36, icon: 22, emoji: 22 };
-  return { box: 32, icon: 20, emoji: 20 };
+  return { box: 28, icon: 16, emoji: 16 };
 }
 
 export default function SectionIcon({ icon, size = 'md' }: SectionIconProps) {

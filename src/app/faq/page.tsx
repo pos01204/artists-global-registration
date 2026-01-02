@@ -129,13 +129,13 @@ export default function FAQPage() {
     return filteredFAQs.map(item => ({
       id: item.id,
       header: (
-        <div className="flex items-start gap-3">
-          <div className="w-8 h-8 rounded-xl bg-idus-orange-light/30 flex items-center justify-center flex-shrink-0">
-            <BrandIcon name="like" size={18} alt="" />
+        <div className="flex items-start gap-2 sm:gap-3">
+          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-idus-orange-light/30 flex items-center justify-center flex-shrink-0">
+            <BrandIcon name="like" size={16} alt="" className="sm:w-[18px] sm:h-[18px]" />
           </div>
           <div className="min-w-0">
-            <div className="font-semibold text-idus-black">{item.question}</div>
-            <div className="text-xs text-idus-black-50 mt-0.5">FAQ</div>
+            <div className="font-semibold text-idus-black text-sm sm:text-base">{item.question}</div>
+            <div className="text-[10px] sm:text-xs text-idus-black-50 mt-0.5">FAQ</div>
           </div>
         </div>
       ),
@@ -155,28 +155,28 @@ export default function FAQPage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <div className="max-w-3xl mx-auto px-4 py-6">
-          <Link href="/learn" className="text-idus-black-70 hover:text-idus-orange mb-4 inline-flex items-center gap-2 group">
+        <div className="max-w-3xl mx-auto px-4 py-4 sm:py-6">
+          <Link href="/learn" className="text-idus-black-70 hover:text-idus-orange mb-3 sm:mb-4 inline-flex items-center gap-1.5 sm:gap-2 group text-sm">
             <motion.span
-              className="inline-flex items-center gap-2"
+              className="inline-flex items-center gap-1.5 sm:gap-2"
               whileHover={{ x: -4 }}
             >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+              <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:-translate-x-1" />
               학습으로 돌아가기
             </motion.span>
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <motion.div 
-              className="w-10 h-10 rounded-2xl bg-gradient-to-br from-idus-orange-light/50 to-idus-orange-light/20 flex items-center justify-center"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-br from-idus-orange-light/50 to-idus-orange-light/20 flex items-center justify-center flex-shrink-0"
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
             >
-              <BrandIcon name="like" size={24} alt="" />
+              <BrandIcon name="like" size={20} alt="" className="sm:w-6 sm:h-6" />
             </motion.div>
-            <div>
+            <div className="min-w-0">
               <motion.h1 
-                className="text-2xl font-bold text-idus-black"
+                className="text-lg sm:text-2xl font-bold text-idus-black"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1 }}
@@ -184,7 +184,7 @@ export default function FAQPage() {
                 자주 묻는 질문
               </motion.h1>
               <motion.p 
-                className="text-idus-black-50 text-sm"
+                className="text-idus-black-50 text-xs sm:text-sm"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
@@ -198,22 +198,22 @@ export default function FAQPage() {
 
       {/* 카테고리 필터 */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-4 py-3">
-          <div className="flex items-center gap-2 mb-3">
+        <div className="max-w-3xl mx-auto px-4 py-2.5 sm:py-3">
+          <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
             <motion.div 
               className="relative flex-1"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1 }}
             >
-              <Search className="w-4 h-4 text-idus-black-50 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-idus-black-50 absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="질문/키워드로 검색"
-                className="w-full pl-9 pr-3 py-2 rounded-xl border border-idus-black-10 bg-idus-gray 
+                className="w-full pl-8 sm:pl-9 pr-2.5 sm:pr-3 py-2 rounded-lg sm:rounded-xl border border-idus-black-10 bg-idus-gray 
                            focus:outline-none focus:ring-2 focus:ring-idus-orange/40 focus:border-idus-orange
-                           transition-all"
+                           transition-all text-sm"
               />
             </motion.div>
             <motion.div
@@ -224,6 +224,7 @@ export default function FAQPage() {
               <Button
                 variant="outline"
                 size="sm"
+                className="text-xs sm:text-sm px-2.5 sm:px-3"
                 onClick={() => {
                   setQuery('');
                   toast({ type: 'info', title: '검색 초기화', description: '전체 질문을 다시 보여드릴게요.' });
@@ -235,12 +236,12 @@ export default function FAQPage() {
           </div>
 
           {/* 카테고리 필터 - 아이콘 추가 */}
-          <div className="flex gap-2 overflow-x-auto pb-2">
+          <div className="flex gap-1.5 sm:gap-2 overflow-x-auto pb-2">
             {categories.map((category, index) => (
               <motion.button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-all flex items-center gap-1 sm:gap-1.5 ${
                   activeCategory === category
                     ? 'bg-gradient-to-r from-idus-orange to-idus-orange-dark text-white shadow-md shadow-idus-orange/20'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-800'
@@ -251,7 +252,7 @@ export default function FAQPage() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                {categoryIcons[category] || <HelpCircle className="w-4 h-4" />}
+                <span className="[&>svg]:w-3.5 [&>svg]:h-3.5 sm:[&>svg]:w-4 sm:[&>svg]:h-4">{categoryIcons[category] || <HelpCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}</span>
                 {category}
               </motion.button>
             ))}
@@ -260,7 +261,7 @@ export default function FAQPage() {
       </div>
 
       {/* FAQ 리스트 */}
-      <main className="max-w-3xl mx-auto px-4 py-8">
+      <main className="max-w-3xl mx-auto px-4 py-6 sm:py-8">
         <AnimatePresence mode="wait">
           {accordionItems.length > 0 ? (
             <motion.div
@@ -274,21 +275,21 @@ export default function FAQPage() {
               
               {/* 연관 질문 섹션 */}
               <motion.div 
-                className="mt-8 p-4 bg-white rounded-2xl border border-idus-black-10"
+                className="mt-6 sm:mt-8 p-3 sm:p-4 bg-white rounded-xl sm:rounded-2xl border border-idus-black-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
               >
-                <h3 className="text-sm font-semibold text-idus-black-70 mb-3 flex items-center gap-2">
+                <h3 className="text-xs sm:text-sm font-semibold text-idus-black-70 mb-2 sm:mb-3 flex items-center gap-1.5 sm:gap-2">
                   💡 자주 검색하는 키워드
                 </h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {SUGGESTED_KEYWORDS.map((keyword, index) => (
                     <motion.button
                       key={keyword}
                       onClick={() => handleSuggestionClick(keyword)}
-                      className="px-3 py-1.5 bg-idus-gray hover:bg-idus-orange-light/30 
-                                 rounded-full text-sm text-idus-black-70 hover:text-idus-orange
+                      className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-idus-gray hover:bg-idus-orange-light/30 
+                                 rounded-full text-xs sm:text-sm text-idus-black-70 hover:text-idus-orange
                                  transition-colors border border-idus-black-10"
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}

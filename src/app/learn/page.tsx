@@ -100,22 +100,22 @@ export default function LearnPage() {
 
         {completedAll ? (
           <Card variant="elevated" className="mb-6 border border-idus-orange/30">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-idus-orange text-white flex items-center justify-center">
-                  <BrandIcon name="cheer" size={28} alt="" />
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-idus-orange text-white flex items-center justify-center flex-shrink-0">
+                  <BrandIcon name="cheer" size={24} alt="" className="sm:w-7 sm:h-7" />
                 </div>
-                <div>
-                  <div className="font-bold text-idus-black">학습을 완료하셨어요</div>
-                  <div className="text-sm text-idus-black-50">필요하면 주제별 부록에서 원하는 정보를 다시 찾아볼 수 있어요.</div>
+                <div className="min-w-0">
+                  <div className="font-bold text-idus-black text-sm sm:text-base">학습을 완료하셨어요</div>
+                  <div className="text-xs sm:text-sm text-idus-black-50">필요하면 부록에서 원하는 정보를 다시 찾아볼 수 있어요.</div>
                 </div>
               </div>
               <div className="sm:ml-auto flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                 <Link href="/learn/appendix" className="w-full sm:w-auto">
-                  <Button variant="secondary" className="w-full">부록(다시보기)</Button>
+                  <Button variant="secondary" className="w-full text-sm">부록(다시보기)</Button>
                 </Link>
                 <Link href="/complete" className="w-full sm:w-auto">
-                  <Button variant="primary" className="w-full">
+                  <Button variant="primary" className="w-full text-sm">
                     완료 페이지
                     <IconArrowRight className="w-4 h-4" />
                   </Button>
@@ -148,53 +148,54 @@ export default function LearnPage() {
                   className={status === 'locked' ? 'cursor-not-allowed' : 'focus-ring rounded-xl block'}
                   onClick={(e) => status === 'locked' && e.preventDefault()}
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                     {/* Step Icon */}
                     <div className={`
-                      w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-2xl sm:text-3xl transition-transform duration-300
+                      w-10 h-10 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center text-xl sm:text-3xl transition-transform duration-300 flex-shrink-0
                       ${status === 'completed' ? 'bg-gradient-to-br from-green-500 to-green-600 text-white' : ''}
                       ${status === 'active' ? 'bg-gradient-to-br from-idus-orange to-idus-orange-dark text-white group-hover:scale-105' : ''}
                       ${status === 'locked' ? 'bg-idus-black-10 text-idus-black-50' : ''}
                     `}>
                       {status === 'completed' ? (
-                        <IconCheck className="w-7 h-7 text-white check-bounce" />
+                        <IconCheck className="w-5 h-5 sm:w-7 sm:h-7 text-white check-bounce" />
                       ) : (
                         <BrandIcon
                           name={getStepBrandIconName(step.id)}
-                          size={status === 'locked' ? 26 : 30}
+                          size={status === 'locked' ? 22 : 24}
                           alt=""
+                          className="sm:w-[30px] sm:h-[30px]"
                         />
                       )}
                     </div>
 
                     {/* Step Info */}
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xs font-medium text-idus-black-50">
+                      <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
+                        <span className="text-[10px] sm:text-xs font-medium text-idus-black-50">
                           STEP {step.id}
                         </span>
                         {status === 'active' && (
-                          <span className="text-xs bg-idus-orange text-white px-2 py-0.5 rounded-full badge-shine">
+                          <span className="text-[10px] sm:text-xs bg-idus-orange text-white px-1.5 sm:px-2 py-0.5 rounded-full badge-shine">
                             진행 중
                           </span>
                         )}
                         {status === 'locked' && (
-                          <span className="text-xs bg-idus-black-20 text-idus-black-50 px-2 py-0.5 rounded-full">
-                            <span className="inline-flex items-center gap-1">
-                              <IconLock className="w-3.5 h-3.5" />
+                          <span className="text-[10px] sm:text-xs bg-idus-black-20 text-idus-black-50 px-1.5 sm:px-2 py-0.5 rounded-full">
+                            <span className="inline-flex items-center gap-0.5 sm:gap-1">
+                              <IconLock className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                               잠김
                             </span>
                           </span>
                         )}
                       </div>
-                      <h3 className="font-bold text-idus-black mb-1">{step.title}</h3>
-                      <p className="text-sm text-idus-black-50 line-clamp-2">{step.description}</p>
+                      <h3 className="font-bold text-idus-black mb-0.5 sm:mb-1 text-sm sm:text-base">{step.title}</h3>
+                      <p className="text-xs sm:text-sm text-idus-black-50 line-clamp-2">{step.description}</p>
                     </div>
 
                     {/* Arrow */}
                     <div className="flex items-center justify-end">
                       {status !== 'locked' && (
-                        <IconChevronRight className="w-5 h-5 text-idus-orange link-arrow" />
+                        <IconChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-idus-orange link-arrow" />
                       )}
                     </div>
                   </div>
@@ -214,40 +215,40 @@ export default function LearnPage() {
         >
           {completedSteps.every(Boolean) ? (
             <Link href="/learn/quiz" className="block">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-idus-orange-light flex items-center justify-center text-2xl sm:text-3xl">
-                  <BrandIcon name="camera" size={28} alt="" />
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-idus-orange-light flex items-center justify-center text-xl sm:text-3xl flex-shrink-0">
+                  <BrandIcon name="camera" size={24} alt="" className="sm:w-7 sm:h-7" />
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-medium text-idus-black-50">FINAL</span>
-                    <span className="text-xs bg-idus-orange text-white px-2 py-0.5 rounded-full badge-shine">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
+                    <span className="text-[10px] sm:text-xs font-medium text-idus-black-50">FINAL</span>
+                    <span className="text-[10px] sm:text-xs bg-idus-orange text-white px-1.5 sm:px-2 py-0.5 rounded-full badge-shine">
                       도전 가능
                     </span>
                   </div>
-                  <h3 className="font-bold text-idus-black mb-1">간단 퀴즈</h3>
-                  <p className="text-sm text-idus-black-50">배운 내용을 간단히 확인해요!</p>
+                  <h3 className="font-bold text-idus-black mb-0.5 sm:mb-1 text-sm sm:text-base">간단 퀴즈</h3>
+                  <p className="text-xs sm:text-sm text-idus-black-50">배운 내용을 간단히 확인해요!</p>
                 </div>
-                <IconChevronRight className="w-5 h-5 text-idus-orange link-arrow" />
+                <IconChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-idus-orange link-arrow flex-shrink-0" />
               </div>
             </Link>
           ) : (
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-idus-black-10 flex items-center justify-center text-2xl sm:text-3xl">
-                <BrandIcon name="camera" size={28} alt="" />
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="w-10 h-10 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-idus-black-10 flex items-center justify-center text-xl sm:text-3xl flex-shrink-0">
+                <BrandIcon name="camera" size={24} alt="" className="sm:w-7 sm:h-7" />
               </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-medium text-idus-black-50">FINAL</span>
-                  <span className="text-xs bg-idus-black-20 text-idus-black-50 px-2 py-0.5 rounded-full">
-                    <span className="inline-flex items-center gap-1">
-                      <IconLock className="w-3.5 h-3.5" />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
+                  <span className="text-[10px] sm:text-xs font-medium text-idus-black-50">FINAL</span>
+                  <span className="text-[10px] sm:text-xs bg-idus-black-20 text-idus-black-50 px-1.5 sm:px-2 py-0.5 rounded-full">
+                    <span className="inline-flex items-center gap-0.5 sm:gap-1">
+                      <IconLock className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                       잠김
                     </span>
                   </span>
                 </div>
-                <h3 className="font-bold text-idus-black mb-1">간단 퀴즈</h3>
-                <p className="text-sm text-idus-black-50">배운 내용을 간단히 확인해요!</p>
+                <h3 className="font-bold text-idus-black mb-0.5 sm:mb-1 text-sm sm:text-base">간단 퀴즈</h3>
+                <p className="text-xs sm:text-sm text-idus-black-50">배운 내용을 간단히 확인해요!</p>
               </div>
             </div>
           )}
@@ -261,21 +262,22 @@ export default function LearnPage() {
           {/* 쉬머 효과 */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer-slow" />
           
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none" aria-hidden="true">
+          <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none" aria-hidden="true">
             <Image
               src="/brand/brand assets/선물.png"
               alt=""
-              width={110}
-              height={110}
+              width={80}
+              height={80}
+              className="sm:w-[110px] sm:h-[110px]"
             />
           </div>
-          <div className="flex items-center gap-4 relative z-10">
-            <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center">
-              <BrandIcon name="gift" size={32} alt="" />
+          <div className="flex items-center gap-3 sm:gap-4 relative z-10">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/20 flex items-center justify-center flex-shrink-0">
+              <BrandIcon name="gift" size={26} alt="" className="sm:w-8 sm:h-8" />
             </div>
-            <div className="flex-1">
-              <h3 className="font-bold mb-1">학습 완료 보상</h3>
-              <p className="text-white/80 text-sm">
+            <div className="flex-1 min-w-0">
+              <h3 className="font-bold mb-0.5 sm:mb-1 text-sm sm:text-base">학습 완료 보상</h3>
+              <p className="text-white/80 text-xs sm:text-sm">
                 모든 학습을 완료하고 글로벌 등록 시 KR 광고포인트 10,000P!
               </p>
             </div>
@@ -289,17 +291,17 @@ export default function LearnPage() {
           className="mt-6 bg-gradient-to-r from-blue-50 to-white border-blue-200 card-interactive"
         >
           <Link href="/faq" className="block">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-blue-100 border border-blue-200 flex items-center justify-center">
-                <BrandIcon name="like" size={26} alt="" />
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-blue-100 border border-blue-200 flex items-center justify-center flex-shrink-0">
+                <BrandIcon name="like" size={22} alt="" className="sm:w-[26px] sm:h-[26px]" />
               </div>
-              <div className="flex-1">
-                <div className="font-semibold text-idus-black">자주 묻는 질문</div>
-                <div className="text-sm text-idus-black-50">
+              <div className="flex-1 min-w-0">
+                <div className="font-semibold text-idus-black text-sm sm:text-base">자주 묻는 질문</div>
+                <div className="text-xs sm:text-sm text-idus-black-50">
                   배송/정산/문의 대응 등 궁금한 점을 바로 확인해요
                 </div>
               </div>
-              <IconChevronRight className="w-5 h-5 text-blue-500" />
+              <IconChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0" />
             </div>
           </Link>
         </Card>

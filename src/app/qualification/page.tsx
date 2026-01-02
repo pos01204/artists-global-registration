@@ -87,17 +87,17 @@ export default function QualificationPage() {
         </div>
       </header>
 
-      <div className="max-w-2xl mx-auto px-4 py-12">
+      <div className="max-w-2xl mx-auto px-4 py-8 sm:py-12">
         {/* 환영 메시지 - 강화된 스타일 */}
         <motion.div 
-          className="text-center mb-10"
+          className="text-center mb-8 sm:mb-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
           {/* 아이콘 */}
           <motion.div 
-            className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-50 to-green-100 rounded-full mb-5"
+            className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-50 to-green-100 rounded-full mb-4 sm:mb-5"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: 'spring', stiffness: 300 }}
@@ -107,12 +107,12 @@ export default function QualificationPage() {
               animate={{ scale: 1 }}
               transition={{ delay: 0.4, type: 'spring', stiffness: 400 }}
             >
-              <IconCheck className="w-10 h-10 text-green-600" />
+              <IconCheck className="w-8 h-8 sm:w-10 sm:h-10 text-green-600" />
             </motion.div>
           </motion.div>
           
           <motion.h1 
-            className="text-2xl font-bold text-idus-black mb-2"
+            className="text-xl sm:text-2xl font-bold text-idus-black mb-1.5 sm:mb-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -120,7 +120,7 @@ export default function QualificationPage() {
             자격 요건을 확인했어요!
           </motion.h1>
           <motion.p 
-            className="text-idus-black-70 mb-4"
+            className="text-idus-black-70 mb-3 sm:mb-4 text-sm sm:text-base"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
@@ -131,12 +131,12 @@ export default function QualificationPage() {
           
           {/* 배지 */}
           <motion.div 
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium border border-green-200"
+            className="inline-flex items-center gap-1.5 sm:gap-2 bg-gradient-to-r from-green-50 to-green-100 text-green-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium border border-green-200"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5 }}
           >
-            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" aria-hidden="true" />
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full animate-pulse" aria-hidden="true" />
             <span>자격 요건 충족</span>
           </motion.div>
         </motion.div>
@@ -147,48 +147,48 @@ export default function QualificationPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <Card variant="outlined" className="mb-6">
-            <h3 className="font-semibold text-idus-black mb-4 flex items-center gap-2">
+          <Card variant="outlined" className="mb-5 sm:mb-6">
+            <h3 className="font-semibold text-idus-black mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
               자격 요건 확인 결과
             </h3>
-            <div className="space-y-2">
+            <div className="space-y-1.5 sm:space-y-2">
               <motion.div 
-                className="flex items-center justify-between p-3 bg-gradient-to-r from-idus-orange-light/30 to-white rounded-lg border border-idus-orange/20"
+                className="flex items-center justify-between p-2.5 sm:p-3 bg-gradient-to-r from-idus-orange-light/30 to-white rounded-lg border border-idus-orange/20"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <motion.span 
-                    className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white shadow-sm"
+                    className="w-5 h-5 sm:w-6 sm:h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white shadow-sm flex-shrink-0"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.6, type: 'spring', stiffness: 400 }}
                   >
-                    <IconCheck className="w-4 h-4" />
+                    <IconCheck className="w-3 h-3 sm:w-4 sm:h-4" />
                   </motion.span>
-                  <span className="text-idus-black-70">사업자등록번호</span>
+                  <span className="text-idus-black-70 text-sm sm:text-base">사업자등록번호</span>
                 </div>
-                <span className="text-green-600 text-sm font-medium">보유</span>
+                <span className="text-green-600 text-xs sm:text-sm font-medium">보유</span>
               </motion.div>
               <motion.div 
-                className="flex items-center justify-between p-3 bg-gradient-to-r from-idus-orange-light/30 to-white rounded-lg border border-idus-orange/20"
+                className="flex items-center justify-between p-2.5 sm:p-3 bg-gradient-to-r from-idus-orange-light/30 to-white rounded-lg border border-idus-orange/20"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.7 }}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <motion.span 
-                    className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white shadow-sm"
+                    className="w-5 h-5 sm:w-6 sm:h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white shadow-sm flex-shrink-0"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.8, type: 'spring', stiffness: 400 }}
                   >
-                    <IconCheck className="w-4 h-4" />
+                    <IconCheck className="w-3 h-3 sm:w-4 sm:h-4" />
                   </motion.span>
-                  <span className="text-idus-black-70">판매 카테고리</span>
+                  <span className="text-idus-black-70 text-sm sm:text-base">판매 카테고리</span>
                 </div>
-                <span className="text-green-600 text-sm font-medium">판매 가능</span>
+                <span className="text-green-600 text-xs sm:text-sm font-medium">판매 가능</span>
               </motion.div>
             </div>
           </Card>
@@ -200,16 +200,16 @@ export default function QualificationPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <Card variant="outlined" className="mb-6">
-            <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <BrandIcon name="jewelry" size={20} alt="" />
+          <Card variant="outlined" className="mb-5 sm:mb-6">
+            <h3 className="font-semibold text-gray-900 mb-3 sm:mb-4 flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base">
+              <BrandIcon name="jewelry" size={18} alt="" className="sm:w-5 sm:h-5" />
               선택하신 카테고리
             </h3>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
               {data.categories.map((category, index) => (
                 <motion.span
                   key={category}
-                  className="px-4 py-2 bg-idus-orange text-white rounded-full text-sm font-semibold shadow-sm"
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 bg-idus-orange text-white rounded-full text-xs sm:text-sm font-semibold shadow-sm"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.6 + index * 0.1, type: 'spring', stiffness: 300 }}
@@ -222,12 +222,12 @@ export default function QualificationPage() {
             {/* 2026 확장 카테고리 관심 표시 */}
             {(data.interestedIn2026.food || data.interestedIn2026.digital) && (
               <motion.div 
-                className="mt-4 p-3 bg-blue-50 rounded-lg"
+                className="mt-3 sm:mt-4 p-2.5 sm:p-3 bg-blue-50 rounded-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8 }}
               >
-                <p className="text-sm text-blue-700">
+                <p className="text-xs sm:text-sm text-blue-700">
                   💡 {data.interestedIn2026.food && '식품'}
                   {data.interestedIn2026.food && data.interestedIn2026.digital && ', '}
                   {data.interestedIn2026.digital && '디지털 작품'} 
@@ -244,27 +244,27 @@ export default function QualificationPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9 }}
         >
-          <Card variant="outlined" className="mb-6">
-            <h3 className="font-semibold text-idus-black mb-6 flex items-center gap-2">
+          <Card variant="outlined" className="mb-5 sm:mb-6">
+            <h3 className="font-semibold text-idus-black mb-4 sm:mb-6 flex items-center gap-2 text-sm sm:text-base">
               글로벌 판매까지 남은 단계
             </h3>
             
             <ProcessSteps
               steps={[
                 {
-                  icon: <IconCheck className="w-5 h-5" />,
+                  icon: <IconCheck className="w-4 h-4 sm:w-5 sm:h-5" />,
                   title: '자격 확인',
                   subtitle: '완료',
                   status: 'completed',
                 },
                 {
-                  icon: <BookOpen className="w-5 h-5" />,
+                  icon: <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />,
                   title: '학습',
                   subtitle: '진행 예정',
                   status: 'current',
                 },
                 {
-                  icon: <Plane className="w-5 h-5" />,
+                  icon: <Plane className="w-4 h-4 sm:w-5 sm:h-5" />,
                   title: '작가 등록',
                   subtitle: '대기',
                   status: 'pending',
@@ -274,12 +274,12 @@ export default function QualificationPage() {
             
             {/* 안내 문구 */}
             <motion.div 
-              className="mt-6 p-3 bg-amber-50 rounded-lg border border-amber-100"
+              className="mt-4 sm:mt-6 p-2.5 sm:p-3 bg-amber-50 rounded-lg border border-amber-100"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
             >
-              <p className="text-sm text-amber-700 text-center">
+              <p className="text-xs sm:text-sm text-amber-700 text-center">
                 💡 실제 판매를 시작하려면 <span className="font-semibold">학습 완료</span> 후 <span className="font-semibold">글로벌 작가 등록</span>이 필요해요
               </p>
             </motion.div>

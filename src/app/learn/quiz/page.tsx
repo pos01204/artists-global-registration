@@ -196,20 +196,20 @@ export default function QuizPage() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
           >
-            <Card variant="elevated" className="mb-8">
-              <div className="flex items-center gap-2 mb-4">
-                <BrandIcon name="camera" size={26} alt="" />
-                <span className="text-sm font-medium text-idus-orange px-2 py-1 bg-idus-orange-light/30 rounded-full">
+            <Card variant="elevated" className="mb-6 sm:mb-8">
+              <div className="flex items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+                <BrandIcon name="camera" size={22} alt="" className="sm:w-[26px] sm:h-[26px]" />
+                <span className="text-xs sm:text-sm font-medium text-idus-orange px-1.5 sm:px-2 py-0.5 sm:py-1 bg-idus-orange-light/30 rounded-full">
                   Q{currentQuestionIndex + 1}
                 </span>
               </div>
               
-              <h2 className="text-xl font-bold text-idus-black mb-6 text-balance">
+              <h2 className="text-lg sm:text-xl font-bold text-idus-black mb-4 sm:mb-6 text-balance">
                 {currentQuestion.question}
               </h2>
 
               {/* Options */}
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {currentQuestion.options.map((option, index) => {
                   const isSelected = selectedAnswer === index;
                   const isCorrect = index === currentQuestion.correctAnswer;
@@ -237,25 +237,25 @@ export default function QuizPage() {
                       onClick={() => handleAnswerSelect(index)}
                       disabled={showResult}
                       className={`
-                        w-full p-4 rounded-xl border-2 text-left transition-colors duration-200
-                        min-h-[56px] active:bg-opacity-80
+                        w-full p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 text-left transition-colors duration-200
+                        min-h-[48px] sm:min-h-[56px] active:bg-opacity-80
                         ${optionStyle}
                         ${showResult ? 'cursor-default' : 'cursor-pointer'}
                       `}
                       whileHover={!showResult ? { scale: 1.01 } : {}}
                       whileTap={!showResult ? { scale: 0.99 } : {}}
                     >
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2 sm:gap-3">
                         <div className={`
-                          w-6 h-6 rounded-full border-2 flex items-center justify-center text-sm font-bold
+                          w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center text-xs sm:text-sm font-bold flex-shrink-0
                           transition-all duration-200
                           ${checkStyle}
                         `}>
-                          {showResult && isCorrect && <IconCheck className="w-4 h-4" />}
-                          {showResult && isWrong && <IconX className="w-4 h-4" />}
-                          {!showResult && isSelected && <IconCheck className="w-4 h-4" />}
+                          {showResult && isCorrect && <IconCheck className="w-3 h-3 sm:w-4 sm:h-4" />}
+                          {showResult && isWrong && <IconX className="w-3 h-3 sm:w-4 sm:h-4" />}
+                          {!showResult && isSelected && <IconCheck className="w-3 h-3 sm:w-4 sm:h-4" />}
                         </div>
-                        <span className={`flex-1 ${showResult && isCorrect ? 'font-semibold text-green-700' : ''}`}>
+                        <span className={`flex-1 text-sm sm:text-base ${showResult && isCorrect ? 'font-semibold text-green-700' : ''}`}>
                           {option}
                         </span>
                       </div>
@@ -269,7 +269,7 @@ export default function QuizPage() {
                 {showResult && (
                   <motion.div 
                     className={`
-                      mt-6 p-4 rounded-xl
+                      mt-4 sm:mt-6 p-3 sm:p-4 rounded-lg sm:rounded-xl
                       ${selectedAnswer === currentQuestion.correctAnswer 
                         ? 'bg-green-50 border border-green-200' 
                         : 'bg-amber-50 border border-amber-200'
@@ -280,17 +280,17 @@ export default function QuizPage() {
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className="flex items-start gap-3">
-                      <span className="text-xl">
+                    <div className="flex items-start gap-2 sm:gap-3">
+                      <span className="text-base sm:text-xl flex-shrink-0">
                         {selectedAnswer === currentQuestion.correctAnswer ? '✅' : '💡'}
                       </span>
-                      <div className="flex-1">
-                        <h4 className={`font-semibold mb-1 ${
+                      <div className="flex-1 min-w-0">
+                        <h4 className={`font-semibold mb-0.5 sm:mb-1 text-sm sm:text-base ${
                           selectedAnswer === currentQuestion.correctAnswer ? 'text-green-700' : 'text-amber-700'
                         }`}>
                           {selectedAnswer === currentQuestion.correctAnswer ? '정답이에요!' : '아쉬워요!'}
                         </h4>
-                        <p className="text-sm text-idus-black-70 text-balance">
+                        <p className="text-xs sm:text-sm text-idus-black-70 text-balance">
                           {currentQuestion.explanation}
                         </p>
                         

@@ -12,24 +12,24 @@ export default function ResponsiveTable({ columns, rows, className = '' }: Respo
   return (
     <div className={className}>
       {/* Mobile: row cards */}
-      <div className="sm:hidden space-y-3">
+      <div className="sm:hidden space-y-2">
         {rows.map((row, rIdx) => {
           const [label, ...values] = row;
           return (
-            <div key={rIdx} className="bg-white rounded-xl border border-idus-black-10 overflow-hidden">
-              <div className="px-4 py-3 bg-idus-orange text-white font-semibold text-sm leading-snug break-words">
-                <span className="opacity-90 text-xs font-medium">{labelCol}</span>
+            <div key={rIdx} className="bg-white rounded-lg border border-idus-black-10 overflow-hidden">
+              <div className="px-3 py-2 bg-idus-orange text-white font-semibold text-xs leading-snug break-words">
+                <span className="opacity-90 text-[10px] font-medium">{labelCol}</span>
                 <span className="mx-1 opacity-70">·</span>
                 <span className="break-words">{label}</span>
               </div>
-              <div className="px-4 py-3 grid grid-cols-2 gap-2">
+              <div className="px-2.5 py-2 grid grid-cols-2 gap-1.5">
                 {valueCols.map((col, idx) => (
                   <div
                     key={col}
-                    className="bg-idus-gray rounded-lg px-3 py-2"
+                    className="bg-idus-gray rounded-md px-2 py-1.5"
                   >
-                    <div className="text-[11px] text-idus-black-50 whitespace-nowrap">{col}</div>
-                    <div className="text-sm font-semibold text-idus-black mt-0.5 whitespace-nowrap">
+                    <div className="text-[9px] text-idus-black-50 whitespace-nowrap">{col}</div>
+                    <div className="text-xs font-semibold text-idus-black mt-0.5 whitespace-nowrap">
                       {values[idx] ?? '-'}
                     </div>
                   </div>

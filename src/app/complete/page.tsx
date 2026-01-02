@@ -93,24 +93,24 @@ export default function CompletePage() {
         </div>
       </header>
 
-      <div className="max-w-2xl mx-auto px-4 py-10 sm:py-12">
+      <div className="max-w-2xl mx-auto px-4 py-8 sm:py-12">
         {/* Celebration */}
         <motion.div 
-          className="text-center mb-8"
+          className="text-center mb-6 sm:mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
           <motion.div 
-            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-idus-orange-light/40 border border-idus-black-10 mb-5"
+            className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-idus-orange-light/40 border border-idus-black-10 mb-4 sm:mb-5"
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
           >
-            <BrandIcon name="cheer" size={32} alt="" />
+            <BrandIcon name="cheer" size={26} alt="" className="sm:w-8 sm:h-8" />
           </motion.div>
           <motion.h1 
-            className="text-2xl sm:text-3xl font-bold text-idus-black mb-3 text-balance"
+            className="text-xl sm:text-3xl font-bold text-idus-black mb-2 sm:mb-3 text-balance"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -118,7 +118,7 @@ export default function CompletePage() {
             {artistName} 작가님, 여기까지 잘 오셨어요
           </motion.h1>
           <motion.p 
-            className="text-idus-black-70 text-balance"
+            className="text-idus-black-70 text-balance text-sm sm:text-base"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
@@ -135,13 +135,13 @@ export default function CompletePage() {
         >
           <Card
             variant="custom"
-            className="relative mb-8 bg-idus-orange text-white overflow-hidden"
+            className="relative mb-6 sm:mb-8 bg-idus-orange text-white overflow-hidden"
           >
             {/* 글로우 효과 */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer-slow" />
             
             <motion.div 
-              className="absolute right-4 top-1/2 -translate-y-1/2 opacity-20 pointer-events-none" 
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 opacity-20 pointer-events-none" 
               aria-hidden="true"
               animate={{ 
                 y: [0, -15, 0],
@@ -156,34 +156,36 @@ export default function CompletePage() {
               <Image
                 src="/brand/brand assets/선물.png"
                 alt=""
-                width={140}
-                height={140}
+                width={100}
+                height={100}
+                className="sm:w-[140px] sm:h-[140px]"
               />
             </motion.div>
             <div className="text-center relative z-10">
               <motion.div 
-                className="flex justify-center mb-4"
+                className="flex justify-center mb-3 sm:mb-4"
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 2, repeat: Infinity, repeatDelay: 2 }}
               >
-                <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-white/20 flex items-center justify-center">
                   <Image
                     src="/brand/brand assets/선물.png"
                     alt="선물"
-                    width={44}
-                    height={44}
+                    width={32}
+                    height={32}
+                    className="sm:w-[44px] sm:h-[44px]"
                   />
                 </div>
               </motion.div>
-              <h3 className="text-xl font-bold mb-2">보상 안내</h3>
-              <p className="text-white/80 mb-4 text-balance">
+              <h3 className="text-lg sm:text-xl font-bold mb-1.5 sm:mb-2">보상 안내</h3>
+              <p className="text-white/80 mb-3 sm:mb-4 text-balance text-sm sm:text-base">
                 글로벌 작가 등록을 완료하면 익월 1일에 포인트가 지급돼요
               </p>
               <motion.div 
-                className="bg-white/20 rounded-xl p-4 inline-block backdrop-blur-sm"
+                className="bg-white/20 rounded-lg sm:rounded-xl p-3 sm:p-4 inline-block backdrop-blur-sm"
                 whileHover={{ scale: 1.05 }}
               >
-                <span className="text-3xl font-bold">KR 광고포인트 10,000P</span>
+                <span className="text-2xl sm:text-3xl font-bold">KR 광고포인트 10,000P</span>
               </motion.div>
             </div>
           </Card>
@@ -208,12 +210,12 @@ export default function CompletePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <Card variant="outlined" className="mb-8 border-idus-orange border-2 shadow-lg shadow-idus-orange/20">
+          <Card variant="outlined" className="mb-6 sm:mb-8 border-idus-orange border-2 shadow-lg shadow-idus-orange/20">
             <div className="text-center">
-              <h3 className="text-xl font-bold text-idus-black mb-2 text-balance">
+              <h3 className="text-lg sm:text-xl font-bold text-idus-black mb-1.5 sm:mb-2 text-balance">
                 이제 진짜 글로벌 작가가 되실 차례예요!
               </h3>
-              <p className="text-idus-black-70 mb-6 text-balance">
+              <p className="text-idus-black-70 mb-4 sm:mb-6 text-balance text-sm sm:text-base">
                 아래 버튼을 눌러 1분 만에 등록을 완료해요
               </p>
               <motion.div
@@ -223,12 +225,12 @@ export default function CompletePage() {
                 <Button
                   variant="primary"
                   size="lg"
-                  className="w-full max-w-sm mx-auto relative overflow-hidden"
+                  className="w-full max-w-sm mx-auto relative overflow-hidden text-sm sm:text-base"
                   onClick={handleRegistrationClick}
                 >
-                  <span className="relative z-10 flex items-center justify-center gap-2">
+                  <span className="relative z-10 flex items-center justify-center gap-1.5 sm:gap-2">
                     글로벌 작가 등록하러 가기
-                    <IconArrowRight className="w-4 h-4" />
+                    <IconArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </span>
                   {/* 쉬머 효과 */}
                   <motion.div 
@@ -238,7 +240,7 @@ export default function CompletePage() {
                   />
                 </Button>
               </motion.div>
-              <p className="text-xs text-idus-black-50 mt-3">
+              <p className="text-[10px] sm:text-xs text-idus-black-50 mt-2 sm:mt-3">
                 (1분이면 끝!)
               </p>
             </div>

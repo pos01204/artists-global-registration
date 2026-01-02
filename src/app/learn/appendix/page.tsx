@@ -133,15 +133,15 @@ export default function AppendixPage() {
       </header>
 
       <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8 pb-10">
-        <div className="mb-6">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-2xl bg-idus-orange-light/30 flex items-center justify-center">
-              <BrandIcon name="best" size={26} alt="" />
+        <div className="mb-5 sm:mb-6">
+          <div className="flex items-center gap-2 sm:gap-3 mb-2">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-idus-orange-light/30 flex items-center justify-center flex-shrink-0">
+              <BrandIcon name="best" size={20} alt="" className="sm:w-[26px] sm:h-[26px]" />
             </div>
-            <div>
-              <h1 className="text-2xl font-bold text-idus-black">필요한 정보만 다시 찾아보세요</h1>
-              <p className="text-sm text-idus-black-50">
-                학습을 완료하신 작가님을 위한 부록 페이지입니다. 원하는 주제로 바로 이동할 수 있어요.
+            <div className="min-w-0">
+              <h1 className="text-lg sm:text-2xl font-bold text-idus-black">필요한 정보만 다시 찾아보세요</h1>
+              <p className="text-xs sm:text-sm text-idus-black-50">
+                학습 완료 후 원하는 주제로 바로 이동할 수 있어요.
               </p>
             </div>
           </div>
@@ -160,26 +160,26 @@ export default function AppendixPage() {
         ) : (
           <>
             {/* 핵심 퀵 링크 섹션 */}
-            <div className="mb-6">
-              <h2 className="text-lg font-bold text-idus-black mb-3 flex items-center gap-2">
-                <span className="text-xl">⚡</span>
+            <div className="mb-5 sm:mb-6">
+              <h2 className="text-sm sm:text-lg font-bold text-idus-black mb-2 sm:mb-3 flex items-center gap-1.5 sm:gap-2">
+                <span className="text-base sm:text-xl">⚡</span>
                 자주 찾는 핵심 정보
               </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
                 {QUICK_LINKS.map((link) => (
                   <Link 
                     key={link.id} 
                     href={`/learn/step/${link.stepId}?from=appendix&content=${link.contentId}`}
                     className={`
-                      ${link.color} border rounded-xl p-4 
-                      hover:shadow-md transition-all hover:-translate-y-0.5
+                      ${link.color} border rounded-lg sm:rounded-xl p-2.5 sm:p-4 
+                      hover:shadow-md transition-all hover:-translate-y-0.5 active:scale-[0.98]
                     `}
                   >
-                    <div className={`w-10 h-10 rounded-xl ${link.iconBg} flex items-center justify-center mb-3 text-white shadow-sm`}>
-                      {link.icon}
+                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl ${link.iconBg} flex items-center justify-center mb-2 sm:mb-3 text-white shadow-sm`}>
+                      <span className="[&>svg]:w-4 [&>svg]:h-4 sm:[&>svg]:w-5 sm:[&>svg]:h-5">{link.icon}</span>
                     </div>
-                    <div className="font-semibold text-idus-black text-sm mb-1">{link.title}</div>
-                    <div className="text-xs text-idus-black-50 line-clamp-2">{link.description}</div>
+                    <div className="font-semibold text-idus-black text-xs sm:text-sm mb-0.5 sm:mb-1">{link.title}</div>
+                    <div className="text-[10px] sm:text-xs text-idus-black-50 line-clamp-2">{link.description}</div>
                   </Link>
                 ))}
               </div>
@@ -192,23 +192,23 @@ export default function AppendixPage() {
               <div className="flex-1 h-px bg-idus-black-10" />
             </div>
 
-            <Card variant="outlined" className="p-4 mb-4">
-              <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+            <Card variant="outlined" className="p-3 sm:p-4 mb-3 sm:mb-4">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 sm:items-center">
                 <div className="flex-1">
-                  <div className="text-sm font-semibold text-idus-black mb-2">검색</div>
+                  <div className="text-xs sm:text-sm font-semibold text-idus-black mb-1.5 sm:mb-2">검색</div>
                   <input
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="예) 물류센터, 수수료, 번역, 배송…"
-                    className="w-full rounded-xl border border-idus-black-10 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-idus-orange/30"
+                    className="w-full rounded-lg sm:rounded-xl border border-idus-black-10 bg-white px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-idus-orange/30"
                   />
                 </div>
                 <div className="sm:w-64">
-                  <div className="text-sm font-semibold text-idus-black mb-2">STEP 필터</div>
+                  <div className="text-xs sm:text-sm font-semibold text-idus-black mb-1.5 sm:mb-2">STEP 필터</div>
                   <select
                     value={stepFilter}
                     onChange={(e) => setStepFilter(Number(e.target.value) as StepFilter)}
-                    className="w-full rounded-xl border border-idus-black-10 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-idus-orange/30"
+                    className="w-full rounded-lg sm:rounded-xl border border-idus-black-10 bg-white px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-idus-orange/30"
                   >
                     <option value={0}>전체</option>
                     <option value={1}>STEP 1</option>
@@ -217,48 +217,48 @@ export default function AppendixPage() {
                   </select>
                 </div>
               </div>
-              <div className="text-xs text-idus-black-50 mt-3">
+              <div className="text-[10px] sm:text-xs text-idus-black-50 mt-2 sm:mt-3">
                 총 {contents.length}개 주제
               </div>
             </Card>
 
-            <div className="grid gap-3">
+            <div className="grid gap-2 sm:gap-3">
               {contents.map((c) => (
                 <Card key={c.id} variant="outlined" hoverable>
-                  <Link href={`/learn/step/${c.stepId}?from=appendix&content=${c.id}`} className="block">
-                    <div className="flex items-start gap-4 p-4">
-                      <div className="w-12 h-12 rounded-2xl bg-idus-orange-light/25 border border-idus-black-10 flex items-center justify-center flex-shrink-0">
-                        <BrandIcon name={c.stepId === 1 ? 'best' : c.stepId === 2 ? 'stationery' : 'shipping'} size={26} alt="" />
+                  <Link href={`/learn/step/${c.stepId}?from=appendix&content=${c.id}`} className="block active:scale-[0.99]">
+                    <div className="flex items-start gap-2.5 sm:gap-4 p-3 sm:p-4">
+                      <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-idus-orange-light/25 border border-idus-black-10 flex items-center justify-center flex-shrink-0">
+                        <BrandIcon name={c.stepId === 1 ? 'best' : c.stepId === 2 ? 'stationery' : 'shipping'} size={20} alt="" className="sm:w-[26px] sm:h-[26px]" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex flex-wrap items-center gap-2 mb-1">
-                          <span className="text-xs font-medium text-idus-black-50">
+                        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
+                          <span className="text-[10px] sm:text-xs font-medium text-idus-black-50">
                             STEP {c.stepId} · {stepNameById.get(c.stepId) ?? ''}
                           </span>
                         </div>
-                        <div className="font-bold text-idus-black mb-1 truncate">{c.title}</div>
-                        <div className="text-sm text-idus-black-70 line-clamp-2">{c.description}</div>
+                        <div className="font-bold text-idus-black mb-0.5 sm:mb-1 truncate text-sm sm:text-base">{c.title}</div>
+                        <div className="text-xs sm:text-sm text-idus-black-70 line-clamp-2">{c.description}</div>
                         {c.content.summary && c.content.summary.length > 0 ? (
-                          <div className="mt-2 text-xs text-idus-black-50 line-clamp-1">
+                          <div className="mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-idus-black-50 line-clamp-1">
                             핵심: {c.content.summary[0]}
                           </div>
                         ) : null}
                       </div>
-                      <IconChevronRight className="w-5 h-5 text-idus-orange flex-shrink-0 mt-1" />
+                      <IconChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-idus-orange flex-shrink-0 mt-0.5 sm:mt-1" />
                     </div>
                   </Link>
                 </Card>
               ))}
             </div>
 
-            <Card variant="outlined" className="mt-6 p-4">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                <div className="flex-1">
-                  <div className="font-semibold text-idus-black">자주 묻는 질문도 함께 확인해요</div>
-                  <div className="text-sm text-idus-black-50">배송/정산/문의 대응 등 빠르게 찾을 수 있어요</div>
+            <Card variant="outlined" className="mt-4 sm:mt-6 p-3 sm:p-4">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-idus-black text-sm sm:text-base">자주 묻는 질문도 함께 확인해요</div>
+                  <div className="text-xs sm:text-sm text-idus-black-50">배송/정산/문의 대응 등 빠르게 찾을 수 있어요</div>
                 </div>
                 <Link href="/faq" className="sm:w-auto">
-                  <Button variant="secondary" className="w-full sm:w-auto">FAQ 보기</Button>
+                  <Button variant="secondary" className="w-full sm:w-auto text-sm">FAQ 보기</Button>
                 </Link>
               </div>
             </Card>
