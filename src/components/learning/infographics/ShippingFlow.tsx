@@ -15,7 +15,7 @@ export default function ShippingFlow() {
   const steps: Step[] = [
     {
       icon: <Package className="w-6 h-6" />,
-      title: '작가님 포장',
+      title: '작가님 포장/국내 발송',
       subtitle: '국내 택배로 발송',
       color: 'text-idus-orange',
       bgColor: 'bg-idus-orange-light',

@@ -131,19 +131,6 @@ export default function IdusSupport() {
         </motion.div>
       </div>
 
-      {/* 비용 배지 - 중앙 정렬 */}
-      <motion.div 
-        className="flex justify-center mt-4"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 0.7, type: 'spring', stiffness: 300 }}
-      >
-        <div className="inline-flex items-center gap-1.5 bg-idus-orange text-white text-sm font-bold px-5 py-2.5 rounded-full shadow-lg shadow-idus-orange/30">
-          <span>💰</span>
-          <span>idus가 해드리는 건 전부 0원!</span>
-        </div>
-      </motion.div>
-
       {/* 하단 메시지 */}
       <motion.div 
         className="text-center"

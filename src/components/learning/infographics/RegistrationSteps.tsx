@@ -5,10 +5,10 @@ import { LogIn, Menu, User, Plane, Check, ExternalLink } from 'lucide-react';
 
 export default function RegistrationSteps() {
   const steps = [
-    { icon: <LogIn className="w-5 h-5" />, title: '작가웹', subtitle: '로그인' },
-    { icon: <Menu className="w-5 h-5" />, title: '전체', subtitle: '메뉴' },
+    { icon: <LogIn className="w-5 h-5" />, title: '작가웹 로그인', subtitle: '' },
+    { icon: <Menu className="w-5 h-5" />, title: '전체 메뉴', subtitle: '' },
     { icon: <User className="w-5 h-5" />, title: '내 정보', subtitle: '' },
-    { icon: <Plane className="w-5 h-5" />, title: '글로벌', subtitle: '작가 관리' },
+    { icon: <Plane className="w-5 h-5" />, title: '글로벌 작가 관리', subtitle: '' },
   ];
 
   const requirements = [
@@ -76,10 +76,9 @@ export default function RegistrationSteps() {
 
               {/* 텍스트 */}
               <div className="sm:mt-3 text-left sm:text-center min-w-[80px]">
-                <div className="font-bold text-idus-black text-sm">{step.title}</div>
-                {step.subtitle && (
-                  <div className="text-xs text-idus-black-50">{step.subtitle}</div>
-                )}
+                <div className={`font-bold text-sm ${index === steps.length - 1 ? 'text-idus-orange' : 'text-idus-black'}`}>
+                  {step.title}
+                </div>
               </div>
 
               {/* 화살표 (모바일) */}
