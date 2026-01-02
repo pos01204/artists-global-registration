@@ -470,24 +470,69 @@ export default function StepPage() {
           </div>
         </Card>
 
-        {/* Navigation */}
-        <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur border-t border-idus-black-10">
-          <div className="max-w-4xl mx-auto px-4 py-3 pb-[calc(env(safe-area-inset-bottom)+12px)]">
-            <div className="flex items-center gap-3">
-              <Button
-                variant="secondary"
-                onClick={handlePrev}
-                disabled={currentContentIndex === 0}
-                className="w-[44%]"
-              >
+        {/* Navigation - 부록/퀴즈에서 왔을 때는 돌아가기 버튼으로 변경 */}
+        {(isFromAppendix || isFromQuiz) ? (
+          <>
+            {/* 모바일: 하단 고정 */}
+            <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur border-t border-idus-black-10">
+              <div className="max-w-4xl mx-auto px-4 py-3 pb-[calc(env(safe-area-inset-bottom)+12px)]">
+                <Link href={isFromQuiz ? '/learn/quiz' : '/learn/appendix'} className="block">
+                  <Button variant="primary" className="w-full">
+                    <IconArrowLeft className="w-4 h-4" />
+                    {isFromQuiz ? '퀴즈로 돌아가기' : '부록으로 돌아가기'}
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            {/* 데스크톱 */}
+            <div className="hidden sm:flex justify-center">
+              <Link href={isFromQuiz ? '/learn/quiz' : '/learn/appendix'}>
+                <Button variant="primary" className="min-w-[200px]">
+                  <IconArrowLeft className="w-4 h-4" />
+                  {isFromQuiz ? '퀴즈로 돌아가기' : '부록으로 돌아가기'}
+                </Button>
+              </Link>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* 기본 네비게이션: 이전/다음 */}
+            <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur border-t border-idus-black-10">
+              <div className="max-w-4xl mx-auto px-4 py-3 pb-[calc(env(safe-area-inset-bottom)+12px)]">
+                <div className="flex items-center gap-3">
+                  <Button
+                    variant="secondary"
+                    onClick={handlePrev}
+                    disabled={currentContentIndex === 0}
+                    className="w-[44%]"
+                  >
+                    <IconArrowLeft className="w-4 h-4" />
+                    이전
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onClick={handleNext}
+                    className="flex-1"
+                  >
+                    {currentContentIndex < contents.length - 1 ? (
+                      <>
+                        다음
+                        <IconArrowRight className="w-4 h-4" />
+                      </>
+                    ) : (
+                      '완료'
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            <div className="hidden sm:flex items-center justify-between gap-4">
+              <Button variant="secondary" onClick={handlePrev} disabled={currentContentIndex === 0}>
                 <IconArrowLeft className="w-4 h-4" />
                 이전
               </Button>
-              <Button
-                variant="primary"
-                onClick={handleNext}
-                className="flex-1"
-              >
+              <Button variant="primary" onClick={handleNext} className="flex-1 max-w-xs">
                 {currentContentIndex < contents.length - 1 ? (
                   <>
                     다음
@@ -498,25 +543,8 @@ export default function StepPage() {
                 )}
               </Button>
             </div>
-          </div>
-        </div>
-
-        <div className="hidden sm:flex items-center justify-between gap-4">
-          <Button variant="secondary" onClick={handlePrev} disabled={currentContentIndex === 0}>
-            <IconArrowLeft className="w-4 h-4" />
-            이전
-          </Button>
-          <Button variant="primary" onClick={handleNext} className="flex-1 max-w-xs">
-            {currentContentIndex < contents.length - 1 ? (
-              <>
-                다음
-                <IconArrowRight className="w-4 h-4" />
-              </>
-            ) : (
-              '완료'
-            )}
-          </Button>
-        </div>
+          </>
+        )}
       </div>
     </main>
   );

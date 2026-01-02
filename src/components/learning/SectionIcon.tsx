@@ -7,6 +7,7 @@ import { AlertTriangle, CheckCircle2, Info, XCircle } from 'lucide-react';
 type SectionIconProps = {
   icon?: string;
   size?: 'sm' | 'md' | 'lg';
+  className?: string;
 };
 
 function dims(size: SectionIconProps['size']) {
@@ -15,7 +16,7 @@ function dims(size: SectionIconProps['size']) {
   return { box: 28, icon: 16, emoji: 16 };
 }
 
-export default function SectionIcon({ icon, size = 'md' }: SectionIconProps) {
+export default function SectionIcon({ icon, size = 'md', className }: SectionIconProps) {
   if (!icon) return null;
 
   const { box, icon: iconPx, emoji } = dims(size);
@@ -24,7 +25,7 @@ export default function SectionIcon({ icon, size = 'md' }: SectionIconProps) {
   if (icon === 'ok') {
     return (
       <span
-        className="inline-flex items-center justify-center rounded-xl bg-green-50 border border-green-200"
+        className={`inline-flex items-center justify-center rounded-xl bg-green-50 border border-green-200 ${className || ''}`}
         style={{ width: box, height: box }}
       >
         <CheckCircle2 className="text-green-600" style={{ width: iconPx, height: iconPx }} />
@@ -34,7 +35,7 @@ export default function SectionIcon({ icon, size = 'md' }: SectionIconProps) {
   if (icon === 'no') {
     return (
       <span
-        className="inline-flex items-center justify-center rounded-xl bg-red-50 border border-red-200"
+        className={`inline-flex items-center justify-center rounded-xl bg-red-50 border border-red-200 ${className || ''}`}
         style={{ width: box, height: box }}
       >
         <XCircle className="text-red-600" style={{ width: iconPx, height: iconPx }} />
@@ -44,7 +45,7 @@ export default function SectionIcon({ icon, size = 'md' }: SectionIconProps) {
   if (icon === 'warn') {
     return (
       <span
-        className="inline-flex items-center justify-center rounded-xl bg-amber-50 border border-amber-200"
+        className={`inline-flex items-center justify-center rounded-xl bg-amber-50 border border-amber-200 ${className || ''}`}
         style={{ width: box, height: box }}
       >
         <AlertTriangle className="text-amber-600" style={{ width: iconPx, height: iconPx }} />
@@ -54,7 +55,7 @@ export default function SectionIcon({ icon, size = 'md' }: SectionIconProps) {
   if (icon === 'info') {
     return (
       <span
-        className="inline-flex items-center justify-center rounded-xl bg-idus-orange-light/30 border border-idus-black-10"
+        className={`inline-flex items-center justify-center rounded-xl bg-idus-orange-light/30 border border-idus-black-10 ${className || ''}`}
         style={{ width: box, height: box }}
       >
         <Info className="text-idus-orange" style={{ width: iconPx, height: iconPx }} />
@@ -67,7 +68,7 @@ export default function SectionIcon({ icon, size = 'md' }: SectionIconProps) {
     const name = icon.replace('brand:', '') as any;
     return (
       <span
-        className="inline-flex items-center justify-center rounded-xl bg-idus-orange-light/20 border border-idus-black-10"
+        className={`inline-flex items-center justify-center rounded-xl bg-idus-orange-light/20 border border-idus-black-10 ${className || ''}`}
         style={{ width: box, height: box }}
       >
         <BrandIcon name={name} size={iconPx} alt="" />
@@ -78,7 +79,7 @@ export default function SectionIcon({ icon, size = 'md' }: SectionIconProps) {
   // Fallback: emoji/text
   return (
     <span
-      className="inline-flex items-center justify-center rounded-xl bg-idus-gray border border-idus-black-10"
+      className={`inline-flex items-center justify-center rounded-xl bg-idus-gray border border-idus-black-10 ${className || ''}`}
       style={{ width: box, height: box, fontSize: emoji }}
       aria-hidden="true"
     >

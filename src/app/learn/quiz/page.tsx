@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import { QUIZ_QUESTIONS } from '@/types/onboarding';
-import { getOnboardingData, markQuizCompleted, markLearningCompleted } from '@/lib/storage';
+import { getOnboardingData, markQuizCompleted, markLearningCompleted, isLearningCompleted } from '@/lib/storage';
 import { submitOnboardingData } from '@/lib/api';
 import { IconArrowLeft, IconArrowRight, IconCheck, IconX } from '@/components/ui/icons';
 import BrandIcon from '@/components/ui/BrandIcon';
@@ -76,6 +76,12 @@ export default function QuizPage() {
         !data.learningProgress.step2Completed || 
         !data.learningProgress.step3Completed) {
       router.push('/learn');
+      return;
+    }
+
+    // 이미 퀴즈를 완료했으면 완료 페이지로 리다이렉트
+    if (isLearningCompleted() && data.learningProgress.quizCompleted) {
+      router.push('/complete');
       return;
     }
 
