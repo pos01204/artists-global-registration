@@ -305,8 +305,11 @@ export default function CompletePage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-idus-black text-white py-8 mt-12">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+      <footer className="bg-idus-black text-white py-8 mt-12 relative overflow-hidden">
+        {/* 브랜드 장식 라인 */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-idus-orange to-transparent opacity-50" />
+        
+        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Image
               src="/brand/Rebranding Design Resources/Rebranding Design Resources/01. BI/idus_Logo_RGB_1_W.png"
@@ -315,7 +318,7 @@ export default function CompletePage() {
               height={24}
               className="h-6 w-auto"
             />
-            <span className="text-idus-orange text-sm">Global</span>
+            <span className="text-idus-orange text-sm font-medium">Global</span>
           </div>
           <p className="text-xs text-white/40">
             © 2024 Backpackr Inc. All rights reserved.

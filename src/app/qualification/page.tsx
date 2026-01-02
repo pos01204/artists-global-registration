@@ -153,14 +153,14 @@ export default function QualificationPage() {
             </h3>
             <div className="space-y-2">
               <motion.div 
-                className="flex items-center justify-between p-3 bg-gradient-to-r from-green-50/50 to-white rounded-lg border border-green-100"
+                className="flex items-center justify-between p-3 bg-gradient-to-r from-idus-orange-light/30 to-white rounded-lg border border-idus-orange/20"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5 }}
               >
                 <div className="flex items-center gap-3">
                   <motion.span 
-                    className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white"
+                    className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white shadow-sm"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.6, type: 'spring', stiffness: 400 }}
@@ -172,14 +172,14 @@ export default function QualificationPage() {
                 <span className="text-green-600 text-sm font-medium">보유</span>
               </motion.div>
               <motion.div 
-                className="flex items-center justify-between p-3 bg-gradient-to-r from-green-50/50 to-white rounded-lg border border-green-100"
+                className="flex items-center justify-between p-3 bg-gradient-to-r from-idus-orange-light/30 to-white rounded-lg border border-idus-orange/20"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.7 }}
               >
                 <div className="flex items-center gap-3">
                   <motion.span 
-                    className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white"
+                    className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white shadow-sm"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.8, type: 'spring', stiffness: 400 }}
@@ -195,40 +195,54 @@ export default function QualificationPage() {
         </motion.div>
 
         {/* 선택한 카테고리 */}
-        <Card variant="outlined" className="mb-6">
-          <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <BrandIcon name="jewelry" size={20} alt="" />
-            선택하신 카테고리
-          </h3>
-          <div className="flex flex-wrap gap-2">
-            {data.categories.map((category) => (
-              <span
-                key={category}
-                className="px-4 py-2 bg-idus-orange text-white rounded-full text-sm font-semibold shadow-sm"
-              >
-                {categoryNameById.get(category) ?? category}
-              </span>
-            ))}
-          </div>
-          
-          {/* 2026 확장 카테고리 관심 표시 */}
-          {(data.interestedIn2026.food || data.interestedIn2026.digital) && (
-            <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-              <p className="text-sm text-blue-700">
-                💡 {data.interestedIn2026.food && '식품'}
-                {data.interestedIn2026.food && data.interestedIn2026.digital && ', '}
-                {data.interestedIn2026.digital && '디지털 작품'} 
-                카테고리는 2026년 확장 예정이에요. 오픈 시 가장 먼저 연락드릴게요!
-              </p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          <Card variant="outlined" className="mb-6">
+            <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <BrandIcon name="jewelry" size={20} alt="" />
+              선택하신 카테고리
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {data.categories.map((category, index) => (
+                <motion.span
+                  key={category}
+                  className="px-4 py-2 bg-idus-orange text-white rounded-full text-sm font-semibold shadow-sm"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.6 + index * 0.1, type: 'spring', stiffness: 300 }}
+                >
+                  {categoryNameById.get(category) ?? category}
+                </motion.span>
+              ))}
             </div>
-          )}
-        </Card>
+            
+            {/* 2026 확장 카테고리 관심 표시 */}
+            {(data.interestedIn2026.food || data.interestedIn2026.digital) && (
+              <motion.div 
+                className="mt-4 p-3 bg-blue-50 rounded-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+              >
+                <p className="text-sm text-blue-700">
+                  💡 {data.interestedIn2026.food && '식품'}
+                  {data.interestedIn2026.food && data.interestedIn2026.digital && ', '}
+                  {data.interestedIn2026.digital && '디지털 작품'} 
+                  카테고리는 2026년 확장 예정이에요. 오픈 시 가장 먼저 연락드릴게요!
+                </p>
+              </motion.div>
+            )}
+          </Card>
+        </motion.div>
 
         {/* 다음 단계 안내 - ProcessSteps 인포그래픽 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
+          transition={{ delay: 0.9 }}
         >
           <Card variant="outlined" className="mb-6">
             <h3 className="font-semibold text-idus-black mb-6 flex items-center gap-2">

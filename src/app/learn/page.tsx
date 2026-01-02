@@ -84,9 +84,14 @@ export default function LearnPage() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Welcome & Progress */}
         <div className="mb-8 animate-fade-in">
-          <h1 className="text-2xl md:text-3xl font-bold text-idus-black mb-2">
-            글로벌 작가 학습
-          </h1>
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-idus-orange-light/50 to-idus-orange-light/20 flex items-center justify-center border border-idus-orange/10">
+              <BrandIcon name="best" size={24} alt="" />
+            </div>
+            <h1 className="text-2xl md:text-3xl font-bold text-idus-black">
+              글로벌 작가 학습
+            </h1>
+          </div>
           <p className="text-idus-black-70 mb-6">
             3단계 학습을 완료하고 글로벌 작가가 되어보세요!
           </p>
@@ -251,9 +256,11 @@ export default function LearnPage() {
         {/* Reward Reminder */}
         <Card
           variant="elevated"
-          className="relative bg-idus-orange text-white animate-slide-up animation-delay-500 overflow-hidden"
-          style={{ backgroundColor: 'var(--idus-orange)' }}
+          className="relative text-white animate-slide-up animation-delay-500 overflow-hidden bg-gradient-to-r from-idus-orange to-idus-orange-dark"
         >
+          {/* 쉬머 효과 */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer-slow" />
+          
           <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none" aria-hidden="true">
             <Image
               src="/brand/brand assets/선물.png"
@@ -262,8 +269,10 @@ export default function LearnPage() {
               height={110}
             />
           </div>
-          <div className="flex items-center gap-4">
-            <BrandIcon name="gift" size={36} alt="" />
+          <div className="flex items-center gap-4 relative z-10">
+            <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center">
+              <BrandIcon name="gift" size={32} alt="" />
+            </div>
             <div className="flex-1">
               <h3 className="font-bold mb-1">학습 완료 보상</h3>
               <p className="text-white/80 text-sm">

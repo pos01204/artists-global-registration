@@ -148,10 +148,10 @@ export default function FAQPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-white to-idus-gray">
       {/* 헤더 */}
       <motion.header 
-        className="bg-white border-b border-gray-200"
+        className="bg-white/90 backdrop-blur-sm border-b border-idus-black-10"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
@@ -165,22 +165,34 @@ export default function FAQPage() {
               학습으로 돌아가기
             </motion.span>
           </Link>
-          <motion.h1 
-            className="text-2xl font-bold text-idus-black"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.1 }}
-          >
-            자주 묻는 질문
-          </motion.h1>
-          <motion.p 
-            className="text-gray-600 mt-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            글로벌 판매에 대해 궁금한 점을 여기서 바로 확인해요
-          </motion.p>
+          <div className="flex items-center gap-3">
+            <motion.div 
+              className="w-10 h-10 rounded-2xl bg-gradient-to-br from-idus-orange-light/50 to-idus-orange-light/20 flex items-center justify-center"
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
+            >
+              <BrandIcon name="like" size={24} alt="" />
+            </motion.div>
+            <div>
+              <motion.h1 
+                className="text-2xl font-bold text-idus-black"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}
+              >
+                자주 묻는 질문
+              </motion.h1>
+              <motion.p 
+                className="text-idus-black-50 text-sm"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                글로벌 판매에 대해 궁금한 점을 여기서 바로 확인해요
+              </motion.p>
+            </div>
+          </div>
         </div>
       </motion.header>
 

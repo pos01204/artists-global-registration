@@ -30,3 +30,50 @@
 .hover-scale:active { 
   transform: scale(0.98); 
 }
+
+/* ===================================
+   idus 브랜드 유틸리티 시스템
+   =================================== */
+
+/* 브랜드 그라데이션 */
+.bg-brand-gradient {
+  background: linear-gradient(135deg, #FF6F00 0%, #E65100 100%);
+}
+
+.bg-brand-gradient-soft {
+  background: linear-gradient(135deg, #FFE0B2 0%, rgba(255, 111, 0, 0.3) 100%);
+}
+
+/* 브랜드 그림자 */
+.shadow-brand {
+  box-shadow: 0 4px 14px 0 rgba(255, 111, 0, 0.25);
+}
+
+.shadow-brand-lg {
+  box-shadow: 0 8px 24px 0 rgba(255, 111, 0, 0.3);
+}
+
+/* 브랜드 펄스 애니메이션 */
+@keyframes brand-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 111, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(255, 111, 0, 0);
+  }
+}
+
+.animate-brand-pulse {
+  animation: brand-pulse 2s ease-in-out infinite;
+}
+
+/* 브랜드 카드 호버 효과 */
+.card-brand-hover {
+  transition: all 0.3s ease;
+}
+
+.card-brand-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(255, 111, 0, 0.15);
+  border-color: rgba(255, 111, 0, 0.3);
+}
