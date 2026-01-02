@@ -134,13 +134,14 @@ export default function GlobalBenefits() {
 
       {/* K-핸드메이드 배너 */}
       <motion.div 
-        className="bg-gradient-to-r from-idus-orange-light/50 to-amber-100 rounded-xl p-4 border border-idus-orange/20"
+        className="bg-gradient-to-r from-idus-orange-light/50 to-amber-100 rounded-xl p-3 sm:p-4 border border-idus-orange/20"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7 }}
       >
-        <div className="flex items-center justify-center gap-3">
+        <div className="flex items-center justify-center gap-2 sm:gap-3">
           <motion.div
+            className="flex-shrink-0"
             animate={{ 
               scale: [1, 1.2, 1],
               rotate: [0, 10, -10, 0]
@@ -151,12 +152,12 @@ export default function GlobalBenefits() {
               repeatDelay: 3
             }}
           >
-            <TrendingUp className="w-6 h-6 text-idus-orange" />
+            <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-idus-orange" />
           </motion.div>
-          <div className="text-center">
+          <span className="text-sm sm:text-base whitespace-nowrap">
             <span className="font-bold text-idus-orange">K-핸드메이드</span>
             <span className="text-idus-black-70"> 해외 인기 급상승 중!</span>
-          </div>
+          </span>
         </div>
       </motion.div>
     </div>

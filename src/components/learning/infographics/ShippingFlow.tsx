@@ -139,23 +139,38 @@ export default function ShippingFlow() {
         </div>
       </div>
 
-      {/* 핵심 메시지 박스 */}
+      {/* 핵심 메시지 박스 - 작가님이 할 일 강조 */}
       <motion.div 
-        className="mt-4 sm:mt-6 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-3 sm:p-4"
+        className="mt-4 sm:mt-6 bg-gradient-to-r from-idus-orange-light/50 to-amber-50 border-2 border-idus-orange/30 rounded-xl p-3 sm:p-4 relative overflow-hidden"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
       >
-        <div className="flex items-center gap-2 sm:gap-3">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
-            <Truck className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+        {/* 배경 장식 */}
+        <div className="absolute -right-4 -top-4 w-20 h-20 bg-idus-orange/5 rounded-full" />
+        
+        <div className="relative flex items-start gap-3 sm:gap-4">
+          {/* 숫자 강조 */}
+          <div className="flex flex-col items-center flex-shrink-0">
+            <motion.div 
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-idus-orange to-amber-500 flex items-center justify-center shadow-lg shadow-idus-orange/30"
+              animate={{ scale: [1, 1.05, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <span className="text-white font-black text-xl sm:text-2xl">1</span>
+            </motion.div>
+            <span className="text-[10px] sm:text-xs text-idus-orange font-bold mt-1">가지만!</span>
           </div>
-          <div className="min-w-0">
-            <div className="font-bold text-green-700 text-sm sm:text-base">✨ 작가님이 할 일</div>
-            <div className="text-xs sm:text-sm text-green-600">
-              <strong>국내 택배로 idus 물류센터에 보내기만 하세요!</strong>
-              <br />
-              <span className="text-green-500 text-[10px] sm:text-xs">해외 배송, 통관, CS는 idus가 모두 처리합니다</span>
+          
+          {/* 텍스트 */}
+          <div className="min-w-0 flex-1 pt-1">
+            <div className="font-bold text-idus-orange text-sm sm:text-base mb-1">✨ 작가님이 할 일</div>
+            <div className="text-xs sm:text-sm text-idus-black-70">
+              <strong className="text-idus-black">국내 택배로 idus 물류센터에 보내기만 하세요!</strong>
+            </div>
+            <div className="flex items-center gap-1.5 mt-2 bg-white/70 rounded-lg px-2 py-1.5 border border-idus-orange/10">
+              <Truck className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
+              <span className="text-[10px] sm:text-xs text-emerald-600">해외 배송, 통관, CS는 idus가 모두 처리해요</span>
             </div>
           </div>
         </div>
