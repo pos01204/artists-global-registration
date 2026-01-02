@@ -23,7 +23,7 @@ export default function AutoTranslation() {
     {
       flag: '🇰🇷',
       role: 'artist',
-      original: '안녕하세요~빠르면이번주 늦어도 다음주 초 발송됩니다!\n조금만 더 기다려주세요',
+      original: '안녕하세요~ 빠르면 이번주, 늦어도 다음주 초 발송됩니다!\n조금만 더 기다려주세요',
       translated: 'こんにちは~早ければ今週遅くとも来週初めに発送されます！\n少々お待ちください',
       time: '오전 7:41',
     },

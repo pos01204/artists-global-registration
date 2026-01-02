@@ -52,7 +52,7 @@ export default function GlobalBenefits() {
       icon: <Globe className="w-7 h-7" />,
       label: '시장 규모',
       value: '32',
-      subtext: '해외 시장은 국내의',
+      subtext: '국내 대비 해외 시장',
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
     },

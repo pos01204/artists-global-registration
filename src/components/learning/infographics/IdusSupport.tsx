@@ -82,16 +82,6 @@ export default function IdusSupport() {
               ))}
             </div>
 
-            {/* 비용 배지 */}
-            <motion.div 
-              className="mt-4 inline-flex items-center gap-1.5 bg-idus-orange text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg shadow-idus-orange/30"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.7, type: 'spring', stiffness: 300 }}
-            >
-              <span>💰</span>
-              <span>비용: 0원</span>
-            </motion.div>
           </div>
         </motion.div>
 
@@ -137,33 +127,22 @@ export default function IdusSupport() {
                 </motion.div>
               ))}
             </div>
-
-            {/* 끝! 배지 */}
-            <motion.div 
-              className="mt-4 flex flex-col items-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-            >
-              <motion.div
-                className="text-4xl"
-                animate={{ 
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 10, -10, 0]
-                }}
-                transition={{ 
-                  duration: 1.5,
-                  repeat: Infinity,
-                  repeatDelay: 2
-                }}
-              >
-                🎉
-              </motion.div>
-              <div className="text-emerald-600 font-bold mt-1">끝!</div>
-            </motion.div>
           </div>
         </motion.div>
       </div>
+
+      {/* 비용 배지 - 중앙 정렬 */}
+      <motion.div 
+        className="flex justify-center mt-4"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 0.7, type: 'spring', stiffness: 300 }}
+      >
+        <div className="inline-flex items-center gap-1.5 bg-idus-orange text-white text-sm font-bold px-5 py-2.5 rounded-full shadow-lg shadow-idus-orange/30">
+          <span>💰</span>
+          <span>idus가 해드리는 건 전부 0원!</span>
+        </div>
+      </motion.div>
 
       {/* 하단 메시지 */}
       <motion.div 

@@ -247,12 +247,6 @@ export const STEP1_CONTENTS: ContentItem[] = [
       ],
       externalLinks: [
         {
-          title: '글로벌 작가 관리 페이지',
-          url: 'https://artist.idus.com/setting/global-artist/manage',
-          icon: '✈️',
-          description: '작가웹 로그인 후 이용',
-        },
-        {
           title: '구매자 앱 다운로드 / 언어 설정 가이드',
           url: 'https://artist-mate.idus.com/12a788bc-bb8d-420b-8ef7-4d6d049313c0',
           icon: '📲',
@@ -369,20 +363,6 @@ export const STEP2_CONTENTS: ContentItem[] = [
       summary: [
         'idus 공식 프롬프트 + ChatGPT = 1분 번역',
         '고객 대화는 앱 자동 번역으로 OK',
-      ],
-      externalLinks: [
-        {
-          title: 'idus 공식 번역 가이드 (프롬프트 포함)',
-          url: 'https://artist-mate.idus.com/19a1f5a7-1344-80f3-be04-e2ddaad95bf6',
-          icon: '📖',
-          description: '일본어/영어 프롬프트 전체 보기',
-        },
-        {
-          title: 'ChatGPT 바로가기',
-          url: 'https://chat.openai.com',
-          icon: '🚀',
-          description: '프롬프트 복사 후 바로 번역',
-        },
       ],
     },
   },
