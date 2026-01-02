@@ -11,11 +11,11 @@ import { IconArrowLeft, IconChevronRight } from '@/components/ui/icons';
 import { getAllContents } from '@/data/contents';
 import { getOnboardingData, isLearningCompleted } from '@/lib/storage';
 import { LEARNING_STEPS } from '@/types/onboarding';
-import { FileText, Package, Gift, MessageCircle, AlertTriangle, Sparkles, Receipt, Calculator, Truck, ExternalLink } from 'lucide-react';
+import { FileText, Package, Gift, MessageCircle, AlertTriangle, Sparkles, Receipt, Calculator, Truck } from 'lucide-react';
 
 type StepFilter = 0 | 1 | 2 | 3;
 
-// 핵심 퀵 링크 데이터 (우선순위순)
+// 핵심 퀵 링크 데이터 (우선순위순) - stepId 기반으로 학습 페이지와 일치
 const QUICK_LINKS = [
   {
     id: 'translation-prompt',
@@ -24,7 +24,7 @@ const QUICK_LINKS = [
     icon: <Sparkles className="w-5 h-5" />,
     color: 'bg-gradient-to-br from-orange-50 to-amber-50 border-orange-200',
     iconBg: 'bg-idus-orange',
-    contentId: 'translation-guide',
+    stepId: 2, // translation-guide는 STEP 2
   },
   {
     id: 'order-separation',
@@ -33,7 +33,7 @@ const QUICK_LINKS = [
     icon: <Package className="w-5 h-5" />,
     color: 'bg-gradient-to-br from-red-50 to-rose-50 border-red-200',
     iconBg: 'bg-red-500',
-    contentId: 'order-processing',
+    stepId: 3, // order-processing는 STEP 3
   },
   {
     id: 'gift-option',
@@ -42,7 +42,7 @@ const QUICK_LINKS = [
     icon: <Gift className="w-5 h-5" />,
     color: 'bg-gradient-to-br from-purple-50 to-violet-50 border-purple-200',
     iconBg: 'bg-purple-500',
-    contentId: 'order-processing',
+    stepId: 3, // order-processing는 STEP 3
   },
   {
     id: 'sellable-items',
@@ -51,7 +51,7 @@ const QUICK_LINKS = [
     icon: <AlertTriangle className="w-5 h-5" />,
     color: 'bg-gradient-to-br from-amber-50 to-yellow-50 border-amber-200',
     iconBg: 'bg-amber-500',
-    contentId: 'sellable-items',
+    stepId: 2, // sellable-items는 STEP 2
   },
   {
     id: 'logistics',
@@ -60,7 +60,7 @@ const QUICK_LINKS = [
     icon: <Truck className="w-5 h-5" />,
     color: 'bg-gradient-to-br from-emerald-50 to-green-50 border-emerald-200',
     iconBg: 'bg-emerald-500',
-    contentId: 'logistics',
+    stepId: 1, // logistics는 STEP 1
   },
   {
     id: 'auto-translation',
@@ -69,32 +69,32 @@ const QUICK_LINKS = [
     icon: <MessageCircle className="w-5 h-5" />,
     color: 'bg-gradient-to-br from-blue-50 to-sky-50 border-blue-200',
     iconBg: 'bg-blue-500',
-    contentId: 'customer-service',
+    stepId: 3, // customer-service는 STEP 3
   },
 ];
 
-// 부가 정보 링크 (이관된 콘텐츠)
+// 부가 정보 링크 (이관된 콘텐츠) - stepId 기반으로 학습 페이지와 일치
 const SECONDARY_LINKS = [
   {
     id: 'settlement',
     title: '정산 & 수수료 상세',
     description: '월 2회 원화 정산, 등급별 수수료',
     icon: <Calculator className="w-4 h-4" />,
-    contentId: 'settlement',
+    stepId: 1, // settlement는 STEP 1
   },
   {
     id: 'msds',
     title: 'MSDS 제출 안내',
     description: '캔들/배터리 제품 필수',
     icon: <FileText className="w-4 h-4" />,
-    contentId: 'sellable-items',
+    stepId: 2, // sellable-items는 STEP 2
   },
   {
     id: 'document-guide',
     title: '소포수령증 신청',
     description: '매월 초 신청, 부가세 신고용',
     icon: <Receipt className="w-4 h-4" />,
-    contentId: 'document-guide',
+    stepId: 3, // document-guide는 STEP 3
   },
 ];
 
@@ -188,7 +188,7 @@ export default function AppendixPage() {
                 {QUICK_LINKS.map((link) => (
                   <Link 
                     key={link.id} 
-                    href={`/learn/content/${link.contentId}?from=appendix`}
+                    href={`/learn/step/${link.stepId}`}
                     className={`
                       ${link.color} border rounded-xl p-4 
                       hover:shadow-md transition-all hover:-translate-y-0.5
@@ -199,6 +199,7 @@ export default function AppendixPage() {
                     </div>
                     <div className="font-semibold text-idus-black text-sm mb-1">{link.title}</div>
                     <div className="text-xs text-idus-black-50 line-clamp-2">{link.description}</div>
+                    <div className="text-xs text-idus-black-30 mt-2">STEP {link.stepId}</div>
                   </Link>
                 ))}
               </div>
@@ -213,12 +214,13 @@ export default function AppendixPage() {
                 {SECONDARY_LINKS.map((link) => (
                   <Link 
                     key={link.id} 
-                    href={`/learn/content/${link.contentId}?from=appendix`}
+                    href={`/learn/step/${link.stepId}`}
                     className="inline-flex items-center gap-2 bg-slate-50 hover:bg-slate-100 
                                border border-slate-200 rounded-full px-4 py-2 transition-colors"
                   >
                     <span className="text-slate-500">{link.icon}</span>
                     <span className="text-sm text-idus-black-70">{link.title}</span>
+                    <span className="text-xs text-slate-400">STEP {link.stepId}</span>
                   </Link>
                 ))}
               </div>
@@ -264,7 +266,7 @@ export default function AppendixPage() {
             <div className="grid gap-3">
               {contents.map((c) => (
                 <Card key={c.id} variant="outlined" hoverable>
-                  <Link href={`/learn/content/${c.id}?from=appendix`} className="block">
+                  <Link href={`/learn/step/${c.stepId}`} className="block">
                     <div className="flex items-start gap-4 p-4">
                       <div className="w-12 h-12 rounded-2xl bg-idus-orange-light/25 border border-idus-black-10 flex items-center justify-center flex-shrink-0">
                         <BrandIcon name={c.stepId === 1 ? 'best' : c.stepId === 2 ? 'stationery' : 'shipping'} size={26} alt="" />

@@ -44,16 +44,16 @@ export default function ProcessSteps({ steps, className = '' }: ProcessStepsProp
 
   return (
     <div className={`${className}`}>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center">
         {steps.map((step, index) => {
           const styles = getStatusStyles(step.status);
           const isLast = index === steps.length - 1;
 
           return (
-            <div key={index} className="flex items-center flex-1">
+            <div key={index} className={`flex items-center ${isLast ? '' : 'flex-1'}`}>
               {/* Step */}
               <motion.div 
-                className="flex flex-col items-center flex-1"
+                className="flex flex-col items-center w-20"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.15 }}
@@ -78,7 +78,7 @@ export default function ProcessSteps({ steps, className = '' }: ProcessStepsProp
                 </motion.div>
                 
                 {/* Text */}
-                <div className={`text-xs font-medium ${styles.text} text-center`}>
+                <div className={`text-xs font-medium ${styles.text} text-center whitespace-nowrap`}>
                   {step.title}
                 </div>
                 {step.subtitle && (
@@ -90,7 +90,7 @@ export default function ProcessSteps({ steps, className = '' }: ProcessStepsProp
 
               {/* Connector Line */}
               {!isLast && (
-                <div className="flex-1 h-1 mx-2 -mt-6 relative overflow-hidden rounded-full bg-gray-200">
+                <div className="flex-1 h-1 mx-1 -mt-6 relative overflow-hidden rounded-full bg-gray-200 min-w-[40px]">
                   <motion.div
                     className={`absolute inset-y-0 left-0 ${styles.line}`}
                     initial={{ width: 0 }}
