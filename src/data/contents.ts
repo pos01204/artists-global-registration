@@ -47,6 +47,18 @@ export interface ContentSection {
     columns: string[];
     rows: string[][];
   };
+  /**
+   * 인포그래픽 컴포넌트 ID
+   * 지정하면 해당 인포그래픽 컴포넌트가 렌더링됨
+   */
+  infographicId?: 
+    | 'translation-choice'
+    | 'auto-translation'
+    | 'order-separation'
+    | 'gift-option'
+    | 'shipping-flow'
+    | 'product-categories'
+    | 'translation-prompt';
 }
 
 export interface ChecklistItem {
@@ -132,6 +144,7 @@ export const STEP1_CONTENTS: ContentItem[] = [
             '작가님 발송 → idus 물류센터 → 검수/포장/통관 → 해외 배송\n\n작가님은 국내 물류센터까지만 보내주시면 됩니다!',
           highlight: true,
           icon: '📦',
+          infographicId: 'shipping-flow',
         },
         {
           title: '배송 가능 국가 (45개국)',
@@ -294,17 +307,12 @@ export const STEP2_CONTENTS: ContentItem[] = [
     content: {
       sections: [
         {
-          title: '판매 가능 품목',
+          title: '어떤 작품을 팔 수 있나요?',
           content:
-            '• 액세서리 (귀걸이, 목걸이, 반지 등)\n  ※ 14K/18K/24K 작품은 판매할 수 없어요\n• 가방/파우치, 의류, 문구/팬시\n• 홈데코, 주방용품 (칼 제외)\n• 캔들 (MSDS를 미리 보내줘야 해요)\n• 영유아동용품, 반려동물용품',
+            '대부분의 핸드메이드 작품은 바로 판매 가능해요!\n일부 품목만 서류가 필요하거나 제한이 있습니다.',
           highlight: true,
-          icon: 'ok',
-        },
-        {
-          title: '판매 불가능 품목',
-          content:
-            '• 식품류 (농축수산물, 가공식품, 음료 등)\n• 향수, 디퓨저, 차량용 방향제\n• 디지털 콘텐츠 (굿노트, 영상, 음원)\n• 대형 가구, 침구류, 생화/식물\n• 30kg 초과 또는 우체국 4호 박스 초과 작품\n\n*2026년 식품/디지털 카테고리 확장 예정',
-          icon: 'no',
+          icon: '🏷️',
+          infographicId: 'product-categories',
         },
         {
           title: 'MSDS 제출 필요 품목',
@@ -319,9 +327,8 @@ export const STEP2_CONTENTS: ContentItem[] = [
         },
       ],
       summary: [
-        '식품/향수는 판매 불가 (*2026년 식품/디지털 확장 예정)',
-        '캔들은 MSDS를 미리 보내줘야 해요',
-        '14K 이상 귀금속 판매 불가',
+        '핸드메이드 작품 대부분 OK!',
+        '식품/향수/배터리 등 일부 제한',
       ],
       externalLinks: [
         {
@@ -338,23 +345,24 @@ export const STEP2_CONTENTS: ContentItem[] = [
     stepId: 2,
     order: 3,
     title: '쉽게 하는 번역 가이드',
-    description: '번역 도구로 영문(일본어) 정보를 쉽게 입력해요',
+    description: 'idus 공식 번역 프롬프트로 1분 만에 번역 완료!',
     type: 'guide',
     duration: 2,
     content: {
       sections: [
         {
-          title: '꼭 번역해야 하는 항목',
-          content:
-            '• 작품명\n• 작품 설명 (소재/크기/사용법)\n• 옵션명 (색상/사이즈 등)',
+          title: '번역, 이렇게 하면 쉬워요!',
+          content: '작품 등록 번역과 고객 대화 번역은 방법이 달라요.\n상황에 맞는 번역 방법을 확인하세요.',
           highlight: true,
-          icon: '📝',
+          icon: '🌐',
+          infographicId: 'translation-choice',
         },
         {
-          title: '추천 번역 도구',
-          content:
-            '• ChatGPT / Perplexity: 자연스러운 번역 (추천!)\n• 파파고: 단순 문장에 활용\n• 전문 번역: Flitto (idus 제휴 할인)',
-          icon: '🔧',
+          title: 'idus 공식 번역 프롬프트',
+          content: '작품 등록 시 ChatGPT에 붙여넣어 사용하세요!\n일본어/영어 프롬프트를 복사해서 사용하면 자연스러운 번역이 완성됩니다.',
+          highlight: true,
+          icon: '✨',
+          infographicId: 'translation-prompt',
         },
         {
           title: '번역 팁',
@@ -365,21 +373,21 @@ export const STEP2_CONTENTS: ContentItem[] = [
         },
       ],
       summary: [
-        '작품명/설명/옵션명은 꼭 번역해요',
-        'ChatGPT, Perplexity 활용 추천',
+        'idus 공식 프롬프트 + ChatGPT = 1분 번역',
+        '고객 대화는 앱 자동 번역으로 OK',
       ],
       externalLinks: [
         {
-          title: '작품 번역 가이드 (상세)',
-          url: 'https://artist-mate.idus.com/df148f78-62e8-4792-a668-99a66ab7e314',
+          title: 'idus 공식 번역 가이드 (프롬프트 포함)',
+          url: 'https://artist-mate.idus.com/19a1f5a7-1344-80f3-be04-e2ddaad95bf6',
           icon: '📖',
-          description: 'ChatGPT 프롬프트, Flitto 제휴 안내',
+          description: '일본어/영어 프롬프트 전체 보기',
         },
         {
-          title: 'ChatGPT',
+          title: 'ChatGPT 바로가기',
           url: 'https://chat.openai.com',
-          icon: '🤖',
-          description: 'LLM 기반 번역 (추천)',
+          icon: '🚀',
+          description: '프롬프트 복사 후 바로 번역',
         },
       ],
     },
@@ -406,21 +414,31 @@ export const STEP3_CONTENTS: ContentItem[] = [
           icon: '📱',
         },
         {
-          title: '포장 & 발송하기',
+          title: '⚠️ 주문 단위 분리 입고 필수!',
           content:
-            '• 완충재를 충분히 사용해요\n• 방수 포장을 권장해요\n• 국내 물류센터로 발송해요\n• 앱에 운송장 번호를 입력해요',
+            '같은 고객이라도 주문번호가 다르면 별도 포장이 필수입니다.\n합포장 시 통관이 불가하여 출고가 지연될 수 있어요.',
+          highlight: true,
           icon: '📦',
+          infographicId: 'order-separation',
+        },
+        {
+          title: '🎁 사은품도 옵션 등록이 필수!',
+          content:
+            '옵션으로 등록되지 않은 사은품은 입고 내역으로 확인이 불가해요.\n0원 옵션으로 등록해야 검수 및 출고가 가능합니다.',
+          highlight: true,
+          icon: '🎁',
+          infographicId: 'gift-option',
         },
         {
           title: '이후 과정은 idus가 진행해요',
           content:
             '물류센터 도착 → 검수/포장 → 해외 발송 → 배송 현황 자동 안내\n\n작가님은 국내 물류센터까지만 보내주시면 됩니다 😊',
-          highlight: true,
           icon: '🌏',
         },
       ],
       summary: [
-        '주문 확인 → 포장 → 물류센터 발송',
+        '주문 단위로 분리 포장 필수!',
+        '사은품은 0원 옵션으로 등록',
         '해외 배송은 idus가 진행해드려요',
       ],
     },
@@ -436,11 +454,12 @@ export const STEP3_CONTENTS: ContentItem[] = [
     content: {
       sections: [
         {
-          title: '자동 번역 지원',
+          title: '자동 번역으로 쉽게 소통해요',
           content:
             'idus 앱 내 채팅은 자동 번역을 지원해요.\n한국어로 답변하시면 고객에게 번역되어 전달됩니다.',
           highlight: true,
           icon: '🔄',
+          infographicId: 'auto-translation',
         },
         {
           title: '자주 묻는 질문 답변 예시',
@@ -450,7 +469,7 @@ export const STEP3_CONTENTS: ContentItem[] = [
         },
       ],
       summary: [
-        '자동 번역으로 한국어 답변 OK',
+        '한국어로 답변 → 자동 번역!',
         '친절하고 명확하게',
       ],
     },

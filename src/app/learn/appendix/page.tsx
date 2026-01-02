@@ -11,8 +11,67 @@ import { IconArrowLeft, IconChevronRight } from '@/components/ui/icons';
 import { getAllContents } from '@/data/contents';
 import { getOnboardingData, isLearningCompleted } from '@/lib/storage';
 import { LEARNING_STEPS } from '@/types/onboarding';
+import { FileText, Package, Gift, MessageCircle, AlertTriangle, Sparkles } from 'lucide-react';
 
 type StepFilter = 0 | 1 | 2 | 3;
+
+// 핵심 퀵 링크 데이터
+const QUICK_LINKS = [
+  {
+    id: 'translation-prompt',
+    title: '번역 프롬프트',
+    description: 'idus 공식 일본어/영어 프롬프트',
+    icon: <Sparkles className="w-5 h-5" />,
+    color: 'bg-gradient-to-br from-orange-50 to-amber-50 border-orange-200',
+    iconBg: 'bg-idus-orange',
+    contentId: 'translation-guide',
+  },
+  {
+    id: 'order-separation',
+    title: '주문 단위 분리 입고',
+    description: '같은 고객도 주문별 별도 포장!',
+    icon: <Package className="w-5 h-5" />,
+    color: 'bg-gradient-to-br from-red-50 to-rose-50 border-red-200',
+    iconBg: 'bg-red-500',
+    contentId: 'order-processing',
+  },
+  {
+    id: 'gift-option',
+    title: '사은품 옵션 설정',
+    description: '0원 옵션 등록 필수!',
+    icon: <Gift className="w-5 h-5" />,
+    color: 'bg-gradient-to-br from-purple-50 to-violet-50 border-purple-200',
+    iconBg: 'bg-purple-500',
+    contentId: 'order-processing',
+  },
+  {
+    id: 'auto-translation',
+    title: '고객 문의 자동 번역',
+    description: '한국어 답변 → 자동 번역!',
+    icon: <MessageCircle className="w-5 h-5" />,
+    color: 'bg-gradient-to-br from-blue-50 to-sky-50 border-blue-200',
+    iconBg: 'bg-blue-500',
+    contentId: 'customer-service',
+  },
+  {
+    id: 'sellable-items',
+    title: '판매 가능/불가 품목',
+    description: '대부분 OK, 일부 제한',
+    icon: <AlertTriangle className="w-5 h-5" />,
+    color: 'bg-gradient-to-br from-amber-50 to-yellow-50 border-amber-200',
+    iconBg: 'bg-amber-500',
+    contentId: 'sellable-items',
+  },
+  {
+    id: 'msds',
+    title: 'MSDS 제출 안내',
+    description: '캔들/배터리 제품 필수',
+    icon: <FileText className="w-5 h-5" />,
+    color: 'bg-gradient-to-br from-slate-50 to-gray-50 border-slate-200',
+    iconBg: 'bg-slate-500',
+    contentId: 'sellable-items',
+  },
+];
 
 export default function AppendixPage() {
   const router = useRouter();
@@ -94,6 +153,39 @@ export default function AppendixPage() {
           </Card>
         ) : (
           <>
+            {/* 핵심 퀵 링크 섹션 */}
+            <div className="mb-6">
+              <h2 className="text-lg font-bold text-idus-black mb-3 flex items-center gap-2">
+                <span className="text-xl">⚡</span>
+                자주 찾는 핵심 정보
+              </h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {QUICK_LINKS.map((link) => (
+                  <Link 
+                    key={link.id} 
+                    href={`/learn/content/${link.contentId}?from=appendix`}
+                    className={`
+                      ${link.color} border rounded-xl p-4 
+                      hover:shadow-md transition-all hover:-translate-y-0.5
+                    `}
+                  >
+                    <div className={`w-10 h-10 rounded-xl ${link.iconBg} flex items-center justify-center mb-3 text-white shadow-sm`}>
+                      {link.icon}
+                    </div>
+                    <div className="font-semibold text-idus-black text-sm mb-1">{link.title}</div>
+                    <div className="text-xs text-idus-black-50 line-clamp-2">{link.description}</div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* 구분선 */}
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex-1 h-px bg-idus-black-10" />
+              <span className="text-xs text-idus-black-50">전체 학습 콘텐츠</span>
+              <div className="flex-1 h-px bg-idus-black-10" />
+            </div>
+
             <Card variant="outlined" className="p-4 mb-4">
               <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
                 <div className="flex-1">

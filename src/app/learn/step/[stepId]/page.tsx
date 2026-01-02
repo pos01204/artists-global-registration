@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
@@ -8,7 +9,7 @@ import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import ProgressBar from '@/components/ui/ProgressBar';
 import { LEARNING_STEPS } from '@/types/onboarding';
-import { getContentsByStep, ContentItem } from '@/data/contents';
+import { getContentsByStep, ContentItem, ContentSection } from '@/data/contents';
 import { getOnboardingData, markStepCompleted, calculateProgress } from '@/lib/storage';
 import { submitOnboardingData } from '@/lib/api';
 import ResponsiveTable from '@/components/learning/ResponsiveTable';
@@ -20,6 +21,39 @@ import ExternalLinkItem from '@/components/learning/ExternalLinkItem';
 import SectionMeta from '@/components/learning/SectionMeta';
 import Accordion from '@/components/ui/Accordion';
 import { useToast } from '@/components/ui/ToastProvider';
+
+// 인포그래픽 컴포넌트 동적 로딩
+const TranslationChoice = dynamic(() => import('@/components/learning/infographics/TranslationChoice'), { ssr: false });
+const AutoTranslation = dynamic(() => import('@/components/learning/infographics/AutoTranslation'), { ssr: false });
+const OrderSeparation = dynamic(() => import('@/components/learning/infographics/OrderSeparation'), { ssr: false });
+const GiftOption = dynamic(() => import('@/components/learning/infographics/GiftOption'), { ssr: false });
+const ShippingFlow = dynamic(() => import('@/components/learning/infographics/ShippingFlow'), { ssr: false });
+const ProductCategories = dynamic(() => import('@/components/learning/infographics/ProductCategories'), { ssr: false });
+const TranslationPrompt = dynamic(() => import('@/components/learning/TranslationPrompt'), { ssr: false });
+
+// 인포그래픽 렌더링 함수
+function renderInfographic(infographicId: string | undefined) {
+  if (!infographicId) return null;
+  
+  switch (infographicId) {
+    case 'translation-choice':
+      return <TranslationChoice />;
+    case 'auto-translation':
+      return <AutoTranslation />;
+    case 'order-separation':
+      return <OrderSeparation />;
+    case 'gift-option':
+      return <GiftOption />;
+    case 'shipping-flow':
+      return <ShippingFlow />;
+    case 'product-categories':
+      return <ProductCategories />;
+    case 'translation-prompt':
+      return <TranslationPrompt />;
+    default:
+      return null;
+  }
+}
 
 export default function StepPage() {
   const router = useRouter();
@@ -216,34 +250,44 @@ export default function StepPage() {
             {primarySections.map((section, index) => (
               <div
                 key={`primary-${index}`}
-                className={`p-4 rounded-xl ${
-                  section.highlight 
-                    ? 'bg-idus-orange-light/20 border-l-4 border-idus-orange' 
-                    : 'bg-idus-gray'
+                className={`rounded-xl overflow-hidden ${
+                  section.infographicId 
+                    ? '' 
+                    : section.highlight 
+                      ? 'p-4 bg-idus-orange-light/20 border-l-4 border-idus-orange' 
+                      : 'p-4 bg-idus-gray'
                 }`}
               >
-                <div className="flex items-start gap-3">
-                  {section.icon && (
-                    <div className="flex-shrink-0">
-                      <SectionIcon icon={section.icon} size="md" />
-                    </div>
-                  )}
-                  <div className="flex-1">
-                    <h3 className={`font-semibold mb-2 ${section.highlight ? 'text-idus-orange' : 'text-idus-black'}`}>
-                      {section.title}
-                    </h3>
-                    {section.table ? (
-                      <ResponsiveTable columns={section.table.columns} rows={section.table.rows} className="mt-2" />
-                    ) : (
-                      <p className="text-idus-black-70 text-sm whitespace-pre-line leading-relaxed">
-                        {section.content}
-                      </p>
-                    )}
-                    {section.meta && section.meta.length > 0 ? (
-                      <SectionMeta items={section.meta} />
-                    ) : null}
+                {/* 인포그래픽이 있는 경우 */}
+                {section.infographicId ? (
+                  <div className="space-y-4">
+                    {renderInfographic(section.infographicId)}
                   </div>
-                </div>
+                ) : (
+                  /* 일반 텍스트 섹션 */
+                  <div className="flex items-start gap-3">
+                    {section.icon && (
+                      <div className="flex-shrink-0">
+                        <SectionIcon icon={section.icon} size="md" />
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <h3 className={`font-semibold mb-2 ${section.highlight ? 'text-idus-orange' : 'text-idus-black'}`}>
+                        {section.title}
+                      </h3>
+                      {section.table ? (
+                        <ResponsiveTable columns={section.table.columns} rows={section.table.rows} className="mt-2" />
+                      ) : (
+                        <p className="text-idus-black-70 text-sm whitespace-pre-line leading-relaxed">
+                          {section.content}
+                        </p>
+                      )}
+                      {section.meta && section.meta.length > 0 ? (
+                        <SectionMeta items={section.meta} />
+                      ) : null}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
 
