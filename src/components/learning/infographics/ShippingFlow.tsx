@@ -54,20 +54,19 @@ export default function ShippingFlow() {
       {/* 플로우 차트 */}
       <div className="relative">
         {/* 데스크톱: 가로 레이아웃 */}
-        <div className="hidden md:flex items-center justify-between">
+        <div className="hidden md:flex items-stretch justify-between gap-2">
           {steps.map((step, index) => (
-            <motion.div
-              key={index}
-              className="flex items-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.15 }}
-            >
+            <div key={index} className="flex items-center flex-1">
               {/* 스텝 카드 */}
-              <div className={`
-                ${step.bgColor} rounded-xl p-4 text-center min-w-[120px]
-                border border-idus-black-10 shadow-sm
-              `}>
+              <motion.div 
+                className={`
+                  ${step.bgColor} rounded-xl p-4 text-center flex-1
+                  border border-idus-black-10 shadow-sm
+                `}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.15 }}
+              >
                 <div className={`
                   w-12 h-12 rounded-full ${step.bgColor} border-2 border-white shadow-md
                   flex items-center justify-center mx-auto mb-2 ${step.color}
@@ -76,20 +75,20 @@ export default function ShippingFlow() {
                 </div>
                 <div className={`font-bold text-sm ${step.color}`}>{step.title}</div>
                 <div className="text-xs text-idus-black-50 mt-0.5">{step.subtitle}</div>
-              </div>
+              </motion.div>
 
-              {/* 화살표 */}
+              {/* 화살표 - 카드 중앙에 위치 */}
               {index < steps.length - 1 && (
                 <motion.div
-                  className="mx-2"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  className="flex items-center justify-center px-2"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: index * 0.15 + 0.1 }}
                 >
                   <ArrowRight className="w-5 h-5 text-idus-black-30" />
                 </motion.div>
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
 

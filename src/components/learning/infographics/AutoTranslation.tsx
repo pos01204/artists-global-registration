@@ -125,7 +125,6 @@ export default function AutoTranslation() {
         {[
           { lang: '일본어', flag: '🇯🇵' },
           { lang: '영어', flag: '🇺🇸' },
-          { lang: '중국어', flag: '🇨🇳' },
         ].map((item) => (
           <div key={item.lang} className="flex items-center gap-1.5 bg-white px-3 py-2 rounded-full
                                     border border-idus-black-10 text-sm shadow-sm">

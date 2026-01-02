@@ -11,11 +11,11 @@ import { IconArrowLeft, IconChevronRight } from '@/components/ui/icons';
 import { getAllContents } from '@/data/contents';
 import { getOnboardingData, isLearningCompleted } from '@/lib/storage';
 import { LEARNING_STEPS } from '@/types/onboarding';
-import { FileText, Package, Gift, MessageCircle, AlertTriangle, Sparkles } from 'lucide-react';
+import { FileText, Package, Gift, MessageCircle, AlertTriangle, Sparkles, Receipt, Calculator, Truck, ExternalLink } from 'lucide-react';
 
 type StepFilter = 0 | 1 | 2 | 3;
 
-// 핵심 퀵 링크 데이터
+// 핵심 퀵 링크 데이터 (우선순위순)
 const QUICK_LINKS = [
   {
     id: 'translation-prompt',
@@ -45,15 +45,6 @@ const QUICK_LINKS = [
     contentId: 'order-processing',
   },
   {
-    id: 'auto-translation',
-    title: '고객 문의 자동 번역',
-    description: '한국어 답변 → 자동 번역!',
-    icon: <MessageCircle className="w-5 h-5" />,
-    color: 'bg-gradient-to-br from-blue-50 to-sky-50 border-blue-200',
-    iconBg: 'bg-blue-500',
-    contentId: 'customer-service',
-  },
-  {
     id: 'sellable-items',
     title: '판매 가능/불가 품목',
     description: '대부분 OK, 일부 제한',
@@ -63,13 +54,47 @@ const QUICK_LINKS = [
     contentId: 'sellable-items',
   },
   {
+    id: 'logistics',
+    title: '배송 흐름 & 물류센터',
+    description: '국내 물류센터 주소 확인',
+    icon: <Truck className="w-5 h-5" />,
+    color: 'bg-gradient-to-br from-emerald-50 to-green-50 border-emerald-200',
+    iconBg: 'bg-emerald-500',
+    contentId: 'logistics',
+  },
+  {
+    id: 'auto-translation',
+    title: '고객 문의 자동 번역',
+    description: '한국어 답변 → 자동 번역!',
+    icon: <MessageCircle className="w-5 h-5" />,
+    color: 'bg-gradient-to-br from-blue-50 to-sky-50 border-blue-200',
+    iconBg: 'bg-blue-500',
+    contentId: 'customer-service',
+  },
+];
+
+// 부가 정보 링크 (이관된 콘텐츠)
+const SECONDARY_LINKS = [
+  {
+    id: 'settlement',
+    title: '정산 & 수수료 상세',
+    description: '월 2회 원화 정산, 등급별 수수료',
+    icon: <Calculator className="w-4 h-4" />,
+    contentId: 'settlement',
+  },
+  {
     id: 'msds',
     title: 'MSDS 제출 안내',
     description: '캔들/배터리 제품 필수',
-    icon: <FileText className="w-5 h-5" />,
-    color: 'bg-gradient-to-br from-slate-50 to-gray-50 border-slate-200',
-    iconBg: 'bg-slate-500',
+    icon: <FileText className="w-4 h-4" />,
     contentId: 'sellable-items',
+  },
+  {
+    id: 'document-guide',
+    title: '소포수령증 신청',
+    description: '매월 초 신청, 부가세 신고용',
+    icon: <Receipt className="w-4 h-4" />,
+    contentId: 'document-guide',
   },
 ];
 
@@ -174,6 +199,26 @@ export default function AppendixPage() {
                     </div>
                     <div className="font-semibold text-idus-black text-sm mb-1">{link.title}</div>
                     <div className="text-xs text-idus-black-50 line-clamp-2">{link.description}</div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* 부가 정보 섹션 */}
+            <div className="mb-6">
+              <h2 className="text-sm font-semibold text-idus-black-50 mb-3 flex items-center gap-2">
+                📄 부가 정보
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {SECONDARY_LINKS.map((link) => (
+                  <Link 
+                    key={link.id} 
+                    href={`/learn/content/${link.contentId}?from=appendix`}
+                    className="inline-flex items-center gap-2 bg-slate-50 hover:bg-slate-100 
+                               border border-slate-200 rounded-full px-4 py-2 transition-colors"
+                  >
+                    <span className="text-slate-500">{link.icon}</span>
+                    <span className="text-sm text-idus-black-70">{link.title}</span>
                   </Link>
                 ))}
               </div>

@@ -58,7 +58,14 @@ export interface ContentSection {
     | 'gift-option'
     | 'shipping-flow'
     | 'product-categories'
-    | 'translation-prompt';
+    | 'translation-prompt'
+    // 신규 인포그래픽 (2026.01)
+    | 'global-benefits'
+    | 'idus-support'
+    | 'settlement-flow'
+    | 'registration-steps'
+    | 'product-setup-steps'
+    | 'customer-comparison';
 }
 
 export interface ChecklistItem {
@@ -92,19 +99,15 @@ export const STEP1_CONTENTS: ContentItem[] = [
             '• 글로벌 시장은 한국의 32배 규모\n• 해외 고객 평균 주문액은 국내의 2배\n• K-핸드메이드 인기 상승 중',
           highlight: true,
           icon: '🌍',
+          infographicId: 'global-benefits',
         },
         {
-          title: 'idus가 해드리는 것',
+          title: 'idus가 해드리는 것 vs 작가님이 하실 것',
           content:
-            '• 해외 배송 전 과정 처리 (작가님 부담 0원)\n• 통관/검수/포장 모두 대행\n• 45개국 판매 지원\n• 1차 고객 CS 지원',
+            '복잡한 해외 판매는 idus가, 작가님은 작품에만 집중하세요!',
           highlight: true,
           icon: '🧡',
-        },
-        {
-          title: '작가님이 하실 것',
-          content:
-            '• 기존 작품에 "글로벌 판매" ON\n• 국내 물류센터로 발송',
-          icon: '✨',
+          infographicId: 'idus-support',
         },
       ],
       summary: [
@@ -179,9 +182,10 @@ export const STEP1_CONTENTS: ContentItem[] = [
         {
           title: '정산 기본 정보',
           content:
-            '• 정산 주기: 월 2회 (1일, 16일)\n• 정산 통화: 원화 (KRW)\n• 별도 외화계좌 불필요\n\n환율, 통화, 외화계좌... 신경 쓰실 필요 없습니다!\nidus 글로벌 정산은 작가님 국내 통장으로 원화 정산됩니다.',
+            '환율, 통화, 외화계좌... 신경 쓰실 필요 없습니다!\nidus 글로벌 정산은 작가님 국내 통장으로 원화 정산됩니다.',
           highlight: true,
           icon: '💵',
+          infographicId: 'settlement-flow',
         },
         {
           title: '수수료 안내',
@@ -222,17 +226,12 @@ export const STEP1_CONTENTS: ContentItem[] = [
     content: {
       sections: [
         {
-          title: '등록 경로',
+          title: '등록 경로 & 신청 조건',
           content:
-            '작가웹 로그인 → 전체메뉴 → 내 정보 → 글로벌 작가 관리',
+            '작가웹에서 간단하게 글로벌 작가 등록을 완료하세요!',
           highlight: true,
           icon: '✈️',
-        },
-        {
-          title: '신청 조건',
-          content:
-            '• 아이디어스 작가 등록 완료\n• 본인 인증 완료\n• 정산 계좌 등록',
-          icon: '📋',
+          infographicId: 'registration-steps',
         },
         {
           title: 'TIP: 해외 고객 화면 확인하기',
@@ -279,15 +278,10 @@ export const STEP2_CONTENTS: ContentItem[] = [
         {
           title: '글로벌 판매 설정',
           content:
-            '1) 작품 등록/수정 페이지 접속\n2) "글로벌 판매" 옵션 ON\n3) 영문(일본어) 작품명/설명 입력\n4) 저장 후 판매 시작!',
+            '기존 작품을 글로벌로 간단하게 전환하세요!',
           highlight: true,
           icon: '🚀',
-        },
-        {
-          title: '가격 & 배송 설정',
-          content:
-            '• 해외 판매가: 원화 기준 자동 환산\n• 배송 소요일 설정 (7-14일 권장)\n• 해외 배송비: 무료 (idus 부담)',
-          icon: '💰',
+          infographicId: 'product-setup-steps',
         },
       ],
       summary: [
@@ -485,25 +479,12 @@ export const STEP3_CONTENTS: ContentItem[] = [
     content: {
       sections: [
         {
-          title: '일본 고객 특성',
+          title: '해외 고객 특성 한눈에 보기',
           content:
-            '• 상세한 제품 설명을 선호해요\n• 포장 퀄리티에 관심이 높아요\n• 정중하고 친절한 커뮤니케이션을 중시해요',
+            '고객별 맞춤 대응으로 만족도 UP!',
           highlight: true,
-          icon: '🇯🇵',
-        },
-        {
-          title: '영어권 고객 특성',
-          content:
-            '• 간결하고 명확한 설명을 선호해요\n• 사이즈/치수 정보를 중요하게 여겨요\n• 리뷰와 실제 사용 사진에 관심이 높아요',
-          highlight: true,
-          icon: '🇺🇸',
-        },
-        {
-          title: '공통 판매 TIP',
-          content:
-            '• 고퀄리티 사진으로 작품 매력을 보여줘요\n• 사이즈는 cm 단위로 정확히 써요\n• 소재와 관리 방법을 자세히 안내해요\n• 감사 카드나 작은 선물로 감동을 더해봐요',
-          importance: 'secondary',
-          icon: '✨',
+          icon: '🌏',
+          infographicId: 'customer-comparison',
         },
       ],
       summary: [

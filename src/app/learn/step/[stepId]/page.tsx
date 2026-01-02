@@ -22,7 +22,7 @@ import SectionMeta from '@/components/learning/SectionMeta';
 import Accordion from '@/components/ui/Accordion';
 import { useToast } from '@/components/ui/ToastProvider';
 
-// 인포그래픽 컴포넌트 동적 로딩
+// 인포그래픽 컴포넌트 동적 로딩 (기존)
 const TranslationChoice = dynamic(() => import('@/components/learning/infographics/TranslationChoice'), { ssr: false });
 const AutoTranslation = dynamic(() => import('@/components/learning/infographics/AutoTranslation'), { ssr: false });
 const OrderSeparation = dynamic(() => import('@/components/learning/infographics/OrderSeparation'), { ssr: false });
@@ -31,11 +31,20 @@ const ShippingFlow = dynamic(() => import('@/components/learning/infographics/Sh
 const ProductCategories = dynamic(() => import('@/components/learning/infographics/ProductCategories'), { ssr: false });
 const TranslationPrompt = dynamic(() => import('@/components/learning/TranslationPrompt'), { ssr: false });
 
+// 인포그래픽 컴포넌트 동적 로딩 (신규 2026.01)
+const GlobalBenefits = dynamic(() => import('@/components/learning/infographics/GlobalBenefits'), { ssr: false });
+const IdusSupport = dynamic(() => import('@/components/learning/infographics/IdusSupport'), { ssr: false });
+const SettlementFlow = dynamic(() => import('@/components/learning/infographics/SettlementFlow'), { ssr: false });
+const RegistrationSteps = dynamic(() => import('@/components/learning/infographics/RegistrationSteps'), { ssr: false });
+const ProductSetupSteps = dynamic(() => import('@/components/learning/infographics/ProductSetupSteps'), { ssr: false });
+const CustomerComparison = dynamic(() => import('@/components/learning/infographics/CustomerComparison'), { ssr: false });
+
 // 인포그래픽 렌더링 함수
 function renderInfographic(infographicId: string | undefined) {
   if (!infographicId) return null;
   
   switch (infographicId) {
+    // 기존 인포그래픽
     case 'translation-choice':
       return <TranslationChoice />;
     case 'auto-translation':
@@ -50,6 +59,19 @@ function renderInfographic(infographicId: string | undefined) {
       return <ProductCategories />;
     case 'translation-prompt':
       return <TranslationPrompt />;
+    // 신규 인포그래픽 (2026.01)
+    case 'global-benefits':
+      return <GlobalBenefits />;
+    case 'idus-support':
+      return <IdusSupport />;
+    case 'settlement-flow':
+      return <SettlementFlow />;
+    case 'registration-steps':
+      return <RegistrationSteps />;
+    case 'product-setup-steps':
+      return <ProductSetupSteps />;
+    case 'customer-comparison':
+      return <CustomerComparison />;
     default:
       return null;
   }
