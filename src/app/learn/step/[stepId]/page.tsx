@@ -89,12 +89,15 @@ export default function StepPage() {
   
   // 부록에서 왔는지 확인
   const isFromAppendix = searchParams.get('from') === 'appendix';
+  // 특정 콘텐츠로 시작하는지 확인
+  const startContentId = searchParams.get('content');
   
   const [contents, setContents] = useState<ContentItem[]>([]);
   const [currentContentIndex, setCurrentContentIndex] = useState(0);
   const [viewedContents, setViewedContents] = useState<Set<string>>(new Set());
   const [progress, setProgress] = useState(0);
   const [openExtra, setOpenExtra] = useState<string[]>([]);
+  const [initialContentSet, setInitialContentSet] = useState(false);
   
   const step = LEARNING_STEPS.find(s => s.id === stepId);
   const currentContent = contents[currentContentIndex];
@@ -106,9 +109,19 @@ export default function StepPage() {
       return;
     }
     
-    setContents(getContentsByStep(stepId));
+    const stepContents = getContentsByStep(stepId);
+    setContents(stepContents);
     setProgress(calculateProgress());
-  }, [stepId, router]);
+    
+    // 특정 콘텐츠로 시작하도록 설정 (부록에서 온 경우)
+    if (startContentId && !initialContentSet) {
+      const contentIndex = stepContents.findIndex(c => c.id === startContentId);
+      if (contentIndex !== -1) {
+        setCurrentContentIndex(contentIndex);
+      }
+      setInitialContentSet(true);
+    }
+  }, [stepId, router, startContentId, initialContentSet]);
 
   useEffect(() => {
     // 콘텐츠가 바뀔 때 접힌 영역 상태를 초기화해서 “내용이 많아 보이는” 피로감을 줄임
