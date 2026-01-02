@@ -1,10 +1,26 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import ArtistInfoForm from '@/components/forms/ArtistInfoForm';
 import BrandIcon from '@/components/ui/BrandIcon';
+import AnimatedStatCard from '@/components/ui/AnimatedStatCard';
+import { Globe, TrendingUp, ShoppingCart } from 'lucide-react';
 
 export default function Home() {
+  const [artistCount, setArtistCount] = useState(3851);
+
+  // 소셜 프루프 동적 증가 효과
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (Math.random() > 0.7) {
+        setArtistCount(prev => prev + 1);
+      }
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-idus-gray">
       {/* Header */}
@@ -44,79 +60,152 @@ export default function Home() {
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 py-12 md:py-20">
           {/* Hero Content */}
-          <div className="text-center mb-12 animate-fade-in">
-            <div className="inline-flex items-center gap-2 bg-idus-orange-light/50 text-idus-orange-dark px-4 py-2 rounded-full text-sm font-medium mb-6">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.div 
+              className="inline-flex items-center gap-2 bg-idus-orange-light/50 text-idus-orange-dark px-4 py-2 rounded-full text-sm font-medium mb-6"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
               <BrandIcon name="best" size={18} alt="" />
               전 세계 45개국 판매
-            </div>
+            </motion.div>
             
-            <h1 className="text-3xl md:text-5xl font-bold text-idus-black mb-6 leading-tight">
+            <motion.h1 
+              className="text-3xl md:text-5xl font-bold text-idus-black mb-6 leading-tight"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
               글로벌 작가가 되어보세요!
-            </h1>
+            </motion.h1>
             
-            <p className="text-lg md:text-xl text-idus-black-70 max-w-2xl mx-auto leading-relaxed">
+            <motion.p 
+              className="text-lg md:text-xl text-idus-black-70 max-w-2xl mx-auto leading-relaxed"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
               전 세계 고객에게 작품을 선보일 준비가 되셨나요?<br />
               <span className="text-idus-orange font-semibold">해외 배송비 0원</span>으로 쉽게 시작해요!
-            </p>
+            </motion.p>
+          </motion.div>
+
+          {/* Stats - 카운트업 애니메이션 적용 */}
+          <div className="grid grid-cols-3 gap-4 mb-8">
+            <AnimatedStatCard
+              value={45}
+              suffix="개국"
+              label="판매 국가"
+              icon={<Globe className="w-6 h-6 text-idus-orange" />}
+              delay={100}
+            />
+            <AnimatedStatCard
+              value={32}
+              suffix="배"
+              label="글로벌 시장 규모"
+              icon={<TrendingUp className="w-6 h-6 text-idus-orange" />}
+              delay={200}
+            />
+            <AnimatedStatCard
+              value={2}
+              suffix="배"
+              label="해외 평균 주문액"
+              icon={<ShoppingCart className="w-6 h-6 text-idus-orange" />}
+              delay={300}
+            />
           </div>
 
-          {/* Stats - 강화된 카드 */}
-          <div className="grid grid-cols-3 gap-4 mb-8 animate-slide-up">
-            <div className="bg-white rounded-2xl p-4 md:p-6 text-center shadow-sm border border-idus-black-10 card-interactive stagger-in stagger-delay-1">
-              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1 count-up">45개국</div>
-              <div className="text-xs md:text-sm text-idus-black-50">판매 국가</div>
-            </div>
-            <div className="bg-white rounded-2xl p-4 md:p-6 text-center shadow-sm border border-idus-black-10 card-interactive stagger-in stagger-delay-2">
-              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1 count-up">32배</div>
-              <div className="text-xs md:text-sm text-idus-black-50">글로벌 시장 규모</div>
-            </div>
-            <div className="bg-white rounded-2xl p-4 md:p-6 text-center shadow-sm border border-idus-black-10 card-interactive stagger-in stagger-delay-3">
-              <div className="text-2xl md:text-4xl font-bold text-idus-orange mb-1 count-up">2배</div>
-              <div className="text-xs md:text-sm text-idus-black-50">해외 평균 주문액</div>
-            </div>
-          </div>
-
-          {/* Social Proof - 사회적 증거 */}
-          <div className="text-center mb-10 animate-fade-in animation-delay-150">
+          {/* Social Proof - 동적 카운트 */}
+          <motion.div 
+            className="text-center mb-10"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
             <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-5 py-3 rounded-full text-sm font-medium border border-green-200 shadow-sm">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
               </span>
-              <span>이미 <strong className="font-bold">3,851명</strong>의 작가님이 글로벌 판매를 시작했어요</span>
+              <span>
+                이미 <motion.strong 
+                  key={artistCount}
+                  className="font-bold"
+                  initial={{ scale: 1.2, color: '#22c55e' }}
+                  animate={{ scale: 1, color: '#15803d' }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {artistCount.toLocaleString()}명
+                </motion.strong>의 작가님이 글로벌 판매를 시작했어요
+              </span>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Reward Banner - 강화된 스타일 */}
-          <div className="relative bg-gradient-to-r from-idus-orange to-idus-orange-dark rounded-2xl p-6 mb-12 text-white animate-slide-up animation-delay-200 overflow-hidden glow-orange">
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none celebrate-shake" aria-hidden="true">
+          {/* Reward Banner - 플로팅 효과 */}
+          <motion.div 
+            className="relative bg-gradient-to-r from-idus-orange to-idus-orange-dark rounded-2xl p-6 mb-12 text-white overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            whileHover={{ scale: 1.01 }}
+          >
+            <motion.div 
+              className="absolute right-4 top-1/2 -translate-y-1/2 opacity-20 pointer-events-none" 
+              aria-hidden="true"
+              animate={{ 
+                y: [0, -10, 0],
+                rotate: [0, 5, -5, 0],
+              }}
+              transition={{ 
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
               <Image
                 src="/brand/brand assets/선물.png"
                 alt=""
                 width={120}
                 height={120}
               />
-            </div>
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            </motion.div>
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center">
+                <motion.div 
+                  className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center"
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                >
                   <BrandIcon name="gift" size={36} alt="" />
-                </div>
+                </motion.div>
                 <div>
                   <div className="font-bold text-lg">온보딩 완료 보상!</div>
                   <div className="text-white/80">학습 완료 후 글로벌 등록 시</div>
                 </div>
               </div>
-              <div className="bg-white/20 rounded-xl px-6 py-3 backdrop-blur-sm border border-white/10">
+              <motion.div 
+                className="bg-white/20 rounded-xl px-6 py-3 backdrop-blur-sm border border-white/10"
+                whileHover={{ scale: 1.05 }}
+              >
                 <span className="text-2xl font-bold">KR 광고포인트 10,000P</span>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Form Section */}
-          <div className="animate-slide-up animation-delay-300">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+          >
             <ArtistInfoForm />
-          </div>
+          </motion.div>
         </div>
       </section>
 

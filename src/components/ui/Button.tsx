@@ -3,7 +3,7 @@
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'outline';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'gradient';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
 }
@@ -37,6 +37,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         bg-transparent text-idus-black border-2 border-idus-black-20 
         hover:border-idus-orange hover:text-idus-orange 
         disabled:opacity-50 disabled:cursor-not-allowed
+      `,
+      gradient: `
+        bg-gradient-to-r from-idus-orange to-amber-500 text-white 
+        hover:from-idus-orange-dark hover:to-amber-600 hover:shadow-lg hover:shadow-idus-orange/30
+        disabled:from-idus-black-20 disabled:to-idus-black-30 disabled:cursor-not-allowed disabled:shadow-none
       `,
     };
     

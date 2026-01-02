@@ -1,0 +1,32 @@
+/* 쉬머 효과 (느린 버전) */
+@keyframes shimmer-slow {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-shimmer-slow { 
+  animation: shimmer-slow 3s ease-in-out infinite; 
+}
+
+/* 호버 리프트 효과 */
+.hover-lift { 
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+.hover-lift:hover { 
+  transform: translateY(-4px); 
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1); 
+}
+
+/* 호버 스케일 효과 */
+.hover-scale { 
+  transition: transform 0.2s ease; 
+}
+
+.hover-scale:hover { 
+  transform: scale(1.02); 
+}
+
+.hover-scale:active { 
+  transform: scale(0.98); 
+}

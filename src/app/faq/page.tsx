@@ -2,11 +2,13 @@
 
 import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import Accordion from '@/components/ui/Accordion';
 import BrandIcon from '@/components/ui/BrandIcon';
 import { useToast } from '@/components/ui/ToastProvider';
-import { ArrowLeft, Search } from 'lucide-react';
+import EmptyState from '@/components/ui/EmptyState';
+import { ArrowLeft, Search, Package, CreditCard, Globe, MessageCircle, HelpCircle } from 'lucide-react';
 
 interface FAQItem {
   id: string;
@@ -82,6 +84,19 @@ const FAQ_DATA: FAQItem[] = [
   },
 ];
 
+// 카테고리별 아이콘 매핑
+const categoryIcons: Record<string, React.ReactNode> = {
+  '전체': <HelpCircle className="w-4 h-4" />,
+  'FAQ': <HelpCircle className="w-4 h-4" />,
+  '배송': <Package className="w-4 h-4" />,
+  '정산': <CreditCard className="w-4 h-4" />,
+  '판매': <Globe className="w-4 h-4" />,
+  'CS': <MessageCircle className="w-4 h-4" />,
+};
+
+// 추천 검색어
+const SUGGESTED_KEYWORDS = ['배송', '정산', '반품', '번역', '세금'];
+
 export default function FAQPage() {
   const [activeCategory, setActiveCategory] = useState<string>('전체');
   const [openItems, setOpenItems] = useState<string[]>([]);
@@ -128,60 +143,105 @@ export default function FAQPage() {
     }));
   }, [filteredFAQs]);
 
+  const handleSuggestionClick = (keyword: string) => {
+    setQuery(keyword);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* 헤더 */}
-      <header className="bg-white border-b border-gray-200">
+      <motion.header 
+        className="bg-white border-b border-gray-200"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
         <div className="max-w-3xl mx-auto px-4 py-6">
-          <Link href="/learn" className="text-idus-black-70 hover:text-idus-orange mb-4 inline-block">
-            <span className="inline-flex items-center gap-2">
-              <ArrowLeft className="w-4 h-4" />
+          <Link href="/learn" className="text-idus-black-70 hover:text-idus-orange mb-4 inline-flex items-center gap-2 group">
+            <motion.span
+              className="inline-flex items-center gap-2"
+              whileHover={{ x: -4 }}
+            >
+              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
               학습으로 돌아가기
-            </span>
+            </motion.span>
           </Link>
-          <h1 className="text-2xl font-bold text-idus-black">자주 묻는 질문</h1>
-          <p className="text-gray-600 mt-2">글로벌 판매에 대해 궁금한 점을 여기서 바로 확인해요</p>
+          <motion.h1 
+            className="text-2xl font-bold text-idus-black"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1 }}
+          >
+            자주 묻는 질문
+          </motion.h1>
+          <motion.p 
+            className="text-gray-600 mt-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            글로벌 판매에 대해 궁금한 점을 여기서 바로 확인해요
+          </motion.p>
         </div>
-      </header>
+      </motion.header>
 
       {/* 카테고리 필터 */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-3">
           <div className="flex items-center gap-2 mb-3">
-            <div className="relative flex-1">
+            <motion.div 
+              className="relative flex-1"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1 }}
+            >
               <Search className="w-4 h-4 text-idus-black-50 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="질문/키워드로 검색"
-                className="w-full pl-9 pr-3 py-2 rounded-xl border border-idus-black-10 bg-idus-gray focus:outline-none focus:ring-2 focus:ring-idus-orange/40"
+                className="w-full pl-9 pr-3 py-2 rounded-xl border border-idus-black-10 bg-idus-gray 
+                           focus:outline-none focus:ring-2 focus:ring-idus-orange/40 focus:border-idus-orange
+                           transition-all"
               />
-            </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                setQuery('');
-                toast({ type: 'info', title: '검색 초기화', description: '전체 질문을 다시 보여드릴게요.' });
-              }}
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
             >
-              초기화
-            </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setQuery('');
+                  toast({ type: 'info', title: '검색 초기화', description: '전체 질문을 다시 보여드릴게요.' });
+                }}
+              >
+                초기화
+              </Button>
+            </motion.div>
           </div>
 
+          {/* 카테고리 필터 - 아이콘 추가 */}
           <div className="flex gap-2 overflow-x-auto pb-2">
-            {categories.map(category => (
-              <button
+            {categories.map((category, index) => (
+              <motion.button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all flex items-center gap-1.5 ${
                   activeCategory === category
-                    ? 'bg-idus-orange text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-gradient-to-r from-idus-orange to-idus-orange-dark text-white shadow-md shadow-idus-orange/20'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-800'
                 }`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + index * 0.05 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
+                {categoryIcons[category] || <HelpCircle className="w-4 h-4" />}
                 {category}
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
@@ -189,14 +249,64 @@ export default function FAQPage() {
 
       {/* FAQ 리스트 */}
       <main className="max-w-3xl mx-auto px-4 py-8">
-        {accordionItems.length > 0 ? (
-          <Accordion items={accordionItems} openIds={openItems} onToggle={toggleItem} />
-        ) : (
-          <div className="bg-white border border-idus-black-10 rounded-2xl p-6 text-center">
-            <div className="text-idus-black font-semibold">검색 결과가 없어요</div>
-            <div className="text-sm text-idus-black-70 mt-1">다른 키워드로 다시 검색해보세요.</div>
-          </div>
-        )}
+        <AnimatePresence mode="wait">
+          {accordionItems.length > 0 ? (
+            <motion.div
+              key="faq-list"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Accordion items={accordionItems} openIds={openItems} onToggle={toggleItem} />
+              
+              {/* 연관 질문 섹션 */}
+              <motion.div 
+                className="mt-8 p-4 bg-white rounded-2xl border border-idus-black-10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <h3 className="text-sm font-semibold text-idus-black-70 mb-3 flex items-center gap-2">
+                  💡 자주 검색하는 키워드
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {SUGGESTED_KEYWORDS.map((keyword, index) => (
+                    <motion.button
+                      key={keyword}
+                      onClick={() => handleSuggestionClick(keyword)}
+                      className="px-3 py-1.5 bg-idus-gray hover:bg-idus-orange-light/30 
+                                 rounded-full text-sm text-idus-black-70 hover:text-idus-orange
+                                 transition-colors border border-idus-black-10"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.4 + index * 0.05 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {keyword}
+                    </motion.button>
+                  ))}
+                </div>
+              </motion.div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="empty-state"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <EmptyState
+                type="search"
+                title="검색 결과가 없어요"
+                description="다른 키워드로 다시 검색해보세요."
+                suggestions={SUGGESTED_KEYWORDS}
+                onSuggestionClick={handleSuggestionClick}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
     </div>
   );

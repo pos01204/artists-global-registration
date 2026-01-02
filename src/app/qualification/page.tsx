@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import { getOnboardingData } from '@/lib/storage';
@@ -13,6 +14,8 @@ import { AVAILABLE_CATEGORIES, RESTRICTED_CATEGORIES } from '@/types/onboarding'
 import { IconArrowRight, IconCheck } from '@/components/ui/icons';
 import BrandIcon from '@/components/ui/BrandIcon';
 import { useToast } from '@/components/ui/ToastProvider';
+import ProcessSteps from '@/components/ui/ProcessSteps';
+import { BookOpen, Plane } from 'lucide-react';
 
 // 카테고리 ID → 이름 매핑 (string 키 타입으로 명시)
 const categoryNameById: Map<string, string> = new Map(
@@ -86,53 +89,110 @@ export default function QualificationPage() {
 
       <div className="max-w-2xl mx-auto px-4 py-12">
         {/* 환영 메시지 - 강화된 스타일 */}
-        <div className="text-center mb-10 animate-fade-in">
+        <motion.div 
+          className="text-center mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           {/* 아이콘 */}
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-50 to-green-100 rounded-full mb-5 success-pop">
-            <IconCheck className="w-10 h-10 text-green-600" />
-          </div>
+          <motion.div 
+            className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-50 to-green-100 rounded-full mb-5"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: 'spring', stiffness: 300 }}
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.4, type: 'spring', stiffness: 400 }}
+            >
+              <IconCheck className="w-10 h-10 text-green-600" />
+            </motion.div>
+          </motion.div>
           
-          <h1 className="text-2xl font-bold text-idus-black mb-2 stagger-in stagger-delay-1">
+          <motion.h1 
+            className="text-2xl font-bold text-idus-black mb-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
             자격 요건을 확인했어요!
-          </h1>
-          <p className="text-idus-black-70 mb-4 stagger-in stagger-delay-2">
+          </motion.h1>
+          <motion.p 
+            className="text-idus-black-70 mb-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
             <span className="font-semibold text-idus-orange">{data.artistName}</span> 작가님,<br />
             글로벌 판매 자격 요건을 충족하셨어요
-          </p>
+          </motion.p>
           
           {/* 배지 */}
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium border border-green-200 stagger-in stagger-delay-3">
-            <span className="w-2 h-2 bg-green-500 rounded-full badge-shine" aria-hidden="true" />
+          <motion.div 
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium border border-green-200"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" aria-hidden="true" />
             <span>자격 요건 충족</span>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* 확인 결과 - 강화된 스타일 */}
-        <Card variant="outlined" className="mb-6 stagger-in stagger-delay-4">
-          <h3 className="font-semibold text-idus-black mb-4 flex items-center gap-2">
-            자격 요건 확인 결과
-          </h3>
-          <div className="space-y-2">
-            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-green-50/50 to-white rounded-lg border border-green-100">
-              <div className="flex items-center gap-3">
-                <span className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white check-bounce">
-                  <IconCheck className="w-4 h-4" />
-                </span>
-                <span className="text-idus-black-70">사업자등록번호</span>
-              </div>
-              <span className="text-green-600 text-sm font-medium">보유</span>
+        {/* 확인 결과 - 순차 애니메이션 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <Card variant="outlined" className="mb-6">
+            <h3 className="font-semibold text-idus-black mb-4 flex items-center gap-2">
+              자격 요건 확인 결과
+            </h3>
+            <div className="space-y-2">
+              <motion.div 
+                className="flex items-center justify-between p-3 bg-gradient-to-r from-green-50/50 to-white rounded-lg border border-green-100"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                <div className="flex items-center gap-3">
+                  <motion.span 
+                    className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.6, type: 'spring', stiffness: 400 }}
+                  >
+                    <IconCheck className="w-4 h-4" />
+                  </motion.span>
+                  <span className="text-idus-black-70">사업자등록번호</span>
+                </div>
+                <span className="text-green-600 text-sm font-medium">보유</span>
+              </motion.div>
+              <motion.div 
+                className="flex items-center justify-between p-3 bg-gradient-to-r from-green-50/50 to-white rounded-lg border border-green-100"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.7 }}
+              >
+                <div className="flex items-center gap-3">
+                  <motion.span 
+                    className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.8, type: 'spring', stiffness: 400 }}
+                  >
+                    <IconCheck className="w-4 h-4" />
+                  </motion.span>
+                  <span className="text-idus-black-70">판매 카테고리</span>
+                </div>
+                <span className="text-green-600 text-sm font-medium">판매 가능</span>
+              </motion.div>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-green-50/50 to-white rounded-lg border border-green-100">
-              <div className="flex items-center gap-3">
-                <span className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white check-bounce">
-                  <IconCheck className="w-4 h-4" />
-                </span>
-                <span className="text-idus-black-70">판매 카테고리</span>
-              </div>
-              <span className="text-green-600 text-sm font-medium">판매 가능</span>
-            </div>
-          </div>
-        </Card>
+          </Card>
+        </motion.div>
 
         {/* 선택한 카테고리 */}
         <Card variant="outlined" className="mb-6">
@@ -164,173 +224,196 @@ export default function QualificationPage() {
           )}
         </Card>
 
-        {/* 다음 단계 안내 - 프로세스 시각화 */}
-        <Card variant="outlined" className="mb-6 stagger-in stagger-delay-5">
-          <h3 className="font-semibold text-idus-black mb-4 flex items-center gap-2">
-            글로벌 판매까지 남은 단계
-          </h3>
-          <div className="flex items-center justify-between text-sm">
-            {/* Step 1: 자격 확인 (완료) */}
-            <div className="flex flex-col items-center flex-1">
-              <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white mb-2">
-                <IconCheck className="w-5 h-5" />
-              </div>
-              <span className="text-green-600 font-medium text-xs">자격 확인</span>
-              <span className="text-green-500 text-xs">완료</span>
-            </div>
+        {/* 다음 단계 안내 - ProcessSteps 인포그래픽 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          <Card variant="outlined" className="mb-6">
+            <h3 className="font-semibold text-idus-black mb-6 flex items-center gap-2">
+              글로벌 판매까지 남은 단계
+            </h3>
             
-            {/* 연결선 */}
-            <div className="flex-1 h-0.5 bg-gray-200 relative -mt-6">
-              <div className="absolute inset-0 bg-green-500" style={{ width: '100%' }} />
-            </div>
+            <ProcessSteps
+              steps={[
+                {
+                  icon: <IconCheck className="w-5 h-5" />,
+                  title: '자격 확인',
+                  subtitle: '완료',
+                  status: 'completed',
+                },
+                {
+                  icon: <BookOpen className="w-5 h-5" />,
+                  title: '학습',
+                  subtitle: '진행 예정',
+                  status: 'current',
+                },
+                {
+                  icon: <Plane className="w-5 h-5" />,
+                  title: '작가 등록',
+                  subtitle: '대기',
+                  status: 'pending',
+                },
+              ]}
+            />
             
-            {/* Step 2: 학습 (현재) */}
-            <div className="flex flex-col items-center flex-1">
-              <div className="w-10 h-10 bg-idus-orange rounded-full flex items-center justify-center text-white mb-2 ring-4 ring-idus-orange/20">
-                <span className="text-sm font-bold">2</span>
-              </div>
-              <span className="text-idus-orange font-medium text-xs">학습</span>
-              <span className="text-idus-orange text-xs">진행 예정</span>
-            </div>
-            
-            {/* 연결선 */}
-            <div className="flex-1 h-0.5 bg-gray-200 -mt-6" />
-            
-            {/* Step 3: 등록 */}
-            <div className="flex flex-col items-center flex-1">
-              <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-400 mb-2">
-                <span className="text-sm font-bold">3</span>
-              </div>
-              <span className="text-gray-400 font-medium text-xs">작가 등록</span>
-              <span className="text-gray-300 text-xs">대기</span>
-            </div>
-          </div>
-          
-          {/* 안내 문구 */}
-          <div className="mt-5 p-3 bg-amber-50 rounded-lg border border-amber-100">
-            <p className="text-sm text-amber-700 text-center">
-              💡 실제 판매를 시작하려면 <span className="font-semibold">학습 완료</span> 후 <span className="font-semibold">글로벌 작가 등록</span>이 필요해요
-            </p>
-          </div>
-        </Card>
+            {/* 안내 문구 */}
+            <motion.div 
+              className="mt-6 p-3 bg-amber-50 rounded-lg border border-amber-100"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+            >
+              <p className="text-sm text-amber-700 text-center">
+                💡 실제 판매를 시작하려면 <span className="font-semibold">학습 완료</span> 후 <span className="font-semibold">글로벌 작가 등록</span>이 필요해요
+              </p>
+            </motion.div>
+          </Card>
+        </motion.div>
 
         {/* 학습 시작 CTA */}
-        <Card
-          variant="elevated"
-          className="mb-8 bg-idus-orange text-white overflow-hidden"
-          style={{ backgroundColor: 'var(--idus-orange)' }}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
         >
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none" aria-hidden="true">
-            <Image
-              src="/brand/brand assets/선물.png"
-              alt=""
-              width={140}
-              height={140}
-            />
-          </div>
-          <div className="text-center">
-            {/* 메인 아이콘 */}
-            <div className="flex justify-center mb-4">
-              <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center">
-                <BrandIcon name="stationery" size={32} alt="" />
-              </div>
-            </div>
-            
-            {/* 타이틀 */}
-            <h3 className="text-xl font-bold mb-2">
-              이제 학습을 시작해볼까요?
-            </h3>
-            <p className="text-sm opacity-80 mb-6">
-              짧은 학습으로 글로벌 판매를 준비해보세요
-            </p>
-            
-            {/* 학습 정보 요약 */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-              <div className="bg-white/15 rounded-xl p-3 text-center">
-                <div className="text-xl font-bold">3</div>
-                <div className="text-xs opacity-70">단계 학습</div>
-              </div>
-              <div className="bg-white/15 rounded-xl p-3 text-center">
-                <div className="text-xl font-bold">30분</div>
-                <div className="text-xs opacity-70">평균 소요</div>
-              </div>
-              <div className="bg-white/15 rounded-xl p-3 text-center">
-                <div className="text-xl font-bold">10,000P</div>
-                <div className="text-xs opacity-70">완료 보상</div>
-              </div>
-            </div>
-            
-            {/* 보상 안내 */}
-            <p className="text-sm opacity-90 mb-5">
-              학습 완료 후 글로벌 등록 시 <span className="font-bold">광고포인트 10,000P</span> 지급
-            </p>
-            
-            {/* CTA 버튼 */}
-            <Button
-              variant="secondary"
-              size="lg"
-              className="w-full bg-white text-idus-orange hover:bg-white/90 font-bold shadow-md"
-              onClick={handleStartLearning}
+          <Card
+            variant="elevated"
+            className="mb-8 bg-idus-orange text-white overflow-hidden relative"
+            style={{ backgroundColor: 'var(--idus-orange)' }}
+          >
+            <motion.div 
+              className="absolute right-4 top-1/2 -translate-y-1/2 opacity-20 pointer-events-none" 
+              aria-hidden="true"
+              animate={{ 
+                y: [0, -10, 0],
+                rotate: [0, 5, -5, 0],
+              }}
+              transition={{ 
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
             >
-              학습 시작하기
-              <IconArrowRight className="w-4 h-4" />
-            </Button>
-            
-            {/* 하단 안내 */}
-            <p className="text-center text-xs opacity-60 mt-4">
-              언제든지 중단하고 이어서 학습할 수 있어요
-            </p>
-          </div>
-        </Card>
+              <Image
+                src="/brand/brand assets/선물.png"
+                alt=""
+                width={140}
+                height={140}
+              />
+            </motion.div>
+            <div className="text-center relative z-10">
+              {/* 메인 아이콘 */}
+              <motion.div 
+                className="flex justify-center mb-4"
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+              >
+                <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center">
+                  <BrandIcon name="stationery" size={32} alt="" />
+                </div>
+              </motion.div>
+              
+              {/* 타이틀 */}
+              <h3 className="text-xl font-bold mb-2">
+                이제 학습을 시작해볼까요?
+              </h3>
+              <p className="text-sm opacity-80 mb-6">
+                짧은 학습으로 글로벌 판매를 준비해보세요
+              </p>
+              
+              {/* 학습 정보 요약 */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                {[
+                  { value: '3', label: '단계 학습' },
+                  { value: '30분', label: '평균 소요' },
+                  { value: '10,000P', label: '완료 보상' },
+                ].map((item, index) => (
+                  <motion.div 
+                    key={item.label}
+                    className="bg-white/15 rounded-xl p-3 text-center"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 + index * 0.1 }}
+                    whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.25)' }}
+                  >
+                    <div className="text-xl font-bold">{item.value}</div>
+                    <div className="text-xs opacity-70">{item.label}</div>
+                  </motion.div>
+                ))}
+              </div>
+              
+              {/* 보상 안내 */}
+              <p className="text-sm opacity-90 mb-5">
+                학습 완료 후 글로벌 등록 시 <span className="font-bold">광고포인트 10,000P</span> 지급
+              </p>
+              
+              {/* CTA 버튼 */}
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  className="w-full bg-white text-idus-orange hover:bg-white/90 font-bold shadow-md"
+                  onClick={handleStartLearning}
+                >
+                  학습 시작하기
+                  <IconArrowRight className="w-4 h-4" />
+                </Button>
+              </motion.div>
+              
+              {/* 하단 안내 */}
+              <p className="text-center text-xs opacity-60 mt-4">
+                언제든지 중단하고 이어서 학습할 수 있어요
+              </p>
+            </div>
+          </Card>
+        </motion.div>
 
         {/* 학습 과정 미리보기 */}
-        <Card variant="outlined">
-          <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            학습 과정 미리보기
-          </h3>
-          
-          <div className="space-y-2">
-            {/* STEP 1 */}
-            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <span className="w-8 h-8 bg-idus-orange-light/40 rounded-lg flex items-center justify-center">
-                <BrandIcon name="best" size={18} alt="" />
-              </span>
-              <div className="flex-1">
-                <h4 className="font-medium text-gray-900 text-sm">STEP 1. 글로벌 서비스 이해하기</h4>
-              </div>
-            </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9 }}
+        >
+          <Card variant="outlined">
+            <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              학습 과정 미리보기
+            </h3>
             
-            {/* STEP 2 */}
-            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <span className="w-8 h-8 bg-idus-orange-light/40 rounded-lg flex items-center justify-center">
-                <BrandIcon name="stationery" size={18} alt="" />
-              </span>
-              <div className="flex-1">
-                <h4 className="font-medium text-gray-900 text-sm">STEP 2. 작품 등록 마스터하기</h4>
-              </div>
+            <div className="space-y-2">
+              {[
+                { icon: 'best', title: 'STEP 1. 글로벌 서비스 이해하기', highlight: false },
+                { icon: 'stationery', title: 'STEP 2. 작품 등록 마스터하기', highlight: false },
+                { icon: 'shipping', title: 'STEP 3. 주문 처리 & 운영하기', highlight: false },
+                { icon: 'camera', title: 'FINAL. 간단 퀴즈', highlight: true },
+              ].map((step, index) => (
+                <motion.div 
+                  key={step.title}
+                  className={`flex items-center gap-3 p-3 rounded-lg ${
+                    step.highlight 
+                      ? 'bg-idus-orange-light/20 border border-idus-black-10' 
+                      : 'bg-gray-50'
+                  }`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1 + index * 0.1 }}
+                  whileHover={{ x: 4, backgroundColor: step.highlight ? 'rgb(255 237 213 / 0.4)' : 'rgb(249 250 251)' }}
+                >
+                  <span className="w-8 h-8 bg-idus-orange-light/40 rounded-lg flex items-center justify-center">
+                    <BrandIcon name={step.icon as 'best' | 'stationery' | 'shipping' | 'camera'} size={18} alt="" />
+                  </span>
+                  <div className="flex-1">
+                    <h4 className="font-medium text-gray-900 text-sm">{step.title}</h4>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-            
-            {/* STEP 3 */}
-            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <span className="w-8 h-8 bg-idus-orange-light/40 rounded-lg flex items-center justify-center">
-                <BrandIcon name="shipping" size={18} alt="" />
-              </span>
-              <div className="flex-1">
-                <h4 className="font-medium text-gray-900 text-sm">STEP 3. 주문 처리 & 운영하기</h4>
-              </div>
-            </div>
-            
-            {/* 퀴즈 */}
-            <div className="flex items-center gap-3 p-3 bg-idus-orange-light/20 rounded-lg border border-idus-black-10">
-              <span className="w-8 h-8 bg-idus-orange-light/40 rounded-lg flex items-center justify-center">
-                <BrandIcon name="camera" size={18} alt="" />
-              </span>
-              <div className="flex-1">
-                <h4 className="font-medium text-gray-900 text-sm">FINAL. 간단 퀴즈</h4>
-              </div>
-            </div>
-          </div>
-        </Card>
+          </Card>
+        </motion.div>
         
         {/* 하단 안내 */}
         <div className="mt-8 text-center">
